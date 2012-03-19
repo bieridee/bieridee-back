@@ -17,11 +17,11 @@ public class BierResource extends Restlet {
 
 	@Override
 	public void handle(Request request, Response response) {
-		String requestedBeerName = (String) request.getAttributes().get("BierName");
+		String requestedBeerName = (String) request.getAttributes().get("BeerName");
 		Beer beer = PersistenceFactory.getPersistenceProvider().getBierByName(
 				requestedBeerName);
 
-		String message = "Hey Fellar, You wanna Bier named " + requestedBeerName
+		String message = "Hey Fellar, You wanna Beer named " + requestedBeerName
 				+ " here it is:\n" + beer;
 		response.setEntity(message, MediaType.TEXT_PLAIN);
 	}
