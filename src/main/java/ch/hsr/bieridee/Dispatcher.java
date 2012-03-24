@@ -17,6 +17,7 @@ public class Dispatcher extends Application {
 
 		// Defines only one route
 		router.attach("/hello", HelloWorldResource.class);
+		router.attach("/neo4j", Neo4jTestResource.class);
 
 		return router;
 	}
