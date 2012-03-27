@@ -10,16 +10,16 @@ import ch.hsr.bieridee.domain.Tag;
 public class OneBeerPersistenceProvider implements IPersistenceProvider {
 
 	private Beer createDummyBier() {
-		String name = "Feldschlössen";
+		String name = "FeldschlÃ¶ssen";
 		Tag t1 = new Tag("delicious");
 		Tag t2 = new Tag("drinky");
 		Beersort sort = new Beersort(
-				"Weiss Bier. Wird hauptsächlich von Mönchen in Einsiedeln gebraut");
+				"Weiss Bier. Wird hauptsÃ¤chlich von MÃ¶nchen in Einsiedeln gebraut");
 		LinkedList<Tag> tags = new LinkedList<Tag>();
 		tags.add(t1);
 		tags.add(t2);
 		int id = new Random().nextInt();
-		String brand = "Felschlösschen";
+		String brand = "FelschlÃ¶sschen";
 		String picture = "/img/" + id + ".jpg";
 		Beer b = new Beer(id, name, brand, picture, tags, sort);
 		return b;
