@@ -1,14 +1,30 @@
 package ch.hsr.bieridee.domain;
 
+/**
+ * @author chrigi Class representing a Tag.
+ */
 public class Tag {
-	String description;
+	private String value;
 
-	public Tag(String s) {
-		this.description = s;
+	/**
+	 * @param value
+	 *            String containing the value of the Tag.
+	 */
+	public Tag(String value) {
+		this.setValue(value);
+	}
+
+	private String getValue() {
+		return this.value;
+	}
+
+	private void setValue(String value) {
+		this.value = value;
 	}
 
 	@Override
 	public String toString() {
-		return this.description;
+		return "Tag value: " + this.value;
 	}
+
 }

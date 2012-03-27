@@ -1,33 +1,86 @@
 package ch.hsr.bieridee.domain;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
+/**
+ * @author chrigi Class representing a Beer.
+ * 
+ */
 public class Beer {
-	public String name;
-	public String brand;
-	public String picture;
-	public List<Tag> tags;
-	public Beersort beerSort;
-	public int id;
+	private String name;
+	private String brand;
+	private String picture;
+	private List<Tag> tags;
+	private Beertype beertype;
 
-	public Beer(int id, String name, String brand, String picture,
-			List<Tag> tags, Beersort sort) {
-		this.tags = tags;
-		this.brand = brand;
-		this.picture = picture;
-		this.beerSort = sort;
-		this.name = name;
-		this.id = id;
+	/**
+	 * @param name
+	 *            Name of the Beer.
+	 * @param brand
+	 *            Brand of the Beer.
+	 * @param picture
+	 *            path to the Picture of the Beer.
+	 * @param tags
+	 *            <code>List</code> of Tags associated with this
+	 *            <code>Beer</code>.
+	 * @param type
+	 *            description of the beertype.
+	 */
+	public Beer(String name, String brand, String picture, List<Tag> tags,
+			Beertype type) {
+		this.setTags(tags);
+		this.setBrand(brand);
+		this.setPicture(picture);
+		this.setBeertype(type);
+		this.setName(name);
 	}
 
 	@Override
 	public String toString() {
-		String s = "ID: " + id + "\nBeername: " + name + "\nMarke: " + brand
-				+ "\nBild: " + picture + "\nTags: " + tags.toString()
-				+ "\nSorte: " + beerSort.description;
+		return "Beername: " + getName() + "\nBrand: " + getBrand()
+				+ "\nPicture: " + getPicture() + "\nTags: "
+				+ getTags().toString() + "\nType: "
+				+ getBeertype().getDescription();
 
-		return s;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getBrand() {
+		return this.brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
+	public String getPicture() {
+		return this.picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+
+	public List<Tag> getTags() {
+		return this.tags;
+	}
+
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
+	}
+
+	public Beertype getBeertype() {
+		return this.beertype;
+	}
+
+	public void setBeertype(Beertype beertype) {
+		this.beertype = beertype;
 	}
 }
