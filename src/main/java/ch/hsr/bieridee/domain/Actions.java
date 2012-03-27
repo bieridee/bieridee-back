@@ -6,7 +6,7 @@ import java.util.Date;
  * @author chrigi Class representing an Activity
  * 
  */
-public abstract class Activity {
+public abstract class Actions {
 
 	private Date date;
 
@@ -18,8 +18,7 @@ public abstract class Activity {
 	 * @param user
 	 *            The <code>User</code> created that created the activity
 	 */
-	public Activity(Date date, Beer beer, User user) {
-		super();
+	public Actions(Date date, Beer beer, User user) {
 		this.date = date;
 		this.beer = beer;
 		this.user = user;

@@ -37,9 +37,9 @@ public class Beer {
 
 	@Override
 	public String toString() {
-		return "Beername: " + getName() + "\nBrand: " + getBrand()
-				+ "\nPicture: " + getPicture() + "\nTags: "
-				+ getTags().toString() + "\nType: "
+		return "Beername: " + getName() + ",Brand: " + getBrand()
+				+ ",Picture: " + getPicture() + ",Tags: "
+				+ getTags().toString() + ",Type: "
 				+ getBeertype().getDescription();
 
 	}

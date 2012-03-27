@@ -6,13 +6,13 @@ import java.util.List;
  * @author chrigi Class representing a Timeline.
  */
 public class Timeline {
-	private List<Activity> activities;
+	private List<Actions> activities;
 
 	/**
 	 * @param activity
 	 *            add an <code>Activity</code> to the Timeline.
 	 */
-	public void addActivity(Activity activity) {
+	public void addActivity(Actions activity) {
 		this.getActivities().add(activity);
 	}
 
@@ -20,15 +20,15 @@ public class Timeline {
 	 * @param activity
 	 *            remove an <code>Activity</code> from the Timeline.
 	 */
-	public void removeActivity(Activity activity) {
+	public void removeActivity(Actions activity) {
 		this.getActivities().remove(activity);
 	}
 
-	List<Activity> getActivities() {
+	List<Actions> getActivities() {
 		return this.activities;
 	}
 
-	void setActivities(List<Activity> activities) {
+	void setActivities(List<Actions> activities) {
 		this.activities = activities;
 	}
 

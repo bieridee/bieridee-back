@@ -11,27 +11,24 @@ public class User {
 	 *            Username of the User.
 	 * @param password
 	 *            Passwort of the User.
-	 * @param name
+	 * @param firstName
 	 *            name of the User.
-	 * @param prename
+	 * @param lastName
 	 *            Prename of the User.
-	 * @param language
-	 *            Language of the User.
 	 */
-	public User(String username, String password, String name, String prename,
-			String language) {
+	public User(String username, String password, String firstName,
+			String lastName) {
 		super();
-		this.username = username;
+		this.setUsername(username);
 		this.password = password;
-		this.name = name;
-		this.prename = prename;
-		this.language = language;
+		this.firstName = firstName;
+		this.lastName = lastName;
 	}
 
 	private String password;
-	private String name;
-	private String prename;
-	private String language;
+	private String firstName;
+	private String lastName;
+	private String emailAdress;
 
 	String getUsername() {
 		return this.username;
@@ -49,34 +46,30 @@ public class User {
 		this.password = password;
 	}
 
-	String getName() {
-		return this.name;
+	String getFirstName() {
+		return this.firstName;
 	}
 
-	void setName(String name) {
-		this.name = name;
+	void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getFullName() {
+		return this.firstName + " " + this.lastName;
 	}
 
 	@Override
 	public String toString() {
-		return "Name: " + this.getName() + "\nPrename: " + this.getPrename()
-				+ "\nLanguage: " + this.getLanguage();
+		return "Firstname: " + this.getFirstName() + ",Lastname: "
+				+ this.getLastName();
 	}
 
-	private String getPrename() {
-		return this.prename;
+	private String getLastName() {
+		return this.lastName;
 	}
 
-	void setPrename(String prename) {
-		this.prename = prename;
-	}
-
-	private String getLanguage() {
-		return this.language;
-	}
-
-	private void setLanguage(String language) {
-		this.language = language;
+	void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 }

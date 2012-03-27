@@ -4,22 +4,22 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import ch.hsr.bieridee.domain.Beer;
-import ch.hsr.bieridee.domain.Beersort;
+import ch.hsr.bieridee.domain.Beertype;
 import ch.hsr.bieridee.domain.Tag;
 
 public class OneBeerPersistenceProvider implements IPersistenceProvider {
 
 	private Beer createDummyBier() {
-		String name = "Feldschlössen";
+		String name = "Feldschlï¿½ssen";
 		Tag t1 = new Tag("delicious");
 		Tag t2 = new Tag("drinky");
-		Beersort sort = new Beersort(
-				"Weiss Bier. Wird hauptsächlich von Mönchen in Einsiedeln gebraut");
+		Beertype sort = new Beertype(
+				"Weiss Bier. Wird hauptsï¿½chlich von Mï¿½nchen in Einsiedeln gebraut");
 		LinkedList<Tag> tags = new LinkedList<Tag>();
 		tags.add(t1);
 		tags.add(t2);
 		int id = new Random().nextInt();
-		String brand = "Felschlösschen";
+		String brand = "Felschlï¿½sschen";
 		String picture = "/img/" + id + ".jpg";
 		Beer b = new Beer(id, name, brand, picture, tags, sort);
 		return b;

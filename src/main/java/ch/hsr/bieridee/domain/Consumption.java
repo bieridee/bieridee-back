@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * @author chrigi Class representing a Consumption.
  */
-public class Consumption extends Activity {
+public class Consumption extends Actions {
 
 	/**
 	 * @param date

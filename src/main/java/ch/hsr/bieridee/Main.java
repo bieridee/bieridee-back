@@ -1,6 +1,7 @@
 package ch.hsr.bieridee;
 
 import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.kernel.Config;
 import org.neo4j.kernel.EmbeddedGraphDatabase;
 import org.restlet.Component;
 import org.restlet.data.Protocol;

@@ -17,7 +17,6 @@ public class Recommendation {
 	 *            The <code>Beer</code> that is recommended.
 	 */
 	public Recommendation(int weight, User user, Beer beer) {
-		super();
 		this.weight = weight;
 		this.user = user;
 		this.beer = beer;

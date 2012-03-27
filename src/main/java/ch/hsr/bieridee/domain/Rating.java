@@ -6,7 +6,7 @@ import java.util.Date;
  * @author chrigi
  * 
  */
-public class Rating extends Activity {
+public class Rating extends Actions {
 
 	private int value;
 
