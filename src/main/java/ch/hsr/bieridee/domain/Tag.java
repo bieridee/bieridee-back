@@ -14,11 +14,11 @@ public class Tag {
 		this.setValue(value);
 	}
 
-	private String getValue() {
+	public String getValue() {
 		return this.value;
 	}
 
-	private void setValue(String value) {
+	public void setValue(String value) {
 		this.value = value;
 	}
 

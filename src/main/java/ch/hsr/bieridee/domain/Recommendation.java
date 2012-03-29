@@ -22,23 +22,23 @@ public class Recommendation {
 		this.beer = beer;
 	}
 
-	int getWeight() {
+	public int getWeight() {
 		return this.weight;
 	}
 
-	void setWeight(int weight) {
+	public void setWeight(int weight) {
 		this.weight = weight;
 	}
 
-	User getUser() {
+	public User getUser() {
 		return this.user;
 	}
 
-	void setUser(User user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
-	Beer getBeer() {
+	public Beer getBeer() {
 		return this.beer;
 	}
 

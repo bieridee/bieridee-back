@@ -1,18 +1,34 @@
 package ch.hsr.bieridee.domain;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * @author chrigi Class representing a Timeline.
  */
 public class Timeline {
-	private List<Actions> activities;
+	private List<Action> actions;
+
+	/**
+	 * @param actions
+	 *            List with existing Actions.
+	 */
+	public Timeline(List<Action> actions) {
+		this.actions = actions;
+	}
+
+	/**
+	 * Constructor creating an empty List of actions.
+	 */
+	public Timeline() {
+		this.actions = new LinkedList<Action>();
+	}
 
 	/**
 	 * @param activity
 	 *            add an <code>Activity</code> to the Timeline.
 	 */
-	public void addActivity(Actions activity) {
+	public void addActivity(Action activity) {
 		this.getActivities().add(activity);
 	}
 
@@ -20,16 +36,16 @@ public class Timeline {
 	 * @param activity
 	 *            remove an <code>Activity</code> from the Timeline.
 	 */
-	public void removeActivity(Actions activity) {
+	public void removeActivity(Action activity) {
 		this.getActivities().remove(activity);
 	}
 
-	List<Actions> getActivities() {
-		return this.activities;
+	public List<Action> getActivities() {
+		return this.actions;
 	}
 
-	void setActivities(List<Actions> activities) {
-		this.activities = activities;
+	public void setActivities(List<Action> activities) {
+		this.actions = activities;
 	}
 
 }

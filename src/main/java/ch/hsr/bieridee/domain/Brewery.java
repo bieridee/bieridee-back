@@ -28,20 +28,26 @@ public class Brewery {
 		this.breweryProfile = breweryProfile;
 	}
 
-	private BrewerySize getBrewerySize() {
+	public BrewerySize getBrewerySize() {
 		return this.brewerySize;
 	}
 
-	private void setBrewerySize(BrewerySize brewerySize) {
+	public void setBrewerySize(BrewerySize brewerySize) {
 		this.brewerySize = brewerySize;
 	}
 
-	private String getName() {
+	public String getName() {
 		return this.name;
 	}
 
-	private void setName(String name) {
+	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return "Name: " + this.getName() + ",Profile: "
+				+ this.getBreweryProfile() + ",Size: " + this.brewerySize;
 	}
 
 }

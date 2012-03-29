@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * @author chrigi Class representing a Consumption.
  */
-public class Consumption extends Actions {
+public class Consumption extends Action {
 
 	/**
 	 * @param date
@@ -22,7 +22,7 @@ public class Consumption extends Actions {
 
 	@Override
 	public String toString() {
-		return this.getUser() + " consumes " + this.getBeer();
+		return "User: "+this.getUser() + ", Beer: " + this.getBeer();
 	}
 
 }

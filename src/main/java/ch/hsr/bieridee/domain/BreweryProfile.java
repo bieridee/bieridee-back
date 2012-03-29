@@ -18,26 +18,25 @@ public class BreweryProfile {
 	private String picture;
 	private String description;
 
-	String getPicture() {
+	public String getPicture() {
 		return this.picture;
 	}
 
-	void setPicture(String picture) {
+	public void setPicture(String picture) {
 		this.picture = picture;
 	}
 
-	String getDescription() {
+	public String getDescription() {
 		return this.description;
 	}
 
-	void setDescription(String description) {
+	public void setDescription(String description) {
 		this.description = description;
 	}
 
 	@Override
 	public String toString() {
-		return "BreweryProfile, description " + this.description
-				+ "\npicture: " + this.picture;
+		return "Description; " + this.description + ",Picture: " + this.picture;
 	}
 
 }

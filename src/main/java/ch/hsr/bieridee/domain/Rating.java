@@ -6,7 +6,7 @@ import java.util.Date;
  * @author chrigi
  * 
  */
-public class Rating extends Actions {
+public class Rating extends Action {
 
 	private int value;
 
@@ -25,12 +25,18 @@ public class Rating extends Actions {
 		this.value = value;
 	}
 
-	int getValue() {
-		return value;
+	public int getValue() {
+		return this.value;
 	}
 
-	void setValue(int value) {
+	public void setValue(int value) {
 		this.value = value;
+	}
+
+	@Override
+	public String toString() {
+		return "Rating value: " + this.value + ", Date: " + this.getDate()
+				+ ", User: " + this.getUser();
 	}
 
 }

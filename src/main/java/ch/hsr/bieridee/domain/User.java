@@ -15,14 +15,16 @@ public class User {
 	 *            name of the User.
 	 * @param lastName
 	 *            Prename of the User.
+	 * @param emailAdress
+	 *            Email Adress of the User.
 	 */
 	public User(String username, String password, String firstName,
-			String lastName) {
-		super();
+			String lastName, String emailAdress) {
 		this.setUsername(username);
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.setPassword(password);
+		this.setFirstName(firstName);
+		this.setLastName(lastName);
+		this.setEmailAdress(emailAdress);
 	}
 
 	private String password;
@@ -30,27 +32,27 @@ public class User {
 	private String lastName;
 	private String emailAdress;
 
-	String getUsername() {
+	public String getUsername() {
 		return this.username;
 	}
 
-	void setUsername(String username) {
+	public void setUsername(String username) {
 		this.username = username;
 	}
 
-	String getPassword() {
+	public String getPassword() {
 		return this.password;
 	}
 
-	void setPassword(String password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	String getFirstName() {
+	public String getFirstName() {
 		return this.firstName;
 	}
 
-	void setFirstName(String firstName) {
+	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
@@ -61,15 +63,23 @@ public class User {
 	@Override
 	public String toString() {
 		return "Firstname: " + this.getFirstName() + ",Lastname: "
-				+ this.getLastName();
+				+ this.getLastName() + ",Email: " + getEmailAdress();
 	}
 
-	private String getLastName() {
+	public String getLastName() {
 		return this.lastName;
 	}
 
-	void setLastName(String lastName) {
+	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	private String getEmailAdress() {
+		return this.emailAdress;
+	}
+
+	public void setEmailAdress(String emailAdress) {
+		this.emailAdress = emailAdress;
 	}
 
 }

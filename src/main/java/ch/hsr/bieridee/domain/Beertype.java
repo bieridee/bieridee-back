@@ -15,19 +15,25 @@ public class Beertype {
 		this.setDescription(description);
 	}
 
-	String getDescription() {
+	public String getDescription() {
 		return this.description;
 	}
 
-	void setDescription(String description) {
+	public void setDescription(String description) {
 		this.description = description;
 	}
 
-	private String getName() {
+	public String getName() {
 		return this.name;
 	}
 
-	private void setName(String name) {
+	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return "Name: " + this.getName() + ",Description: "
+				+ this.getDescription();
 	}
 }

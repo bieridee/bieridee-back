@@ -6,7 +6,7 @@ import java.util.Date;
  * @author chrigi Class representing an Activity
  * 
  */
-public abstract class Actions {
+public abstract class Action {
 
 	private Date date;
 
@@ -18,7 +18,7 @@ public abstract class Actions {
 	 * @param user
 	 *            The <code>User</code> created that created the activity
 	 */
-	public Actions(Date date, Beer beer, User user) {
+	public Action(Date date, Beer beer, User user) {
 		this.date = date;
 		this.beer = beer;
 		this.user = user;
@@ -31,23 +31,23 @@ public abstract class Actions {
 		return this.beer;
 	}
 
-	void setBeer(Beer newBeer) {
+	public void setBeer(Beer newBeer) {
 		this.beer = newBeer;
 	}
 
-	User getUser() {
+	public User getUser() {
 		return this.user;
 	}
 
-	void setUser(User newUser) {
+	public void setUser(User newUser) {
 		this.user = newUser;
 	}
 
-	private Date getDate() {
+	public Date getDate() {
 		return this.date;
 	}
 
-	private void setDate(Date date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
