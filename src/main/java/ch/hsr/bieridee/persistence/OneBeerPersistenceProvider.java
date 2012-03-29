@@ -15,6 +15,7 @@ public class OneBeerPersistenceProvider implements IPersistenceProvider {
 		Tag t2 = new Tag("drinky");
 		Beertype sort = new Beertype(
 				"Weiss Bier. Wird hauptsächlich von München in Einsiedeln gebraut");
+
 		LinkedList<Tag> tags = new LinkedList<Tag>();
 		tags.add(t1);
 		tags.add(t2);
