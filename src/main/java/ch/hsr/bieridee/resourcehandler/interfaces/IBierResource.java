@@ -4,7 +4,7 @@ import org.restlet.resource.Get;
 
 import ch.hsr.bieridee.Bier;
 
-public interface BierResource {
+public interface IBierResource {
 
 	@Get
 	public Bier retrieve();

@@ -1,10 +1,11 @@
 package ch.hsr.bieridee;
 
 public class Bier {
-	
-	private String name = "Litchi füre Chrigi";
-	private int id = 123;
-	public static int a = 1;
-	private static int b = 2;
 
+	public Bier(int id) {
+		this.id = id;
+	}
+
+	private String name = "Litchi füre Chrigi";
+	int id;
 }
