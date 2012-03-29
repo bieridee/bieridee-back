@@ -1,4 +1,4 @@
-package ch.hsr.bieridee;
+package ch.hsr.bieridee.resourcehandler;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
@@ -7,6 +7,8 @@ import org.neo4j.graphdb.RelationshipType;
 import org.neo4j.graphdb.Transaction;
 import org.restlet.resource.Get;
 import org.restlet.resource.ServerResource;
+
+import ch.hsr.bieridee.Main;
 
 public class Neo4jTestResource extends ServerResource {
 

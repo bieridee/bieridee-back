@@ -1,4 +1,4 @@
-	package ch.hsr.bieridee;
+package ch.hsr.bieridee;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.kernel.EmbeddedGraphDatabase;

@@ -2,11 +2,13 @@ package ch.hsr.bieridee.domain;
 
 import java.util.List;
 
+import ch.hsr.bieridee.domain.interfaces.IBeer;
+
 /**
  * @author chrigi Class representing a Beer.
  * 
  */
-public class Beer {
+public class Beer implements IBeer {
 	private String name;
 	private String brand;
 	private String picture;

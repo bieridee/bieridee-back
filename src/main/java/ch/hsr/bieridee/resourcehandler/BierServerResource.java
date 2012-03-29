@@ -1,6 +1,9 @@
-package ch.hsr.bieridee;
+package ch.hsr.bieridee.resourcehandler;
 
 import org.restlet.resource.ServerResource;
+
+import ch.hsr.bieridee.Bier;
+import ch.hsr.bieridee.resourcehandler.interfaces.BierResource;
 
 public class BierServerResource extends ServerResource implements BierResource {
 
