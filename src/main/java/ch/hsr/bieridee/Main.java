@@ -1,13 +1,14 @@
-package ch.hsr.bieridee;
+	package ch.hsr.bieridee;
 
 import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.kernel.Config;
 import org.neo4j.kernel.EmbeddedGraphDatabase;
+import org.neo4j.server.WrappingNeoServerBootstrapper;
 import org.restlet.Component;
 import org.restlet.data.Protocol;
 
 public class Main {
 	private static EmbeddedGraphDatabase graphDb;
+	private static WrappingNeoServerBootstrapper srv;
 
 	public static void main(String[] args) {
 		try {
@@ -18,7 +19,9 @@ public class Main {
 			component.getServers().add(Protocol.HTTP, 8181);
 
 			// Create the graph database
-			graphDb = new EmbeddedGraphDatabase(Config.DB_PATH);
+			graphDb = new EmbeddedGraphDatabase(ch.hsr.bieridee.Config.DB_PATH);
+			srv = new WrappingNeoServerBootstrapper(graphDb);
+			srv.start();
 			registerShutdownHook(graphDb);
 
 			// Attach the dispatcher.
@@ -40,6 +43,7 @@ public class Main {
 			@Override
 			public void run() {
 				graphDb.shutdown();
+				srv.stop();
 			}
 		});
 	}

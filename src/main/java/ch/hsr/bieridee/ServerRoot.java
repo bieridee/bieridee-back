@@ -29,7 +29,6 @@ public class ServerRoot extends Application {
 		Filter beerTasteFilter = new BeerTasteFilter();
 		beerTasteFilter.setNext(beerResource);
 		router.attach("http://localhost:8000/Beer/{BeerName}", beerTasteFilter);
-
 		return router;
 	}
 
