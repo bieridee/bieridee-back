@@ -16,7 +16,7 @@ public class Main {
 			Component component = new Component();
 
 			// Add a new HTTP server listening on a local port
-			component.getServers().add(Protocol.HTTP, 8181);
+			component.getServers().add(Protocol.HTTP, 8080);
 
 			// Create the graph database
 			graphDb = new EmbeddedGraphDatabase(ch.hsr.bieridee.Config.DB_PATH);
