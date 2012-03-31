@@ -31,7 +31,7 @@ public class BeerListResource extends ServerResource implements
 			b1Tags.add(new Tag("lecker"));
 			b1Tags.add(new Tag("gruusig"));
 			Beer b1 = new Beer("Feldschlösschen", "Feldschlösschen",
-					"feld.jpg", b1Tags, new Beertype("Lagerbier"));
+					"feld.jpg", b1Tags, new Beertype("Lagerbier", "Gelagertes Bier, wer hätte das gedacht..."));
 			beers.add(b1);
 		}
 		return beers;

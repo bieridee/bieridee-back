@@ -1,17 +1,22 @@
 package ch.hsr.bieridee.domain;
 
 /**
- * @author chrigi Class representing a Beertype.
+ * Class representing a Beertype.
+ * 
+ * @author chrigi 
  */
 public class Beertype {
 	private String name;
 	private String description;
 
 	/**
-	 * @param description
-	 *            String describing the Beertype.
+	 * Creates a <code>Beertype</code>.
+	 * 
+	 * @param name Name of the Beertype
+	 * @param description String describing the Beertype.
 	 */
-	public Beertype(String description) {
+	public Beertype(String name, String description) {
+		this.setName(name);
 		this.setDescription(description);
 	}
 
