@@ -21,8 +21,8 @@ public class Dispatcher extends Application {
 
 		// Defines only one route
 		// router.attach("/neo4j", Neo4jTestResource.class);
-		router.attach("/bier/{BeerID}", BeerResource.class);
-		router.attach("/bier/", BeerListResource.class);
+		router.attach("/beers/{beer-id}", BeerResource.class);
+		router.attach("/beers", BeerListResource.class);
 
 		return router;
 	}
