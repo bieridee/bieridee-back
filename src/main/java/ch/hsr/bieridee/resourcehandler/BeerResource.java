@@ -2,20 +2,22 @@ package ch.hsr.bieridee.resourcehandler;
 
 import org.restlet.resource.ServerResource;
 
-import ch.hsr.bieridee.Bier;
-import ch.hsr.bieridee.resourcehandler.interfaces.IBierResource;
+import ch.hsr.bieridee.domain.Beer;
+import ch.hsr.bieridee.models.BeerModel;
+import ch.hsr.bieridee.resourcehandler.interfaces.IBeerResource;
 
-public class BeerResource extends ServerResource implements IBierResource {
+/**
+ * Beer resource.
+ * 
+ * @author cfaessle, jfurrer
+ *
+ */
+public class BeerResource extends ServerResource implements IBeerResource {
 
 	@Override
-	public Bier retrieve() {
-		String id = (String) this.getRequestAttributes().get(
-				new String("BeerID"));
-		Bier bier = new Bier(Integer.parseInt(id));
-		/*
-		 * bier.setName("Eve Litchi"); bier.setId(13);
-		 */
-		return bier;
+	public Beer retrieve() {
+		final BeerModel bm = new BeerModel(5);
+		return bm.getDomainObject();
 	}
 
 }
