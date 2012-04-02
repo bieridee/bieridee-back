@@ -1,11 +1,13 @@
 package ch.hsr.bieridee.domain;
 
+import ch.hsr.bieridee.domain.interfaces.IDomain;
+
 /**
  * Class representing a Beertype.
  * 
- * @author chrigi 
+ * @author cfaessle 
  */
-public class Beertype {
+public class Beertype implements IDomain {
 	private String name;
 	private String description;
 

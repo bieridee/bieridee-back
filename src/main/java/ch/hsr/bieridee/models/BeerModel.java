@@ -1,6 +1,6 @@
 package ch.hsr.bieridee.models;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.neo4j.graphdb.Direction;
@@ -16,13 +16,13 @@ import ch.hsr.bieridee.utils.DBUtil;
 /**
  * Model to work and persist the beer object.
  * 
- * @author jfurrer
+ * @author jfurrer, cfaessle
  * 
  */
-public class BeerModel {
+public class BeerModel extends AbstractModel {
 
-	private Beer domainBeer;
-	private Node nodeBeer;
+	private Beer domainObject;
+	private Node node;
 
 	/**
 	 * Creates a BeerModel for the desired beer.
@@ -32,62 +32,61 @@ public class BeerModel {
 	 */
 	public BeerModel(long beerId) {
 		this(DBUtil.getNodeById(beerId));
-
 	}
-
+	
 	/**
 	 * @param node
 	 * Node containing Properties of the Beer.
 	 */
 	public BeerModel(Node node) {
-		this.nodeBeer = node;
-		final String name = (String) this.nodeBeer.getProperty("name");
-		final String brand = (String) this.nodeBeer.getProperty("brand");
-		final String picture = (String) this.nodeBeer.getProperty("image");
-		final List<Tag> tags = new ArrayList<Tag>();
+		this.node = node;
+		final String name = (String) this.node.getProperty("name");
+		final String brand = (String) this.node.getProperty("brand");
+		final String picture = (String) this.node.getProperty("image");
+		final List<Tag> tags = new LinkedList<Tag>();
 
-		for (Relationship r : this.nodeBeer.getRelationships(RelType.HAS_TAG)) {
+		for (Relationship r : this.node.getRelationships(RelType.HAS_TAG)) {
 			final Node nodeTag = r.getEndNode();
 			final Tag domainTag = new Tag((String) nodeTag.getProperty("name"));
 			tags.add(domainTag);
 		}
 
-		final Relationship beertypeRel = this.nodeBeer.getSingleRelationship(RelType.HAS_BEERTYPE, Direction.OUTGOING);
+		final Relationship beertypeRel = this.node.getSingleRelationship(RelType.HAS_BEERTYPE, Direction.OUTGOING);
 		final Node beertypeNode = beertypeRel.getEndNode();
 
 		final String beertypeName = (String) beertypeNode.getProperty("name");
 		final String beertypeDesc = (String) beertypeNode.getProperty("description");
 		final Beertype type = new Beertype(beertypeName, beertypeDesc);
 
-		this.domainBeer = new Beer(name, brand, picture, tags, type);
+		this.domainObject = new Beer(name, brand, picture, tags, type);
 	}
 
 	public Node getNode() {
-		return this.nodeBeer;
+		return this.node;
 	}
 
 	public Beer getDomainObject() {
-		return this.domainBeer;
+		return this.domainObject;
 	}
 
 	public Beertype getBeertype() {
-		return this.domainBeer.getBeertype();
+		return this.domainObject.getBeertype();
 	}
 
 	public String getBrand() {
-		return this.domainBeer.getBrand();
+		return this.domainObject.getBrand();
 	}
 
 	public String getName() {
-		return this.domainBeer.getName();
+		return this.domainObject.getName();
 	}
 
 	public String getPicture() {
-		return this.domainBeer.getPicture();
+		return this.domainObject.getPicture();
 	}
 
 	public List<Tag> getTags() {
-		return this.domainBeer.getTags();
+		return this.domainObject.getTags();
 	}
 
 	public void setBeertype(Beertype beertype) {
@@ -95,19 +94,19 @@ public class BeerModel {
 	}
 
 	public void setBrand(String brand) {
-		this.domainBeer.setBrand(brand);
-		this.nodeBeer.setProperty("brand", brand);
+		this.domainObject.setBrand(brand);
+		this.node.setProperty("brand", brand);
 	}
 
 	public void setName(String name) {
-		this.domainBeer.setName(name);
-		this.nodeBeer.setProperty("name", name);
+		this.domainObject.setName(name);
+		this.node.setProperty("name", name);
 
 	}
 
 	public void setPicture(String path) {
-		this.domainBeer.setPicture(path);
-		this.nodeBeer.setProperty("image", path);
+		this.domainObject.setPicture(path);
+		this.node.setProperty("image", path);
 
 	}
 
