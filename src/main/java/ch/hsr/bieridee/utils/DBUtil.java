@@ -1,21 +1,17 @@
 package ch.hsr.bieridee.utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.Node;
-import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.kernel.EmbeddedGraphDatabase;
 
 import ch.hsr.bieridee.Main;
-import ch.hsr.bieridee.config.RelType;
 
 /**
  * Utility to work with the neo4J graph-db.
  * 
- * @author jfurrer
+ * @author jfurrer, cfaessle
  * 
  */
 public final class DBUtil {
@@ -35,10 +31,9 @@ public final class DBUtil {
 	 */
 	public static Node getNodeById(long id) {
 		DB = Main.getGraphDb();
-		Transaction tx = null;
+		final Transaction tx = DB.beginTx();
 		Node node = null;
 		try {
-			tx = DB.beginTx();
 			node = DB.getNodeById(id);
 			tx.success();
 		} finally {
@@ -57,13 +52,22 @@ public final class DBUtil {
 		return Cypher.executeAndGetNodes(Cypherqueries.GET_ALL_BEERS, "Beer");
 	}
 
+	/**
+	 * Gets a list of all beertype nodes form the database.
+	 * 
+	 * @return List of all existing beertype nodes.
+	 */
 	public static List<Node> getBeertypeNodeList() {
 		return Cypher.executeAndGetNodes(Cypherqueries.GET_ALL_BEERTYPES, "Beertype");
 	}
 
+	/**
+	 * Gets a list of all user nodes form the database.
+	 * 
+	 * @return List of all existing user nodes.
+	 */
 	public static List<Node> getUserNodeList() {
 		return Cypher.executeAndGetNodes(Cypherqueries.GET_ALL_USERS, "User");
-
 	}
 
 	/**
@@ -74,7 +78,7 @@ public final class DBUtil {
 	 * @return The beer with the given name or <code>null</code> if not found
 	 */
 	public static Node getBeerByName(String name) {
-		return null;
+		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_BEER_BY_NAME, "Beer", name);
 	}
 
 }

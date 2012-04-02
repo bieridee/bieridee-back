@@ -11,23 +11,19 @@ import org.neo4j.graphdb.Node;
 import ch.hsr.bieridee.Main;
 
 /**
- * @author chrigi Class containg all the cipher queries.
+ * Class containg all the cipher queries.
+ * 
+ * @author cfaessle, jfurrer
  */
 public final class Cypher {
 
 	private Cypher() {
-
+		// do not instanciate.
 	}
 
 	/**
-	 * @param query
-	 *            String containg a Cypher query.
-	 * @param column
-	 *            Column Name containing the Nodes that will be returned.
-	 * @param targetObject
-	 * @return
-	 */
-	/**
+	 * Returns the nodes found by the given cypher-query as a list.
+	 * 
 	 * @param query
 	 *            The Cypher query.
 	 * @param column
@@ -46,19 +42,29 @@ public final class Cypher {
 	}
 
 	/**
+	 * Returns the nodes found by the given cypher-query as a list.
+	 * 
 	 * @param query
+	 *            The cypher query
 	 * @param column
+	 *            Column name containing the Nodes that will be returned.
 	 * @param param
-	 * @return
+	 *            The parameter will be used as a replacement for the rirst occurence of the literal '$1' in the cypher
+	 *            query
+	 * @return A List containing the nodes returned by the query.
 	 */
 	public static List<Node> executeAndGetNodes(String query, String column, String param) {
 		return Cypher.executeAndGetNodes(query.replace("$1", param), column);
 	}
 
 	/**
+	 * Returns a single node found by the given cypher-query.
+	 * 
 	 * @param query
+	 *            The cypher query
 	 * @param column
-	 * @return
+	 *            Column name containing the Nodes that will be returned.
+	 * @return The desired node
 	 */
 	public static Node executeAndGetSingleNode(String query, String column) {
 		final ExecutionEngine engine = new ExecutionEngine(Main.getGraphDb());
@@ -70,4 +76,23 @@ public final class Cypher {
 		}
 		return resultNode;
 	}
+
+	/**
+	 * Returns a single node found by the given cypher-query.
+	 * 
+	 * @param query
+	 *            The cypher query
+	 * @param column
+	 *            Column name containing the Nodes that will be returned.
+	 * 
+	 * @param param
+	 *            The parameter will be used as a replacement for the rirst occurence of the literal '$1' in the cypher
+	 *            query
+	 * 
+	 * @return The desired node
+	 */
+	public static Node executeAndGetSingleNode(String query, String column, String param) {
+		return Cypher.executeAndGetSingleNode(query.replace("$1", param), column);
+	}
+
 }

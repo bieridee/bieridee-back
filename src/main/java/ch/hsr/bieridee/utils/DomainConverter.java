@@ -5,19 +5,25 @@ import java.util.List;
 
 import org.neo4j.graphdb.Node;
 
+import ch.hsr.bieridee.models.AbstractModel;
 import ch.hsr.bieridee.models.BeerModel;
 import ch.hsr.bieridee.models.BeertypeModel;
 
 /**
- * @author chrigi Utility Class providing methods to do mass wrapping of nodes with Model Objects.
+ * Utility Class providing methods to do mass wrapping of nodes with Model Objects.
+ * 
+ * @author cfaessle
  * 
  */
 public final class DomainConverter {
+
 	private DomainConverter() {
-
+		// do not instanciate
 	}
-
+	
 	/**
+	 * Converts a list of beer nodes into a list of BeerModels.
+	 * 
 	 * @param nodes
 	 *            <code>List</code> containing the Node Objects which will be wrapped with a BeerModel.
 	 * @return A list of <code>BeerModel</code> Objects.
@@ -31,6 +37,8 @@ public final class DomainConverter {
 	}
 
 	/**
+	 * Converts a list of beertype nodes into a list of BeertypeModels.
+	 * 
 	 * @param nodes
 	 *            <code>List</code> containing the Node Objects which will be wrapped with a BeertypeModel.
 	 * @return A list of <code>BeertypeModel</code> Objects.
@@ -42,16 +50,23 @@ public final class DomainConverter {
 		}
 		return models;
 	}
-	
-	
-	
-	
-	
-	public static<T> List<T> getList(){
-		T a;
-		
-		
-		return new LinkedList<T>();
-	}
 
+	/**
+	 * Extracts the beer domainobjects form a list of BeerModels.
+	 * 
+	 * @param models
+	 *            The AbstractModel list
+	 * 
+	 * @param <T>
+	 *            Type of the Domain Object
+	 * @return A List of Beers
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> List<T> extractDomainObjectFromModel(List<? extends AbstractModel> models) {
+		final List<T> domainObjects = new LinkedList<T>();
+		for (AbstractModel m : models) {
+			domainObjects.add((T) m.getDomainObject());
+		}
+		return domainObjects;
+	}
 }
