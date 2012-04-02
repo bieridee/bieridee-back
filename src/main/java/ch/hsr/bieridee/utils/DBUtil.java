@@ -54,23 +54,15 @@ public final class DBUtil {
 	 * @return List ob all existing beernodes.
 	 */
 	public static List<Node> getBeerNodeList() {
-		DB = Main.getGraphDb();
+		return Cypher.executeAndGetNodes(Cypherqueries.GET_ALL_BEERS, "Beer");
+	}
 
-		Transaction tx = null;
-		final List<Node> beernodes = new ArrayList<Node>();
-		try {
-			tx = DB.beginTx();
-			final Node rootNode = DBUtil.getNodeById(0);
-			final Node beerIndexNode = rootNode.getSingleRelationship(RelType.INDEX_BEER, Direction.OUTGOING).getEndNode();
-			for(Relationship r : beerIndexNode.getRelationships(RelType.INDEXES)) {
-				beernodes.add(r.getEndNode());
-			}
-			tx.success();
-		} finally {
-			tx.finish();
-		}
+	public static List<Node> getBeertypeNodeList() {
+		return Cypher.executeAndGetNodes(Cypherqueries.GET_ALL_BEERTYPES, "Beertype");
+	}
 
-		return beernodes;
+	public static List<Node> getUserNodeList() {
+		return Cypher.executeAndGetNodes(Cypherqueries.GET_ALL_USERS, "User");
 
 	}
 

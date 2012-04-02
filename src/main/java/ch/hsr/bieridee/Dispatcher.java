@@ -7,6 +7,7 @@ import org.restlet.routing.Router;
 import ch.hsr.bieridee.resourcehandler.BeerListResource;
 import ch.hsr.bieridee.resourcehandler.BeerResource;
 import ch.hsr.bieridee.resourcehandler.Neo4jTestResource;
+import ch.hsr.bieridee.resourcehandler.UserRessource;
 
 public class Dispatcher extends Application {
 
@@ -23,7 +24,7 @@ public class Dispatcher extends Application {
 		// router.attach("/neo4j", Neo4jTestResource.class);
 		router.attach("/bier/{BeerID}", BeerResource.class);
 		router.attach("/bier/", BeerListResource.class);
-
+		router.attach("/user/{username}", UserRessource.class);
 		return router;
 	}
 
