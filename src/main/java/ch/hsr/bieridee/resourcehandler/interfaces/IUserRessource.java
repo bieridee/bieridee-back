@@ -2,11 +2,20 @@ package ch.hsr.bieridee.resourcehandler.interfaces;
 
 import org.restlet.resource.Get;
 
-import ch.hsr.bieridee.domain.User;
-
+/**
+ * Interface for the User resource.
+ * 
+ * @author cfaessle
+ * 
+ */
 public interface IUserRessource {
 
-	@Get("txt")
-	public String retrieve();
+	/**
+	 * Gets a User.
+	 * 
+	 * @return A User
+	 */
+	@Get
+	String retrieve();
 
 }

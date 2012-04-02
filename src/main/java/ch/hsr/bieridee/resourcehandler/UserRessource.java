@@ -12,7 +12,9 @@ import ch.hsr.bieridee.utils.Cypher;
 import ch.hsr.bieridee.utils.DomainConverter;
 
 /**
- * @author chrigi
+ * Server resource to provide access to users.
+ * 
+ * @author cfaessle
  * 
  */
 public class UserRessource extends ServerResource implements IUserRessource {
