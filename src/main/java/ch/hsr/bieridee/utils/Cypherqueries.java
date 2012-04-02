@@ -3,7 +3,7 @@ package ch.hsr.bieridee.utils;
 /**
  * Utility Class providing predefined Cypher Query Strings.
  * 
- * @author chrigi
+ * @author cfaessle
  */
 public final class Cypherqueries {
 	private Cypherqueries() {

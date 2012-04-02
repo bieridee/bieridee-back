@@ -49,7 +49,7 @@ public final class Cypher {
 	 * @param column
 	 *            Column name containing the Nodes that will be returned.
 	 * @param param
-	 *            The parameter will be used as a replacement for the rirst occurence of the literal '$1' in the cypher
+	 *            The parameter will be used as a replacement for the first occurence of the literal '$1' in the cypher
 	 *            query
 	 * @return A List containing the nodes returned by the query.
 	 */
@@ -64,7 +64,7 @@ public final class Cypher {
 	 *            The cypher query
 	 * @param column
 	 *            Column name containing the Nodes that will be returned.
-	 * @return The desired node
+	 * @return The desired node or null if none found
 	 */
 	public static Node executeAndGetSingleNode(String query, String column) {
 		final ExecutionEngine engine = new ExecutionEngine(Main.getGraphDb());
@@ -86,7 +86,7 @@ public final class Cypher {
 	 *            Column name containing the Nodes that will be returned.
 	 * 
 	 * @param param
-	 *            The parameter will be used as a replacement for the rirst occurence of the literal '$1' in the cypher
+	 *            The parameter will be used as a replacement for the first occurence of the literal '$1' in the cypher
 	 *            query
 	 * 
 	 * @return The desired node
