@@ -39,7 +39,8 @@ public final class Main {
 		GRAPHDB = new EmbeddedGraphDatabase(ch.hsr.bieridee.config.Config.DB_PATH);
 		EmbeddedServerConfigurator config;
 		config = new EmbeddedServerConfigurator(Main.GRAPHDB);
-		config.configuration().setProperty(Configurator.DEFAULT_WEBSERVER_ADDRESS, "0.0.0.0");
+		config.configuration().setProperty("org.neo4j.server.webserver.address", "0.0.0.0");
+		
 		SRV = new WrappingNeoServerBootstrapper(GRAPHDB, config);
 		SRV.start();
 		registerShutdownHook(GRAPHDB);
