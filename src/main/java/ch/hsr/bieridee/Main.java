@@ -3,6 +3,8 @@ package ch.hsr.bieridee;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.kernel.EmbeddedGraphDatabase;
 import org.neo4j.server.WrappingNeoServerBootstrapper;
+import org.neo4j.server.configuration.Configurator;
+import org.neo4j.server.configuration.EmbeddedServerConfigurator;
 import org.restlet.Component;
 import org.restlet.data.Protocol;
 
@@ -28,13 +30,17 @@ public final class Main {
 	public static void main(String[] args) {
 		// Create a new Restlet Component.
 		final Component component = new Component();
+		
 
 		// Add a new HTTP server listening on a local port
 		component.getServers().add(Protocol.HTTP, SERVER_PORT);
 
 		// Create the graph database
 		GRAPHDB = new EmbeddedGraphDatabase(ch.hsr.bieridee.config.Config.DB_PATH);
-		SRV = new WrappingNeoServerBootstrapper(GRAPHDB);
+		EmbeddedServerConfigurator config;
+		config = new EmbeddedServerConfigurator(Main.GRAPHDB);
+		config.configuration().setProperty(Configurator.DEFAULT_WEBSERVER_ADDRESS, "0.0.0.0");
+		SRV = new WrappingNeoServerBootstrapper(GRAPHDB, config);
 		SRV.start();
 		registerShutdownHook(GRAPHDB);
 
