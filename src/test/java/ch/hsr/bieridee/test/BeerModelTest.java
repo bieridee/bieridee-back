@@ -21,8 +21,8 @@ public class BeerModelTest {
 	@Test
 	public void getNodeTest() {
 
-		final Node n = DBUtil.getNodeById(4);
-		final BeerModel bm = new BeerModel(4);
+		final Node n = DBUtil.getNodeById(5);
+		final BeerModel bm = new BeerModel(5);
 		final Node beernode = bm.getNode();
 
 		Assert.assertEquals(n, beernode);
