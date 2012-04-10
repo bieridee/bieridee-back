@@ -53,10 +53,10 @@ public class BeerModel extends AbstractModel {
 
 		final Relationship beertypeRel = this.node.getSingleRelationship(RelType.HAS_BEERTYPE, Direction.OUTGOING);
 		final Node beertypeNode = beertypeRel.getEndNode();
-
-		final String beertypeName = (String) beertypeNode.getProperty("name");
-		final String beertypeDesc = (String) beertypeNode.getProperty("description");
-		final Beertype type = new Beertype(beertypeName, beertypeDesc);
+		
+		final BeertypeModel beertypeModel = new BeertypeModel(beertypeNode);
+		
+		final Beertype type = beertypeModel.getDomainObject();
 
 		this.domainObject = new Beer(name, brand, picture, tags, type);
 	}

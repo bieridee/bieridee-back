@@ -71,7 +71,7 @@ public class Beer implements IDomain {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
-
+	
 	public List<Tag> getTags() {
 		return this.tags;
 	}
