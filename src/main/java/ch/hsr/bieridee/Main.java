@@ -29,23 +29,22 @@ public final class Main {
 	public static void main(String[] args) {
 		// Create a new Restlet Component.
 		final Component component = new Component();
-
+		
 		// Add a new HTTP server listening on a local port
 		component.getServers().add(Protocol.HTTP, SERVER_PORT);
-
+		
 		// Create the graph database
 		GRAPHDB = Main.getGraphDb();
 
 		// Attach the dispatcher.
 		component.getDefaultHost().attach(new Dispatcher());
-
+		
 		// Start the component.
 		try {
 			component.start();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	private static void registerShutdownHook(final GraphDatabaseService graphDb) {
