@@ -40,6 +40,7 @@ public class BeerModel extends AbstractModel {
 	 */
 	public BeerModel(Node node) {
 		this.node = node;
+		final long id = node.getId();
 		final String name = (String) this.node.getProperty("name");
 		final String brand = (String) this.node.getProperty("brand");
 		final String picture = (String) this.node.getProperty("image");
@@ -58,7 +59,7 @@ public class BeerModel extends AbstractModel {
 		
 		final Beertype type = beertypeModel.getDomainObject();
 
-		this.domainObject = new Beer(name, brand, picture, tags, type);
+		this.domainObject = new Beer(id, name, brand, picture, tags, type);
 	}
 
 	public Node getNode() {
@@ -67,6 +68,10 @@ public class BeerModel extends AbstractModel {
 
 	public Beer getDomainObject() {
 		return this.domainObject;
+	}
+	
+	public long getId() {
+		return this.domainObject.getId();
 	}
 
 	public Beertype getBeertype() {
@@ -84,34 +89,39 @@ public class BeerModel extends AbstractModel {
 	public String getPicture() {
 		return this.domainObject.getPicture();
 	}
-
+	
 	public List<Tag> getTags() {
 		return this.domainObject.getTags();
 	}
-
+	
+	//SUPPRESS CHECKSTYLE: setter
 	public void setBeertype(Beertype beertype) {
-
+		//TODO
 	}
-
+	
+	//SUPPRESS CHECKSTYLE: setter
 	public void setBrand(String brand) {
 		this.domainObject.setBrand(brand);
 		this.node.setProperty("brand", brand);
 	}
-
+	
+	//SUPPRESS CHECKSTYLE: setter
 	public void setName(String name) {
 		this.domainObject.setName(name);
 		this.node.setProperty("name", name);
 
 	}
-
+	
+	//SUPPRESS CHECKSTYLE: setter
 	public void setPicture(String path) {
 		this.domainObject.setPicture(path);
 		this.node.setProperty("image", path);
 
 	}
-
+	
+	//SUPPRESS CHECKSTYLE: setter
 	public void setTags(List<Tag> tags) {
-
+		//TODO
 	}
 
 }
