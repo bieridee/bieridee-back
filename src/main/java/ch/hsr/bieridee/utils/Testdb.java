@@ -4,6 +4,7 @@ import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.apache.log4j.Logger;
 import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
@@ -14,84 +15,70 @@ import org.neo4j.server.WrappingNeoServerBootstrapper;
 import org.neo4j.server.configuration.EmbeddedServerConfigurator;
 
 import ch.hsr.bieridee.config.RelType;
+import ch.hsr.bieridee.domain.BrewerySize;
 
-public class Testdb {
-	static WrappingNeoServerBootstrapper SRV;
-	static final String WEISSBIER = " Das Aroma der obergärigen Hefe, die Brimse, prägt den Charakter der Weissbiere Die Resthefe im Flaschenboden trübt die Flüssigkeit und verleiht den Bieren meist einen leichten Bananen-Nelken Geschmack.";
-	static final String SPEZIALBIER = "Im Klassiker Spezial verbindet der Brauer den milden, schlanken Malzkörper mit kekonnt dosiertem Hopfenbitter. Meist rezent auf der Zungenspitze regt es den Gaumen damit kräftig an. Ideal als Begleiter zu kräftigen Gerichten.";
-	static final String EDELUNDLEICHT = "für weicheier";
+/**
+ * Utiltiy to create a neo4j database with some testdata.
+ * 
+ */
+public final class Testdb {
+	
+	private static final Logger LOG = Logger.getLogger(Testdb.class);
+	
+	private static WrappingNeoServerBootstrapper SRV;
+	private static final String WEISSBIER = " Das Aroma der obergärigen Hefe, die Brimse, prägt den Charakter der Weissbiere Die Resthefe im Flaschenboden trübt die Flüssigkeit und verleiht den Bieren meist einen leichten Bananen-Nelken Geschmack.";
+	private static final String SPEZIALBIER = "Im Klassiker Spezial verbindet der Brauer den milden, schlanken Malzkörper mit kekonnt dosiertem Hopfenbitter. Meist rezent auf der Zungenspitze regt es den Gaumen damit kräftig an. Ideal als Begleiter zu kräftigen Gerichten.";
+	private static final String EDELUNDLEICHT = "für weicheier";
 
+	private static final String CALANDA_PROFILE = "Calanda ist eine schweizer traditions Brauerei. Gegründet wurde sie im Jahre...";
+	private static final String FELDSCHOESSCHEN_PROFILE = "Felschlösschen ist eine gesichtslose und gänzlich uninspirierte Brauerei. Sie wurde im Jahre ...";
+	private static final String FALKEN_PROFILE = "Falke, der. Ein majestätischer Jagtvogel, besonders beliebt bei Grafen und Baronen.";
+	private static final String WAEDIBRAEU_PROFILE = "Eine kleine aber feine regional Brauerei. Wädibräu stellt Bier in rauen Mengen her und hat noch lange nicht genug.";
+
+	private Testdb() {
+		// do not instanciate.
+	}
+
+	/**
+	 * Creates the Database at the given path with the given name. If a database with the same path/name exists, it will
+	 * be deleted first (mercyless).
+	 * 
+	 * @param path
+	 *            Path and name of the database to be created
+	 * @return The newly created database
+	 */
 	public static EmbeddedGraphDatabase createDB(String path) {
 		deleteDir(path);
-		final EmbeddedGraphDatabase GRAPHDB = new EmbeddedGraphDatabase(path);
+		final EmbeddedGraphDatabase graphDb = new EmbeddedGraphDatabase(path);
 		EmbeddedServerConfigurator config;
-		config = new EmbeddedServerConfigurator(GRAPHDB);
+		config = new EmbeddedServerConfigurator(graphDb);
 		config.configuration().setProperty("org.neo4j.server.webserver.address", "0.0.0.0");
-		SRV = new WrappingNeoServerBootstrapper(GRAPHDB, config);
+		SRV = new WrappingNeoServerBootstrapper(graphDb, config);
 
 		SRV.start();
-		registerShutdownHook(GRAPHDB);
-		return GRAPHDB;
+		registerShutdownHook(graphDb);
+		return graphDb;
 	}
 
-	private static void deleteDir(String path) {
-		File file = new File(path);
-		try {
-			for (File f : file.listFiles()) {
-				f.delete();
-			}
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
+	/**
+	 * Deletes the given database.
+	 * 
+	 * @param db
+	 *            The database to be deleted
+	 */
+	public static void deleteDB(EmbeddedGraphDatabase db) {
+		Testdb.deleteDir(db.getStoreDir());
 	}
 
-	private static Node createTag(EmbeddedGraphDatabase db, String name) {
-		final Node tag = db.createNode();
-		tag.setProperty("type", "tag");
-		tag.setProperty("name", name);
-		return tag;
-	}
-
-	private static Node createBeertype(EmbeddedGraphDatabase db, String name, String description) {
-		final Node beertype = db.createNode();
-		beertype.setProperty("type", "beertype");
-		beertype.setProperty("name", name);
-		beertype.setProperty("description", description);
-		return beertype;
-	}
-
-	private static Node createBeerNode(EmbeddedGraphDatabase db, String brand, String name, String image) {
-		final Node beer = db.createNode();
-		beer.setProperty("type", "beer");
-		beer.setProperty("brand", brand);
-		beer.setProperty("name", name);
-		beer.setProperty("image", image);
-		return beer;
-	}
-
-	private static void addAction(EmbeddedGraphDatabase db, Node newAction) {
-		Node home = db.getReferenceNode();
-		Node timeLineStart = home.getSingleRelationship(RelType.INDEX_TIMELINESTART, Direction.OUTGOING).getEndNode();
-		Relationship relationToNext = timeLineStart.getSingleRelationship(RelType.NEXT, Direction.OUTGOING);
-		Node next = relationToNext.getEndNode();
-		relationToNext.delete();
-		timeLineStart.createRelationshipTo(newAction, RelType.NEXT);
-		newAction.createRelationshipTo(next, RelType.NEXT);
-	}
-
-	private static Node createUser(EmbeddedGraphDatabase db, String prename, String surname, String email, String username, String password) {
-		final Node user = db.createNode();
-		user.setProperty("type", "user");
-		user.setProperty("prename", prename);
-		user.setProperty("surname", surname);
-		user.setProperty("email", email);
-		user.setProperty("username", username);
-		user.setProperty("password", password);
-		return user;
-	}
-
+	/**
+	 * Fills the given database with test data. There is at least four nodes of every type and all needed relationships.
+	 * 
+	 * @param db
+	 *            The database to be filled
+	 * @return The filled database
+	 */
 	public static EmbeddedGraphDatabase fillDB(EmbeddedGraphDatabase db) {
-		Transaction transaction = db.beginTx();
+		final Transaction transaction = db.beginTx();
 
 		try {
 			final Node rootNode = db.getReferenceNode();
@@ -253,6 +240,34 @@ public class Testdb {
 			addAction(db, rating5);
 			addAction(db, rating6);
 
+			/* CREATE BREWRIES */
+			final Node calandaAg = createBrewery(db, "Calanda", BrewerySize.NATIONAL);
+			final Node feldschloesschenAg = createBrewery(db, "Felschlösschen", BrewerySize.NATIONAL);
+			final Node falkenAg = createBrewery(db, "Falken Brauerei", BrewerySize.REGIONAL);
+			final Node waedibraeuAg = createBrewery(db, "Wädibräu", BrewerySize.REGIONAL);
+
+			breweryIndex.createRelationshipTo(calandaAg, RelType.INDEXES);
+			breweryIndex.createRelationshipTo(feldschloesschenAg, RelType.INDEXES);
+			breweryIndex.createRelationshipTo(falkenAg, RelType.INDEXES);
+			breweryIndex.createRelationshipTo(waedibraeuAg, RelType.INDEXES);
+
+			calanda.createRelationshipTo(calandaAg, RelType.BREWN_BY);
+			falken.createRelationshipTo(falkenAg, RelType.BREWN_BY);
+			feldschloesschen.createRelationshipTo(feldschloesschenAg, RelType.BREWN_BY);
+			waedibraeu.createRelationshipTo(waedibraeuAg, RelType.BREWN_BY);
+
+			/* CREATE BREWERYPROFILES */
+
+			final Node calandaProfile = createBreweryProfile(db, "", CALANDA_PROFILE);
+			final Node feldschloesschenProfile = createBreweryProfile(db, "", FELDSCHOESSCHEN_PROFILE);
+			final Node flakenProfile = createBreweryProfile(db, "", FALKEN_PROFILE);
+			final Node waedibraeuProfile = createBreweryProfile(db, "", WAEDIBRAEU_PROFILE);
+
+			calandaAg.createRelationshipTo(calandaProfile, RelType.HAS_PROFILE);
+			feldschloesschenAg.createRelationshipTo(feldschloesschenProfile, RelType.HAS_PROFILE);
+			falkenAg.createRelationshipTo(flakenProfile, RelType.HAS_PROFILE);
+			waedibraeuAg.createRelationshipTo(waedibraeuProfile, RelType.HAS_PROFILE);
+
 			transaction.success();
 		} finally {
 			transaction.finish();
@@ -261,15 +276,51 @@ public class Testdb {
 		return db;
 	}
 
-	private static String getSHA1(String pw) {
-		MessageDigest md = null;
+	private static void deleteDir(String path) {
+		final File file = new File(path);
 		try {
-			md = MessageDigest.getInstance("SHA-1");
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			for (File f : file.listFiles()) {
+				f.delete();
+			}
+			// SUPPRESS CHECKSTYLE: we want to catch any possible exception.
+		} catch (Exception e) {
+			LOG.error(e.getMessage(), e);
 		}
-		return new String(md.digest(pw.getBytes()));
+	}
+
+	private static Node createTag(EmbeddedGraphDatabase db, String name) {
+		final Node tag = db.createNode();
+		tag.setProperty("type", "tag");
+		tag.setProperty("name", name);
+		return tag;
+	}
+
+	private static Node createBeertype(EmbeddedGraphDatabase db, String name, String description) {
+		final Node beertype = db.createNode();
+		beertype.setProperty("type", "beertype");
+		beertype.setProperty("name", name);
+		beertype.setProperty("description", description);
+		return beertype;
+	}
+
+	private static Node createBeerNode(EmbeddedGraphDatabase db, String brand, String name, String image) {
+		final Node beer = db.createNode();
+		beer.setProperty("type", "beer");
+		beer.setProperty("brand", brand);
+		beer.setProperty("name", name);
+		beer.setProperty("image", image);
+		return beer;
+	}
+
+	private static Node createUser(EmbeddedGraphDatabase db, String prename, String surname, String email, String username, String password) {
+		final Node user = db.createNode();
+		user.setProperty("type", "user");
+		user.setProperty("prename", prename);
+		user.setProperty("surname", surname);
+		user.setProperty("email", email);
+		user.setProperty("username", username);
+		user.setProperty("password", password);
+		return user;
 	}
 
 	private static Node createConsumption(EmbeddedGraphDatabase db) {
@@ -287,10 +338,43 @@ public class Testdb {
 		return rating;
 	}
 
+	private static Node createBrewery(EmbeddedGraphDatabase db, String name, BrewerySize size) {
+		final Node brewery = db.createNode();
+		brewery.setProperty("type", "brewery");
+		brewery.setProperty("name", name);
+		brewery.setProperty("size", size);
+		return brewery;
+	}
+
+	private static Node createBreweryProfile(EmbeddedGraphDatabase db, String image, String description) {
+		final Node profile = db.createNode();
+		profile.setProperty("type", "breweryprofile");
+		profile.setProperty("image", image);
+		profile.setProperty("description", description);
+		return profile;
+	}
+
+	private static String getSHA1(String pw) {
+		MessageDigest md = null;
+		try {
+			md = MessageDigest.getInstance("SHA-1");
+		} catch (NoSuchAlgorithmException e) {
+			LOG.error(e.getMessage(), e);
+		}
+		return new String(md.digest(pw.getBytes()));
+	}
+
+	private static void addAction(EmbeddedGraphDatabase db, Node newAction) {
+		final Node home = db.getReferenceNode();
+		final Node timeLineStart = home.getSingleRelationship(RelType.INDEX_TIMELINESTART, Direction.OUTGOING).getEndNode();
+		final Relationship relationToNext = timeLineStart.getSingleRelationship(RelType.NEXT, Direction.OUTGOING);
+		final Node next = relationToNext.getEndNode();
+		relationToNext.delete();
+		timeLineStart.createRelationshipTo(newAction, RelType.NEXT);
+		newAction.createRelationshipTo(next, RelType.NEXT);
+	}
+
 	private static void registerShutdownHook(final GraphDatabaseService graphDb) {
-		// Registers a shutdownsrv hook for the Neo4j instance so that it
-		// shuts down nicely when the VM exits (even if you "Ctrl-C" the
-		// running example before it's completed)
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			@Override
 			public void run() {
