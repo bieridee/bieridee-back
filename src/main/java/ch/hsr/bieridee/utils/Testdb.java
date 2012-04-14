@@ -338,7 +338,7 @@ public final class Testdb {
 		return rating;
 	}
 
-	private static Node createBrewery(EmbeddedGraphDatabase db, String name, BrewerySize size) {
+	private static Node createBrewery(EmbeddedGraphDatabase db, String name, String size) {
 		final Node brewery = db.createNode();
 		brewery.setProperty("type", "brewery");
 		brewery.setProperty("name", name);

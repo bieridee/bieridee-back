@@ -1,8 +1,15 @@
 package ch.hsr.bieridee.domain;
 
 /**
- * @author chrigi Enum representing BrewerySizes.
+ * BrewerySizes.
  */
-public enum BrewerySize {
-	MICRO, REGIONAL, NATIONAL;
+public final class BrewerySize {
+	
+	private BrewerySize() {
+		// do not instanciate.
+	}
+	
+	public static final String MICRO = "micro";
+	public static final String REGIONAL = "regional";
+	public static final String NATIONAL= "national";
 }
