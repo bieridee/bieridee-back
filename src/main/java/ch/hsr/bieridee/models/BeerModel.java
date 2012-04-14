@@ -95,7 +95,7 @@ public class BeerModel extends AbstractModel {
 	}
 
 	public String getImage() {
-		return this.domainObject.getPicture();
+		return this.domainObject.getImage();
 	}
 	
 	public List<Tag> getTags() {

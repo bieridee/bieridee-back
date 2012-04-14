@@ -1,8 +1,11 @@
 package ch.hsr.bieridee.models;
 
 import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.NotFoundException;
 
+import ch.hsr.bieridee.config.NodeType;
 import ch.hsr.bieridee.domain.Beertype;
+import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.utils.DBUtil;
 
 /**
@@ -21,19 +24,24 @@ public class BeertypeModel extends AbstractModel {
 	 * 
 	 * @param beertypeId
 	 *            The id of the desired beertype
+	 * @throws WrongNodeTypeException Thrown when the given id does not reference a beertype node
 	 */
-	public BeertypeModel(long beertypeId) {
+	public BeertypeModel(long beertypeId) throws WrongNodeTypeException {
 		this(DBUtil.getNodeById(beertypeId));
 	}
 
 	/**
 	 * Creates a <code>BeertypeModel</code>.
 	 * 
-	 * @param n
+	 * @param node
 	 *            the node containing <code>Beertype</code> properties.
+	 * @throws WrongNodeTypeException Thrown when the given node is not of type beertype
 	 */
-	public BeertypeModel(Node n) {
-		this.node = n;
+	public BeertypeModel(Node node) throws WrongNodeTypeException {
+		
+		checkNodeType(node);
+		
+		this.node = node;
 		
 		final long id = this.node.getId();
 		final String name = (String) this.node.getProperty("name");
@@ -77,5 +85,17 @@ public class BeertypeModel extends AbstractModel {
 		this.domainObject.setDescription(description);
 		this.node.setProperty("description", description);
 	}
-
+	
+	private void checkNodeType(Node node) throws WrongNodeTypeException {
+		String type = null;
+		try {
+			type = (String) node.getProperty("type");
+		} catch (NotFoundException e) {
+			throw new WrongNodeTypeException(e);
+		}
+		if(!NodeType.BEERTYPE.equals(type)) {
+			throw new WrongNodeTypeException("Not a beertype node.");
+		}
+	}
+	
 }

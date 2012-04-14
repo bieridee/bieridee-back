@@ -7,6 +7,8 @@ import org.restlet.routing.Router;
 import ch.hsr.bieridee.config.Res;
 import ch.hsr.bieridee.resourcehandler.BeerListResource;
 import ch.hsr.bieridee.resourcehandler.BeerResource;
+import ch.hsr.bieridee.resourcehandler.BeertypeListResource;
+import ch.hsr.bieridee.resourcehandler.BeertypeResource;
 
 /**
  * Dispatcher for the RESTlet resources.
@@ -36,6 +38,8 @@ public class Dispatcher extends Application {
 		final Router router = new Router(getContext());
 		router.attach(Res.BEER_COLLECTION, BeerListResource.class);
 		router.attach(Res.BEER_DOCUMENT, BeerResource.class);
+		router.attach(Res.BEERTYPE_COLLECTION, BeertypeListResource.class);
+		router.attach(Res.BEERTYPE_DOCUMENT, BeertypeResource.class);
 		
 		return router;
 	}

@@ -68,7 +68,7 @@ public class Beer implements IDomain {
 
 	@Override
 	public String toString() {
-		return "Beername: " + getName() + ",Brand: " + getBrand() + ",Picture: " + getPicture() + ",Tags: " + getTags().toString() + ",Type: " + getBeertype().getDescription();
+		return "Beername: " + getName() + ",Brand: " + getBrand() + ",Picture: " + getImage() + ",Tags: " + getTags().toString() + ",Type: " + getBeertype().getDescription();
 
 	}
 
@@ -96,7 +96,7 @@ public class Beer implements IDomain {
 		this.brand = brand;
 	}
 
-	public String getPicture() {
+	public String getImage() {
 		return this.image;
 	}
 

@@ -28,7 +28,7 @@ public final class DomainConverter {
 	 * @param nodes
 	 *            <code>List</code> containing the Node Objects which will be wrapped with a BeerModel.
 	 * @return A list of <code>BeerModel</code> Objects.
-	 * @throws WrongNodeTypeException 
+	 * @throws WrongNodeTypeException Thrown if one of the nodes is not of type beer
 	 */
 	public static List<BeerModel> createBeerModelsFromList(List<Node> nodes) throws WrongNodeTypeException {
 		final List<BeerModel> models = new LinkedList<BeerModel>();
@@ -44,8 +44,9 @@ public final class DomainConverter {
 	 * @param nodes
 	 *            <code>List</code> containing the Node Objects which will be wrapped with a BeertypeModel.
 	 * @return A list of <code>BeertypeModel</code> Objects.
+	 * @throws WrongNodeTypeException Thrown if one of the given nodes is not of type beertype
 	 */
-	public static List<BeertypeModel> createBeertypeModelsFromList(List<Node> nodes) {
+	public static List<BeertypeModel> createBeertypeModelsFromList(List<Node> nodes) throws WrongNodeTypeException {
 		final List<BeertypeModel> models = new LinkedList<BeertypeModel>();
 		for (Node n : nodes) {
 			models.add(new BeertypeModel(n));

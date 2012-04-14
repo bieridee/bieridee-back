@@ -6,6 +6,7 @@ import org.neo4j.graphdb.Node;
 import org.restlet.resource.ServerResource;
 
 import ch.hsr.bieridee.domain.User;
+import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.BeerModel;
 import ch.hsr.bieridee.resourcehandler.interfaces.IUserRessource;
 import ch.hsr.bieridee.utils.Cypher;
@@ -27,7 +28,13 @@ public class UserRessource extends ServerResource implements IUserRessource {
 		//final String cypherQuery = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_USER]-USER_INDEX-[:INDEXES]->User WHERE User.username=\'" + usernameParam + "\' RETURN User";
 		final String cypherQuery = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_USER]-USER_INDEX-[:INDEXES]-User-[:HAS_CONSUMED]->Beer WHERE User.username=\'jfurrer\' RETURN Beer";
 		final List<Node> result = Cypher.executeAndGetNodes(cypherQuery, "Beer");
-		final List<BeerModel> models = DomainConverter.createBeerModelsFromList(result);
+		List<BeerModel> models = null;
+		try {
+			models = DomainConverter.createBeerModelsFromList(result);
+		} catch (WrongNodeTypeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//final Node result = Cypher.executeAndGetSingleNode(cypherQuery, "User");
 		

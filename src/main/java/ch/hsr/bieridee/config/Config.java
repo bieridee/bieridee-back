@@ -7,6 +7,8 @@ import org.codehaus.jackson.map.module.SimpleModule;
 
 import ch.hsr.bieridee.serializer.BeerListSerializer;
 import ch.hsr.bieridee.serializer.BeerSerializer;
+import ch.hsr.bieridee.serializer.BeertypeListSerializer;
+import ch.hsr.bieridee.serializer.BeertypeSerializer;
 
 /**
  * Configuration constants.
@@ -41,6 +43,8 @@ public final class Config {
 		final SimpleModule beerModule = new SimpleModule("BierIdeeModule", new Version(1, 0, 0, null));
 		beerModule.addSerializer(new BeerSerializer());
 		beerModule.addSerializer(new BeerListSerializer());
+		beerModule.addSerializer(new BeertypeSerializer());
+		beerModule.addSerializer(new BeertypeListSerializer());
 		OBJECT_MAPPER.registerModule(beerModule);
 		return OBJECT_MAPPER;
 	}

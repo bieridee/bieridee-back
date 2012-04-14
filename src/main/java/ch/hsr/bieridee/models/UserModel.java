@@ -33,8 +33,8 @@ public class UserModel extends AbstractModel {
 	public UserModel(Node node) {
 		this.node = node;
 		final String username = (String) this.node.getProperty("username");
-		final String firstname = (String) this.node.getProperty("firstname");
-		final String lastname = (String) this.node.getProperty("lastname");
+		final String firstname = (String) this.node.getProperty("prename");
+		final String lastname = (String) this.node.getProperty("surname");
 		final String password = (String) this.node.getProperty("password");
 		final String email = (String) this.node.getProperty("email");
 		
