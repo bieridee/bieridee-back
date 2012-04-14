@@ -14,7 +14,7 @@ public class Beer implements IDomain {
 	private long id;
 	private String name;
 	private String brand;
-	private String picture;
+	private String image;
 	private List<Tag> tags;
 	private Beertype beertype;
 
@@ -35,7 +35,7 @@ public class Beer implements IDomain {
 	public Beer(String name, String brand, String picture, List<Tag> tags, Beertype type) {
 		this.setTags(tags);
 		this.setBrand(brand);
-		this.setPicture(picture);
+		this.setImage(picture);
 		this.setBeertype(type);
 		this.setName(name);
 	}
@@ -61,7 +61,7 @@ public class Beer implements IDomain {
 		this.setId(id);
 		this.setTags(tags);
 		this.setBrand(brand);
-		this.setPicture(picture);
+		this.setImage(picture);
 		this.setBeertype(type);
 		this.setName(name);
 	}
@@ -97,11 +97,11 @@ public class Beer implements IDomain {
 	}
 
 	public String getPicture() {
-		return this.picture;
+		return this.image;
 	}
 
-	public void setPicture(String picture) {
-		this.picture = picture;
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public List<Tag> getTags() {

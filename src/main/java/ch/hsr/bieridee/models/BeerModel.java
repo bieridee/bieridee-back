@@ -51,7 +51,7 @@ public class BeerModel extends AbstractModel {
 		final long id = node.getId();
 		final String name = (String) this.node.getProperty("name");
 		final String brand = (String) this.node.getProperty("brand");
-		final String picture = (String) this.node.getProperty("image");
+		final String image = (String) this.node.getProperty("image");
 		final List<Tag> tags = new LinkedList<Tag>();
 
 		for (Relationship r : this.node.getRelationships(RelType.HAS_TAG)) {
@@ -67,7 +67,7 @@ public class BeerModel extends AbstractModel {
 		
 		final Beertype type = beertypeModel.getDomainObject();
 
-		this.domainObject = new Beer(id, name, brand, picture, tags, type);
+		this.domainObject = new Beer(id, name, brand, image, tags, type);
 	}
 
 	public Node getNode() {
@@ -94,7 +94,7 @@ public class BeerModel extends AbstractModel {
 		return this.domainObject.getName();
 	}
 
-	public String getPicture() {
+	public String getImage() {
 		return this.domainObject.getPicture();
 	}
 	
@@ -121,8 +121,8 @@ public class BeerModel extends AbstractModel {
 	}
 	
 	//SUPPRESS CHECKSTYLE: setter
-	public void setPicture(String path) {
-		this.domainObject.setPicture(path);
+	public void setImage(String path) {
+		this.domainObject.setImage(path);
 		this.node.setProperty("image", path);
 
 	}

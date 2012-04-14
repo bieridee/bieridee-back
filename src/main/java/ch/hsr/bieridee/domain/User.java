@@ -1,36 +1,36 @@
 package ch.hsr.bieridee.domain;
 
 /**
- * @author chrigi Class representing a User.
+ * Class representing a User.
+ * 
+ * @author cfaessle
  */
 public class User {
+	private String prename;
+	private String surname;
 	private String username;
+	private String password;
+	private String email;
 
 	/**
 	 * @param username
 	 *            Username of the User.
 	 * @param password
 	 *            Passwort of the User.
-	 * @param firstName
+	 * @param prename
 	 *            name of the User.
-	 * @param lastName
+	 * @param surname
 	 *            Prename of the User.
-	 * @param emailAdress
+	 * @param email
 	 *            Email Adress of the User.
 	 */
-	public User(String username, String password, String firstName,
-			String lastName, String emailAdress) {
+	public User(String username, String password, String prename, String surname, String email) {
 		this.setUsername(username);
 		this.setPassword(password);
-		this.setFirstName(firstName);
-		this.setLastName(lastName);
-		this.setEmailAdress(emailAdress);
+		this.setPrename(prename);
+		this.setSurname(surname);
+		this.setEmail(email);
 	}
-
-	private String password;
-	private String firstName;
-	private String lastName;
-	private String emailAdress;
 
 	public String getUsername() {
 		return this.username;
@@ -48,38 +48,37 @@ public class User {
 		this.password = password;
 	}
 
-	public String getFirstName() {
-		return this.firstName;
+	public String getPrename() {
+		return this.prename;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setPrename(String prename) {
+		this.prename = prename;
 	}
 
 	public String getFullName() {
-		return this.firstName + " " + this.lastName;
+		return this.prename + " " + this.surname;
 	}
 
 	@Override
 	public String toString() {
-		return "Firstname: " + this.getFirstName() + ",Lastname: "
-				+ this.getLastName() + ",Email: " + getEmailAdress();
+		return "Firstname: " + this.getPrename() + ",Lastname: " + this.getSurname() + ",Email: " + getEmail();
 	}
 
-	public String getLastName() {
-		return this.lastName;
+	public String getSurname() {
+		return this.surname;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 
-	private String getEmailAdress() {
-		return this.emailAdress;
+	private String getEmail() {
+		return this.email;
 	}
 
-	public void setEmailAdress(String emailAdress) {
-		this.emailAdress = emailAdress;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }
