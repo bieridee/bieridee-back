@@ -1,9 +1,11 @@
 package ch.hsr.bieridee.domain;
 
+import ch.hsr.bieridee.domain.interfaces.IDomain;
+
 /**
  * @author chrigi Class representing a Tag.
  */
-public class Tag {
+public class Tag implements IDomain{
 	private String value;
 
 	/**

@@ -5,12 +5,15 @@ import java.util.List;
 
 import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.NotFoundException;
 import org.neo4j.graphdb.Relationship;
 
+import ch.hsr.bieridee.config.NodeType;
 import ch.hsr.bieridee.config.RelType;
 import ch.hsr.bieridee.domain.Beer;
 import ch.hsr.bieridee.domain.Beertype;
 import ch.hsr.bieridee.domain.Tag;
+import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.utils.DBUtil;
 
 /**
@@ -29,16 +32,21 @@ public class BeerModel extends AbstractModel {
 	 * 
 	 * @param beerId
 	 *            The node id of the desired beer
+	 * @throws WrongNodeTypeException Thrown when the given id does not reference a beer node
 	 */
-	public BeerModel(long beerId) {
+	public BeerModel(long beerId) throws WrongNodeTypeException {
 		this(DBUtil.getNodeById(beerId));
 	}
 	
 	/**
 	 * @param node
 	 * Node containing Properties of the Beer.
+	 * @throws WrongNodeTypeException Thrown when the given node is not a beer node
 	 */
-	public BeerModel(Node node) {
+	public BeerModel(Node node) throws WrongNodeTypeException {
+		
+		checkNodeType(node);
+		
 		this.node = node;
 		final long id = node.getId();
 		final String name = (String) this.node.getProperty("name");
@@ -122,6 +130,18 @@ public class BeerModel extends AbstractModel {
 	//SUPPRESS CHECKSTYLE: setter
 	public void setTags(List<Tag> tags) {
 		//TODO
+	}
+	
+	private void checkNodeType(Node node) throws WrongNodeTypeException {
+		String type = null;
+		try {
+			type = (String) node.getProperty("type");
+		} catch (NotFoundException e) {
+			throw new WrongNodeTypeException(e);
+		}
+		if(!NodeType.BEER.equals(type)) {
+			throw new WrongNodeTypeException("Not a beer node.");
+		}
 	}
 
 }

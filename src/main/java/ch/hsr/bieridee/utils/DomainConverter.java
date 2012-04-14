@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.neo4j.graphdb.Node;
 
+import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.AbstractModel;
 import ch.hsr.bieridee.models.BeerModel;
 import ch.hsr.bieridee.models.BeertypeModel;
@@ -27,8 +28,9 @@ public final class DomainConverter {
 	 * @param nodes
 	 *            <code>List</code> containing the Node Objects which will be wrapped with a BeerModel.
 	 * @return A list of <code>BeerModel</code> Objects.
+	 * @throws WrongNodeTypeException 
 	 */
-	public static List<BeerModel> createBeerModelsFromList(List<Node> nodes) {
+	public static List<BeerModel> createBeerModelsFromList(List<Node> nodes) throws WrongNodeTypeException {
 		final List<BeerModel> models = new LinkedList<BeerModel>();
 		for (Node n : nodes) {
 			models.add(new BeerModel(n));

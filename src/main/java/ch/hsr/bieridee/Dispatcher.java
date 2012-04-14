@@ -4,7 +4,7 @@ import org.restlet.Application;
 import org.restlet.Restlet;
 import org.restlet.routing.Router;
 
-import ch.hsr.bieridee.config.Config;
+import ch.hsr.bieridee.config.Res;
 import ch.hsr.bieridee.resourcehandler.BeerListResource;
 import ch.hsr.bieridee.resourcehandler.BeerResource;
 
@@ -34,9 +34,9 @@ public class Dispatcher extends Application {
 	@Override
 	public synchronized Restlet createInboundRoot() {
 		final Router router = new Router(getContext());
+		router.attach(Res.BEER_COLLECTION, BeerListResource.class);
+		router.attach(Res.BEER_DOCUMENT, BeerResource.class);
 		
-		router.attach(Config.BEER_RESOURCE + "/{beer-id}", BeerResource.class);
-		router.attach(Config.BEER_RESOURCE, BeerListResource.class);
 		return router;
 	}
 

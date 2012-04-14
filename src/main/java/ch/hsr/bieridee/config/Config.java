@@ -16,13 +16,11 @@ public final class Config {
 	
 	private static ObjectMapper OBJECT_MAPPER;
 	
-	public static final String BEER_RESOURCE = "/beers";
-	public static final String BEERTYPE_RESOURCE = "/beertypes";
-	
 	/**
 	 * Relative path to the neo4j graph database.
 	 */
-	public static final String DB_PATH = "var/Brauhaus";
+	public static final String DB_PATH = "var/TestDB";
+	//public static final String DB_PATH = "var/Brauhaus";
 	
 	// dummy constructor
 	private Config() {
