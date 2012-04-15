@@ -9,6 +9,7 @@ import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.AbstractModel;
 import ch.hsr.bieridee.models.BeerModel;
 import ch.hsr.bieridee.models.BeertypeModel;
+import ch.hsr.bieridee.models.TagModel;
 
 /**
  * Utility Class providing methods to do mass wrapping of nodes with Model Objects.
@@ -50,6 +51,22 @@ public final class DomainConverter {
 		final List<BeertypeModel> models = new LinkedList<BeertypeModel>();
 		for (Node n : nodes) {
 			models.add(new BeertypeModel(n));
+		}
+		return models;
+	}
+	
+	/**
+	 * Converts a list of tag nodes into a list of TagModels.
+	 * 
+	 * @param nodes
+	 *            <code>List</code> containing the Node Objects which will be wrapped with a TagModel.
+	 * @return A list of <code>TagModel</code> Objects.
+	 * @throws WrongNodeTypeException Thrown if one of the given nodes is not of type tag
+	 */
+	public static List<TagModel> createTagModelsFromList(List<Node> nodes) throws WrongNodeTypeException {
+		final List<TagModel> models = new LinkedList<TagModel>();
+		for (Node n : nodes) {
+			models.add(new TagModel(n));
 		}
 		return models;
 	}

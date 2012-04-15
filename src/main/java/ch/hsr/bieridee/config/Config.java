@@ -9,6 +9,8 @@ import ch.hsr.bieridee.serializer.BeerListSerializer;
 import ch.hsr.bieridee.serializer.BeerSerializer;
 import ch.hsr.bieridee.serializer.BeertypeListSerializer;
 import ch.hsr.bieridee.serializer.BeertypeSerializer;
+import ch.hsr.bieridee.serializer.TagListSerializer;
+import ch.hsr.bieridee.serializer.TagSerializer;
 
 /**
  * Configuration constants.
@@ -45,6 +47,8 @@ public final class Config {
 		beerModule.addSerializer(new BeerListSerializer());
 		beerModule.addSerializer(new BeertypeSerializer());
 		beerModule.addSerializer(new BeertypeListSerializer());
+		beerModule.addSerializer(new TagSerializer());
+		beerModule.addSerializer(new TagListSerializer());
 		OBJECT_MAPPER.registerModule(beerModule);
 		return OBJECT_MAPPER;
 	}

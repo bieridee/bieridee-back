@@ -30,7 +30,7 @@ public class BeerSerializer extends JsonSerializer<Beer> {
 		jsonGenerator.writeArrayFieldStart("tags");
 		for(Tag tag : beer.getTags()) {
 			jsonGenerator.writeStartObject();
-			jsonGenerator.writeStringField("name", tag.getValue());
+			jsonGenerator.writeStringField("name", tag.getName());
 			jsonGenerator.writeStringField("uri", Res.getResourceUri(tag));
 			jsonGenerator.writeEndObject();
 		}

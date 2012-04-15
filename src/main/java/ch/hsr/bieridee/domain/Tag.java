@@ -3,30 +3,32 @@ package ch.hsr.bieridee.domain;
 import ch.hsr.bieridee.domain.interfaces.IDomain;
 
 /**
- * @author chrigi Class representing a Tag.
+ * Class representing a Tag.
+ * 
+ * @author cfaessle 
  */
 public class Tag implements IDomain{
-	private String value;
+	private String name;
 
 	/**
-	 * @param value
-	 *            String containing the value of the Tag.
+	 * @param name
+	 *            String containing the name of the Tag.
 	 */
-	public Tag(String value) {
-		this.setValue(value);
+	public Tag(String name) {
+		this.setName(name);
 	}
 
-	public String getValue() {
-		return this.value;
+	public String getName() {
+		return this.name;
 	}
 
-	public void setValue(String value) {
-		this.value = value;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override
 	public String toString() {
-		return "Tag value: " + this.value;
+		return "Tag name: " + this.name;
 	}
 
 }

@@ -9,15 +9,17 @@ import ch.hsr.bieridee.resourcehandler.BeerListResource;
 import ch.hsr.bieridee.resourcehandler.BeerResource;
 import ch.hsr.bieridee.resourcehandler.BeertypeListResource;
 import ch.hsr.bieridee.resourcehandler.BeertypeResource;
+import ch.hsr.bieridee.resourcehandler.TagListResource;
+import ch.hsr.bieridee.resourcehandler.TagResource;
 
 /**
  * Dispatcher for the RESTlet resources.
  * 
  * @author cfaessle, jfurrer
- *
+ * 
  */
 public class Dispatcher extends Application {
-	
+
 	/**
 	 * Creates the dispatcher and thus the application.
 	 */
@@ -25,9 +27,9 @@ public class Dispatcher extends Application {
 		setAuthor("dbrgen, cfaessle, jfurrer");
 		setDescription("Social beer-app. REST API");
 		setName("BierIdee");
-		
+
 	}
-	
+
 	/**
 	 * Creates a root Restlet that will receive all incoming calls.
 	 * 
@@ -40,7 +42,9 @@ public class Dispatcher extends Application {
 		router.attach(Res.BEER_DOCUMENT, BeerResource.class);
 		router.attach(Res.BEERTYPE_COLLECTION, BeertypeListResource.class);
 		router.attach(Res.BEERTYPE_DOCUMENT, BeertypeResource.class);
-		
+		router.attach(Res.TAG_COLLECTION, TagListResource.class);
+		router.attach(Res.TAG_DOCUMENT, TagResource.class);
+
 		return router;
 	}
 

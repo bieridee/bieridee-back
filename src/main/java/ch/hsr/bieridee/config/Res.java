@@ -59,7 +59,7 @@ public final class Res {
 			uri = API_URL + BEERTYPE_DOCUMENT.replaceAll("\\{.*\\}", Long.toString(id));
 		}
 		if (c == Tag.class) {
-			final String name = ((Tag) domainObject).getValue();
+			final String name = ((Tag) domainObject).getName();
 			uri = API_URL + TAG_DOCUMENT.replaceAll("\\{.*\\}", name);
 		}
 		if (c == User.class) {
