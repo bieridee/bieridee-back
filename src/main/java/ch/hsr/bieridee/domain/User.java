@@ -1,11 +1,13 @@
 package ch.hsr.bieridee.domain;
 
+import ch.hsr.bieridee.domain.interfaces.IDomain;
+
 /**
  * Class representing a User.
  * 
  * @author cfaessle
  */
-public class User {
+public class User implements IDomain {
 	private String prename;
 	private String surname;
 	private String username;
@@ -73,7 +75,7 @@ public class User {
 		this.surname = surname;
 	}
 
-	private String getEmail() {
+	public String getEmail() {
 		return this.email;
 	}
 

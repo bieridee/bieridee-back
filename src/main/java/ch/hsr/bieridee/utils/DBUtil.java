@@ -69,7 +69,7 @@ public final class DBUtil {
 	public static List<Node> getUserNodeList() {
 		return Cypher.executeAndGetNodes(Cypherqueries.GET_ALL_USERS, "User");
 	}
-	
+
 	public static List<Node> getTagNodeList() {
 		return Cypher.executeAndGetNodes(Cypherqueries.GET_ALL_TAGS, "Tag");
 	}
@@ -84,7 +84,7 @@ public final class DBUtil {
 	public static Node getBeerByName(String name) {
 		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_BEER_BY_NAME, "Beer", name);
 	}
-	
+
 	/**
 	 * Gets a neo4j tag node by the name of the tag.
 	 * 
@@ -94,6 +94,17 @@ public final class DBUtil {
 	 */
 	public static Node getTagByName(String name) {
 		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_TAG_BY_NAME, "Tag", name);
+	}
+
+	/**
+	 * Gets a neo4j node by the username of the user.
+	 * 
+	 * @param name
+	 *            Username
+	 * @return The node
+	 */
+	public static Node getUserByName(String name) {
+		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_USER_BY_NAME, "User", name);
 	}
 
 }

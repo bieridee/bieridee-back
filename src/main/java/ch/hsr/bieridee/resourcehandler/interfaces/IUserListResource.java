@@ -4,17 +4,15 @@ import org.restlet.representation.Representation;
 import org.restlet.resource.Get;
 
 /**
- * Interface for the User resource.
- * 
- * @author cfaessle
+ * Interface for the user list resource.
  * 
  */
-public interface IUserRessource {
+public interface IUserListResource {
 
 	/**
-	 * Gets a User.
+	 * Gets a list of users.
 	 * 
-	 * @return Representation of a user
+	 * @return Representation of the user list
 	 */
 	@Get
 	Representation retrieve();

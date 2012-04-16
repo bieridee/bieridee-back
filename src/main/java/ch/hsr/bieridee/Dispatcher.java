@@ -11,6 +11,8 @@ import ch.hsr.bieridee.resourcehandler.BeertypeListResource;
 import ch.hsr.bieridee.resourcehandler.BeertypeResource;
 import ch.hsr.bieridee.resourcehandler.TagListResource;
 import ch.hsr.bieridee.resourcehandler.TagResource;
+import ch.hsr.bieridee.resourcehandler.UserListResource;
+import ch.hsr.bieridee.resourcehandler.UserResource;
 
 /**
  * Dispatcher for the RESTlet resources.
@@ -44,6 +46,8 @@ public class Dispatcher extends Application {
 		router.attach(Res.BEERTYPE_DOCUMENT, BeertypeResource.class);
 		router.attach(Res.TAG_COLLECTION, TagListResource.class);
 		router.attach(Res.TAG_DOCUMENT, TagResource.class);
+		router.attach(Res.USER_COLLECTION, UserListResource.class);
+		router.attach(Res.USER_DOCUMENT, UserResource.class);
 
 		return router;
 	}
