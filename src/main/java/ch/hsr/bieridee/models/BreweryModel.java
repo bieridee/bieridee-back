@@ -7,6 +7,7 @@ import ch.hsr.bieridee.config.NodeType;
 import ch.hsr.bieridee.domain.Brewery;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.utils.DBUtil;
+import ch.hsr.bieridee.utils.NodeUtil;
 
 /**
  * Model to work and persist the brewery object.
@@ -21,9 +22,12 @@ public class BreweryModel extends AbstractModel {
 	 * 
 	 * @param breweryId
 	 *            The id of the desired brewery
-	 * @throws WrongNodeTypeException Thrown when the given id does not reference a brewery node
+	 * @throws WrongNodeTypeException
+	 *             Thrown when the given id does not reference a brewery node
+	 * @throws NotFoundException
+	 *             Thrown when the given id does not reference an existing node
 	 */
-	public BreweryModel(long breweryId) throws WrongNodeTypeException {
+	public BreweryModel(long breweryId) throws WrongNodeTypeException, NotFoundException {
 		this(DBUtil.getNodeById(breweryId));
 	}
 
@@ -32,13 +36,16 @@ public class BreweryModel extends AbstractModel {
 	 * 
 	 * @param node
 	 *            the node containing <code>Brewery</code> properties.
-	 * @throws WrongNodeTypeException Thrown when the given node is not of type beertype
+	 * @throws WrongNodeTypeException
+	 *             Thrown when the given node is not of type beertype
+	 * @throws NotFoundException
+	 *             Thrown when the given id does not reference an existing node
 	 */
-	public BreweryModel(Node node) throws WrongNodeTypeException {
-		checkNodeType(node);
-		
+	public BreweryModel(Node node) throws WrongNodeTypeException, NotFoundException {
+		NodeUtil.checkNode(node, NodeType.BREWERY);
+
 		this.node = node;
-		
+
 		final long id = this.node.getId();
 		final String name = (String) this.node.getProperty("name");
 		final String size = (String) this.node.getProperty("size");
@@ -54,12 +61,12 @@ public class BreweryModel extends AbstractModel {
 	public Node getNode() {
 		return this.node;
 	}
-	
+
 	public long getId() {
 		return this.domainObject.getId();
 	}
 
-	//SUPPRESS CHECKSTYLE: setter
+	// SUPPRESS CHECKSTYLE: setter
 	public void setId(long id) {
 		this.domainObject.setId(id);
 	}
@@ -67,8 +74,8 @@ public class BreweryModel extends AbstractModel {
 	public String getName() {
 		return this.domainObject.getName();
 	}
-	
-	//SUPPRESS CHECKSTYLE: setter
+
+	// SUPPRESS CHECKSTYLE: setter
 	public void setName(String name) {
 		this.domainObject.setName(name);
 		this.node.setProperty("name", name);
@@ -77,23 +84,10 @@ public class BreweryModel extends AbstractModel {
 	public String getSize() {
 		return this.domainObject.getSize();
 	}
-	
-	//SUPPRESS CHECKSTYLE: setter
+
+	// SUPPRESS CHECKSTYLE: setter
 	public void setSize(String size) {
 		this.domainObject.setSize(size);
 		this.node.setProperty("size", size);
 	}
-
-	private void checkNodeType(Node node) throws WrongNodeTypeException {
-		String type = null;
-		try {
-			type = (String) node.getProperty("type");
-		} catch (NotFoundException e) {
-			throw new WrongNodeTypeException(e);
-		}
-		if(!NodeType.BREWERY.equals(type)) {
-			throw new WrongNodeTypeException("Not a brewery node. Type is " + type + ".");
-		}
-	}
-	
 }
