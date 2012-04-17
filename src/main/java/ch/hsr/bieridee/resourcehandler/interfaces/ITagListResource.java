@@ -4,19 +4,15 @@ import org.restlet.representation.Representation;
 import org.restlet.resource.Get;
 
 /**
- * Interface for the User resource.
- * 
- * @author cfaessle
- * 
+ * Interface for the tag list resource.
+ *
  */
-public interface IUserRessource {
-
+public interface ITagListResource {
+	
 	/**
-	 * Gets a User.
-	 * 
-	 * @return Representation of a user
+	 * Gets a list of tags.
+	 * @return Representation of the tag list
 	 */
 	@Get
 	Representation retrieve();
-
 }

@@ -4,19 +4,16 @@ import org.restlet.representation.Representation;
 import org.restlet.resource.Get;
 
 /**
- * Interface for the User resource.
- * 
- * @author cfaessle
+ * Interface for the beertype list resource.
  * 
  */
-public interface IUserRessource {
-
+public interface IBeertypeListResource {
+	
 	/**
-	 * Gets a User.
-	 * 
-	 * @return Representation of a user
+	 * Gets a list of beertypes.
+	 * @return Representation of the beertype list
 	 */
 	@Get
 	Representation retrieve();
-
+	
 }

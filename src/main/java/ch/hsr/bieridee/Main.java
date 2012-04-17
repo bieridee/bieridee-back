@@ -7,6 +7,9 @@ import org.neo4j.server.configuration.EmbeddedServerConfigurator;
 import org.restlet.Component;
 import org.restlet.data.Protocol;
 
+import ch.hsr.bieridee.config.Config;
+import ch.hsr.bieridee.utils.Testdb;
+
 /**
  * Main Class to start the application.
  * 
@@ -27,25 +30,30 @@ public final class Main {
 	 *            ARGH
 	 */
 	public static void main(String[] args) {
+		// Create new database
+		// TESTING ONLY: deletes and rebuilds db every time
+		GRAPHDB = Testdb.createDB(Config.DB_PATH);
+		Testdb.fillDB(GRAPHDB);
+		//////////////////////////////////////////
+		
 		// Create a new Restlet Component.
 		final Component component = new Component();
-
+		
 		// Add a new HTTP server listening on a local port
 		component.getServers().add(Protocol.HTTP, SERVER_PORT);
-
+		
 		// Create the graph database
 		GRAPHDB = Main.getGraphDb();
 
 		// Attach the dispatcher.
 		component.getDefaultHost().attach(new Dispatcher());
-
+		
 		// Start the component.
 		try {
 			component.start();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	private static void registerShutdownHook(final GraphDatabaseService graphDb) {
