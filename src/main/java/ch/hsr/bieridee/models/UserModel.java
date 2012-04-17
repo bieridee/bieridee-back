@@ -33,7 +33,7 @@ public class UserModel extends AbstractModel {
 	public UserModel(String name) throws WrongNodeTypeException, NotFoundException {
 		this(DBUtil.getUserByName(name));
 	}
-
+	
 	/**
 	 * Creates a UserModel, consisting from a User domain object and the corresponding Node.
 	 * 

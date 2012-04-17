@@ -42,7 +42,7 @@ public final class DBUtil {
 
 		return node;
 	}
-
+	
 	/**
 	 * Gets a list of all beer nodes form the database.
 	 * 
