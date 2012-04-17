@@ -7,6 +7,7 @@ import ch.hsr.bieridee.config.NodeType;
 import ch.hsr.bieridee.domain.Beertype;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.utils.DBUtil;
+import ch.hsr.bieridee.utils.NodeUtil;
 
 /**
  * Model to work and persist the beertype object.
@@ -24,9 +25,12 @@ public class BeertypeModel extends AbstractModel {
 	 * 
 	 * @param beertypeId
 	 *            The id of the desired beertype
-	 * @throws WrongNodeTypeException Thrown when the given id does not reference a beertype node
+	 * @throws WrongNodeTypeException
+	 *             Thrown when the given id does not reference a beertype node
+	 * @throws NotFoundException
+	 *             Thrown when the given id does not reference an existing node
 	 */
-	public BeertypeModel(long beertypeId) throws WrongNodeTypeException {
+	public BeertypeModel(long beertypeId) throws WrongNodeTypeException, NotFoundException {
 		this(DBUtil.getNodeById(beertypeId));
 	}
 
@@ -35,14 +39,17 @@ public class BeertypeModel extends AbstractModel {
 	 * 
 	 * @param node
 	 *            the node containing <code>Beertype</code> properties.
-	 * @throws WrongNodeTypeException Thrown when the given node is not of type beertype
+	 * @throws WrongNodeTypeException
+	 *             Thrown when the given node is not of type beertype
+	 * @throws NotFoundException
+	 *             Thrown if the node does not exist
 	 */
-	public BeertypeModel(Node node) throws WrongNodeTypeException {
-		
-		checkNodeType(node);
-		
+	public BeertypeModel(Node node) throws WrongNodeTypeException, NotFoundException {
+
+		NodeUtil.checkNode(node, NodeType.BEERTYPE);
+
 		this.node = node;
-		
+
 		final long id = this.node.getId();
 		final String name = (String) this.node.getProperty("name");
 		final String description = (String) this.node.getProperty("description");
@@ -69,33 +76,21 @@ public class BeertypeModel extends AbstractModel {
 		return this.domainObject.getId();
 	}
 
-	//SUPPRESS CHECKSTYLE: setter
+	// SUPPRESS CHECKSTYLE: setter
 	public void setId(long id) {
 		this.domainObject.setId(id);
 	}
 
-	//SUPPRESS CHECKSTYLE: setter
+	// SUPPRESS CHECKSTYLE: setter
 	public void setName(String name) {
 		this.domainObject.setName(name);
 		this.node.setProperty("name", name);
 	}
 
-	//SUPPRESS CHECKSTYLE: setter
+	// SUPPRESS CHECKSTYLE: setter
 	public void setDescription(String description) {
 		this.domainObject.setDescription(description);
 		this.node.setProperty("description", description);
 	}
-	
-	private void checkNodeType(Node node) throws WrongNodeTypeException {
-		String type = null;
-		try {
-			type = (String) node.getProperty("type");
-		} catch (NotFoundException e) {
-			throw new WrongNodeTypeException(e);
-		}
-		if(!NodeType.BEERTYPE.equals(type)) {
-			throw new WrongNodeTypeException("Not a beertype node.");
-		}
-	}
-	
+
 }
