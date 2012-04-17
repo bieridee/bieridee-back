@@ -2,6 +2,7 @@ package ch.hsr.bieridee.config;
 
 import ch.hsr.bieridee.domain.Beer;
 import ch.hsr.bieridee.domain.Beertype;
+import ch.hsr.bieridee.domain.Brewery;
 import ch.hsr.bieridee.domain.Tag;
 import ch.hsr.bieridee.domain.User;
 import ch.hsr.bieridee.domain.interfaces.IDomain;
@@ -28,6 +29,11 @@ public final class Res {
 	public static final String BEERTYPE_COLLECTION = "/beertypes";
 	public static final String BEERTYPE_REQ_ATTR = "beertype-id";
 	public static final String BEERTYPE_DOCUMENT = "/beertypes/{" + BEERTYPE_REQ_ATTR + "}";
+	
+	// brewery
+	public static final String BREWERY_COLLECTION = "/breweries";
+	public static final String BREWERY_REQ_ATTR = "brewery-id";
+	public static final String BREWERY_DOCUMENT = "/breweries/{" + BREWERY_REQ_ATTR + "}";
 
 	// tag
 	public static final String TAG_COLLECTION = "/tags";
@@ -58,6 +64,10 @@ public final class Res {
 		if (c == Beertype.class) {
 			final long id = ((Beertype) domainObject).getId();
 			uri = API_URL + BEERTYPE_DOCUMENT.replaceAll(pattern, Long.toString(id));
+		}
+		if (c == Brewery.class) {
+			final long id = ((Brewery) domainObject).getId();
+			uri = API_URL + BREWERY_DOCUMENT.replaceAll(pattern, Long.toString(id));
 		}
 		if (c == Tag.class) {
 			final String name = ((Tag) domainObject).getName();
