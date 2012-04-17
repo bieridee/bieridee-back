@@ -9,14 +9,10 @@ import org.codehaus.jackson.map.SerializerProvider;
 
 import ch.hsr.bieridee.config.Res;
 import ch.hsr.bieridee.domain.Beer;
-import ch.hsr.bieridee.domain.Brewery;
 import ch.hsr.bieridee.domain.Tag;
 
 /**
  * Json Serializer for the beer domain class.
- * 
- * @author jfurrer
- *
  */
 public class BeerSerializer extends JsonSerializer<Beer> {
 
@@ -29,20 +25,20 @@ public class BeerSerializer extends JsonSerializer<Beer> {
 		jsonGenerator.writeStringField("brand", beer.getBrand());
 		jsonGenerator.writeStringField("beertype", Res.getResourceUri(beer.getBeertype()));
 		jsonGenerator.writeStringField("brewery", Res.getResourceUri(beer.getBrewery()));
-		
+
 		jsonGenerator.writeArrayFieldStart("tags");
-		for(Tag tag : beer.getTags()) {
+		for (Tag tag : beer.getTags()) {
 			jsonGenerator.writeStartObject();
 			jsonGenerator.writeStringField("name", tag.getName());
 			jsonGenerator.writeStringField("uri", Res.getResourceUri(tag));
 			jsonGenerator.writeEndObject();
 		}
 		jsonGenerator.writeEndArray();
-		
+
 		jsonGenerator.writeStringField("uri", Res.getResourceUri(beer));
 		jsonGenerator.writeEndObject();
 	}
-	
+
 	@Override
 	public Class<Beer> handledType() {
 		return Beer.class;
