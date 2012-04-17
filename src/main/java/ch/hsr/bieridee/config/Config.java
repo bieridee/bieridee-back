@@ -45,7 +45,7 @@ public final class Config {
 		}
 		
 		synchronized(Config.class) {
-			if(OBJECT_MAPPER != null) {
+			if(OBJECT_MAPPER == null) {
 				OBJECT_MAPPER= new ObjectMapper();
 				OBJECT_MAPPER.configure(SerializationConfig.Feature.INDENT_OUTPUT, true);
 				

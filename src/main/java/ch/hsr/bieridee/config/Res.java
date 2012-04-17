@@ -49,22 +49,23 @@ public final class Res {
 	public static String getResourceUri(IDomain domainObject) {
 		final Class<? extends IDomain> c = domainObject.getClass();
 		String uri = null;
-
+		final String pattern = "\\{.*\\}";
+		
 		if (c == Beer.class) {
 			final long id = ((Beer) domainObject).getId();
-			uri = API_URL + BEER_DOCUMENT.replaceAll("\\{.*\\}", Long.toString(id));
+			uri = API_URL + BEER_DOCUMENT.replaceAll(pattern, Long.toString(id));
 		}
 		if (c == Beertype.class) {
 			final long id = ((Beertype) domainObject).getId();
-			uri = API_URL + BEERTYPE_DOCUMENT.replaceAll("\\{.*\\}", Long.toString(id));
+			uri = API_URL + BEERTYPE_DOCUMENT.replaceAll(pattern, Long.toString(id));
 		}
 		if (c == Tag.class) {
 			final String name = ((Tag) domainObject).getName();
-			uri = API_URL + TAG_DOCUMENT.replaceAll("\\{.*\\}", name);
+			uri = API_URL + TAG_DOCUMENT.replaceAll(pattern, name);
 		}
 		if (c == User.class) {
 			final String name = ((User) domainObject).getUsername();
-			uri = Res.API_URL + USER_DOCUMENT.replaceAll("\\{.*\\}", name);
+			uri = Res.API_URL + USER_DOCUMENT.replaceAll(pattern, name);
 		}
 
 		return uri;
