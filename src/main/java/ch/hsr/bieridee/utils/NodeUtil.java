@@ -39,7 +39,7 @@ public final class NodeUtil {
 			throw new WrongNodeTypeException(e);
 		}
 		if (!expectedType.equals(type)) {
-			throw new WrongNodeTypeException("Not a " + expectedType + " node.");
+			throw new WrongNodeTypeException("Not a " + expectedType + " node. Type is " + type + ".");
 		}
 		return true;
 	}
