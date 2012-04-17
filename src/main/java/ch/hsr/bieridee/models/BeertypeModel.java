@@ -1,8 +1,11 @@
 package ch.hsr.bieridee.models;
 
 import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.NotFoundException;
 
+import ch.hsr.bieridee.config.NodeType;
 import ch.hsr.bieridee.domain.Beertype;
+import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.utils.DBUtil;
 
 /**
@@ -11,56 +14,88 @@ import ch.hsr.bieridee.utils.DBUtil;
  * @author jfurrer
  * 
  */
-public class BeertypeModel {
+public class BeertypeModel extends AbstractModel {
 
-	private Beertype domainBeertype;
-	private Node nodeBeertype;
+	private Beertype domainObject;
+	private Node node;
 
 	/**
 	 * Creates a <code>BeertypeModel</code>.
 	 * 
 	 * @param beertypeId
 	 *            The id of the desired beertype
+	 * @throws WrongNodeTypeException Thrown when the given id does not reference a beertype node
 	 */
-	public BeertypeModel(long beertypeId) {
+	public BeertypeModel(long beertypeId) throws WrongNodeTypeException {
 		this(DBUtil.getNodeById(beertypeId));
 	}
 
 	/**
-	 * @param n
+	 * Creates a <code>BeertypeModel</code>.
+	 * 
+	 * @param node
 	 *            the node containing <code>Beertype</code> properties.
+	 * @throws WrongNodeTypeException Thrown when the given node is not of type beertype
 	 */
-	public BeertypeModel(Node n) {
-		final String name = (String) this.nodeBeertype.getProperty("name");
-		final String description = (String) this.nodeBeertype.getProperty("description");
-		this.domainBeertype = new Beertype(name, description);
-
+	public BeertypeModel(Node node) throws WrongNodeTypeException {
+		
+		checkNodeType(node);
+		
+		this.node = node;
+		
+		final long id = this.node.getId();
+		final String name = (String) this.node.getProperty("name");
+		final String description = (String) this.node.getProperty("description");
+		this.domainObject = new Beertype(id, name, description);
 	}
 
 	public Beertype getDomainObject() {
-		return this.domainBeertype;
+		return this.domainObject;
 	}
 
 	public Node getNode() {
-		return this.nodeBeertype;
+		return this.node;
 	}
 
 	public String getDescription() {
-		return this.domainBeertype.getDescription();
+		return this.domainObject.getDescription();
 	}
 
 	public String getName() {
-		return this.domainBeertype.getName();
+		return this.domainObject.getName();
 	}
 
+	public long getId() {
+		return this.domainObject.getId();
+	}
+
+	//SUPPRESS CHECKSTYLE: setter
+	public void setId(long id) {
+		this.domainObject.setId(id);
+	}
+
+	//SUPPRESS CHECKSTYLE: setter
 	public void setName(String name) {
-		this.domainBeertype.setName(name);
-		this.nodeBeertype.setProperty("name", name);
+		this.domainObject.setName(name);
+		this.node.setProperty("name", name);
 	}
 
+	//SUPPRESS CHECKSTYLE: setter
 	public void setDescription(String description) {
-		this.domainBeertype.setDescription(description);
-		this.nodeBeertype.setProperty("description", description);
+		this.domainObject.setDescription(description);
+		this.node.setProperty("description", description);
 	}
-
+	
+	private void checkNodeType(Node node) throws WrongNodeTypeException {
+		String type = null;
+		try {
+			type = (String) node.getProperty("type");
+		} catch (NotFoundException e) {
+			throw new WrongNodeTypeException(e);
+		}
+		if(!NodeType.BEERTYPE.equals(type)) {
+			throw new WrongNodeTypeException("Not a beertype node.");
+		}
+	}
+	
 }

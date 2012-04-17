@@ -8,6 +8,7 @@ import ch.hsr.bieridee.domain.interfaces.IDomain;
  * @author cfaessle 
  */
 public class Beertype implements IDomain {
+	private long id;
 	private String name;
 	private String description;
 
@@ -19,6 +20,20 @@ public class Beertype implements IDomain {
 	 *            String describing the Beertype.
 	 */
 	public Beertype(String name, String description) {
+		this.name = name;
+		this.description = description;
+	}
+	
+	/**
+	 * Creates a Beetype.
+	 * 
+	 * @param id Id of the Beertype
+	 * @param name Name of the Beertype
+	 * @param description
+	 *            String describing the Beertype.
+	 */
+	public Beertype(long id, String name, String description) {
+		this.id = id;
 		this.name = name;
 		this.description = description;
 	}
@@ -37,6 +52,14 @@ public class Beertype implements IDomain {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public long getId() {
+		return this.id;
+	}
+	
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	@Override

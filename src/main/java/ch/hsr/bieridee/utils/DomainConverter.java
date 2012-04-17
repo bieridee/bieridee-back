@@ -5,9 +5,12 @@ import java.util.List;
 
 import org.neo4j.graphdb.Node;
 
+import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.AbstractModel;
 import ch.hsr.bieridee.models.BeerModel;
 import ch.hsr.bieridee.models.BeertypeModel;
+import ch.hsr.bieridee.models.TagModel;
+import ch.hsr.bieridee.models.UserModel;
 
 /**
  * Utility Class providing methods to do mass wrapping of nodes with Model Objects.
@@ -27,8 +30,9 @@ public final class DomainConverter {
 	 * @param nodes
 	 *            <code>List</code> containing the Node Objects which will be wrapped with a BeerModel.
 	 * @return A list of <code>BeerModel</code> Objects.
+	 * @throws WrongNodeTypeException Thrown if one of the nodes is not of type beer
 	 */
-	public static List<BeerModel> createBeerModelsFromList(List<Node> nodes) {
+	public static List<BeerModel> createBeerModelsFromList(List<Node> nodes) throws WrongNodeTypeException {
 		final List<BeerModel> models = new LinkedList<BeerModel>();
 		for (Node n : nodes) {
 			models.add(new BeerModel(n));
@@ -42,11 +46,44 @@ public final class DomainConverter {
 	 * @param nodes
 	 *            <code>List</code> containing the Node Objects which will be wrapped with a BeertypeModel.
 	 * @return A list of <code>BeertypeModel</code> Objects.
+	 * @throws WrongNodeTypeException Thrown if one of the given nodes is not of type beertype
 	 */
-	public static List<BeertypeModel> createBeertypeModelsFromList(List<Node> nodes) {
+	public static List<BeertypeModel> createBeertypeModelsFromList(List<Node> nodes) throws WrongNodeTypeException {
 		final List<BeertypeModel> models = new LinkedList<BeertypeModel>();
 		for (Node n : nodes) {
 			models.add(new BeertypeModel(n));
+		}
+		return models;
+	}
+	
+	/**
+	 * Converts a list of tag nodes into a list of TagModels.
+	 * 
+	 * @param nodes
+	 *            <code>List</code> containing the Node Objects which will be wrapped with a TagModel.
+	 * @return A list of <code>TagModel</code> Objects.
+	 * @throws WrongNodeTypeException Thrown if one of the given nodes is not of type tag
+	 */
+	public static List<TagModel> createTagModelsFromList(List<Node> nodes) throws WrongNodeTypeException {
+		final List<TagModel> models = new LinkedList<TagModel>();
+		for (Node n : nodes) {
+			models.add(new TagModel(n));
+		}
+		return models;
+	}
+	
+	/**
+	 * Converts a list of user nodes into a list of UserModels.
+	 * 
+	 * @param nodes
+	 *            <code>List</code> containing the Node Objects which will be wrapped with a UserModel.
+	 * @return A list of <code>UserModel</code> Objects.
+	 * @throws WrongNodeTypeException Thrown if one of the given nodes is not of type user
+	 */
+	public static List<UserModel> createUserModelsFromList(List<Node> nodes) throws WrongNodeTypeException {
+		final List<UserModel> models = new LinkedList<UserModel>();
+		for (Node n : nodes) {
+			models.add(new UserModel(n));
 		}
 		return models;
 	}
