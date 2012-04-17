@@ -1,5 +1,6 @@
 package ch.hsr.bieridee.resourcehandler;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.neo4j.server.rest.web.NodeNotFoundException;
 import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
@@ -10,7 +11,7 @@ import ch.hsr.bieridee.config.Res;
 import ch.hsr.bieridee.domain.User;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.UserModel;
-import ch.hsr.bieridee.resourcehandler.interfaces.IUserRessource;
+import ch.hsr.bieridee.resourcehandler.interfaces.IStoreResource;
 
 /**
  * Server resource to provide access to users.
@@ -18,7 +19,7 @@ import ch.hsr.bieridee.resourcehandler.interfaces.IUserRessource;
  * @author cfaessle
  * 
  */
-public class UserResource extends ServerResource implements IUserRessource {
+public class UserResource extends ServerResource implements IStoreResource {
 	
 	private String username;
 	
@@ -38,5 +39,15 @@ public class UserResource extends ServerResource implements IUserRessource {
 		
 		return userJacksonRep;
 		
+	}
+
+	@Override
+	public void store() {
+		throw new NotImplementedException(); // TODO
+	}
+
+	@Override
+	public void remove() {
+		throw new NotImplementedException(); // TODO
 	}
 }

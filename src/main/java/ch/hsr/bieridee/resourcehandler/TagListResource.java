@@ -12,7 +12,7 @@ import ch.hsr.bieridee.config.Config;
 import ch.hsr.bieridee.domain.Tag;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.TagModel;
-import ch.hsr.bieridee.resourcehandler.interfaces.ITagListResource;
+import ch.hsr.bieridee.resourcehandler.interfaces.IReadOnlyResource;
 import ch.hsr.bieridee.utils.DBUtil;
 import ch.hsr.bieridee.utils.DomainConverter;
 
@@ -20,7 +20,7 @@ import ch.hsr.bieridee.utils.DomainConverter;
  * Tag list resource.
  *
  */
-public class TagListResource extends ServerResource implements ITagListResource {
+public class TagListResource extends ServerResource implements IReadOnlyResource {
 
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {

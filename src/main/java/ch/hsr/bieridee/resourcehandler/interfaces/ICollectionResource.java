@@ -3,24 +3,26 @@ package ch.hsr.bieridee.resourcehandler.interfaces;
 import org.neo4j.server.rest.web.NodeNotFoundException;
 import org.restlet.representation.Representation;
 import org.restlet.resource.Get;
+import org.restlet.resource.Post;
 
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 
 /**
- * Interface for the BeerList server resource.
- * 
- * @author cfaessle
- *
+ * Represents a collection resource.
  */
-public interface IBeerListResource {
-
+public interface ICollectionResource {
 	/**
-	 * Retrieve a list of Beer.
-	 * @return A List of beer
+	 * Retrieve a collection.
+	 * @return The collection representation.
 	 * @throws NodeNotFoundException 
 	 * @throws WrongNodeTypeException 
 	 */
 	@Get
 	Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException;
-
+	
+	/**
+	 * Create a collection item.
+	 */
+	@Post
+	void store();
 }

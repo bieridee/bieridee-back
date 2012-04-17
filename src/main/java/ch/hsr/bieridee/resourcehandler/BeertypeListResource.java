@@ -2,6 +2,7 @@ package ch.hsr.bieridee.resourcehandler;
 
 import java.util.List;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.neo4j.graphdb.Node;
 import org.neo4j.server.rest.web.NodeNotFoundException;
 import org.restlet.ext.jackson.JacksonRepresentation;
@@ -12,7 +13,7 @@ import ch.hsr.bieridee.config.Config;
 import ch.hsr.bieridee.domain.Beertype;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.BeertypeModel;
-import ch.hsr.bieridee.resourcehandler.interfaces.IBeertypeListResource;
+import ch.hsr.bieridee.resourcehandler.interfaces.ICollectionResource;
 import ch.hsr.bieridee.utils.DBUtil;
 import ch.hsr.bieridee.utils.DomainConverter;
 
@@ -20,7 +21,7 @@ import ch.hsr.bieridee.utils.DomainConverter;
  * Beertype list resource.
  *
  */
-public class BeertypeListResource extends ServerResource implements IBeertypeListResource {
+public class BeertypeListResource extends ServerResource implements ICollectionResource {
 	
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
@@ -35,8 +36,11 @@ public class BeertypeListResource extends ServerResource implements IBeertypeLis
 		beertypesJacksonRep.setObjectMapper(Config.getObjectMapper());
 		
 		return beertypesJacksonRep;
-		
-		
+	}
+
+	@Override
+	public void store() {
+		throw new NotImplementedException(); // TODO
 	}
 
 }

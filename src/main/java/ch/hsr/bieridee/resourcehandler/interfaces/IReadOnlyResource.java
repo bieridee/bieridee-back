@@ -7,14 +7,12 @@ import org.restlet.resource.Get;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 
 /**
- * Interface for the tag list resource.
- *
+ * Represents a read only resource (might be a document or collection).
  */
-public interface ITagListResource {
-	
+public interface IReadOnlyResource {
 	/**
-	 * Gets a list of tags.
-	 * @return Representation of the tag list
+	 * Retrieve a read only resource.
+	 * @return The resource representation.
 	 * @throws NodeNotFoundException 
 	 * @throws WrongNodeTypeException 
 	 */
