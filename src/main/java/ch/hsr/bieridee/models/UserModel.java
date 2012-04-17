@@ -33,7 +33,23 @@ public class UserModel extends AbstractModel {
 	public UserModel(String name) throws WrongNodeTypeException, NotFoundException {
 		this(DBUtil.getUserByName(name));
 	}
-	
+
+	/**
+	 * Creates a UserModel, consisting from a User domain object and the corresponding Node.
+	 * 
+	 * @param user
+	 *            non persistent User Object
+	 */
+	public UserModel(User user) {
+		this.domainObject = user;
+		this.node = DBUtil.createNode(NodeType.USER);
+		this.setEmail(user.getEmail());
+		this.setUsername(user.getUsername());
+		this.setPassword(user.getPassword());
+		this.setPrename(user.getPrename());
+		this.setSurname(user.getSurname());
+	}
+
 	/**
 	 * Creates a UserModel, consisting from a User domain object and the corresponding Node.
 	 * 
@@ -73,7 +89,7 @@ public class UserModel extends AbstractModel {
 	// SUPPRESS CHECKSTYLE: setter
 	public void setUsername(String username) {
 		this.domainObject.setUsername(username);
-		this.node.setProperty("username", username);
+		DBUtil.setProperty(this.node, "username", username);
 	}
 
 	public String getPrename() {
@@ -83,7 +99,7 @@ public class UserModel extends AbstractModel {
 	// SUPPRESS CHECKSTYLE: setter
 	public void setPrename(String prename) {
 		this.domainObject.setPrename(prename);
-		this.node.setProperty("prename", prename);
+		DBUtil.setProperty(this.node, "prename", prename);
 	}
 
 	public String getSurname() {
@@ -93,7 +109,7 @@ public class UserModel extends AbstractModel {
 	// SUPPRESS CHECKSTYLE: setter
 	public void setSurname(String surname) {
 		this.domainObject.setSurname(surname);
-		this.node.setProperty("surname", surname);
+		DBUtil.setProperty(this.node, "surname", surname);
 	}
 
 	public String getPassword() {
@@ -103,7 +119,7 @@ public class UserModel extends AbstractModel {
 	// SUPPRESS CHECKSTYLE: setter
 	public void setPassword(String password) {
 		this.domainObject.setSurname(password);
-		this.node.setProperty("password", password);
+		DBUtil.setProperty(this.node, "password", password);
 	}
 
 	public String getEmail() {
@@ -113,6 +129,6 @@ public class UserModel extends AbstractModel {
 	// SUPPRESS CHECKSTYLE: setter
 	public void setEmail(String email) {
 		this.domainObject.setEmail(email);
-		this.node.setProperty("email", email);
+		DBUtil.setProperty(this.node, "email", email);
 	}
 }

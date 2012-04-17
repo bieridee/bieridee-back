@@ -7,6 +7,8 @@ import org.neo4j.graphdb.Transaction;
 import org.neo4j.kernel.EmbeddedGraphDatabase;
 
 import ch.hsr.bieridee.Main;
+import ch.hsr.bieridee.config.NodeType;
+import ch.hsr.bieridee.config.RelType;
 
 /**
  * Utility to work with the neo4J graph-db.
@@ -16,7 +18,7 @@ import ch.hsr.bieridee.Main;
  */
 public final class DBUtil {
 
-	private static EmbeddedGraphDatabase DB;
+	private static EmbeddedGraphDatabase DB = Main.getGraphDb();
 
 	private DBUtil() {
 		// do not instanciate
@@ -30,7 +32,6 @@ public final class DBUtil {
 	 * @return The node with the given id
 	 */
 	public static Node getNodeById(long id) {
-		DB = Main.getGraphDb();
 		final Transaction tx = DB.beginTx();
 		Node node = null;
 		try {
@@ -42,7 +43,7 @@ public final class DBUtil {
 
 		return node;
 	}
-	
+
 	/**
 	 * Gets a list of all beer nodes form the database.
 	 * 
@@ -105,6 +106,77 @@ public final class DBUtil {
 	 */
 	public static Node getUserByName(String name) {
 		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_USER_BY_NAME, "User", name);
+	}
+
+	private static Node getUserIndex() {
+		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_USER_INDEX_NODE, "USER_INDEX");
+	}
+
+	/**
+	 * @param type
+	 *            String with type
+	 * @return index Node
+	 */
+	public static Node getIndex(String type) {
+		Node indexNode = null;
+		if (type.equals(NodeType.USER)) {
+			indexNode = getUserIndex();
+		}
+		return indexNode;
+	}
+
+	private static Node createUserNode(Node blankNode) {
+		final Node indexNode = getUserIndex();
+		Transaction transaction = DB.beginTx();
+		try {
+			blankNode.setProperty("type", NodeType.USER);
+			indexNode.createRelationshipTo(blankNode, RelType.INDEXES);
+			transaction.success();
+		} finally {
+			transaction.finish();
+		}
+		return blankNode;
+
+	}
+
+	/**
+	 * @param type
+	 *            String with type
+	 * @return created Node in the Database
+	 */
+	public static Node createNode(String type) {
+		final Transaction transaction = DB.beginTx();
+		Node newNode = null;
+		try {
+			newNode = Main.getGraphDb().createNode();
+			transaction.success();
+		} finally {
+			transaction.finish();
+		}
+		if (type.equals(NodeType.USER)) {
+			createUserNode(newNode);
+		}
+		return newNode;
+
+	}
+	
+
+	/**
+	 * @param node
+	 *            Node on which the property is set.
+	 * @param key
+	 *            Key of the Property
+	 * @param value
+	 *            Value of the Property,
+	 */
+	public static void setProperty(Node node, String key, String value) {
+		final Transaction transaction = DB.beginTx();
+		try {
+			node.setProperty(key, value);
+			transaction.success();
+		} finally {
+			transaction.finish();
+		}
 	}
 
 }

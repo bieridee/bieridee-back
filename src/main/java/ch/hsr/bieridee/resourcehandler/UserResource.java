@@ -2,11 +2,12 @@ package ch.hsr.bieridee.resourcehandler;
 
 import java.io.IOException;
 
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.NotFoundException;
 import org.neo4j.server.rest.web.NodeNotFoundException;
+import org.restlet.data.Status;
 import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.ServerResource;
@@ -26,9 +27,9 @@ import ch.hsr.bieridee.utils.DBUtil;
  * 
  */
 public class UserResource extends ServerResource implements IUserRessource {
-	
+
 	private String username;
-	
+
 	@Override
 	public void doInit() {
 		this.username = (String) getRequestAttributes().get(Res.USER_REQ_ATTR);
@@ -37,23 +38,23 @@ public class UserResource extends ServerResource implements IUserRessource {
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
 		final UserModel userModel = new UserModel(this.username);
-		
+
 		final User user = userModel.getDomainObject();
-		
+
 		final JacksonRepresentation<User> userJacksonRep = new JacksonRepresentation<User>(user);
 		userJacksonRep.setObjectMapper(Config.getObjectMapper());
-		
+
 		return userJacksonRep;
-		
+
 	}
-	
+
 	@Override
 	public void store(Representation user) {
 		UserModel userModel = null;
 		JSONObject userJson = null;
 		try {
 			userJson = new JSONObject(user.getText());
-			 userModel = new UserModel(this.username);
+			userModel = new UserModel(this.username);
 		} catch (NotFoundException e) {
 			this.createNewUser(userJson);
 		} catch (WrongNodeTypeException e) {
@@ -63,8 +64,8 @@ public class UserResource extends ServerResource implements IUserRessource {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		// update user 
+
+		// update user
 		try {
 			userJson = new JSONObject(user.getText());
 			userModel.setUsername(userJson.getString("username"));
@@ -77,17 +78,16 @@ public class UserResource extends ServerResource implements IUserRessource {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
+
 	}
-	
+
 	private void createNewUser(JSONObject user) {
 		String username = null;
 		String prename = null;
 		String surname = null;
 		String email = null;
 		String password = null;
-		
+
 		try {
 			username = user.getString("username");
 			prename = user.getString("prename");
@@ -97,9 +97,9 @@ public class UserResource extends ServerResource implements IUserRessource {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		
-		final User userObject = new User(username, password,prename, surname, email);
-		
-		
+
+		final User userObject = new User(username, password, prename, surname, email);
+		new UserModel(userObject);
+		setStatus(Status.SUCCESS_CREATED);
 	}
 }
