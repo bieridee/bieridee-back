@@ -306,32 +306,38 @@ public final class Testdb {
 
 			/* CREATE BREWRIES */
 			
-			final Node calandaAg = createBrewery(db, "Calanda", BrewerySize.NATIONAL);
-			final Node feldschloesschenAg = createBrewery(db, "Felschlösschen", BrewerySize.NATIONAL);
-			final Node falkenAg = createBrewery(db, "Falken Brauerei", BrewerySize.REGIONAL);
-			final Node waedibraeuAg = createBrewery(db, "Wädibräu", BrewerySize.REGIONAL);
+			
+			/*final Node guinness = createBeerNode(db, "Guinness", "Guinness Draught", "");
+			final Node kilkenny = createBeerNode(db, "Kilkenny", "Kilkenny", "");
+			final Node quoellfrisch = createBeerNode(db, "Appenzeller Bier", "Quöllfrisch blond", "");
+			final Node vollmond = createBeerNode(db, "Appenzeller Bier", "Vollmond Bier blond", "");
+			final Node holzfass = createBeerNode(db, "Appenzeller Bier", "Holzfass Bier", "");*/
+			
+			final Node calandaAg = createBrewery(db, "Calanda", BrewerySize.NATIONAL, "Calanda ist eine schweizer Traditions-Brauerei. Gegründet wurde sie im Jahre...", "");
+			final Node feldschloesschenAg = createBrewery(db, "Felschlösschen", BrewerySize.NATIONAL, "Feldschlösschen ist eine gesichtslose und gänzlich uninspirierte Brauerei. Sie wurde im Jahre ...", "");
+			final Node falkenAg = createBrewery(db, "Falken Brauerei", BrewerySize.REGIONAL, "Falke, der. Ein majestätischer Jagdvogel, besonders beliebt bei Grafen und Baronen.", "");
+			final Node waedibraeuAg = createBrewery(db, "Wädibräu", BrewerySize.REGIONAL, "Eine kleine aber feine regional Brauerei. Wädibräu stellt Bier in rauen Mengen her und hat noch lange nicht genug.", "");
+			final Node guinnessBrewery = createBrewery(db, "Guinness Brewery", BrewerySize.NATIONAL, "Wurde von Arthur Guinness im Jahr 1759 in Dublin gegründet.", "");
+			final Node stFrancisAbbeyBrewery = createBrewery(db, "St. Francis Abbey Brewery", BrewerySize.NATIONAL, "Die älteste irische Brauerei, welche unter Anderem das Kilkenny Bier braut.", "");
+			final Node locherAg = createBrewery(db, "Brauerei Locher AG", BrewerySize.NATIONAL, "Die Brauerei Locher ist ein traditionsreicher Familienbetrieb in Appenzell. Seit Mitte der 1990er Jahre entwickelte sie sich von einer nur lokal aktiven zu einer in der ganzen Schweiz (und darüber hinaus) bekannten Brauerei für innovative Spezialbiere.", "");
 
 			breweryIndex.createRelationshipTo(calandaAg, RelType.INDEXES);
 			breweryIndex.createRelationshipTo(feldschloesschenAg, RelType.INDEXES);
 			breweryIndex.createRelationshipTo(falkenAg, RelType.INDEXES);
 			breweryIndex.createRelationshipTo(waedibraeuAg, RelType.INDEXES);
+			breweryIndex.createRelationshipTo(guinnessBrewery, RelType.INDEXES);
+			breweryIndex.createRelationshipTo(stFrancisAbbeyBrewery, RelType.INDEXES);
+			breweryIndex.createRelationshipTo(locherAg, RelType.INDEXES);
 
 			calanda.createRelationshipTo(calandaAg, RelType.BREWN_BY);
 			falken.createRelationshipTo(falkenAg, RelType.BREWN_BY);
 			feldschloesschen.createRelationshipTo(feldschloesschenAg, RelType.BREWN_BY);
 			waedibraeu.createRelationshipTo(waedibraeuAg, RelType.BREWN_BY);
-
-			/* CREATE BREWERYPROFILES */
-
-			final Node calandaProfile = createBreweryProfile(db, "", "Calanda ist eine schweizer Traditions-Brauerei. Gegründet wurde sie im Jahre...");
-			final Node feldschloesschenProfile = createBreweryProfile(db, "", "Feldschlösschen ist eine gesichtslose und gänzlich uninspirierte Brauerei. Sie wurde im Jahre ...");
-			final Node falkenProfile = createBreweryProfile(db, "", "Falke, der. Ein majestätischer Jagdvogel, besonders beliebt bei Grafen und Baronen.");
-			final Node waedibraeuProfile = createBreweryProfile(db, "", "Eine kleine aber feine regional Brauerei. Wädibräu stellt Bier in rauen Mengen her und hat noch lange nicht genug.");
-
-			calandaAg.createRelationshipTo(calandaProfile, RelType.HAS_PROFILE);
-			feldschloesschenAg.createRelationshipTo(feldschloesschenProfile, RelType.HAS_PROFILE);
-			falkenAg.createRelationshipTo(falkenProfile, RelType.HAS_PROFILE);
-			waedibraeuAg.createRelationshipTo(waedibraeuProfile, RelType.HAS_PROFILE);
+			guinness.createRelationshipTo(guinnessBrewery, RelType.BREWN_BY);
+			kilkenny.createRelationshipTo(stFrancisAbbeyBrewery, RelType.BREWN_BY);
+			quoellfrisch.createRelationshipTo(locherAg, RelType.BREWN_BY);
+			vollmond.createRelationshipTo(locherAg, RelType.BREWN_BY);
+			holzfass.createRelationshipTo(locherAg, RelType.BREWN_BY);
 
 			transaction.success();
 		} finally {
@@ -428,20 +434,14 @@ public final class Testdb {
 		return rating;
 	}
 
-	private static Node createBrewery(EmbeddedGraphDatabase db, String name, String size) {
+	private static Node createBrewery(EmbeddedGraphDatabase db, String name, String size, String description, String picture) {
 		final Node brewery = db.createNode();
 		brewery.setProperty("type", "brewery");
 		brewery.setProperty("name", name);
 		brewery.setProperty("size", size);
+		brewery.setProperty("description", description);
+		brewery.setProperty("picture", picture);
 		return brewery;
-	}
-
-	private static Node createBreweryProfile(EmbeddedGraphDatabase db, String image, String description) {
-		final Node profile = db.createNode();
-		profile.setProperty("type", "breweryprofile");
-		profile.setProperty("image", image);
-		profile.setProperty("description", description);
-		return profile;
 	}
 
 	private static String getSHA1(String pw) {
