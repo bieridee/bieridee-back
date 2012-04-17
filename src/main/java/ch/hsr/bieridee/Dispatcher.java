@@ -13,6 +13,7 @@ import ch.hsr.bieridee.resourcehandler.TagListResource;
 import ch.hsr.bieridee.resourcehandler.TagResource;
 import ch.hsr.bieridee.resourcehandler.UserListResource;
 import ch.hsr.bieridee.resourcehandler.UserResource;
+import ch.hsr.bieridee.services.BeerAppStatusService;
 
 /**
  * Dispatcher for the RESTlet resources.
@@ -26,10 +27,10 @@ public class Dispatcher extends Application {
 	 * Creates the dispatcher and thus the application.
 	 */
 	public Dispatcher() {
-		setAuthor("dbrgen, cfaessle, jfurrer");
-		setDescription("Social beer-app. REST API");
-		setName("BierIdee");
-
+		this.setAuthor("dbrgen, cfaessle, jfurrer");
+		this.setDescription("Social beer-app. REST API");
+		this.setName("BierIdee");
+		this.setStatusService(new BeerAppStatusService());
 	}
 
 	/**

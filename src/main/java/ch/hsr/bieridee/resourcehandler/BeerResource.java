@@ -1,8 +1,7 @@
 package ch.hsr.bieridee.resourcehandler;
 
 
-import org.apache.log4j.Logger;
-import org.restlet.data.Status;
+import org.neo4j.server.rest.web.NodeNotFoundException;
 import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.ServerResource;
@@ -22,7 +21,6 @@ import ch.hsr.bieridee.resourcehandler.interfaces.IBeerResource;
  */
 public class BeerResource extends ServerResource implements IBeerResource {
 	
-	private static final Logger LOG = Logger.getLogger(BeerResource.class);
 	private long beerId;
 	
 	@Override
@@ -31,16 +29,9 @@ public class BeerResource extends ServerResource implements IBeerResource {
 	}
 	
 	@Override
-	public Representation retrieve() {
+	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
 		
-		BeerModel bm = null;
-		try {
-			bm = new BeerModel(this.beerId);
-		} catch (WrongNodeTypeException e) {
-			LOG.warn(e.getMessage(), e);
-			setStatus(Status.CLIENT_ERROR_NOT_FOUND, e, e.getMessage());
-			return null;
-		}
+		final BeerModel bm = new BeerModel(this.beerId);
 		
 		final Beer b = bm.getDomainObject();
 		
