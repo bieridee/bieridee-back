@@ -13,6 +13,8 @@ public final class NodeType {
 	
 	public static final String BEERTYPE = "beertype";
 	
+	public static final String BREWERY = "brewery";
+	
 	public static final String TAG = "tag";
 	
 	public static final String USER = "user";

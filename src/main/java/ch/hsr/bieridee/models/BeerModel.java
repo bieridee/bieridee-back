@@ -12,15 +12,13 @@ import ch.hsr.bieridee.config.NodeType;
 import ch.hsr.bieridee.config.RelType;
 import ch.hsr.bieridee.domain.Beer;
 import ch.hsr.bieridee.domain.Beertype;
+import ch.hsr.bieridee.domain.Brewery;
 import ch.hsr.bieridee.domain.Tag;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.utils.DBUtil;
 
 /**
  * Model to work and persist the beer object.
- * 
- * @author jfurrer, cfaessle
- * 
  */
 public class BeerModel extends AbstractModel {
 
@@ -37,11 +35,12 @@ public class BeerModel extends AbstractModel {
 	public BeerModel(long beerId) throws WrongNodeTypeException {
 		this(DBUtil.getNodeById(beerId));
 	}
-	
+
 	/**
 	 * @param node
-	 * Node containing Properties of the Beer.
-	 * @throws WrongNodeTypeException Thrown when the given node is not a beer node
+	 *            Node containing Properties of the Beer.
+	 * @throws WrongNodeTypeException
+	 *             Thrown when the given node is not a beer node
 	 */
 	public BeerModel(Node node) throws WrongNodeTypeException {
 		
@@ -62,12 +61,15 @@ public class BeerModel extends AbstractModel {
 
 		final Relationship beertypeRel = this.node.getSingleRelationship(RelType.HAS_BEERTYPE, Direction.OUTGOING);
 		final Node beertypeNode = beertypeRel.getEndNode();
-		
 		final BeertypeModel beertypeModel = new BeertypeModel(beertypeNode);
-		
 		final Beertype type = beertypeModel.getDomainObject();
+		
+		final Relationship breweryRel = this.node.getSingleRelationship(RelType.BREWN_BY, Direction.OUTGOING);
+		final Node breweryNode = breweryRel.getEndNode();
+		final BreweryModel breweryModel = new BreweryModel(breweryNode);
+		final Brewery brewery = breweryModel.getDomainObject();
 
-		this.domainObject = new Beer(id, name, brand, image, tags, type);
+		this.domainObject = new Beer(id, name, brand, image, tags, type, brewery);
 	}
 
 	public Node getNode() {
@@ -89,13 +91,17 @@ public class BeerModel extends AbstractModel {
 	public String getBrand() {
 		return this.domainObject.getBrand();
 	}
+	
+	public Brewery getBrewery() {
+		return this.domainObject.getBrewery();
+	}
 
 	public String getName() {
 		return this.domainObject.getName();
 	}
 
 	public String getImage() {
-		return this.domainObject.getImage();
+		return this.domainObject.getPicture();
 	}
 	
 	public List<Tag> getTags() {
@@ -114,17 +120,20 @@ public class BeerModel extends AbstractModel {
 	}
 	
 	//SUPPRESS CHECKSTYLE: setter
+	public void setBrewery(Brewery brewery) {
+		//TODO
+	}
+	
+	//SUPPRESS CHECKSTYLE: setter
 	public void setName(String name) {
 		this.domainObject.setName(name);
 		this.node.setProperty("name", name);
-
 	}
 	
 	//SUPPRESS CHECKSTYLE: setter
 	public void setImage(String path) {
-		this.domainObject.setImage(path);
+		this.domainObject.setPicture(path);
 		this.node.setProperty("image", path);
-
 	}
 	
 	//SUPPRESS CHECKSTYLE: setter

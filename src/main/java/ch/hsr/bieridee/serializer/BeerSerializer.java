@@ -9,6 +9,7 @@ import org.codehaus.jackson.map.SerializerProvider;
 
 import ch.hsr.bieridee.config.Res;
 import ch.hsr.bieridee.domain.Beer;
+import ch.hsr.bieridee.domain.Brewery;
 import ch.hsr.bieridee.domain.Tag;
 
 /**
@@ -24,9 +25,10 @@ public class BeerSerializer extends JsonSerializer<Beer> {
 		jsonGenerator.writeStartObject();
 		jsonGenerator.writeNumberField("id", beer.getId());
 		jsonGenerator.writeStringField("name", beer.getName());
-		jsonGenerator.writeStringField("image", beer.getImage());
+		jsonGenerator.writeStringField("image", beer.getPicture());
 		jsonGenerator.writeStringField("brand", beer.getBrand());
 		jsonGenerator.writeStringField("beertype", Res.getResourceUri(beer.getBeertype()));
+		jsonGenerator.writeStringField("brewery", Res.getResourceUri(beer.getBrewery()));
 		
 		jsonGenerator.writeArrayFieldStart("tags");
 		for(Tag tag : beer.getTags()) {

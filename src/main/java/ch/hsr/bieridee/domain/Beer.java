@@ -6,9 +6,6 @@ import ch.hsr.bieridee.domain.interfaces.IDomain;
 
 /**
  * Class representing a Beer.
- * 
- * @author cfaessle
- * 
  */
 public class Beer implements IDomain {
 	private long id;
@@ -17,6 +14,7 @@ public class Beer implements IDomain {
 	private String image;
 	private List<Tag> tags;
 	private Beertype beertype;
+	private Brewery brewery;
 
 	/**
 	 * Creates a Beer.
@@ -30,14 +28,18 @@ public class Beer implements IDomain {
 	 * @param tags
 	 *            <code>List</code> of Tags associated with this <code>Beer</code>.
 	 * @param type
-	 *            description of the beertype.
+	 *            Beertype object.
+	 * @param brewery
+	 *            Brewery object.
+	 * 
 	 */
-	public Beer(String name, String brand, String picture, List<Tag> tags, Beertype type) {
-		this.setTags(tags);
-		this.setBrand(brand);
-		this.setImage(picture);
-		this.setBeertype(type);
+	public Beer(String name, String brand, String picture, List<Tag> tags, Beertype type, Brewery brewery) {
 		this.setName(name);
+		this.setBrand(brand);
+		this.setPicture(picture);
+		this.setTags(tags);
+		this.setBeertype(type);
+		this.setBrewery(brewery);
 	}
 
 	/**
@@ -45,7 +47,6 @@ public class Beer implements IDomain {
 	 * 
 	 * @param id
 	 *            Id of the Beer.
-	 * 
 	 * @param name
 	 *            Name of the Beer.
 	 * @param brand
@@ -56,19 +57,17 @@ public class Beer implements IDomain {
 	 *            <code>List</code> of Tags associated with this <code>Beer</code>.
 	 * @param type
 	 *            description of the beertype.
+	 * @param brewery
+	 *            Brewery object.
 	 */
-	public Beer(long id, String name, String brand, String picture, List<Tag> tags, Beertype type) {
+	public Beer(long id, String name, String brand, String picture, List<Tag> tags, Beertype type, Brewery brewery) {
+		this(name, brand, picture, tags, type, brewery);
 		this.setId(id);
-		this.setTags(tags);
-		this.setBrand(brand);
-		this.setImage(picture);
-		this.setBeertype(type);
-		this.setName(name);
 	}
 
 	@Override
 	public String toString() {
-		return "Beername: " + getName() + ",Brand: " + getBrand() + ",Picture: " + getImage() + ",Tags: " + getTags().toString() + ",Type: " + getBeertype().getDescription();
+		return "Beername: " + getName() + ",Brand: " + getBrand() + ",Picture: " + getPicture() + ",Tags: " + getTags().toString() + ",Type: " + getBeertype().getDescription();
 
 	}
 
@@ -96,11 +95,11 @@ public class Beer implements IDomain {
 		this.brand = brand;
 	}
 
-	public String getImage() {
+	public String getPicture() {
 		return this.image;
 	}
 
-	public void setImage(String image) {
+	public void setPicture(String image) {
 		this.image = image;
 	}
 
@@ -118,5 +117,13 @@ public class Beer implements IDomain {
 
 	public void setBeertype(Beertype beertype) {
 		this.beertype = beertype;
+	}
+	
+	public Brewery getBrewery() {
+		return this.brewery;
+	}
+
+	public void setBrewery(Brewery brewery) {
+		this.brewery = brewery;
 	}
 }
