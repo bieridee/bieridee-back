@@ -1,6 +1,6 @@
 package ch.hsr.bieridee.resourcehandler;
 
-import org.restlet.data.Status;
+import org.neo4j.server.rest.web.NodeNotFoundException;
 import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.ServerResource;
@@ -26,14 +26,8 @@ public class TagResource extends ServerResource implements ITagResource {
 	}
 	
 	@Override
-	public Representation retrieve() {
-		TagModel tm = null;
-		try {
-			tm = new TagModel(this.tagName);
-		} catch (WrongNodeTypeException e) {
-			setStatus(Status.CLIENT_ERROR_NOT_FOUND, e, e.getMessage());
-			return null;
-		}
+	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
+		final TagModel tm = new TagModel(this.tagName);
 		
 		final Tag tag = tm.getDomainObject();
 		final JacksonRepresentation<Tag> tagJacksonRep = new JacksonRepresentation<Tag>(tag);

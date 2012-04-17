@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.neo4j.graphdb.Node;
+import org.neo4j.server.rest.web.NodeNotFoundException;
 
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.AbstractModel;
@@ -30,9 +31,10 @@ public final class DomainConverter {
 	 * @param nodes
 	 *            <code>List</code> containing the Node Objects which will be wrapped with a BeerModel.
 	 * @return A list of <code>BeerModel</code> Objects.
-	 * @throws WrongNodeTypeException Thrown if one of the nodes is not of type beer
+	 * @throws WrongNodeTypeException Thrown if one of the given nodes is not of type beer
+	 * @throws NodeNotFoundException Thrown if one of the given nodes is not existing
 	 */
-	public static List<BeerModel> createBeerModelsFromList(List<Node> nodes) throws WrongNodeTypeException {
+	public static List<BeerModel> createBeerModelsFromList(List<Node> nodes) throws WrongNodeTypeException, NodeNotFoundException {
 		final List<BeerModel> models = new LinkedList<BeerModel>();
 		for (Node n : nodes) {
 			models.add(new BeerModel(n));
@@ -47,8 +49,9 @@ public final class DomainConverter {
 	 *            <code>List</code> containing the Node Objects which will be wrapped with a BeertypeModel.
 	 * @return A list of <code>BeertypeModel</code> Objects.
 	 * @throws WrongNodeTypeException Thrown if one of the given nodes is not of type beertype
+	 * @throws NodeNotFoundException Thrown if one of the given nodes is not existing
 	 */
-	public static List<BeertypeModel> createBeertypeModelsFromList(List<Node> nodes) throws WrongNodeTypeException {
+	public static List<BeertypeModel> createBeertypeModelsFromList(List<Node> nodes) throws WrongNodeTypeException, NodeNotFoundException {
 		final List<BeertypeModel> models = new LinkedList<BeertypeModel>();
 		for (Node n : nodes) {
 			models.add(new BeertypeModel(n));
@@ -63,8 +66,9 @@ public final class DomainConverter {
 	 *            <code>List</code> containing the Node Objects which will be wrapped with a TagModel.
 	 * @return A list of <code>TagModel</code> Objects.
 	 * @throws WrongNodeTypeException Thrown if one of the given nodes is not of type tag
+	 * @throws NodeNotFoundException Thrown if one of the given nodes does not exist
 	 */
-	public static List<TagModel> createTagModelsFromList(List<Node> nodes) throws WrongNodeTypeException {
+	public static List<TagModel> createTagModelsFromList(List<Node> nodes) throws WrongNodeTypeException, NodeNotFoundException {
 		final List<TagModel> models = new LinkedList<TagModel>();
 		for (Node n : nodes) {
 			models.add(new TagModel(n));
@@ -79,8 +83,9 @@ public final class DomainConverter {
 	 *            <code>List</code> containing the Node Objects which will be wrapped with a UserModel.
 	 * @return A list of <code>UserModel</code> Objects.
 	 * @throws WrongNodeTypeException Thrown if one of the given nodes is not of type user
+	 * @throws NodeNotFoundException Thrown if one of the given nodes does not exist/is null
 	 */
-	public static List<UserModel> createUserModelsFromList(List<Node> nodes) throws WrongNodeTypeException {
+	public static List<UserModel> createUserModelsFromList(List<Node> nodes) throws WrongNodeTypeException, NodeNotFoundException {
 		final List<UserModel> models = new LinkedList<UserModel>();
 		for (Node n : nodes) {
 			models.add(new UserModel(n));

@@ -3,7 +3,7 @@ package ch.hsr.bieridee.resourcehandler;
 import java.util.List;
 
 import org.neo4j.graphdb.Node;
-import org.restlet.data.Status;
+import org.neo4j.server.rest.web.NodeNotFoundException;
 import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.ServerResource;
@@ -24,16 +24,11 @@ import ch.hsr.bieridee.utils.DomainConverter;
 public class BeerListResource extends ServerResource implements IBeerListResource {
 
 	@Override
-	public Representation retrieve() {
+	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
 
 		final List<Node> beerNodes = DBUtil.getBeerNodeList();
-		List<BeerModel> beerModels = null;
-		try {
-			beerModels = DomainConverter.createBeerModelsFromList(beerNodes);
-		} catch (WrongNodeTypeException e) {
-			setStatus(Status.CLIENT_ERROR_NOT_FOUND, e, e.getMessage());
-			return null;
-		}
+		final List<BeerModel> beerModels = DomainConverter.createBeerModelsFromList(beerNodes);
+		
 		final List<Beer> beerList = DomainConverter.extractDomainObjectFromModel(beerModels);
 		final Beer[] beers = beerList.toArray(new Beer[beerList.size()]);
 		

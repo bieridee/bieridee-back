@@ -1,6 +1,6 @@
 package ch.hsr.bieridee.resourcehandler;
 
-import org.restlet.data.Status;
+import org.neo4j.server.rest.web.NodeNotFoundException;
 import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.ServerResource;
@@ -28,14 +28,8 @@ public class UserResource extends ServerResource implements IUserRessource {
 	}
 
 	@Override
-	public Representation retrieve() {
-		UserModel userModel = null;
-		
-		try {
-			userModel = new UserModel(this.username);
-		} catch (WrongNodeTypeException e) {
-			setStatus(Status.CLIENT_ERROR_NOT_FOUND, e, e.getMessage());
-		}
+	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
+		final UserModel userModel = new UserModel(this.username);
 		
 		final User user = userModel.getDomainObject();
 		

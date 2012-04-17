@@ -3,7 +3,7 @@ package ch.hsr.bieridee.resourcehandler;
 import java.util.List;
 
 import org.neo4j.graphdb.Node;
-import org.restlet.data.Status;
+import org.neo4j.server.rest.web.NodeNotFoundException;
 import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.ServerResource;
@@ -23,17 +23,10 @@ import ch.hsr.bieridee.utils.DomainConverter;
 public class TagListResource extends ServerResource implements ITagListResource {
 
 	@Override
-	public Representation retrieve() {
+	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
 		final List<Node> tagNodes = DBUtil.getTagNodeList();
-		List<TagModel> tagModels = null;
-		
-		try {
-			tagModels = DomainConverter.createTagModelsFromList(tagNodes);
-		} catch (WrongNodeTypeException e) {
-			setStatus(Status.CLIENT_ERROR_NOT_FOUND, e, e.getMessage());
-			return null;
-		}
-		
+		final List<TagModel> tagModels = DomainConverter.createTagModelsFromList(tagNodes);
+				
 		final List<Tag> tagList = DomainConverter.extractDomainObjectFromModel(tagModels);
 		final Tag[] tags = tagList.toArray(new Tag[tagList.size()]);
 		final JacksonRepresentation<Tag[]> tagsJacksonRep = new JacksonRepresentation<Tag[]>(tags);

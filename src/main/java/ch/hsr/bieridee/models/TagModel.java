@@ -7,6 +7,7 @@ import ch.hsr.bieridee.config.NodeType;
 import ch.hsr.bieridee.domain.Tag;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.utils.DBUtil;
+import ch.hsr.bieridee.utils.NodeUtil;
 
 /**
  * Model to work with and persist the tag obejct.
@@ -20,9 +21,10 @@ public class TagModel extends AbstractModel {
 	/**
 	 * Creates a TagModel form a node id.
 	 * @param name The name of the desired tag
-	 * @throws WrongNodeTypeException Thrown if the node with the given id is not of type tag
+	 * @throws WrongNodeTypeException Thrown if the node with the given name is not of type tag
+	 * @throws NotFoundException Thrown if the node with the given name is not existing
 	 */
-	public TagModel(String name) throws WrongNodeTypeException {
+	public TagModel(String name) throws WrongNodeTypeException, NotFoundException {
 		this(DBUtil.getTagByName(name));
 	}
 	
@@ -30,9 +32,10 @@ public class TagModel extends AbstractModel {
 	 * Creates a TagModel from a tag node.
 	 * @param tagNode The tag node
 	 * @throws WrongNodeTypeException Thrown if the given node is not of type tag
+	 * @throws NotFoundException Thrown if the given node has not been found
 	 */
-	public TagModel(Node tagNode) throws WrongNodeTypeException {
-		checkNodeType(tagNode);
+	public TagModel(Node tagNode) throws WrongNodeTypeException, NotFoundException {
+		NodeUtil.checkNode(tagNode, NodeType.TAG);
 		
 		this.node = tagNode;
 		final String name = (String) this.node.getProperty("name");
@@ -57,17 +60,5 @@ public class TagModel extends AbstractModel {
 	public Node getNode() {
 		return this.node;
 	}
-	
-	private void checkNodeType(Node node) throws WrongNodeTypeException {
-		String type = null;
-		try {
-			type = (String) node.getProperty("type");
-		} catch (NotFoundException e) {
-			throw new WrongNodeTypeException(e);
-		}
-		if(!NodeType.TAG.equals(type)) {
-			throw new WrongNodeTypeException("Not a tag node.");
-		}
-	}
-	
+
 }
