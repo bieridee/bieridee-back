@@ -1,8 +1,7 @@
 package ch.hsr.bieridee.resourcehandler.interfaces;
 
+import org.restlet.representation.Representation;
 import org.restlet.resource.Get;
-
-import ch.hsr.bieridee.domain.Beer;
 
 /**
  * Interface for the beer server resource.
@@ -18,6 +17,6 @@ public interface IBeerResource {
 	 * @return A Beer
 	 */
 	@Get
-	Beer retrieve();
+	Representation retrieve();
 	
 }

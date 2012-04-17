@@ -5,12 +5,15 @@ import java.util.List;
 
 import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.NotFoundException;
 import org.neo4j.graphdb.Relationship;
 
+import ch.hsr.bieridee.config.NodeType;
 import ch.hsr.bieridee.config.RelType;
 import ch.hsr.bieridee.domain.Beer;
 import ch.hsr.bieridee.domain.Beertype;
 import ch.hsr.bieridee.domain.Tag;
+import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.utils.DBUtil;
 
 /**
@@ -29,20 +32,26 @@ public class BeerModel extends AbstractModel {
 	 * 
 	 * @param beerId
 	 *            The node id of the desired beer
+	 * @throws WrongNodeTypeException Thrown when the given id does not reference a beer node
 	 */
-	public BeerModel(long beerId) {
+	public BeerModel(long beerId) throws WrongNodeTypeException {
 		this(DBUtil.getNodeById(beerId));
 	}
 	
 	/**
 	 * @param node
 	 * Node containing Properties of the Beer.
+	 * @throws WrongNodeTypeException Thrown when the given node is not a beer node
 	 */
-	public BeerModel(Node node) {
+	public BeerModel(Node node) throws WrongNodeTypeException {
+		
+		checkNodeType(node);
+		
 		this.node = node;
+		final long id = node.getId();
 		final String name = (String) this.node.getProperty("name");
 		final String brand = (String) this.node.getProperty("brand");
-		final String picture = (String) this.node.getProperty("image");
+		final String image = (String) this.node.getProperty("image");
 		final List<Tag> tags = new LinkedList<Tag>();
 
 		for (Relationship r : this.node.getRelationships(RelType.HAS_TAG)) {
@@ -53,12 +62,12 @@ public class BeerModel extends AbstractModel {
 
 		final Relationship beertypeRel = this.node.getSingleRelationship(RelType.HAS_BEERTYPE, Direction.OUTGOING);
 		final Node beertypeNode = beertypeRel.getEndNode();
+		
+		final BeertypeModel beertypeModel = new BeertypeModel(beertypeNode);
+		
+		final Beertype type = beertypeModel.getDomainObject();
 
-		final String beertypeName = (String) beertypeNode.getProperty("name");
-		final String beertypeDesc = (String) beertypeNode.getProperty("description");
-		final Beertype type = new Beertype(beertypeName, beertypeDesc);
-
-		this.domainObject = new Beer(name, brand, picture, tags, type);
+		this.domainObject = new Beer(id, name, brand, image, tags, type);
 	}
 
 	public Node getNode() {
@@ -67,6 +76,10 @@ public class BeerModel extends AbstractModel {
 
 	public Beer getDomainObject() {
 		return this.domainObject;
+	}
+	
+	public long getId() {
+		return this.domainObject.getId();
 	}
 
 	public Beertype getBeertype() {
@@ -81,37 +94,54 @@ public class BeerModel extends AbstractModel {
 		return this.domainObject.getName();
 	}
 
-	public String getPicture() {
-		return this.domainObject.getPicture();
+	public String getImage() {
+		return this.domainObject.getImage();
 	}
-
+	
 	public List<Tag> getTags() {
 		return this.domainObject.getTags();
 	}
-
+	
+	//SUPPRESS CHECKSTYLE: setter
 	public void setBeertype(Beertype beertype) {
-
+		//TODO
 	}
-
+	
+	//SUPPRESS CHECKSTYLE: setter
 	public void setBrand(String brand) {
 		this.domainObject.setBrand(brand);
 		this.node.setProperty("brand", brand);
 	}
-
+	
+	//SUPPRESS CHECKSTYLE: setter
 	public void setName(String name) {
 		this.domainObject.setName(name);
 		this.node.setProperty("name", name);
 
 	}
-
-	public void setPicture(String path) {
-		this.domainObject.setPicture(path);
+	
+	//SUPPRESS CHECKSTYLE: setter
+	public void setImage(String path) {
+		this.domainObject.setImage(path);
 		this.node.setProperty("image", path);
 
 	}
-
+	
+	//SUPPRESS CHECKSTYLE: setter
 	public void setTags(List<Tag> tags) {
-
+		//TODO
+	}
+	
+	private void checkNodeType(Node node) throws WrongNodeTypeException {
+		String type = null;
+		try {
+			type = (String) node.getProperty("type");
+		} catch (NotFoundException e) {
+			throw new WrongNodeTypeException(e);
+		}
+		if(!NodeType.BEER.equals(type)) {
+			throw new WrongNodeTypeException("Not a beer node.");
+		}
 	}
 
 }

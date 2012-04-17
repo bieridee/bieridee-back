@@ -134,8 +134,8 @@ public final class Testdb {
 			/* CREATE TAGS */
 
 			final Node lecker = createTag(db, "lecker");
-			final Node wuerzig = createTag(db, "würzig");
-			final Node suess = createTag(db, "süss");
+			final Node wuerzig = createTag(db, "wuerzig");
+			final Node suess = createTag(db, "suess");
 			final Node leicht = createTag(db, "leicht");
 			final Node billig = createTag(db, "billig");
 			final Node gruusig = createTag(db, "gruusig");
@@ -158,10 +158,10 @@ public final class Testdb {
 
 			/* CREATE USERS */
 
-			final Node danilo = createUser(db, "danilo", "bargen", "bargi@beer.ch", "säufer", getSHA1("******"));
+			final Node danilo = createUser(db, "danilo", "bargen", "bargi@beer.ch", "saeufer", getSHA1("******"));
 			final Node jonas = createUser(db, "jonas", "furrer", "jonas@beer.ch", "alki", getSHA1("ILIKECOFFEE"));
 			final Node chrigi = createUser(db, "chrigi", "fässler", "chrigi@beer.ch", "trinker", getSHA1("DjBobo"));
-			final Node urs = createUser(db, "urs", "baumann", "urs@beer.ch", "üse", getSHA1("creat user : user with password"));
+			final Node urs = createUser(db, "urs", "baumann", "urs@beer.ch", "uese", getSHA1("creat user : user with password"));
 
 			userIndex.createRelationshipTo(danilo, RelType.INDEXES);
 			userIndex.createRelationshipTo(jonas, RelType.INDEXES);
