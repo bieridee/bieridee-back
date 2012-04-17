@@ -44,12 +44,12 @@ public class BeerResource extends ServerResource implements IDocumentResource {
 	}
 
 	@Override
-	public void store() {
+	public void store(Representation rep) {
 		throw new NotImplementedException(); // TODO
 	}
 	
 	@Override
-	public void remove() {
+	public void remove(Representation rep) {
 		throw new NotImplementedException(); // TODO
 	}
 

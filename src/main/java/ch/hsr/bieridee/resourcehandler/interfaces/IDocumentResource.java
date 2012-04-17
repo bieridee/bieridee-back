@@ -23,13 +23,15 @@ public interface IDocumentResource {
 	
 	/**
 	 * Update or create a document.
+	 * @param rep Representation of the document to store.
 	 */
 	@Put
-	void store();
+	void store(Representation rep);
 	
 	/**
 	 * Delete a document.
+	 * @param rep Representation of the document to delete.
 	 */
 	@Delete
-	void remove();
+	void remove(Representation rep);
 }

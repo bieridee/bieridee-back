@@ -39,7 +39,7 @@ public class BeertypeListResource extends ServerResource implements ICollectionR
 	}
 
 	@Override
-	public void store() {
+	public void store(Representation rep) {
 		throw new NotImplementedException(); // TODO
 	}
 

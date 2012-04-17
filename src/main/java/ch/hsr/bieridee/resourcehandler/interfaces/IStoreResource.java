@@ -23,13 +23,15 @@ public interface IStoreResource {
 	
 	/**
 	 * Update or create a store item.
+	 * @param rep Representation of the store item to store.
 	 */
 	@Put
-	void store();
+	void store(Representation rep);
 	
 	/**
 	 * Delete a store item.
+	 * @param rep Representation of the store item to delete.
 	 */
 	@Delete
-	void remove();
+	void remove(Representation rep);
 }

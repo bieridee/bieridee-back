@@ -22,7 +22,8 @@ public interface ICollectionResource {
 	
 	/**
 	 * Create a collection item.
+	 * @param rep Representation of the collection item to create.
 	 */
 	@Post
-	void store();
+	void store(Representation rep);
 }
