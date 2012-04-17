@@ -35,7 +35,7 @@ public class BeerListResource extends ServerResource implements IBeerListResourc
 			return null;
 		}
 		final List<Beer> beerList = DomainConverter.extractDomainObjectFromModel(beerModels);
-		final Beer[] beers = beerList.toArray(new Beer[0]);
+		final Beer[] beers = beerList.toArray(new Beer[beerList.size()]);
 		
 		// json representation
 		final JacksonRepresentation<Beer[]> beerArrayJacksonRep = new JacksonRepresentation<Beer[]>(beers);

@@ -35,7 +35,7 @@ public class BeertypeListResource extends ServerResource implements IBeertypeLis
 		}
 		
 		final List<Beertype> beertypeList = DomainConverter.extractDomainObjectFromModel(beertypeModelList);
-		final Beertype[] beertypes = beertypeList.toArray(new Beertype[0]);
+		final Beertype[] beertypes = beertypeList.toArray(new Beertype[beertypeList.size()]);
 		
 		final JacksonRepresentation<Beertype[]> beertypesJacksonRep = new JacksonRepresentation<Beertype[]>(beertypes);
 		beertypesJacksonRep.setObjectMapper(Config.getObjectMapper());

@@ -35,7 +35,7 @@ public class TagListResource extends ServerResource implements ITagListResource 
 		}
 		
 		final List<Tag> tagList = DomainConverter.extractDomainObjectFromModel(tagModels);
-		final Tag[] tags = tagList.toArray(new Tag[0]);
+		final Tag[] tags = tagList.toArray(new Tag[tagList.size()]);
 		final JacksonRepresentation<Tag[]> tagsJacksonRep = new JacksonRepresentation<Tag[]>(tags);
 		tagsJacksonRep.setObjectMapper(Config.getObjectMapper());
 		

@@ -3,6 +3,7 @@ package ch.hsr.bieridee.resourcehandler;
 import java.util.List;
 
 import org.neo4j.graphdb.Node;
+import org.neo4j.server.rest.web.NodeNotFoundException;
 import org.restlet.data.Status;
 import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
@@ -35,7 +36,7 @@ public class UserListResource extends ServerResource implements IUserListResourc
 		}
 		
 		final List<User> userList = DomainConverter.extractDomainObjectFromModel(userModels);
-		final User[] users = userList.toArray(new User[0]);
+		final User[] users = userList.toArray(new User[userList.size()]);
 		
 		final JacksonRepresentation<User[]> usersJacksonRep = new JacksonRepresentation<User[]>(users);
 		usersJacksonRep.setObjectMapper(Config.getObjectMapper());
