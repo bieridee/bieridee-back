@@ -39,22 +39,30 @@ public final class Config {
 	 * @return ObjectMapper
 	 */
 	public static ObjectMapper getObjectMapper() {
+		
 		if(OBJECT_MAPPER != null) {
 			return OBJECT_MAPPER;
 		}
-		OBJECT_MAPPER= new ObjectMapper();
-		OBJECT_MAPPER.configure(SerializationConfig.Feature.INDENT_OUTPUT, true);
-		final SimpleModule beerModule = new SimpleModule("BierIdeeModule", new Version(1, 0, 0, null));
-		beerModule.addSerializer(new BeerSerializer());
-		beerModule.addSerializer(new BeerListSerializer());
-		beerModule.addSerializer(new BeertypeSerializer());
-		beerModule.addSerializer(new BeertypeListSerializer());
-		beerModule.addSerializer(new TagSerializer());
-		beerModule.addSerializer(new TagListSerializer());
-		beerModule.addSerializer(new UserSerializer());
-		beerModule.addSerializer(new UserListSerializer());
-		OBJECT_MAPPER.registerModule(beerModule);
-		return OBJECT_MAPPER;
+		
+		synchronized(Config.class) {
+			if(OBJECT_MAPPER != null) {
+				OBJECT_MAPPER= new ObjectMapper();
+				OBJECT_MAPPER.configure(SerializationConfig.Feature.INDENT_OUTPUT, true);
+				
+				final SimpleModule beerModule = new SimpleModule("BierIdeeModule", new Version(1, 0, 0, null));
+				beerModule.addSerializer(new BeerSerializer());
+				beerModule.addSerializer(new BeerListSerializer());
+				beerModule.addSerializer(new BeertypeSerializer());
+				beerModule.addSerializer(new BeertypeListSerializer());
+				beerModule.addSerializer(new TagSerializer());
+				beerModule.addSerializer(new TagListSerializer());
+				beerModule.addSerializer(new UserSerializer());
+				beerModule.addSerializer(new UserListSerializer());
+				
+				OBJECT_MAPPER.registerModule(beerModule);
+			}
+			return OBJECT_MAPPER;
+		}
 	}
 	
 }
