@@ -11,9 +11,6 @@ import ch.hsr.bieridee.utils.NodeUtil;
 
 /**
  * Model to work and persist the beertype object.
- * 
- * @author jfurrer
- * 
  */
 public class BeertypeModel extends AbstractModel {
 

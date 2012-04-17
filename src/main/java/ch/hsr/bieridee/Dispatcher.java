@@ -17,9 +17,6 @@ import ch.hsr.bieridee.services.BeerAppStatusService;
 
 /**
  * Dispatcher for the RESTlet resources.
- * 
- * @author cfaessle, jfurrer
- * 
  */
 public class Dispatcher extends Application {
 
@@ -27,7 +24,7 @@ public class Dispatcher extends Application {
 	 * Creates the dispatcher and thus the application.
 	 */
 	public Dispatcher() {
-		this.setAuthor("dbrgen, cfaessle, jfurrer");
+		this.setAuthor("dbargen, cfaessle, jfurrer");
 		this.setDescription("Social beer-app. REST API");
 		this.setName("BierIdee");
 		this.setStatusService(new BeerAppStatusService());

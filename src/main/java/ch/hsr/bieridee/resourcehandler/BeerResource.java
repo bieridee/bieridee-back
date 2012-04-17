@@ -15,9 +15,6 @@ import ch.hsr.bieridee.resourcehandler.interfaces.IBeerResource;
 
 /**
  * Beer resource.
- * 
- * @author cfaessle, jfurrer
- *
  */
 public class BeerResource extends ServerResource implements IBeerResource {
 	

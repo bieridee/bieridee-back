@@ -9,8 +9,6 @@ import ch.hsr.bieridee.domain.interfaces.IDomain;
 
 /**
  * Resources.
- * 
- * 
  */
 public final class Res {
 

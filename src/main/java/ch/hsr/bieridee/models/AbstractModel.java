@@ -6,9 +6,6 @@ import ch.hsr.bieridee.domain.interfaces.IDomain;
 
 /**
  * Abstract class to provide an unified interface to the models.
- * 
- * @author jfurrer
- *
  */
 public abstract class AbstractModel {
 	private IDomain domainObject;

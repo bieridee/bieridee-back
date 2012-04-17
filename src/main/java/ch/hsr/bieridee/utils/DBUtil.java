@@ -10,9 +10,6 @@ import ch.hsr.bieridee.Main;
 
 /**
  * Utility to work with the neo4J graph-db.
- * 
- * @author jfurrer, cfaessle
- * 
  */
 public final class DBUtil {
 

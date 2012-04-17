@@ -8,9 +8,6 @@ import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 
 /**
  * Interface for the User resource.
- * 
- * @author cfaessle
- * 
  */
 public interface IUserRessource {
 

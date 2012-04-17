@@ -11,9 +11,6 @@ import ch.hsr.bieridee.domain.Beertype;
 
 /**
  * Json Serializer for the beertype domain class.
- * 
- * @author jfurrer
- *
  */
 public class BeertypeListSerializer extends JsonSerializer<Beertype[]> {
 

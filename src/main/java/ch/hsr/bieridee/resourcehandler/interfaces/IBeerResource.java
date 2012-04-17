@@ -8,9 +8,6 @@ import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 
 /**
  * Interface for the beer server resource.
- * 
- * @author cfaessle
- *
  */
 public interface IBeerResource {
 

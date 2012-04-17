@@ -4,8 +4,6 @@ import ch.hsr.bieridee.domain.interfaces.IDomain;
 
 /**
  * Class representing a Beertype.
- * 
- * @author cfaessle 
  */
 public class Beertype implements IDomain {
 	private long id;

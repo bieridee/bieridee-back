@@ -11,9 +11,6 @@ import ch.hsr.bieridee.utils.NodeUtil;
 
 /**
  * Model to work with and persist the User object.
- * 
- * @author jfurrer
- * 
  */
 public class UserModel extends AbstractModel {
 

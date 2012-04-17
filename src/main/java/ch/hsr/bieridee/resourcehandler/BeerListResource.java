@@ -18,8 +18,6 @@ import ch.hsr.bieridee.utils.DomainConverter;
 
 /**
  * ServerResource for getting a List of Beers.
- * 
- * @author cfaessle, jfurrer
  */
 public class BeerListResource extends ServerResource implements IBeerListResource {
 

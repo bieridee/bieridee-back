@@ -4,8 +4,6 @@ import ch.hsr.bieridee.domain.interfaces.IDomain;
 
 /**
  * Class representing a Tag.
- * 
- * @author cfaessle 
  */
 public class Tag implements IDomain{
 	private String name;

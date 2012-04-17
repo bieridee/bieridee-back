@@ -14,9 +14,6 @@ import ch.hsr.bieridee.resourcehandler.interfaces.IUserRessource;
 
 /**
  * Server resource to provide access to users.
- * 
- * @author cfaessle
- * 
  */
 public class UserResource extends ServerResource implements IUserRessource {
 	

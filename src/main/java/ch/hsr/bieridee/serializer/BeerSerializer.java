@@ -14,9 +14,6 @@ import ch.hsr.bieridee.domain.Tag;
 
 /**
  * Json Serializer for the beer domain class.
- * 
- * @author jfurrer
- *
  */
 public class BeerSerializer extends JsonSerializer<Beer> {
 

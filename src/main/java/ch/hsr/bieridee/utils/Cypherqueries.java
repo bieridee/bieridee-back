@@ -2,8 +2,6 @@ package ch.hsr.bieridee.utils;
 
 /**
  * Utility Class providing predefined Cypher Query Strings.
- * 
- * @author cfaessle
  */
 public final class Cypherqueries {
 	private Cypherqueries() {

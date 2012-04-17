@@ -11,9 +11,6 @@ import ch.hsr.bieridee.domain.Beer;
 
 /**
  * JSON serializer for an array of beer objects.
- * 
- * @author jfurrer
- * 
  */
 public class BeerListSerializer extends JsonSerializer<Beer[]> {
 
