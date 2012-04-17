@@ -1,53 +1,71 @@
 package ch.hsr.bieridee.test;
 
+import java.io.IOException;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
-import org.neo4j.graphdb.NotFoundException;
 import org.restlet.data.MediaType;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.ClientResource;
 
 import ch.hsr.bieridee.config.Res;
-import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
-import ch.hsr.bieridee.models.UserModel;
 
+/**
+ * Test the creation of a new user via PUT on the user resource.
+ * 
+ */
 public class UserPutTest {
 
 	final String testUsername = "tester";
 
+	/**
+	 * Tests the creaton of a new user.
+	 */
 	@Test
 	public void createAndGetCreatedUser() {
-		final ClientResource clientResource = new ClientResource(Res.API_URL + "/users/"+testUsername);
+		final ClientResource clientResource = new ClientResource(Res.API_URL + "/users/" + this.testUsername);
 
-		JSONObject user = new JSONObject();
+		final JSONObject user = new JSONObject();
 		try {
-			user.put("username", testUsername);
-			user.put("prename", "robert");
-			user.put("surname", "huber");
-			user.put("email", "robert@googl.exe");
-			user.put("password", "7a6sdfp87r87qow9r5809difcapowe");
+			user.put("username", this.testUsername);
+			user.put("prename", "Stefan");
+			user.put("surname", "Keller");
+			user.put("email", "seff@openstreet.map");
+			user.put("password", "7a6sdfp87ilovecats9difcapo43we");
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 
 		final Representation rep = new StringRepresentation(user.toString(), MediaType.APPLICATION_JSON);
 		clientResource.put(rep);
-
-		UserModel createUserModel = null;
+		
+		
+		final Representation newUserRep = clientResource.get(MediaType.APPLICATION_JSON);
+		JSONObject newUser = null;
 		try {
-			createUserModel = new UserModel(testUsername);
-		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
+			newUser = new JSONObject(newUserRep.getText());
+		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (WrongNodeTypeException e) {
-			// TODO Auto-generated catch block
+		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		Assert.assertNotNull(createUserModel);
-		Assert.assertEquals(testUsername, createUserModel.getPrename());
+		
+		Assert.assertNotNull(newUser);
+		try {
+			Assert.assertEquals(user.get("username"), newUser.get("username"));
+			Assert.assertEquals(user.get("prename"), newUser.get("prename"));
+			Assert.assertEquals(user.get("surname"), newUser.get("surname"));
+			Assert.assertEquals(user.get("email"), newUser.get("email"));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		clientResource.release();
+		
+		
 
 	}
 

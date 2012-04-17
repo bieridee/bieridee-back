@@ -127,7 +127,7 @@ public final class DBUtil {
 
 	private static Node createUserNode(Node blankNode) {
 		final Node indexNode = getUserIndex();
-		Transaction transaction = DB.beginTx();
+		final Transaction transaction = DB.beginTx();
 		try {
 			blankNode.setProperty("type", NodeType.USER);
 			indexNode.createRelationshipTo(blankNode, RelType.INDEXES);
@@ -159,9 +159,10 @@ public final class DBUtil {
 		return newNode;
 
 	}
-	
 
 	/**
+	 * Adds or updates the given property with the given value on the given node.
+	 * 
 	 * @param node
 	 *            Node on which the property is set.
 	 * @param key
@@ -177,6 +178,17 @@ public final class DBUtil {
 		} finally {
 			transaction.finish();
 		}
+	}
+
+	/**
+	 * Checks whether a usernode is existing or not.
+	 * 
+	 * @param username
+	 *            Username of the user to be checked
+	 * @return True if the user node exists, false otherwise
+	 */
+	public static boolean doesUserExist(String username) {
+		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_USER_BY_NAME, "User", username) != null;
 	}
 
 }

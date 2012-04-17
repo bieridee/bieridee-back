@@ -35,12 +35,10 @@ public class UserModel extends AbstractModel {
 	}
 
 	/**
-	 * Creates a UserModel, consisting from a User domain object and the corresponding Node.
+	 * Creates an empty UserModel, needed to create a new User.
 	 * 
-	 * @param user
-	 *            non persistent User Object
 	 */
-	public UserModel(User user) {
+	private UserModel(User user) {
 		this.domainObject = user;
 		this.node = DBUtil.createNode(NodeType.USER);
 		this.setEmail(user.getEmail());
@@ -118,7 +116,7 @@ public class UserModel extends AbstractModel {
 
 	// SUPPRESS CHECKSTYLE: setter
 	public void setPassword(String password) {
-		this.domainObject.setSurname(password);
+		this.domainObject.setPassword(password);
 		DBUtil.setProperty(this.node, "password", password);
 	}
 
@@ -130,5 +128,16 @@ public class UserModel extends AbstractModel {
 	public void setEmail(String email) {
 		this.domainObject.setEmail(email);
 		DBUtil.setProperty(this.node, "email", email);
+	}
+
+	/**
+	 * Creates a new user and returns a new UserModel for it.
+	 * 
+	 * @param user
+	 *            The user object to be persisted.
+	 * @return The UserModel containing the new user node and the user domain object
+	 */
+	public static UserModel create(User user) {
+		return new UserModel(user);
 	}
 }

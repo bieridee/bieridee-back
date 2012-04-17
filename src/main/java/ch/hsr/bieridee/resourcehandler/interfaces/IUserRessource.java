@@ -1,5 +1,8 @@
 package ch.hsr.bieridee.resourcehandler.interfaces;
 
+import java.io.IOException;
+
+import org.json.JSONException;
 import org.neo4j.server.rest.web.NodeNotFoundException;
 import org.restlet.representation.Representation;
 import org.restlet.resource.Get;
@@ -32,8 +35,10 @@ public interface IUserRessource {
 	 * 
 	 * @param user
 	 *            The user as JSON representation
+	 * @throws IOException 
+	 * @throws JSONException 
 	 */
 	@Put
-	void store(Representation user);
+	void store(Representation user) throws JSONException, IOException;
 
 }

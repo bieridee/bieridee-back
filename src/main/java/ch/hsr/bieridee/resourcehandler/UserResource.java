@@ -2,9 +2,9 @@ package ch.hsr.bieridee.resourcehandler;
 
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.NotFoundException;
 import org.neo4j.server.rest.web.NodeNotFoundException;
 import org.restlet.data.Status;
@@ -28,6 +28,7 @@ import ch.hsr.bieridee.utils.DBUtil;
  */
 public class UserResource extends ServerResource implements IUserRessource {
 
+	private static final Logger LOG = Logger.getLogger(UserResource.class);
 	private String username;
 
 	@Override
@@ -49,57 +50,50 @@ public class UserResource extends ServerResource implements IUserRessource {
 	}
 
 	@Override
-	public void store(Representation user) {
-		UserModel userModel = null;
-		JSONObject userJson = null;
-		try {
-			userJson = new JSONObject(user.getText());
-			userModel = new UserModel(this.username);
-		} catch (NotFoundException e) {
-			this.createNewUser(userJson);
-		} catch (WrongNodeTypeException e) {
-			// should not happen ;)
-		} catch (JSONException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void store(Representation user) throws JSONException, IOException {
 
-		// update user
-		try {
-			userJson = new JSONObject(user.getText());
-			userModel.setUsername(userJson.getString("username"));
-			userModel.setPrename(userJson.getString("prename"));
-			userModel.setSurname(userJson.getString("surname"));
-			userModel.setEmail(userJson.getString("email"));
-			userModel.setPassword(userJson.getString("password"));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		final JSONObject userJson = new JSONObject(user.getText());
+
+		if (DBUtil.doesUserExist(this.username)) {
+			updateUser(userJson);
+		} else {
+			createNewUser(userJson);
 		}
 
 	}
 
-	private void createNewUser(JSONObject user) {
-		String username = null;
-		String prename = null;
-		String surname = null;
-		String email = null;
-		String password = null;
+	private void updateUser(JSONObject userJson) throws JSONException {
+		UserModel userModel = null;
+		final String username = userJson.getString("username");
 
 		try {
-			username = user.getString("username");
-			prename = user.getString("prename");
-			surname = user.getString("surname");
-			email = user.getString("email");
-			password = user.getString("password");
-		} catch (JSONException e) {
-			e.printStackTrace();
+			userModel = new UserModel(username);
+		} catch (NotFoundException e) {
+			LOG.error("The user " + username + " does not exists eventhoug it should", e);
+			setStatus(Status.SERVER_ERROR_INTERNAL, e, e.getMessage());
+		} catch (WrongNodeTypeException e) {
+			LOG.error("The user " + username + " does not exists eventhoug it should", e);
+			setStatus(Status.SERVER_ERROR_INTERNAL, e, e.getMessage());
 		}
+		userModel.setUsername(userJson.getString("username"));
+		userModel.setPrename(userJson.getString("prename"));
+		userModel.setSurname(userJson.getString("surname"));
+		userModel.setEmail(userJson.getString("email"));
+		userModel.setPassword(userJson.getString("password"));
+		setStatus(Status.SUCCESS_CREATED);
+	}
+
+	private void createNewUser(JSONObject userJson) throws JSONException {
+		final String username = userJson.getString("username");
+		final String prename = userJson.getString("prename");
+		final String surname = userJson.getString("surname");
+		final String email = userJson.getString("email");
+		final String password = userJson.getString("password");
 
 		final User userObject = new User(username, password, prename, surname, email);
-		new UserModel(userObject);
+
+		UserModel.create(userObject);
+
 		setStatus(Status.SUCCESS_CREATED);
 	}
 }
