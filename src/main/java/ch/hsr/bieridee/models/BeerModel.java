@@ -15,6 +15,7 @@ import ch.hsr.bieridee.domain.Beertype;
 import ch.hsr.bieridee.domain.Tag;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.utils.DBUtil;
+import ch.hsr.bieridee.utils.DomainConverter;
 import ch.hsr.bieridee.utils.NodeProperty;
 import ch.hsr.bieridee.utils.NodeUtil;
 
@@ -135,18 +136,29 @@ public class BeerModel extends AbstractModel {
 
 	}
 
-	// SUPPRESS CHECKSTYLE: setter
-	public void setTags(List<Tag> tags) {
-		this.domainObject.setTags(tags);
-		Iterable<Relationship> rels = this.node.getRelationships(RelType.HAS_TAG);
-		LinkedList<String> list = new LinkedList<String>();
-		for (Relationship r : rels) {
-			list.add((String) r.getEndNode().getProperty(NodeProperty.Tag.NAME));
-		}
-		for (Tag t : tags) {
-			if (!list.contains(t.getName())) {
-				DBUtil.createRelationship(this.node, RelType.HAS_TAG, DBUtil.getTagByName(t.getName()));
+	/**
+	 * Links this Beer to the desired TagModel.
+	 * 
+	 * @param t
+	 *            TagModel to add.
+	 */
+	public void addTag(TagModel t) {
+		final Iterable<Relationship> existingTagRelations = this.node.getRelationships(RelType.HAS_TAG);
+		for (Relationship relationship : existingTagRelations) {
+			if (relationship.getEndNode().getProperty(NodeProperty.Tag.NAME).equals(t.getName())) {
+				return;
 			}
+		}
+		DBUtil.createRelationship(this.node, RelType.HAS_TAG, t.getNode());
+	}
+
+	// SUPPRESS CHECKSTYLE: setter
+	public void setTags(List<TagModel> tags) {
+		final List<Tag> tagDomainList = DomainConverter.extractDomainObjectFromModel(tags);
+		this.domainObject.setTags(tagDomainList);
+
+		for (TagModel t : tags) {
+			this.addTag(t);
 		}
 	}
 
