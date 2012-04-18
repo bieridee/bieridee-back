@@ -15,6 +15,7 @@ import ch.hsr.bieridee.domain.Beertype;
 import ch.hsr.bieridee.domain.Tag;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.utils.DBUtil;
+import ch.hsr.bieridee.utils.NodeProperty;
 import ch.hsr.bieridee.utils.NodeUtil;
 
 /**
@@ -56,14 +57,14 @@ public class BeerModel extends AbstractModel {
 
 		this.node = node;
 		final long id = node.getId();
-		final String name = (String) this.node.getProperty("name");
-		final String brand = (String) this.node.getProperty("brand");
-		final String image = (String) this.node.getProperty("image");
+		final String name = (String) this.node.getProperty(NodeProperty.Beer.NAME);
+		final String brand = (String) this.node.getProperty(NodeProperty.Beer.BRAND);
+		final String image = (String) this.node.getProperty(NodeProperty.Beer.IMAGE);
 		final List<Tag> tags = new LinkedList<Tag>();
 
 		for (Relationship r : this.node.getRelationships(RelType.HAS_TAG)) {
 			final Node nodeTag = r.getEndNode();
-			final Tag domainTag = new Tag((String) nodeTag.getProperty("name"));
+			final Tag domainTag = new Tag((String) nodeTag.getProperty(NodeProperty.Beer.NAME));
 			tags.add(domainTag);
 		}
 
@@ -117,20 +118,20 @@ public class BeerModel extends AbstractModel {
 	// SUPPRESS CHECKSTYLE: setter
 	public void setBrand(String brand) {
 		this.domainObject.setBrand(brand);
-		this.node.setProperty("brand", brand);
+		this.node.setProperty(NodeProperty.Beer.BRAND, brand);
 	}
 
 	// SUPPRESS CHECKSTYLE: setter
 	public void setName(String name) {
 		this.domainObject.setName(name);
-		this.node.setProperty("name", name);
+		this.node.setProperty(NodeProperty.Beer.NAME, name);
 
 	}
 
 	// SUPPRESS CHECKSTYLE: setter
 	public void setImage(String path) {
 		this.domainObject.setImage(path);
-		this.node.setProperty("image", path);
+		this.node.setProperty(NodeProperty.Beer.IMAGE, path);
 
 	}
 

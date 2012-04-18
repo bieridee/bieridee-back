@@ -7,6 +7,7 @@ import ch.hsr.bieridee.config.NodeType;
 import ch.hsr.bieridee.domain.User;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.utils.DBUtil;
+import ch.hsr.bieridee.utils.NodeProperty;
 import ch.hsr.bieridee.utils.NodeUtil;
 
 /**
@@ -62,13 +63,13 @@ public class UserModel extends AbstractModel {
 		NodeUtil.checkNode(node, NodeType.USER);
 
 		this.node = node;
-		final String username = (String) this.node.getProperty("username");
-		final String firstname = (String) this.node.getProperty("prename");
-		final String lastname = (String) this.node.getProperty("surname");
-		final String password = (String) this.node.getProperty("password");
-		final String email = (String) this.node.getProperty("email");
+		final String username = (String) this.node.getProperty(NodeProperty.User.USERNAME);
+		final String prename = (String) this.node.getProperty(NodeProperty.User.PRENAME);
+		final String surname = (String) this.node.getProperty(NodeProperty.User.SURNAME);
+		final String password = (String) this.node.getProperty(NodeProperty.User.PASSWORD);
+		final String email = (String) this.node.getProperty(NodeProperty.User.EMAIL);
 
-		this.domainObject = new User(username, password, firstname, lastname, email);
+		this.domainObject = new User(username, password, prename, surname, email);
 
 	}
 
@@ -87,7 +88,7 @@ public class UserModel extends AbstractModel {
 	// SUPPRESS CHECKSTYLE: setter
 	public void setUsername(String username) {
 		this.domainObject.setUsername(username);
-		DBUtil.setProperty(this.node, "username", username);
+		DBUtil.setProperty(this.node, NodeProperty.User.USERNAME, username);
 	}
 
 	public String getPrename() {
@@ -97,7 +98,7 @@ public class UserModel extends AbstractModel {
 	// SUPPRESS CHECKSTYLE: setter
 	public void setPrename(String prename) {
 		this.domainObject.setPrename(prename);
-		DBUtil.setProperty(this.node, "prename", prename);
+		DBUtil.setProperty(this.node, NodeProperty.User.PRENAME, prename);
 	}
 
 	public String getSurname() {
@@ -107,7 +108,7 @@ public class UserModel extends AbstractModel {
 	// SUPPRESS CHECKSTYLE: setter
 	public void setSurname(String surname) {
 		this.domainObject.setSurname(surname);
-		DBUtil.setProperty(this.node, "surname", surname);
+		DBUtil.setProperty(this.node, NodeProperty.User.SURNAME, surname);
 	}
 
 	public String getPassword() {
@@ -117,7 +118,7 @@ public class UserModel extends AbstractModel {
 	// SUPPRESS CHECKSTYLE: setter
 	public void setPassword(String password) {
 		this.domainObject.setPassword(password);
-		DBUtil.setProperty(this.node, "password", password);
+		DBUtil.setProperty(this.node, NodeProperty.User.PASSWORD, password);
 	}
 
 	public String getEmail() {
@@ -127,7 +128,7 @@ public class UserModel extends AbstractModel {
 	// SUPPRESS CHECKSTYLE: setter
 	public void setEmail(String email) {
 		this.domainObject.setEmail(email);
-		DBUtil.setProperty(this.node, "email", email);
+		DBUtil.setProperty(this.node, NodeProperty.User.EMAIL, email);
 	}
 
 	/**
