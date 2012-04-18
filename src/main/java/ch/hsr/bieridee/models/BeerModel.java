@@ -137,7 +137,17 @@ public class BeerModel extends AbstractModel {
 
 	// SUPPRESS CHECKSTYLE: setter
 	public void setTags(List<Tag> tags) {
-		// TODO
+		this.domainObject.setTags(tags);
+		Iterable<Relationship> rels = this.node.getRelationships(RelType.HAS_TAG);
+		LinkedList<String> list = new LinkedList<String>();
+		for (Relationship r : rels) {
+			list.add((String) r.getEndNode().getProperty(NodeProperty.Tag.NAME));
+		}
+		for (Tag t : tags) {
+			if (!list.contains(t.getName())) {
+				DBUtil.createRelationship(this.node, RelType.HAS_TAG, DBUtil.getTagByName(t.getName()));
+			}
+		}
 	}
 
 }

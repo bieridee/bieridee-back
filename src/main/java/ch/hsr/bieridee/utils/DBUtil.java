@@ -3,6 +3,7 @@ package ch.hsr.bieridee.utils;
 import java.util.List;
 
 import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.kernel.EmbeddedGraphDatabase;
 
@@ -123,6 +124,29 @@ public final class DBUtil {
 			indexNode = getUserIndex();
 		}
 		return indexNode;
+	}
+
+	/**
+	 * Creates a bidirectional relationship between the given Nodes.
+	 * 
+	 * @param startNode
+	 *            Start Node of the Relationship.
+	 * @param relType
+	 *            Type of the Relation to be created.
+	 * @param endNode
+	 *            End Node of the Relationship.
+	 * @return The newly created Relationship
+	 */
+	public static Relationship createRelationship(Node startNode, RelType relType, Node endNode) {
+		final Transaction transaction = DB.beginTx();
+		Relationship rel = null;
+		try {
+			rel = startNode.createRelationshipTo(endNode, relType);
+			transaction.success();
+		} finally {
+			transaction.finish();
+		}
+		return rel;
 	}
 
 	private static Node createUserNode(Node blankNode) {
