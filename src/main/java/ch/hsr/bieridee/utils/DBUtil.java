@@ -129,7 +129,7 @@ public final class DBUtil {
 		final Node indexNode = getUserIndex();
 		final Transaction transaction = DB.beginTx();
 		try {
-			blankNode.setProperty("type", NodeType.USER);
+			blankNode.setProperty(NodeProperty.TYPE, NodeType.USER);
 			indexNode.createRelationshipTo(blankNode, RelType.INDEXES);
 			transaction.success();
 		} finally {

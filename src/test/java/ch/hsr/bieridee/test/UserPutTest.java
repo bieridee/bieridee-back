@@ -13,6 +13,7 @@ import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.ClientResource;
 
 import ch.hsr.bieridee.config.Res;
+import ch.hsr.bieridee.utils.NodeProperty;
 
 /**
  * Test the creation of a new user via PUT on the user resource.
@@ -29,11 +30,11 @@ public class UserPutTest {
 	@Before
 	public void setUp() {
 		try {
-			this.userJson.put("username", this.testUsername);
-			this.userJson.put("prename", "Stefan");
-			this.userJson.put("surname", "Keller");
-			this.userJson.put("email", "seff@openstreet.map");
-			this.userJson.put("password", "7a6sdfp87ilovecats9difcapo43we");
+			this.userJson.put(NodeProperty.User.USERNAME, this.testUsername);
+			this.userJson.put(NodeProperty.User.PRENAME, "Stefan");
+			this.userJson.put(NodeProperty.User.SURNAME, "Keller");
+			this.userJson.put(NodeProperty.User.EMAIL, "seff@openstreet.map");
+			this.userJson.put(NodeProperty.User.PASSWORD, "7a6sdfp87ilovecats9difcapo43we");
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -58,17 +59,17 @@ public class UserPutTest {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		
+
 		Assert.assertNotNull(newUser);
 		try {
-			Assert.assertEquals(this.userJson.get("username"), newUser.get("username"));
-			Assert.assertEquals(this.userJson.get("prename"), newUser.get("prename"));
-			Assert.assertEquals(this.userJson.get("surname"), newUser.get("surname"));
-			Assert.assertEquals(this.userJson.get("email"), newUser.get("email"));
+			Assert.assertEquals(this.userJson.get(NodeProperty.User.USERNAME), newUser.get(NodeProperty.User.USERNAME));
+			Assert.assertEquals(this.userJson.get(NodeProperty.User.PRENAME), newUser.get(NodeProperty.User.PRENAME));
+			Assert.assertEquals(this.userJson.get(NodeProperty.User.SURNAME), newUser.get(NodeProperty.User.SURNAME));
+			Assert.assertEquals(this.userJson.get(NodeProperty.User.EMAIL), newUser.get(NodeProperty.User.EMAIL));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		
+
 		clientResource.release();
 	}
 	
@@ -82,9 +83,9 @@ public class UserPutTest {
 		
 		final JSONObject partialUserJson = new JSONObject();
 		try {
-			partialUserJson.put("username", "notpossibletoupdate");
-			partialUserJson.put("prename", "Danilo");
-			partialUserJson.put("surname", "Bargen");
+			partialUserJson.put(NodeProperty.User.USERNAME, "notpossibletoupdate");
+			partialUserJson.put(NodeProperty.User.PRENAME, "Danilo");
+			partialUserJson.put(NodeProperty.User.SURNAME, "Bargen");
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -105,10 +106,10 @@ public class UserPutTest {
 		
 		Assert.assertNotNull(updatedUser);
 		try {
-			Assert.assertEquals(this.testUsername, updatedUser.get("username"));
-			Assert.assertEquals(partialUserJson.get("prename"), updatedUser.get("prename"));
-			Assert.assertEquals(partialUserJson.get("surname"), updatedUser.get("surname"));
-			Assert.assertEquals(this.userJson.get("email"), updatedUser.get("email"));
+			Assert.assertEquals(this.testUsername, updatedUser.get(NodeProperty.User.USERNAME));
+			Assert.assertEquals(partialUserJson.get(NodeProperty.User.PRENAME), updatedUser.get(NodeProperty.User.PRENAME));
+			Assert.assertEquals(partialUserJson.get(NodeProperty.User.SURNAME), updatedUser.get(NodeProperty.User.SURNAME));
+			Assert.assertEquals(this.userJson.get(NodeProperty.User.EMAIL), updatedUser.get(NodeProperty.User.EMAIL));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

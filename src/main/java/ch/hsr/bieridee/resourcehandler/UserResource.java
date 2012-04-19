@@ -19,6 +19,7 @@ import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.UserModel;
 import ch.hsr.bieridee.resourcehandler.interfaces.IUserRessource;
 import ch.hsr.bieridee.utils.DBUtil;
+import ch.hsr.bieridee.utils.NodeProperty;
 
 /**
  * Server resource to provide access to users.
@@ -74,28 +75,28 @@ public class UserResource extends ServerResource implements IUserRessource {
 		}
 		
 		// update the values provided by the client, the username is not updatable
-		if(userJson.has("prename")) {
-			userModel.setPrename(userJson.getString("prename"));
+		if(userJson.has(NodeProperty.User.PRENAME)) {
+			userModel.setPrename(userJson.getString(NodeProperty.User.PRENAME));
 		}
-		if(userJson.has("surname")) {
-			userModel.setSurname(userJson.getString("surname"));
+		if(userJson.has(NodeProperty.User.SURNAME)) {
+			userModel.setSurname(userJson.getString(NodeProperty.User.SURNAME));
 		}
-		if(userJson.has("email")) {
-			userModel.setEmail(userJson.getString("email"));
+		if(userJson.has(NodeProperty.User.EMAIL)) {
+			userModel.setEmail(userJson.getString(NodeProperty.User.EMAIL));
 		}
-		if(userJson.has("password")) {
-			userModel.setPassword(userJson.getString("password"));
+		if(userJson.has(NodeProperty.User.PASSWORD)) {
+			userModel.setPassword(userJson.getString(NodeProperty.User.PASSWORD));
 		}
 		
 		setStatus(Status.SUCCESS_CREATED);
 	}
 
 	private void createNewUser(JSONObject userJson) throws JSONException {
-		final String username = userJson.getString("username");
-		final String prename = userJson.getString("prename");
-		final String surname = userJson.getString("surname");
-		final String email = userJson.getString("email");
-		final String password = userJson.getString("password");
+		final String username = userJson.getString(NodeProperty.User.USERNAME);
+		final String prename = userJson.getString(NodeProperty.User.PRENAME);
+		final String surname = userJson.getString(NodeProperty.User.SURNAME);
+		final String email = userJson.getString(NodeProperty.User.EMAIL);
+		final String password = userJson.getString(NodeProperty.User.PASSWORD);
 
 		final User userObject = new User(username, password, prename, surname, email);
 
