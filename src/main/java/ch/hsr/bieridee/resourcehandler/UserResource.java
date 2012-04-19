@@ -67,10 +67,10 @@ public class UserResource extends ServerResource implements IUserRessource {
 		try {
 			userModel = new UserModel(this.username);
 		} catch (NotFoundException e) {
-			LOG.error("The user " + this.username + " does not exists eventhoug it should", e);
+			LOG.error("The user " + this.username + " does not exists eventhough it should", e);
 			setStatus(Status.SERVER_ERROR_INTERNAL, e, e.getMessage());
 		} catch (WrongNodeTypeException e) {
-			LOG.error("The user " + this.username + " does not exists eventhoug it should", e);
+			LOG.error("The user " + this.username + " does not exists eventhough it should", e);
 			setStatus(Status.SERVER_ERROR_INTERNAL, e, e.getMessage());
 		}
 		
