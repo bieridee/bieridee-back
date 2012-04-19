@@ -23,8 +23,6 @@ import ch.hsr.bieridee.utils.DBUtil;
 /**
  * Server resource to provide access to users.
  * 
- * @author cfaessle
- * 
  */
 public class UserResource extends ServerResource implements IUserRessource {
 
@@ -64,22 +62,31 @@ public class UserResource extends ServerResource implements IUserRessource {
 
 	private void updateUser(JSONObject userJson) throws JSONException {
 		UserModel userModel = null;
-		final String username = userJson.getString("username");
 
 		try {
-			userModel = new UserModel(username);
+			userModel = new UserModel(this.username);
 		} catch (NotFoundException e) {
-			LOG.error("The user " + username + " does not exists eventhoug it should", e);
+			LOG.error("The user " + this.username + " does not exists eventhoug it should", e);
 			setStatus(Status.SERVER_ERROR_INTERNAL, e, e.getMessage());
 		} catch (WrongNodeTypeException e) {
-			LOG.error("The user " + username + " does not exists eventhoug it should", e);
+			LOG.error("The user " + this.username + " does not exists eventhoug it should", e);
 			setStatus(Status.SERVER_ERROR_INTERNAL, e, e.getMessage());
 		}
-		userModel.setUsername(userJson.getString("username"));
-		userModel.setPrename(userJson.getString("prename"));
-		userModel.setSurname(userJson.getString("surname"));
-		userModel.setEmail(userJson.getString("email"));
-		userModel.setPassword(userJson.getString("password"));
+		
+		// update the values provided by the client, the username is not updatable
+		if(userJson.has("prename")) {
+			userModel.setPrename(userJson.getString("prename"));
+		}
+		if(userJson.has("surname")) {
+			userModel.setSurname(userJson.getString("surname"));
+		}
+		if(userJson.has("email")) {
+			userModel.setEmail(userJson.getString("email"));
+		}
+		if(userJson.has("password")) {
+			userModel.setPassword(userJson.getString("password"));
+		}
+		
 		setStatus(Status.SUCCESS_CREATED);
 	}
 

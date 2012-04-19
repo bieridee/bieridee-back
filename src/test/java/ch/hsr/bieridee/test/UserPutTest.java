@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.restlet.data.MediaType;
 import org.restlet.representation.Representation;
@@ -20,6 +21,23 @@ import ch.hsr.bieridee.config.Res;
 public class UserPutTest {
 
 	final String testUsername = "tester";
+	final JSONObject userJson = new JSONObject();
+	
+	/**
+	 * Test setup.
+	 */
+	@Before
+	public void setUp() {
+		try {
+			this.userJson.put("username", this.testUsername);
+			this.userJson.put("prename", "Stefan");
+			this.userJson.put("surname", "Keller");
+			this.userJson.put("email", "seff@openstreet.map");
+			this.userJson.put("password", "7a6sdfp87ilovecats9difcapo43we");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Tests the creaton of a new user.
@@ -28,20 +46,8 @@ public class UserPutTest {
 	public void createAndGetCreatedUser() {
 		final ClientResource clientResource = new ClientResource(Res.API_URL + "/users/" + this.testUsername);
 
-		final JSONObject user = new JSONObject();
-		try {
-			user.put("username", this.testUsername);
-			user.put("prename", "Stefan");
-			user.put("surname", "Keller");
-			user.put("email", "seff@openstreet.map");
-			user.put("password", "7a6sdfp87ilovecats9difcapo43we");
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-
-		final Representation rep = new StringRepresentation(user.toString(), MediaType.APPLICATION_JSON);
+		final Representation rep = new StringRepresentation(this.userJson.toString(), MediaType.APPLICATION_JSON);
 		clientResource.put(rep);
-		
 		
 		final Representation newUserRep = clientResource.get(MediaType.APPLICATION_JSON);
 		JSONObject newUser = null;
@@ -55,18 +61,58 @@ public class UserPutTest {
 		
 		Assert.assertNotNull(newUser);
 		try {
-			Assert.assertEquals(user.get("username"), newUser.get("username"));
-			Assert.assertEquals(user.get("prename"), newUser.get("prename"));
-			Assert.assertEquals(user.get("surname"), newUser.get("surname"));
-			Assert.assertEquals(user.get("email"), newUser.get("email"));
+			Assert.assertEquals(this.userJson.get("username"), newUser.get("username"));
+			Assert.assertEquals(this.userJson.get("prename"), newUser.get("prename"));
+			Assert.assertEquals(this.userJson.get("surname"), newUser.get("surname"));
+			Assert.assertEquals(this.userJson.get("email"), newUser.get("email"));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		
 		clientResource.release();
-		
-		
-
 	}
-
+	
+	/**
+	 * Tests the update of the user.
+	 */
+	@Test
+	public void updateAndGetUser() {
+		final ClientResource clientResource = new ClientResource(Res.API_URL + "/users/" + this.testUsername);
+		
+		
+		final JSONObject partialUserJson = new JSONObject();
+		try {
+			partialUserJson.put("username", "notpossibletoupdate");
+			partialUserJson.put("prename", "Danilo");
+			partialUserJson.put("surname", "Bargen");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		
+		final Representation rep = new StringRepresentation(partialUserJson.toString(), MediaType.APPLICATION_JSON);
+		clientResource.put(rep);
+		
+		final Representation updatedUserRep = clientResource.get(MediaType.APPLICATION_JSON);
+		JSONObject updatedUser = null;
+		try {
+			updatedUser = new JSONObject(updatedUserRep.getText());
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		Assert.assertNotNull(updatedUser);
+		try {
+			Assert.assertEquals(this.testUsername, updatedUser.get("username"));
+			Assert.assertEquals(partialUserJson.get("prename"), updatedUser.get("prename"));
+			Assert.assertEquals(partialUserJson.get("surname"), updatedUser.get("surname"));
+			Assert.assertEquals(this.userJson.get("email"), updatedUser.get("email"));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		clientResource.release();
+	}
 }

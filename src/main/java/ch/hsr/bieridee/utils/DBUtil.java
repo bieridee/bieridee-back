@@ -188,7 +188,7 @@ public final class DBUtil {
 	 * @return True if the user node exists, false otherwise
 	 */
 	public static boolean doesUserExist(String username) {
-		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_USER_BY_NAME, "User", username) != null;
+		return DBUtil.getUserByName(username) != null;
 	}
 
 }
