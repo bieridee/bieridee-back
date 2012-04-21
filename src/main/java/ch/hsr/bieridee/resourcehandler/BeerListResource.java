@@ -16,7 +16,6 @@ import ch.hsr.bieridee.models.BeerModel;
 import ch.hsr.bieridee.resourcehandler.interfaces.IBeerListResource;
 import ch.hsr.bieridee.utils.DBUtil;
 import ch.hsr.bieridee.utils.DomainConverter;
-import ch.hsr.bieridee.utils.NodeProperty;
 
 /**
  * ServerResource for getting a List of Beers.
