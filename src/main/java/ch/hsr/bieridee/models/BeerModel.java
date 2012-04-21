@@ -162,4 +162,13 @@ public class BeerModel extends AbstractModel {
 		}
 	}
 
+	@Override
+	public int hashCode() {
+		return this.node.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		return this.node.getId() == ((BeerModel) o).getId();
+	}
 }

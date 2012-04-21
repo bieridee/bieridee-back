@@ -23,6 +23,7 @@ public final class Res {
 	public static final String BEER_COLLECTION = "/beers";
 	public static final String BEER_REQ_ATTR = "beer-id";
 	public static final String BEER_DOCUMENT = "/beers/{" + BEER_REQ_ATTR + "}";
+	public static final String BEER_FILTER_PARAMETER_TAG = "tag";
 
 	// beertype
 	public static final String BEERTYPE_COLLECTION = "/beertypes";

@@ -48,10 +48,19 @@ public final class DBUtil {
 	/**
 	 * Gets a list of all beer nodes form the database.
 	 * 
-	 * @return List ob all existing beernodes.
+	 * @return List all existing beernodes.
 	 */
 	public static List<Node> getBeerNodeList() {
 		return Cypher.executeAndGetNodes(Cypherqueries.GET_ALL_BEERS, "Beer");
+	}
+
+	/**
+	 * @param tagName
+	 *            value of a Tag which is used as a filter.
+	 * @return a List of Beers matching the given Tag name.
+	 */
+	public static List<Node> getBeerNodeList(String tagName) {
+		return Cypher.executeAndGetNodes(Cypherqueries.GET_BEERS_BY_TAG_NAME, "Beer", tagName);
 	}
 
 	/**
