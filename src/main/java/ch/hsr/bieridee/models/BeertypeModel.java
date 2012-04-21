@@ -7,6 +7,7 @@ import ch.hsr.bieridee.config.NodeType;
 import ch.hsr.bieridee.domain.Beertype;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.utils.DBUtil;
+import ch.hsr.bieridee.utils.NodeProperty;
 import ch.hsr.bieridee.utils.NodeUtil;
 
 /**
@@ -48,8 +49,8 @@ public class BeertypeModel extends AbstractModel {
 		this.node = node;
 
 		final long id = this.node.getId();
-		final String name = (String) this.node.getProperty("name");
-		final String description = (String) this.node.getProperty("description");
+		final String name = (String) this.node.getProperty(NodeProperty.Beertype.NAME);
+		final String description = (String) this.node.getProperty(NodeProperty.Beertype.DESCRIPTION);
 		this.domainObject = new Beertype(id, name, description);
 	}
 
@@ -81,13 +82,13 @@ public class BeertypeModel extends AbstractModel {
 	// SUPPRESS CHECKSTYLE: setter
 	public void setName(String name) {
 		this.domainObject.setName(name);
-		this.node.setProperty("name", name);
+		this.node.setProperty(NodeProperty.Beertype.NAME, name);
 	}
 
 	// SUPPRESS CHECKSTYLE: setter
 	public void setDescription(String description) {
 		this.domainObject.setDescription(description);
-		this.node.setProperty("description", description);
+		this.node.setProperty(NodeProperty.Beertype.DESCRIPTION, description);
 	}
 
 }
