@@ -224,4 +224,18 @@ public final class DBUtil {
 		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_USER_BY_NAME, "User", username) != null;
 	}
 
+	/**
+	 * @param maxNumberOfItems
+	 *            number of max. Items (actions) returned. Pass 0 for all Items.
+	 * @return Chronological list of all actions (Ratings and Consumptions).
+	 */
+	public static List<Node> getTimeLine(int maxNumberOfItems) {
+		if (maxNumberOfItems != 0) {
+			final String query = Cypherqueries.GET_TIMELINE + " LIMIT " + maxNumberOfItems;
+			return Cypher.executeAndGetNodes(query, "Action");
+		} else {
+			return Cypher.executeAndGetNodes(Cypherqueries.GET_TIMELINE, "Action");
+		}
+	}
+
 }

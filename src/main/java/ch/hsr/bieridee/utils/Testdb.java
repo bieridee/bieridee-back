@@ -22,9 +22,9 @@ import ch.hsr.bieridee.domain.BrewerySize;
  * 
  */
 public final class Testdb {
-	
+
 	private static final Logger LOG = Logger.getLogger(Testdb.class);
-	
+
 	private static WrappingNeoServerBootstrapper SRV;
 	private static final String WEISSBIER = " Das Aroma der obergärigen Hefe, die Brimse, prägt den Charakter der Weissbiere Die Resthefe im Flaschenboden trübt die Flüssigkeit und verleiht den Bieren meist einen leichten Bananen-Nelken Geschmack.";
 	private static final String SPEZIALBIER = "Im Klassiker Spezial verbindet der Brauer den milden, schlanken Malzkörper mit kekonnt dosiertem Hopfenbitter. Meist rezent auf der Zungenspitze regt es den Gaumen damit kräftig an. Ideal als Begleiter zu kräftigen Gerichten.";
@@ -187,22 +187,19 @@ public final class Testdb {
 			rating1.createRelationshipTo(feldschloesschen, RelType.CONTAINS);
 
 			jonas.createRelationshipTo(rating2, RelType.DOES);
-			rating1.createRelationshipTo(falken, RelType.CONTAINS);
+			rating2.createRelationshipTo(falken, RelType.CONTAINS);
 
 			jonas.createRelationshipTo(rating3, RelType.DOES);
-			rating1.createRelationshipTo(calanda, RelType.CONTAINS);
+			rating3.createRelationshipTo(calanda, RelType.CONTAINS);
 
 			chrigi.createRelationshipTo(rating4, RelType.DOES);
-			rating1.createRelationshipTo(calanda, RelType.CONTAINS);
-
-			chrigi.createRelationshipTo(rating4, RelType.DOES);
-			rating1.createRelationshipTo(waedibraeu, RelType.CONTAINS);
+			rating4.createRelationshipTo(calanda, RelType.CONTAINS);
 
 			danilo.createRelationshipTo(rating5, RelType.DOES);
-			rating1.createRelationshipTo(feldschloesschen, RelType.CONTAINS);
+			rating5.createRelationshipTo(feldschloesschen, RelType.CONTAINS);
 
 			urs.createRelationshipTo(rating6, RelType.DOES);
-			rating1.createRelationshipTo(feldschloesschen, RelType.CONTAINS);
+			rating6.createRelationshipTo(feldschloesschen, RelType.CONTAINS);
 
 			/* CREATE CONSUMPTIONS */
 			final Node c1 = createConsumption(db);
@@ -210,6 +207,12 @@ public final class Testdb {
 			final Node c3 = createConsumption(db);
 			final Node c4 = createConsumption(db);
 			final Node c5 = createConsumption(db);
+
+			timelineIndex.createRelationshipTo(c1, RelType.INDEXES);
+			timelineIndex.createRelationshipTo(c2, RelType.INDEXES);
+			timelineIndex.createRelationshipTo(c3, RelType.INDEXES);
+			timelineIndex.createRelationshipTo(c4, RelType.INDEXES);
+			timelineIndex.createRelationshipTo(c5, RelType.INDEXES);
 
 			c1.createRelationshipTo(feldschloesschen, RelType.CONTAINS);
 			jonas.createRelationshipTo(c1, RelType.DOES);
@@ -227,6 +230,20 @@ public final class Testdb {
 			danilo.createRelationshipTo(c5, RelType.DOES);
 
 			/* INSERT CONSUMPTION TO TIMELINE */
+
+			long now = System.currentTimeMillis();
+			final int diff = 3;
+			rating1.setProperty(NodeProperty.Action.TIMESTAMP, now += diff);
+			c1.setProperty(NodeProperty.Action.TIMESTAMP, now += diff);
+			c2.setProperty(NodeProperty.Action.TIMESTAMP, now += diff);
+			rating2.setProperty(NodeProperty.Action.TIMESTAMP, now += diff);
+			c3.setProperty(NodeProperty.Action.TIMESTAMP, now += diff);
+			rating3.setProperty(NodeProperty.Action.TIMESTAMP, now += diff);
+			rating4.setProperty(NodeProperty.Action.TIMESTAMP, now += diff);
+			c4.setProperty(NodeProperty.Action.TIMESTAMP, now += diff);
+			c5.setProperty(NodeProperty.Action.TIMESTAMP, now += diff);
+			rating5.setProperty(NodeProperty.Action.TIMESTAMP, now += diff);
+			rating6.setProperty(NodeProperty.Action.TIMESTAMP, now += diff);
 
 			addAction(db, rating1);
 			addAction(db, c1);

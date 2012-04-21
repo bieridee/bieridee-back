@@ -25,6 +25,14 @@ public final class NodeProperty {
 	}
 
 	/**
+	 * Action Node specific properties.
+	 * 
+	 */
+	public static final class Action {
+		public static final String TIMESTAMP = "timestamp";
+	}
+
+	/**
 	 * Beer Node specific properties.
 	 * 
 	 */
