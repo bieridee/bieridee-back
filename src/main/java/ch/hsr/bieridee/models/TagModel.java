@@ -52,6 +52,17 @@ public class TagModel extends AbstractModel {
 		this.domainObject = new Tag(name);
 	}
 
+	/**
+	 * Creates a tag model from a given Tag. Creates a new Node in the DB.
+	 * 
+	 * @param t Tag Object.
+	 */
+	public TagModel(Tag t) {
+		this.domainObject = t;
+		this.node = DBUtil.createNode(NodeProperty.Tag.TYPE);
+		this.setName(t.getName());
+	}
+
 	public String getName() {
 		return this.domainObject.getName();
 	}
@@ -59,7 +70,7 @@ public class TagModel extends AbstractModel {
 	// SUPPRESS CHECKSTYLE: setter
 	public void setName(String name) {
 		this.domainObject.setName(name);
-		this.node.setProperty(NodeProperty.Tag.NAME, name);
+		DBUtil.setProperty(this.node, NodeProperty.Tag.NAME, name);
 	}
 
 	public Tag getDomainObject() {
@@ -70,4 +81,8 @@ public class TagModel extends AbstractModel {
 		return this.node;
 	}
 
+	@Override
+	public int hashCode() {
+		return this.node.hashCode();
+	}
 }

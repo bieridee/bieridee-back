@@ -16,6 +16,7 @@ import ch.hsr.bieridee.domain.Brewery;
 import ch.hsr.bieridee.domain.Tag;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.utils.DBUtil;
+import ch.hsr.bieridee.utils.DomainConverter;
 import ch.hsr.bieridee.utils.NodeProperty;
 import ch.hsr.bieridee.utils.NodeUtil;
 
@@ -70,7 +71,7 @@ public class BeerModel extends AbstractModel {
 		final Node beertypeNode = beertypeRel.getEndNode();
 		final BeertypeModel beertypeModel = new BeertypeModel(beertypeNode);
 		final Beertype type = beertypeModel.getDomainObject();
-		
+
 		final Relationship breweryRel = this.node.getSingleRelationship(RelType.BREWN_BY, Direction.OUTGOING);
 		final Node breweryNode = breweryRel.getEndNode();
 		final BreweryModel breweryModel = new BreweryModel(breweryNode);
@@ -98,7 +99,7 @@ public class BeerModel extends AbstractModel {
 	public String getBrand() {
 		return this.domainObject.getBrand();
 	}
-	
+
 	public Brewery getBrewery() {
 		return this.domainObject.getBrewery();
 	}
@@ -125,12 +126,12 @@ public class BeerModel extends AbstractModel {
 		this.domainObject.setBrand(brand);
 		this.node.setProperty(NodeProperty.Beer.BRAND, brand);
 	}
-	
+
 	// SUPPRESS CHECKSTYLE: setter
 	public void setBrewery(Brewery brewery) {
-		//TODO
+		// TODO
 	}
-	
+
 	// SUPPRESS CHECKSTYLE: setter
 	public void setName(String name) {
 		this.domainObject.setName(name);
@@ -143,9 +144,39 @@ public class BeerModel extends AbstractModel {
 		this.node.setProperty(NodeProperty.Beer.IMAGE, path);
 	}
 
-	// SUPPRESS CHECKSTYLE: setter
-	public void setTags(List<Tag> tags) {
-		// TODO
+	/**
+	 * Links this Beer to the desired TagModel.
+	 * 
+	 * @param t
+	 *            TagModel to add.
+	 */
+	public void addTag(TagModel t) {
+		final Iterable<Relationship> existingTagRelations = this.node.getRelationships(RelType.HAS_TAG);
+		for (Relationship relationship : existingTagRelations) {
+			if (relationship.getEndNode().getProperty(NodeProperty.Tag.NAME).equals(t.getName())) {
+				return;
+			}
+		}
+		DBUtil.createRelationship(this.node, RelType.HAS_TAG, t.getNode());
 	}
 
+	// SUPPRESS CHECKSTYLE: setter
+	public void setTags(List<TagModel> tags) {
+		final List<Tag> tagDomainList = DomainConverter.extractDomainObjectFromModel(tags);
+		this.domainObject.setTags(tagDomainList);
+
+		for (TagModel t : tags) {
+			this.addTag(t);
+		}
+	}
+
+	@Override
+	public int hashCode() {
+		return this.node.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		return this.node.getId() == ((BeerModel) o).getId();
+	}
 }
