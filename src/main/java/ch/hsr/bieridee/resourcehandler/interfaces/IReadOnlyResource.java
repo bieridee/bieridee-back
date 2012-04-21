@@ -7,14 +7,16 @@ import org.restlet.resource.Get;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 
 /**
- * Interface for the tag resource.
- *
+<<<<<<< HEAD
+ * Interface for the BeerList server resource.
+=======
+ * Represents a read only resource (might be a document or collection).
+>>>>>>> origin/resource_interfaces_generalization
  */
-public interface ITagResource {
-	
+public interface IReadOnlyResource {
 	/**
-	 * Gets a tag.
-	 * @return The representation of a tag
+	 * Retrieve a read only resource.
+	 * @return The resource representation.
 	 * @throws NodeNotFoundException 
 	 * @throws WrongNodeTypeException 
 	 */

@@ -1,7 +1,9 @@
 package ch.hsr.bieridee.resourcehandler;
 
+
 import java.io.IOException;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,7 +19,7 @@ import ch.hsr.bieridee.config.Res;
 import ch.hsr.bieridee.domain.User;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.UserModel;
-import ch.hsr.bieridee.resourcehandler.interfaces.IUserRessource;
+import ch.hsr.bieridee.resourcehandler.interfaces.IStoreResource;
 import ch.hsr.bieridee.utils.DBUtil;
 import ch.hsr.bieridee.utils.NodeProperty;
 
@@ -28,7 +30,8 @@ import ch.hsr.bieridee.utils.NodeProperty;
  * 
 >>>>>>> putuser
  */
-public class UserResource extends ServerResource implements IUserRessource {
+
+public class UserResource extends ServerResource implements IStoreResource {
 
 	private static final Logger LOG = Logger.getLogger(UserResource.class);
 	private String username;
@@ -106,5 +109,10 @@ public class UserResource extends ServerResource implements IUserRessource {
 		UserModel.create(userObject);
 
 		setStatus(Status.SUCCESS_CREATED);
+	}
+
+	@Override
+	public void remove(Representation rep) {
+		throw new NotImplementedException(); // TODO
 	}
 }

@@ -12,7 +12,7 @@ import ch.hsr.bieridee.config.Config;
 import ch.hsr.bieridee.domain.User;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.UserModel;
-import ch.hsr.bieridee.resourcehandler.interfaces.IUserListResource;
+import ch.hsr.bieridee.resourcehandler.interfaces.IReadOnlyResource;
 import ch.hsr.bieridee.utils.DBUtil;
 import ch.hsr.bieridee.utils.DomainConverter;
 
@@ -20,7 +20,7 @@ import ch.hsr.bieridee.utils.DomainConverter;
  * User list resource.
  *
  */
-public class UserListResource extends ServerResource implements IUserListResource {
+public class UserListResource extends ServerResource implements IReadOnlyResource {
 
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {

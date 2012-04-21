@@ -1,6 +1,7 @@
 package ch.hsr.bieridee.resourcehandler;
 
 
+import org.apache.commons.lang.NotImplementedException;
 import org.neo4j.server.rest.web.NodeNotFoundException;
 import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
@@ -11,12 +12,12 @@ import ch.hsr.bieridee.config.Res;
 import ch.hsr.bieridee.domain.Beer;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.BeerModel;
-import ch.hsr.bieridee.resourcehandler.interfaces.IBeerResource;
+import ch.hsr.bieridee.resourcehandler.interfaces.IDocumentResource;
 
 /**
  * Beer resource.
  */
-public class BeerResource extends ServerResource implements IBeerResource {
+public class BeerResource extends ServerResource implements IDocumentResource {
 	
 	private long beerId;
 	
@@ -39,4 +40,16 @@ public class BeerResource extends ServerResource implements IBeerResource {
 		return beerJacksonRep;
 	}
 
+
+	@Override
+	public void store(Representation rep) {
+		throw new NotImplementedException(); // TODO
+	}
+	
+	@Override
+	public void remove(Representation rep) {
+		throw new NotImplementedException(); // TODO
+	}
+
 }
+
