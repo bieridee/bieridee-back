@@ -2,6 +2,7 @@ package ch.hsr.bieridee.utils;
 
 import java.util.List;
 
+import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.Transaction;
@@ -122,6 +123,10 @@ public final class DBUtil {
 		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_USER_INDEX_NODE, "USER_INDEX");
 	}
 
+	private static Node getTimelineIndex() {
+		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_TIMELINE_INDEX_NODE, "TIMELINE_INDEX");
+	}
+
 	/**
 	 * @param type
 	 *            String with type
@@ -160,16 +165,17 @@ public final class DBUtil {
 
 	private static Node createUserNode(Node blankNode) {
 		final Node indexNode = getUserIndex();
-		final Transaction transaction = DB.beginTx();
-		try {
-			blankNode.setProperty(NodeProperty.TYPE, NodeType.USER);
-			indexNode.createRelationshipTo(blankNode, RelType.INDEXES);
-			transaction.success();
-		} finally {
-			transaction.finish();
-		}
+		blankNode.setProperty(NodeProperty.TYPE, NodeType.USER);
+		indexNode.createRelationshipTo(blankNode, RelType.INDEXES);
 		return blankNode;
 
+	}
+
+	private static Node createConsumptionNode(Node blankNode) {
+		final Node indexNode = getTimelineIndex();
+		blankNode.setProperty(NodeProperty.TYPE, NodeType.CONSUMPTION);
+		indexNode.createRelationshipTo(blankNode, RelType.INDEXES);
+		return blankNode;
 	}
 
 	/**
@@ -183,11 +189,14 @@ public final class DBUtil {
 		try {
 			newNode = Main.getGraphDb().createNode();
 			transaction.success();
+			if (type.equals(NodeType.USER)) {
+				createUserNode(newNode);
+			}
+			if (type.equals(NodeType.CONSUMPTION)) {
+				createConsumptionNode(newNode);
+			}
 		} finally {
 			transaction.finish();
-		}
-		if (type.equals(NodeType.USER)) {
-			createUserNode(newNode);
 		}
 		return newNode;
 
@@ -203,7 +212,7 @@ public final class DBUtil {
 	 * @param value
 	 *            Value of the Property,
 	 */
-	public static void setProperty(Node node, String key, String value) {
+	public static void setProperty(Node node, String key, Object value) {
 		final Transaction transaction = DB.beginTx();
 		try {
 			node.setProperty(key, value);
@@ -238,4 +247,25 @@ public final class DBUtil {
 		}
 	}
 
+	/**
+	 * Adds a new Action to the Timeline.
+	 * 
+	 * @param node
+	 *            the action node to be added.
+	 */
+	public static void addToTimeLine(Node node) {
+		final Node home = Main.getGraphDb().getReferenceNode();
+		final Node timeLineStart = home.getSingleRelationship(RelType.INDEX_TIMELINESTART, Direction.OUTGOING).getEndNode();
+		final Relationship relationToNext = timeLineStart.getSingleRelationship(RelType.NEXT, Direction.OUTGOING);
+		final Node next = relationToNext.getEndNode();
+		final Transaction tx = DB.beginTx();
+		try {
+			relationToNext.delete();
+			timeLineStart.createRelationshipTo(node, RelType.NEXT);
+			node.createRelationshipTo(next, RelType.NEXT);
+			tx.success();
+		} finally {
+			tx.finish();
+		}
+	}
 }

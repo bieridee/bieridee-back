@@ -19,7 +19,7 @@ public class TimelineTest {
 	 */
 
 	@Test
-	public void testTimeLineOrder() {
+	public void testTimelineOrder() {
 
 		final List<Node> actions = DBUtil.getTimeLine(0);
 		long previous = Long.MAX_VALUE;
@@ -35,10 +35,24 @@ public class TimelineTest {
 	 * Tests the limit parameter.
 	 */
 	@Test
-	public void testTimeLineSize() {
+	public void testTimelineSize() {
 		final int limit = 3;
 		final List<Node> actions = DBUtil.getTimeLine(limit);
 		Assert.assertEquals(limit, actions.size());
 	}
 
+	/**
+	 * Tests whether an newly inserted Action is at the first position in the Timeline-Tree.
+	 */
+	@Test
+	public void testTimelineAddAction() {
+		final Node consumption = DBUtil.createNode("consumption");
+		final Long time = System.currentTimeMillis();
+		DBUtil.setProperty(consumption, NodeProperty.Action.TIMESTAMP, time);
+		DBUtil.addToTimeLine(consumption);
+		final List<Node> actions = DBUtil.getTimeLine(1);
+		final Node first = actions.get(0);
+		final Long savedTime = (Long) first.getProperty(NodeProperty.Action.TIMESTAMP);
+		Assert.assertEquals(time, savedTime);
+	}
 }
