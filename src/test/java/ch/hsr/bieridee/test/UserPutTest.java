@@ -41,7 +41,7 @@ public class UserPutTest {
 	}
 
 	/**
-	 * Tests the creaton of a new user.
+	 * Tests the creation of a new user.
 	 */
 	@Test
 	public void createAndGetCreatedUser() {

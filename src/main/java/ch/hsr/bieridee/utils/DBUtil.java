@@ -148,7 +148,7 @@ public final class DBUtil {
 		final Transaction transaction = DB.beginTx();
 		Node newNode = null;
 		try {
-			newNode = Main.getGraphDb().createNode();
+			newNode = DB.createNode();
 			transaction.success();
 		} finally {
 			transaction.finish();
