@@ -7,19 +7,19 @@ import org.restlet.resource.Get;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 
 /**
- * Interface for the user list resource.
- * 
+<<<<<<< HEAD
+ * Interface for the BeerList server resource.
+=======
+ * Represents a read only resource (might be a document or collection).
+>>>>>>> origin/resource_interfaces_generalization
  */
-public interface IUserListResource {
-
+public interface IReadOnlyResource {
 	/**
-	 * Gets a list of users.
-	 * 
-	 * @return Representation of the user list
+	 * Retrieve a read only resource.
+	 * @return The resource representation.
 	 * @throws NodeNotFoundException 
 	 * @throws WrongNodeTypeException 
 	 */
 	@Get
 	Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException;
-
 }

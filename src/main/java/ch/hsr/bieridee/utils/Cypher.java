@@ -12,8 +12,6 @@ import ch.hsr.bieridee.Main;
 
 /**
  * Class containg all the cipher queries.
- * 
- * @author cfaessle, jfurrer
  */
 public final class Cypher {
 

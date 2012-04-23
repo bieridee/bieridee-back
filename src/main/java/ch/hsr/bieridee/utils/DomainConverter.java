@@ -15,9 +15,6 @@ import ch.hsr.bieridee.models.UserModel;
 
 /**
  * Utility Class providing methods to do mass wrapping of nodes with Model Objects.
- * 
- * @author cfaessle
- * 
  */
 public final class DomainConverter {
 

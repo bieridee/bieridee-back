@@ -4,8 +4,6 @@ import ch.hsr.bieridee.domain.interfaces.IDomain;
 
 /**
  * Class representing a User.
- * 
- * @author cfaessle
  */
 public class User implements IDomain {
 	private String prename;

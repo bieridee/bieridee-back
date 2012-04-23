@@ -3,20 +3,20 @@ package ch.hsr.bieridee.utils;
 import java.util.List;
 
 import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.kernel.EmbeddedGraphDatabase;
 
 import ch.hsr.bieridee.Main;
+import ch.hsr.bieridee.config.NodeType;
+import ch.hsr.bieridee.config.RelType;
 
 /**
  * Utility to work with the neo4J graph-db.
- * 
- * @author jfurrer, cfaessle
- * 
  */
 public final class DBUtil {
 
-	private static EmbeddedGraphDatabase DB;
+	private static EmbeddedGraphDatabase DB = Main.getGraphDb();
 
 	private DBUtil() {
 		// do not instanciate
@@ -30,7 +30,6 @@ public final class DBUtil {
 	 * @return The node with the given id
 	 */
 	public static Node getNodeById(long id) {
-		DB = Main.getGraphDb();
 		final Transaction tx = DB.beginTx();
 		Node node = null;
 		try {
@@ -46,10 +45,19 @@ public final class DBUtil {
 	/**
 	 * Gets a list of all beer nodes form the database.
 	 * 
-	 * @return List ob all existing beernodes.
+	 * @return List all existing beernodes.
 	 */
 	public static List<Node> getBeerNodeList() {
 		return Cypher.executeAndGetNodes(Cypherqueries.GET_ALL_BEERS, "Beer");
+	}
+
+	/**
+	 * @param tagName
+	 *            value of a Tag which is used as a filter.
+	 * @return a List of Beers matching the given Tag name.
+	 */
+	public static List<Node> getBeerNodeList(String tagName) {
+		return Cypher.executeAndGetNodes(Cypherqueries.GET_BEERS_BY_TAG_NAME, "Beer", tagName);
 	}
 
 	/**
@@ -105,6 +113,112 @@ public final class DBUtil {
 	 */
 	public static Node getUserByName(String name) {
 		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_USER_BY_NAME, "User", name);
+	}
+
+	private static Node getUserIndex() {
+		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_USER_INDEX_NODE, "USER_INDEX");
+	}
+
+	/**
+	 * @param type
+	 *            String with type
+	 * @return index Node
+	 */
+	public static Node getIndex(String type) {
+		Node indexNode = null;
+		if (type.equals(NodeType.USER)) {
+			indexNode = getUserIndex();
+		}
+		return indexNode;
+	}
+
+	/**
+	 * Creates a bidirectional relationship between the given Nodes.
+	 * 
+	 * @param startNode
+	 *            Start Node of the Relationship.
+	 * @param relType
+	 *            Type of the Relation to be created.
+	 * @param endNode
+	 *            End Node of the Relationship.
+	 * @return The newly created Relationship
+	 */
+	public static Relationship createRelationship(Node startNode, RelType relType, Node endNode) {
+		final Transaction transaction = DB.beginTx();
+		Relationship rel = null;
+		try {
+			rel = startNode.createRelationshipTo(endNode, relType);
+			transaction.success();
+		} finally {
+			transaction.finish();
+		}
+		return rel;
+	}
+
+	private static Node createUserNode(Node blankNode) {
+		final Node indexNode = getUserIndex();
+		final Transaction transaction = DB.beginTx();
+		try {
+			blankNode.setProperty(NodeProperty.TYPE, NodeType.USER);
+			indexNode.createRelationshipTo(blankNode, RelType.INDEXES);
+			transaction.success();
+		} finally {
+			transaction.finish();
+		}
+		return blankNode;
+
+	}
+
+	/**
+	 * @param type
+	 *            String with type
+	 * @return created Node in the Database
+	 */
+	public static Node createNode(String type) {
+		final Transaction transaction = DB.beginTx();
+		Node newNode = null;
+		try {
+			newNode = DB.createNode();
+			transaction.success();
+		} finally {
+			transaction.finish();
+		}
+		if (type.equals(NodeType.USER)) {
+			createUserNode(newNode);
+		}
+		return newNode;
+
+	}
+
+	/**
+	 * Adds or updates the given property with the given value on the given node.
+	 * 
+	 * @param node
+	 *            Node on which the property is set.
+	 * @param key
+	 *            Key of the Property
+	 * @param value
+	 *            Value of the Property,
+	 */
+	public static void setProperty(Node node, String key, String value) {
+		final Transaction transaction = DB.beginTx();
+		try {
+			node.setProperty(key, value);
+			transaction.success();
+		} finally {
+			transaction.finish();
+		}
+	}
+
+	/**
+	 * Checks whether a usernode is existing or not.
+	 * 
+	 * @param username
+	 *            Username of the user to be checked
+	 * @return True if the user node exists, false otherwise
+	 */
+	public static boolean doesUserExist(String username) {
+		return DBUtil.getUserByName(username) != null;
 	}
 
 }

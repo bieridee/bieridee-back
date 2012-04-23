@@ -16,6 +16,8 @@ import ch.hsr.bieridee.domain.Brewery;
 import ch.hsr.bieridee.domain.Tag;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.utils.DBUtil;
+import ch.hsr.bieridee.utils.DomainConverter;
+import ch.hsr.bieridee.utils.NodeProperty;
 import ch.hsr.bieridee.utils.NodeUtil;
 
 /**
@@ -54,14 +56,14 @@ public class BeerModel extends AbstractModel {
 
 		this.node = node;
 		final long id = node.getId();
-		final String name = (String) this.node.getProperty("name");
-		final String brand = (String) this.node.getProperty("brand");
-		final String image = (String) this.node.getProperty("image");
+		final String name = (String) this.node.getProperty(NodeProperty.Beer.NAME);
+		final String brand = (String) this.node.getProperty(NodeProperty.Beer.BRAND);
+		final String image = (String) this.node.getProperty(NodeProperty.Beer.IMAGE);
 		final List<Tag> tags = new LinkedList<Tag>();
 
 		for (Relationship r : this.node.getRelationships(RelType.HAS_TAG)) {
 			final Node nodeTag = r.getEndNode();
-			final Tag domainTag = new Tag((String) nodeTag.getProperty("name"));
+			final Tag domainTag = new Tag((String) nodeTag.getProperty(NodeProperty.Beer.NAME));
 			tags.add(domainTag);
 		}
 
@@ -69,7 +71,7 @@ public class BeerModel extends AbstractModel {
 		final Node beertypeNode = beertypeRel.getEndNode();
 		final BeertypeModel beertypeModel = new BeertypeModel(beertypeNode);
 		final Beertype type = beertypeModel.getDomainObject();
-		
+
 		final Relationship breweryRel = this.node.getSingleRelationship(RelType.BREWN_BY, Direction.OUTGOING);
 		final Node breweryNode = breweryRel.getEndNode();
 		final BreweryModel breweryModel = new BreweryModel(breweryNode);
@@ -97,7 +99,7 @@ public class BeerModel extends AbstractModel {
 	public String getBrand() {
 		return this.domainObject.getBrand();
 	}
-	
+
 	public Brewery getBrewery() {
 		return this.domainObject.getBrewery();
 	}
@@ -122,28 +124,59 @@ public class BeerModel extends AbstractModel {
 	// SUPPRESS CHECKSTYLE: setter
 	public void setBrand(String brand) {
 		this.domainObject.setBrand(brand);
-		this.node.setProperty("brand", brand);
-	}
-	
-	// SUPPRESS CHECKSTYLE: setter
-	public void setBrewery(Brewery brewery) {
-		//TODO
+		this.node.setProperty(NodeProperty.Beer.BRAND, brand);
 	}
 
+	// SUPPRESS CHECKSTYLE: setter
+	public void setBrewery(Brewery brewery) {
+		// TODO
+	}
+
+	// SUPPRESS CHECKSTYLE: setter
 	public void setName(String name) {
 		this.domainObject.setName(name);
-		this.node.setProperty("name", name);
+		this.node.setProperty(NodeProperty.Beer.NAME, name);
 	}
 
 	// SUPPRESS CHECKSTYLE: setter
 	public void setImage(String path) {
 		this.domainObject.setPicture(path);
-		this.node.setProperty("image", path);
+		this.node.setProperty(NodeProperty.Beer.IMAGE, path);
+	}
+
+	/**
+	 * Links this Beer to the desired TagModel.
+	 * 
+	 * @param t
+	 *            TagModel to add.
+	 */
+	public void addTag(TagModel t) {
+		final Iterable<Relationship> existingTagRelations = this.node.getRelationships(RelType.HAS_TAG);
+		for (Relationship relationship : existingTagRelations) {
+			if (relationship.getEndNode().getProperty(NodeProperty.Tag.NAME).equals(t.getName())) {
+				return;
+			}
+		}
+		DBUtil.createRelationship(this.node, RelType.HAS_TAG, t.getNode());
 	}
 
 	// SUPPRESS CHECKSTYLE: setter
-	public void setTags(List<Tag> tags) {
-		// TODO
+	public void setTags(List<TagModel> tags) {
+		final List<Tag> tagDomainList = DomainConverter.extractDomainObjectFromModel(tags);
+		this.domainObject.setTags(tagDomainList);
+
+		for (TagModel t : tags) {
+			this.addTag(t);
+		}
 	}
 
+	@Override
+	public int hashCode() {
+		return this.node.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		return this.node.getId() == ((BeerModel) o).getId();
+	}
 }
