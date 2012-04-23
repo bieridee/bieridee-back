@@ -31,15 +31,15 @@ public class BeerModelTest {
 		BeerModel bm1 = null;
 		BeerModel bm2 = null;
 		try {
-			bm1 = new BeerModel(11);
-			bm2 = new BeerModel(12);
+			bm1 = new BeerModel(36);
+			bm2 = new BeerModel(32);
 		} catch (NotFoundException e1) {
 			e1.printStackTrace();
 		} catch (WrongNodeTypeException e1) {
 			e1.printStackTrace();
 		}
 
-		final Node tagNode = DBUtil.getTagByName("suess");
+		final Node tagNode = DBUtil.getTagByName("wuerzig");
 		TagModel tm = null;
 		try {
 			tm = new TagModel(tagNode);

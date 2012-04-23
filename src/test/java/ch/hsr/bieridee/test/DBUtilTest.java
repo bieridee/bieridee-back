@@ -67,8 +67,8 @@ public class DBUtilTest {
 		BeerModel bm2 = null;
 		BeerModel bm3 = null;
 		try {
-			bm1 = new BeerModel(11);
-			bm2 = new BeerModel(12);
+			bm1 = new BeerModel(31);
+			bm2 = new BeerModel(32);
 			bm3 = new BeerModel(10);
 		} catch (NotFoundException e1) {
 			e1.printStackTrace();
@@ -76,14 +76,12 @@ public class DBUtilTest {
 			e1.printStackTrace();
 		}
 
-		final Node tagNode = DBUtil.getTagByName("suess");
+		final Node tagNode = DBUtil.getTagByName("wuerzig");
 		TagModel tm = null;
 		try {
 			tm = new TagModel(tagNode);
 		} catch (NotFoundException e) {
-			e.printStackTrace();
 		} catch (WrongNodeTypeException e) {
-			e.printStackTrace();
 		}
 
 		final List<Node> beerNodes = DBUtil.getBeerNodeList(tm.getName());
@@ -91,10 +89,10 @@ public class DBUtilTest {
 		try {
 			beerModels = DomainConverter.createBeerModelsFromList(beerNodes);
 		} catch (WrongNodeTypeException e) {
-			e.printStackTrace();
 		} catch (NodeNotFoundException e) {
-			e.printStackTrace();
 		}
+
+		System.out.println(bm1.getName());
 
 		Assert.assertTrue(beerModels.contains(bm1));
 		Assert.assertTrue(beerModels.contains(bm2));

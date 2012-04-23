@@ -68,7 +68,7 @@ public final class Cypher {
 	 */
 	public static List<Node> executeAndGetNodes(String query, String column, String param, int limit) {
 		if (limit <= 0) {
-			Cypher.executeAndGetNodes(query, column, param);
+			return Cypher.executeAndGetNodes(query, column, param);
 		}
 		final String limitClause = " LIMIT " + limit;
 		return Cypher.executeAndGetNodes(query + limitClause, column, param);
@@ -85,8 +85,11 @@ public final class Cypher {
 	 * @return A List containg the nodes returned by the query.
 	 */
 	public static List<Node> executeAndGetNodes(String query, String column, int limit) {
+		if (limit <= 0) {
+			return Cypher.executeAndGetNodes(query, column);
+		}
 		final String limitClause = " LIMIT " + limit;
-		return executeAndGetNodes(query + limitClause, column, limit);
+		return executeAndGetNodes(query + limitClause, column);
 	}
 
 	/**

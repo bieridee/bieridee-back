@@ -32,22 +32,22 @@ public final class Main {
 	public static void main(String[] args) {
 		// Create new database
 		// TESTING ONLY: deletes and rebuilds db every time
-		GRAPHDB = Testdb.createDB(Config.DB_PATH);
-		Testdb.fillDB(GRAPHDB);
-		//////////////////////////////////////////
-		
+		//GRAPHDB = Testdb.createDB(Config.DB_PATH);
+
+		// ////////////////////////////////////////
+
 		// Create a new Restlet Component.
 		final Component component = new Component();
-		
+
 		// Add a new HTTP server listening on a local port
 		component.getServers().add(Protocol.HTTP, SERVER_PORT);
-		
+
 		// Create the graph database
 		GRAPHDB = Main.getGraphDb();
 
 		// Attach the dispatcher.
 		component.getDefaultHost().attach(new Dispatcher());
-		
+
 		// Start the component.
 		try {
 			component.start();
@@ -76,15 +76,19 @@ public final class Main {
 	 */
 	public static EmbeddedGraphDatabase getGraphDb() {
 		if (GRAPHDB == null) {
-			GRAPHDB = new EmbeddedGraphDatabase(ch.hsr.bieridee.config.Config.DB_PATH);
+			// TODO: Remove for production use.
+			GRAPHDB = Testdb.createDB(Config.DB_PATH);
+			Testdb.fillDB(GRAPHDB);
+			//GRAPHDB = new EmbeddedGraphDatabase(Config.DB_PATH);
 			
 			EmbeddedServerConfigurator config;
 			config = new EmbeddedServerConfigurator(Main.GRAPHDB);
 			config.configuration().setProperty("org.neo4j.server.webserver.address", "0.0.0.0");
-			
+
 			SRV = new WrappingNeoServerBootstrapper(GRAPHDB, config);
 			SRV.start();
 			registerShutdownHook(GRAPHDB);
+
 		}
 		return GRAPHDB;
 	}
