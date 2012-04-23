@@ -6,7 +6,7 @@ package ch.hsr.bieridee.domain;
 public final class BrewerySize {
 	
 	private BrewerySize() {
-		// do not instanciate.
+		// do not instantiate.
 	}
 	
 	public static final String MICRO = "micro";

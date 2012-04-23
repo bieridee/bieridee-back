@@ -19,7 +19,7 @@ public final class DBUtil {
 	private static EmbeddedGraphDatabase DB = Main.getGraphDb();
 
 	private DBUtil() {
-		// do not instanciate
+		// do not instantiate
 	}
 
 	/**
@@ -43,7 +43,7 @@ public final class DBUtil {
 	}
 
 	/**
-	 * Gets a list of all beer nodes form the database.
+	 * Gets a list of all beer nodes from the database.
 	 * 
 	 * @return List all existing beernodes.
 	 */
@@ -61,7 +61,7 @@ public final class DBUtil {
 	}
 
 	/**
-	 * Gets a list of all beertype nodes form the database.
+	 * Gets a list of all beertype nodes from the database.
 	 * 
 	 * @return List of all existing beertype nodes.
 	 */
@@ -70,7 +70,27 @@ public final class DBUtil {
 	}
 
 	/**
-	 * Gets a list of all user nodes form the database.
+	 * Gets a list of all brewery nodes from the database.
+	 * 
+	 * @return List of all existing brewery nodes.
+	 */
+	public static List<Node> getBreweryNodeList() {
+		return Cypher.executeAndGetNodes(Cypherqueries.GET_ALL_BREWERIES, "Brewery");
+	}
+
+	/**
+	 * Gets a list of all brewery nodes filtered by size.
+	 * 
+	 * @param brewerySize
+	 *            Brewery size which is used as a filter.
+	 * @return a List of Beers matching the given Tag name
+	 */
+	public static List<Node> getBreweryNodeList(String brewerySize) {
+		return Cypher.executeAndGetNodes(Cypherqueries.GET_BREWERIES_BY_TAG_NAME, "Brewery", brewerySize);
+	}
+
+	/**
+	 * Gets a list of all user nodes from the database.
 	 * 
 	 * @return List of all existing user nodes.
 	 */

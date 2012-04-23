@@ -16,7 +16,7 @@ import ch.hsr.bieridee.Main;
 public final class Cypher {
 
 	private Cypher() {
-		// do not instanciate.
+		// do not instantiate.
 	}
 
 	/**
