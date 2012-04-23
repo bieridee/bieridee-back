@@ -9,6 +9,8 @@ import ch.hsr.bieridee.serializer.BeerListSerializer;
 import ch.hsr.bieridee.serializer.BeerSerializer;
 import ch.hsr.bieridee.serializer.BeertypeListSerializer;
 import ch.hsr.bieridee.serializer.BeertypeSerializer;
+import ch.hsr.bieridee.serializer.BreweryListSerializer;
+import ch.hsr.bieridee.serializer.BrewerySerializer;
 import ch.hsr.bieridee.serializer.TagListSerializer;
 import ch.hsr.bieridee.serializer.TagSerializer;
 import ch.hsr.bieridee.serializer.UserListSerializer;
@@ -30,7 +32,7 @@ public final class Config {
 	
 	// dummy constructor
 	private Config() {
-		// do not instanciate.
+		// do not instantiate.
 	}
 	
 	/**
@@ -54,6 +56,8 @@ public final class Config {
 				beerModule.addSerializer(new BeerListSerializer());
 				beerModule.addSerializer(new BeertypeSerializer());
 				beerModule.addSerializer(new BeertypeListSerializer());
+				beerModule.addSerializer(new BrewerySerializer());
+				beerModule.addSerializer(new BreweryListSerializer());
 				beerModule.addSerializer(new TagSerializer());
 				beerModule.addSerializer(new TagListSerializer());
 				beerModule.addSerializer(new UserSerializer());
