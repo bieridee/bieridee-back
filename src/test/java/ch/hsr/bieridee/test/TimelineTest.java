@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.neo4j.graphdb.Node;
 
+import ch.hsr.bieridee.config.NodeType;
 import ch.hsr.bieridee.utils.DBUtil;
 import ch.hsr.bieridee.utils.NodeProperty;
 
@@ -25,7 +26,6 @@ public class TimelineTest {
 		long previous = Long.MAX_VALUE;
 		for (Node n : actions) {
 			final Long timestamp = (Long) n.getProperty(NodeProperty.Action.TIMESTAMP);
-			System.out.println(timestamp);
 			Assert.assertTrue(timestamp <= previous);
 			previous = timestamp;
 		}
@@ -34,11 +34,30 @@ public class TimelineTest {
 	/**
 	 * Tests the limit parameter.
 	 */
+	private List<Node> testTimelineSize(int size) {
+		final int limit = 3;
+		return DBUtil.getTimeLine(limit);
+	}
+
+	/**
+	 * 
+	 */
+	@Test
+	public void testTimelineNegativeSize() {
+		final int limit = -1;
+		final List<Node> nodes = this.testTimelineSize(limit);
+		Assert.assertTrue(0 != nodes.size());
+
+	}
+
+	/**
+	 * 
+	 */
 	@Test
 	public void testTimelineSize() {
 		final int limit = 3;
-		final List<Node> actions = DBUtil.getTimeLine(limit);
-		Assert.assertEquals(limit, actions.size());
+		final List<Node> nodes = this.testTimelineSize(limit);
+		Assert.assertEquals(limit, nodes.size());
 	}
 
 	/**
@@ -46,7 +65,7 @@ public class TimelineTest {
 	 */
 	@Test
 	public void testTimelineAddAction() {
-		final Node consumption = DBUtil.createNode("consumption");
+		final Node consumption = DBUtil.createNode(NodeType.CONSUMPTION);
 		final Long time = System.currentTimeMillis();
 		DBUtil.setProperty(consumption, NodeProperty.Action.TIMESTAMP, time);
 		DBUtil.addToTimeLine(consumption);

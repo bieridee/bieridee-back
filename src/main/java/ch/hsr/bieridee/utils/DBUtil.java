@@ -239,11 +239,10 @@ public final class DBUtil {
 	 * @return Chronological list of all actions (Ratings and Consumptions).
 	 */
 	public static List<Node> getTimeLine(int maxNumberOfItems) {
-		if (maxNumberOfItems != 0) {
-			final String query = Cypherqueries.GET_TIMELINE + " LIMIT " + maxNumberOfItems;
-			return Cypher.executeAndGetNodes(query, "Action");
-		} else {
+		if (maxNumberOfItems <= 0) {
 			return Cypher.executeAndGetNodes(Cypherqueries.GET_TIMELINE, "Action");
+		} else {
+			return Cypher.executeAndGetNodes(Cypherqueries.GET_TIMELINE, "Action", maxNumberOfItems);
 		}
 	}
 

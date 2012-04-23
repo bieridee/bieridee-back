@@ -54,7 +54,41 @@ public final class Cypher {
 	 * @return A List containing the nodes returned by the query.
 	 */
 	public static List<Node> executeAndGetNodes(String query, String column, String param) {
-		return Cypher.executeAndGetNodes(query.replace("$1", param), column);
+		final String newQuery = query.replace("$1", param);
+		return executeAndGetNodes(newQuery, column);
+	}
+
+	/**
+	 * @param query
+	 *            The cypher query
+	 * @param column
+	 *            Column name containing the Nodes that will be returned
+	 * @param param
+	 *            The parameter will be used as a replacement for the first occurence of the literal '$1' in the cypher
+	 * @param limit
+	 *            Max. number of Nodes returned.
+	 * @return A List containing the nodes returned by the query.
+	 */
+	public static List<Node> executeAndGetNodes(String query, String column, String param, int limit) {
+		if (limit <= 0) {
+			Cypher.executeAndGetNodes(query, column, param);
+		}
+		final String limitClause = " LIMIT " + limit;
+		return Cypher.executeAndGetNodes(query + limitClause, column, param);
+
+	}
+
+	/**
+	 * @param query
+	 *            The cypher query
+	 * @param column
+	 *            Column name containing the Nodes that will be returned.
+	 * @param limit
+	 *            number of Nodes returned.
+	 * @return A List containg the nodes returned by the query.
+	 */
+	public static List<Node> executeAndGetNodes(String query, String column, int limit) {
+		return executeAndGetNodes(query, column, "", limit);
 	}
 
 	/**
