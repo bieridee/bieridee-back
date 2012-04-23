@@ -20,7 +20,7 @@ public final class Main {
 	private static final int SERVER_PORT = 8080;
 
 	private Main() {
-		// do not instanciate.
+		// do not instantiate.
 	}
 
 	/**

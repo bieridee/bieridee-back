@@ -10,6 +10,7 @@ import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.AbstractModel;
 import ch.hsr.bieridee.models.BeerModel;
 import ch.hsr.bieridee.models.BeertypeModel;
+import ch.hsr.bieridee.models.BreweryModel;
 import ch.hsr.bieridee.models.TagModel;
 import ch.hsr.bieridee.models.UserModel;
 
@@ -19,7 +20,7 @@ import ch.hsr.bieridee.models.UserModel;
 public final class DomainConverter {
 
 	private DomainConverter() {
-		// do not instanciate
+		// do not instantiate
 	}
 	
 	/**
@@ -52,6 +53,23 @@ public final class DomainConverter {
 		final List<BeertypeModel> models = new LinkedList<BeertypeModel>();
 		for (Node n : nodes) {
 			models.add(new BeertypeModel(n));
+		}
+		return models;
+	}
+	
+	/**
+	 * Converts a list of brewery nodes into a list of BreweryModels.
+	 * 
+	 * @param nodes
+	 *            <code>List</code> containing the Node Objects which will be wrapped with a BreweryModel.
+	 * @return A list of <code>BreweryModel</code> Objects.
+	 * @throws WrongNodeTypeException Thrown if one of the given nodes is not of type brewery
+	 * @throws NodeNotFoundException Thrown if one of the given nodes is not existing
+	 */
+	public static List<BreweryModel> createBreweryModelsFromList(List<Node> nodes) throws WrongNodeTypeException, NodeNotFoundException {
+		final List<BreweryModel> models = new LinkedList<BreweryModel>();
+		for (Node n : nodes) {
+			models.add(new BreweryModel(n));
 		}
 		return models;
 	}

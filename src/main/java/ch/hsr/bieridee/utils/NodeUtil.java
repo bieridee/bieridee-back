@@ -12,7 +12,7 @@ import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 public final class NodeUtil {
 
 	private NodeUtil() {
-		// do not instanciate.
+		// do not instantiate.
 	}
 
 	/**

@@ -9,6 +9,8 @@ import ch.hsr.bieridee.resourcehandler.BeerListResource;
 import ch.hsr.bieridee.resourcehandler.BeerResource;
 import ch.hsr.bieridee.resourcehandler.BeertypeListResource;
 import ch.hsr.bieridee.resourcehandler.BeertypeResource;
+import ch.hsr.bieridee.resourcehandler.BreweryListResource;
+import ch.hsr.bieridee.resourcehandler.BreweryResource;
 import ch.hsr.bieridee.resourcehandler.TagListResource;
 import ch.hsr.bieridee.resourcehandler.TagResource;
 import ch.hsr.bieridee.resourcehandler.UserListResource;
@@ -40,6 +42,8 @@ public class Dispatcher extends Application {
 		final Router router = new Router(getContext());
 		router.attach(Res.BEER_COLLECTION, BeerListResource.class);
 		router.attach(Res.BEER_DOCUMENT, BeerResource.class);
+		router.attach(Res.BREWERY_COLLECTION, BreweryListResource.class);
+		router.attach(Res.BREWERY_DOCUMENT, BreweryResource.class);
 		router.attach(Res.BEERTYPE_COLLECTION, BeertypeListResource.class);
 		router.attach(Res.BEERTYPE_DOCUMENT, BeertypeResource.class);
 		router.attach(Res.TAG_COLLECTION, TagListResource.class);

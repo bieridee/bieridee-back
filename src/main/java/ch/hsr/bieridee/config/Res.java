@@ -13,7 +13,7 @@ import ch.hsr.bieridee.domain.interfaces.IDomain;
 public final class Res {
 
 	private Res() {
-		// do not instanciate.
+		// do not instantiate.
 	}
 
 	public static final String API_URL = "http://localhost:8080";
@@ -33,6 +33,7 @@ public final class Res {
 	public static final String BREWERY_COLLECTION = "/breweries";
 	public static final String BREWERY_REQ_ATTR = "brewery-id";
 	public static final String BREWERY_DOCUMENT = "/breweries/{" + BREWERY_REQ_ATTR + "}";
+	public static final String BREWERY_FILTER_PARAMETER_SIZE = "size";
 
 	// tag
 	public static final String TAG_COLLECTION = "/tags";
