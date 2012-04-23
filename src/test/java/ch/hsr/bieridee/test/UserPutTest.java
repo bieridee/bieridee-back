@@ -84,12 +84,11 @@ public class UserPutTest {
 		final JSONObject partialUserJson = new JSONObject();
 		try {
 			partialUserJson.put(NodeProperty.User.USERNAME, "notpossibletoupdate");
-			partialUserJson.put(NodeProperty.User.PRENAME, "Danilo");
-			partialUserJson.put(NodeProperty.User.SURNAME, "Bargen");
+			partialUserJson.put(NodeProperty.User.PRENAME, "DJ");
+			partialUserJson.put(NodeProperty.User.SURNAME, "Bobo");
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		
 		
 		final Representation rep = new StringRepresentation(partialUserJson.toString(), MediaType.APPLICATION_JSON);
 		clientResource.put(rep);
