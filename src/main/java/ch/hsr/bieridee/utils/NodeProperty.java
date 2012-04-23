@@ -14,7 +14,6 @@ public final class NodeProperty {
 
 	/**
 	 * User Node specific properties.
-	 * 
 	 */
 	public static final class User {
 		public static final String USERNAME = "username";
@@ -26,7 +25,6 @@ public final class NodeProperty {
 
 	/**
 	 * Action Node specific properties.
-	 * 
 	 */
 	public static final class Action {
 		public static final String TIMESTAMP = "timestamp";
@@ -34,7 +32,6 @@ public final class NodeProperty {
 
 	/**
 	 * Beer Node specific properties.
-	 * 
 	 */
 	public static final class Beer {
 		public static final String NAME = "name";
@@ -44,16 +41,24 @@ public final class NodeProperty {
 
 	/**
 	 * Beertype specific properties.
-	 * 
 	 */
 	public static final class Beertype {
 		public static final String NAME = "name";
 		public static final String DESCRIPTION = "description";
 	}
+	
+	/**
+	 * Brewery specific properties.
+	 */
+	public static final class Brewery {
+		public static final String NAME = "name";
+		public static final String SIZE = "size";
+		public static final String DESCRIPTION = "description";
+		public static final String PICTURE = "picture";
+	}
 
 	/**
 	 * Tag specific properties.
-	 * 
 	 */
 	public static final class Tag {
 		public static final String NAME = "name";
