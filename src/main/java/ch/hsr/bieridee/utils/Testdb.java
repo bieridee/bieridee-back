@@ -22,7 +22,7 @@ import ch.hsr.bieridee.domain.BrewerySize;
  * 
  */
 public final class Testdb {
-	
+
 	private static final Logger LOG = Logger.getLogger(Testdb.class);
 
 	private static WrappingNeoServerBootstrapper SRV;
@@ -93,30 +93,71 @@ public final class Testdb {
 			rootNode.createRelationshipTo(timelineIndex, RelType.INDEX_TIMELINE);
 			rootNode.createRelationshipTo(beertypeIndex, RelType.INDEX_BEERTYPE);
 			rootNode.createRelationshipTo(timelineStart, RelType.INDEX_TIMELINESTART);
-			
+
 			/* CREATE BEERTYPES */
 
 			// Gemäss http://de.wikipedia.org/wiki/Bier#Unterg.C3.A4rige_Biere
 			final Node ale = createBeertype(db, "Ale", "Ale ist ein althergebrachter Begriff für ein fermentiertes alkoholisches Getränk, das hauptsächlich aus gemälzter Gerste hergestellt wird. Ale ist in Grossbritannien beheimatet.");
 			final Node altbier = createBeertype(db, "Altbier", "Altbier (oft nur Alt genannt) ist eine dunkle obergärige Biersorte, die überwiegend am Niederrhein getrunken wird.");
-			final Node berliner_weisse = createBeertype(db, "Berliner Weisse", "Die Berliner Weisse ist ein obergäriges Schankbier aus Gersten- und Weizenmalz. Sie hat eine Stammwürze von 7-8% und einen Alkoholgehalt von ca. 2.8% vol. Ihre Farbe ist ein dunkles, leicht hefetrübes Gelb. Anders als bei den meisten anderen Biersorten folgt bei der Berliner Weissen auf die alkoholische Gärung eine zweite Milchsäuregärung bei etwas höheren Temperaturen. Das verlängert einerseits die Haltbarkeit erheblich, sorgt andererseits für vergleichsweise sauren Geschmack. Das Bier wird heute meist in Kombination mit süssem Fruchtsirup getrunken.");
-			final Node gose = createBeertype(db, "Gose", "Die Gose ist eine Biersorte, die ursprünglich aus der alten Kaiserstadt Goslar am Harz stammt. Sie stellt einen eigenen, alten Biertyp dar, der eine gewisse Ähnlichkeit sowohl mit Berliner Weiße, als auch mit belgischen Lambicbieren bzw. deren Spezialform, der Geuze, aufweist.");
-			final Node haferbier = createBeertype(db, "Haferbier", "Haferbier wird aus Hafermalz gebraut, oft unter Zusatz von Gerstenmalz, Hopfen, Hefe und Wasser. Es handelt sich dabei um ein leicht säuerlich schmeckendes, sehr erfrischendes Getränk. Der Geschmack ist in etwa zwischen Berliner Weiße und Hefeweizen angesiedelt.");
-			final Node koelsch = createBeertype(db, "Kölsch", "Kölsch ist ein helles, blankes (gefiltertes), hopfenbetontes und obergäriges Vollbier mit einer durchschnittlichen Stammwürze von 11.3% und einem Alkoholgehalt von durchschnittlich 4.8%.");
-			final Node porter = createBeertype(db, "Porter", "Porter ist ein dunkles, oft tiefschwarzes Bier mit einem malzigen oder sogar röstmalzbetontem Geschmack. Traditionell war Porter häufig stark gehopft und daher herb. Heute steht der Begriff für verschiedene Arten von Bier. Im englischen Sprachraum bezeichnet es ein meist (aber nicht immer) obergäriges Bier mit einem Alkoholgehalt von 5%.");
-			final Node roggenbier = createBeertype(db, "Roggenbier", "Roggenbier ist ein Bier zu dessen Herstellung Roggen als Stärkelieferant für die Alkoholische Gärung eingesetzt wird. Es ist üblicherweise dunkel und obergärig, es wird in der Regel mit einer Weizenbierhefe vergoren und hat schon deshalb eine gewisse Ähnlichkeit mit dunklem Weizenbier. Wie jenes ist es in der Regel trüb (oft trüber als Weizenbier) und verfügt über deutliche Fruchtnoten.");
-			final Node stout = createBeertype(db, "Stout", "Das Stout ist ein schwarzbraunes, röst- und/oder hopfenbitteres, obergäriges Bier mit einer ausgeprägten, cremefarbenen Schaumkrone. Es wird mit besonders stark geröstetem Gerstenmalz oder Röstgerste gebraut und ist vor allem in englischsprachigen Ländern beliebt. Bekannte Beispiele für Stouts sind Guinness und Murphy's.");
-			final Node dinkelbier = createBeertype(db, "Dinkelbier", "Dinkelbier ist wie Weizenbier eine obergärige Biersorte. Der Dinkel gilt als Vorläufer des modernen Weizens und wird in der Brautechnik ähnlich behandelt. Geschmacklich liegt Dinkelbier in der Varianz der verschiedenen Weizenbiere. Für die Herstellung von Dinkelbier gilt das Reinheitsgebot von 1516.");
-			final Node weizenbier = createBeertype(db, "Weizenbier", "Das Aroma der obergärigen Hefe, die Brimse, prägt den Charakter der Weissbiere. Die Resthefe im Flaschenboden trübt die Flüssigkeit und verleiht den Bieren meist einen leichten Bananen-Nelken Geschmack.");
-			final Node emmerbier = createBeertype(db, "Emmerbier", "Emmerbier ist eine spezielle obergärige Biersorte, die aus Emmer (Triticum dicoccum) gebraut wird. Es wird hergestellt aus Malz, darunter über 50% Emmer, dazu Einkorn, Dinkel, Weizen und Gerste sowie Naturhopfen. Das Bier erhält ein bernsteinfarbenes, eher naturtrübes Aussehen und einen ausgeprägt malzaromatischen Geschmack.");
-			final Node exportbier = createBeertype(db, "Exportbier", "Exportbier ist im deutschsprachigen Raum ein untergäriges Vollbier mit einer Stammwürze von 12% bis 14% und einem Alkoholgehalt von meistens etwas über 5% vol. Es kann hell oder dunkel sein.");
-			final Node helles = createBeertype(db, "Helles", "Helles als Biersorte ist vor allem in Bayern ein untergäriges, gelbes Bier mit einer Stammwürze von 11–13% und einem Alkoholgehalt von 4.5–6% vol. Dabei gibt es keine scharfe Grenze zu den Biersorten Lager und Export.");
-			final Node lagerbier = createBeertype(db, "Lagerbier", "Als Lagerbier werden in Deutschland heute Biere bezeichnet, die den Stammwürzegehalt eines Vollbieres aufweisen, im Gegensatz zum Pilsner Bier jedoch in der Regel nur schwach gehopft sind.");
-			final Node muenchner_dunkel = createBeertype(db, "Münchner Dunkel", "Münchner Dunkel ist eine traditionelle untergärige Münchner Biersorte. Es variiert farblich je nach Herstellungsverfahren und Zutaten zwischen kräftig kupferrot bis dunkelbraun, ist nur mäßig gehopft und daher eher mild und hat meist eine deutlich malzig-süße Note.");
-			final Node maerzen = createBeertype(db, "Märzen", "Das Märzenbier ist ein untergäriges Lagerbier. Der Begriff Märzenbier wird heutzutage vor allem in Süddeutschland und Österreich für etwas stärkere Lagerbiere verwendet, die eigentlich in die Kategorie Exportbier fallen. In Österreich ist Märzen überall verbreitet und sozusagen das \"Standardbier\" des Landes. Im englischen Sprachraum ist Märzen ein Synonym für Oktoberfestbier.");
-			final Node pils = createBeertype(db, "Pils", "Pils(e)ner Bier, auch Pils genannt, ist ein nach der böhmischen Stadt Pilsen benanntes, untergäriges Lagerbier mit im Vergleich zu anderen Biersorten erhöhtem Hopfengehalt (und dementsprechend auch starkem Hopfenaroma) und höchstens 12.5% Stammwürzegehalt. Nach Pilsner Brauart hergestellte Biere bilden heute den Großteil der in Deutschland produzierten und verkauften Biere.");
-			final Node schwarzbier = createBeertype(db, "Schwarzbier", "Schwarzbiere sind dunkle Vollbiere, die heute - anders als früher - meist untergärig hergestellt werden. Seine dunkle Farbe erhält Schwarzbier meist durch die Verwendung dunklen Braumalzes oder Röstmalzes, was ihm die typisch röstige Note gibt. Der Stammwürzegehalt beträgt mindestens 11%.");
-			
+			final Node berliner_weisse = createBeertype(
+					db,
+					"Berliner Weisse",
+					"Die Berliner Weisse ist ein obergäriges Schankbier aus Gersten- und Weizenmalz. Sie hat eine Stammwürze von 7-8% und einen Alkoholgehalt von ca. 2.8% vol. Ihre Farbe ist ein dunkles, leicht hefetrübes Gelb. Anders als bei den meisten anderen Biersorten folgt bei der Berliner Weissen auf die alkoholische Gärung eine zweite Milchsäuregärung bei etwas höheren Temperaturen. Das verlängert einerseits die Haltbarkeit erheblich, sorgt andererseits für vergleichsweise sauren Geschmack. Das Bier wird heute meist in Kombination mit süssem Fruchtsirup getrunken.");
+			final Node gose = createBeertype(
+					db,
+					"Gose",
+					"Die Gose ist eine Biersorte, die ursprünglich aus der alten Kaiserstadt Goslar am Harz stammt. Sie stellt einen eigenen, alten Biertyp dar, der eine gewisse Ähnlichkeit sowohl mit Berliner Weiße, als auch mit belgischen Lambicbieren bzw. deren Spezialform, der Geuze, aufweist.");
+			final Node haferbier = createBeertype(
+					db,
+					"Haferbier",
+					"Haferbier wird aus Hafermalz gebraut, oft unter Zusatz von Gerstenmalz, Hopfen, Hefe und Wasser. Es handelt sich dabei um ein leicht säuerlich schmeckendes, sehr erfrischendes Getränk. Der Geschmack ist in etwa zwischen Berliner Weiße und Hefeweizen angesiedelt.");
+			final Node koelsch = createBeertype(db, "Kölsch",
+					"Kölsch ist ein helles, blankes (gefiltertes), hopfenbetontes und obergäriges Vollbier mit einer durchschnittlichen Stammwürze von 11.3% und einem Alkoholgehalt von durchschnittlich 4.8%.");
+			final Node porter = createBeertype(
+					db,
+					"Porter",
+					"Porter ist ein dunkles, oft tiefschwarzes Bier mit einem malzigen oder sogar röstmalzbetontem Geschmack. Traditionell war Porter häufig stark gehopft und daher herb. Heute steht der Begriff für verschiedene Arten von Bier. Im englischen Sprachraum bezeichnet es ein meist (aber nicht immer) obergäriges Bier mit einem Alkoholgehalt von 5%.");
+			final Node roggenbier = createBeertype(
+					db,
+					"Roggenbier",
+					"Roggenbier ist ein Bier zu dessen Herstellung Roggen als Stärkelieferant für die Alkoholische Gärung eingesetzt wird. Es ist üblicherweise dunkel und obergärig, es wird in der Regel mit einer Weizenbierhefe vergoren und hat schon deshalb eine gewisse Ähnlichkeit mit dunklem Weizenbier. Wie jenes ist es in der Regel trüb (oft trüber als Weizenbier) und verfügt über deutliche Fruchtnoten.");
+			final Node stout = createBeertype(
+					db,
+					"Stout",
+					"Das Stout ist ein schwarzbraunes, röst- und/oder hopfenbitteres, obergäriges Bier mit einer ausgeprägten, cremefarbenen Schaumkrone. Es wird mit besonders stark geröstetem Gerstenmalz oder Röstgerste gebraut und ist vor allem in englischsprachigen Ländern beliebt. Bekannte Beispiele für Stouts sind Guinness und Murphy's.");
+			final Node dinkelbier = createBeertype(
+					db,
+					"Dinkelbier",
+					"Dinkelbier ist wie Weizenbier eine obergärige Biersorte. Der Dinkel gilt als Vorläufer des modernen Weizens und wird in der Brautechnik ähnlich behandelt. Geschmacklich liegt Dinkelbier in der Varianz der verschiedenen Weizenbiere. Für die Herstellung von Dinkelbier gilt das Reinheitsgebot von 1516.");
+			final Node weizenbier = createBeertype(db, "Weizenbier",
+					"Das Aroma der obergärigen Hefe, die Brimse, prägt den Charakter der Weissbiere. Die Resthefe im Flaschenboden trübt die Flüssigkeit und verleiht den Bieren meist einen leichten Bananen-Nelken Geschmack.");
+			final Node emmerbier = createBeertype(
+					db,
+					"Emmerbier",
+					"Emmerbier ist eine spezielle obergärige Biersorte, die aus Emmer (Triticum dicoccum) gebraut wird. Es wird hergestellt aus Malz, darunter über 50% Emmer, dazu Einkorn, Dinkel, Weizen und Gerste sowie Naturhopfen. Das Bier erhält ein bernsteinfarbenes, eher naturtrübes Aussehen und einen ausgeprägt malzaromatischen Geschmack.");
+			final Node exportbier = createBeertype(db, "Exportbier",
+					"Exportbier ist im deutschsprachigen Raum ein untergäriges Vollbier mit einer Stammwürze von 12% bis 14% und einem Alkoholgehalt von meistens etwas über 5% vol. Es kann hell oder dunkel sein.");
+			final Node helles = createBeertype(db, "Helles",
+					"Helles als Biersorte ist vor allem in Bayern ein untergäriges, gelbes Bier mit einer Stammwürze von 11–13% und einem Alkoholgehalt von 4.5–6% vol. Dabei gibt es keine scharfe Grenze zu den Biersorten Lager und Export.");
+			final Node lagerbier = createBeertype(db, "Lagerbier",
+					"Als Lagerbier werden in Deutschland heute Biere bezeichnet, die den Stammwürzegehalt eines Vollbieres aufweisen, im Gegensatz zum Pilsner Bier jedoch in der Regel nur schwach gehopft sind.");
+			final Node muenchner_dunkel = createBeertype(
+					db,
+					"Münchner Dunkel",
+					"Münchner Dunkel ist eine traditionelle untergärige Münchner Biersorte. Es variiert farblich je nach Herstellungsverfahren und Zutaten zwischen kräftig kupferrot bis dunkelbraun, ist nur mäßig gehopft und daher eher mild und hat meist eine deutlich malzig-süße Note.");
+			final Node maerzen = createBeertype(
+					db,
+					"Märzen",
+					"Das Märzenbier ist ein untergäriges Lagerbier. Der Begriff Märzenbier wird heutzutage vor allem in Süddeutschland und Österreich für etwas stärkere Lagerbiere verwendet, die eigentlich in die Kategorie Exportbier fallen. In Österreich ist Märzen überall verbreitet und sozusagen das \"Standardbier\" des Landes. Im englischen Sprachraum ist Märzen ein Synonym für Oktoberfestbier.");
+			final Node pils = createBeertype(
+					db,
+					"Pils",
+					"Pils(e)ner Bier, auch Pils genannt, ist ein nach der böhmischen Stadt Pilsen benanntes, untergäriges Lagerbier mit im Vergleich zu anderen Biersorten erhöhtem Hopfengehalt (und dementsprechend auch starkem Hopfenaroma) und höchstens 12.5% Stammwürzegehalt. Nach Pilsner Brauart hergestellte Biere bilden heute den Großteil der in Deutschland produzierten und verkauften Biere.");
+			final Node schwarzbier = createBeertype(
+					db,
+					"Schwarzbier",
+					"Schwarzbiere sind dunkle Vollbiere, die heute - anders als früher - meist untergärig hergestellt werden. Seine dunkle Farbe erhält Schwarzbier meist durch die Verwendung dunklen Braumalzes oder Röstmalzes, was ihm die typisch röstige Note gibt. Der Stammwürzegehalt beträgt mindestens 11%.");
+
 			beertypeIndex.createRelationshipTo(ale, RelType.INDEXES);
 			beertypeIndex.createRelationshipTo(altbier, RelType.INDEXES);
 			beertypeIndex.createRelationshipTo(berliner_weisse, RelType.INDEXES);
@@ -231,7 +272,7 @@ public final class Testdb {
 			userIndex.createRelationshipTo(urs, RelType.INDEXES);
 
 			/* CREATE RATINGS */
-			
+
 			final Node rating1 = createRating(db, 1);
 			final Node rating2 = createRating(db, 2);
 			final Node rating3 = createRating(db, 3);
@@ -250,30 +291,33 @@ public final class Testdb {
 			rating1.createRelationshipTo(feldschloesschen, RelType.CONTAINS);
 
 			jonas.createRelationshipTo(rating2, RelType.DOES);
-			rating1.createRelationshipTo(falken, RelType.CONTAINS);
+			rating2.createRelationshipTo(falken, RelType.CONTAINS);
 
 			jonas.createRelationshipTo(rating3, RelType.DOES);
-			rating1.createRelationshipTo(calanda, RelType.CONTAINS);
+			rating3.createRelationshipTo(calanda, RelType.CONTAINS);
 
 			chrigi.createRelationshipTo(rating4, RelType.DOES);
-			rating1.createRelationshipTo(calanda, RelType.CONTAINS);
-
-			chrigi.createRelationshipTo(rating4, RelType.DOES);
-			rating1.createRelationshipTo(waedibraeu, RelType.CONTAINS);
+			rating4.createRelationshipTo(calanda, RelType.CONTAINS);
 
 			danilo.createRelationshipTo(rating5, RelType.DOES);
-			rating1.createRelationshipTo(feldschloesschen, RelType.CONTAINS);
+			rating5.createRelationshipTo(feldschloesschen, RelType.CONTAINS);
 
 			urs.createRelationshipTo(rating6, RelType.DOES);
-			rating1.createRelationshipTo(feldschloesschen, RelType.CONTAINS);
+			rating6.createRelationshipTo(feldschloesschen, RelType.CONTAINS);
 
 			/* CREATE CONSUMPTIONS */
-			
+
 			final Node c1 = createConsumption(db);
 			final Node c2 = createConsumption(db);
 			final Node c3 = createConsumption(db);
 			final Node c4 = createConsumption(db);
 			final Node c5 = createConsumption(db);
+
+			timelineIndex.createRelationshipTo(c1, RelType.INDEXES);
+			timelineIndex.createRelationshipTo(c2, RelType.INDEXES);
+			timelineIndex.createRelationshipTo(c3, RelType.INDEXES);
+			timelineIndex.createRelationshipTo(c4, RelType.INDEXES);
+			timelineIndex.createRelationshipTo(c5, RelType.INDEXES);
 
 			c1.createRelationshipTo(feldschloesschen, RelType.CONTAINS);
 			jonas.createRelationshipTo(c1, RelType.DOES);
@@ -292,6 +336,20 @@ public final class Testdb {
 
 			/* INSERT CONSUMPTION TO TIMELINE */
 
+			long now = System.currentTimeMillis();
+			final int diff = 3;
+			rating1.setProperty(NodeProperty.Action.TIMESTAMP, now += diff);
+			c1.setProperty(NodeProperty.Action.TIMESTAMP, now += diff);
+			c2.setProperty(NodeProperty.Action.TIMESTAMP, now += diff);
+			rating2.setProperty(NodeProperty.Action.TIMESTAMP, now += diff);
+			c3.setProperty(NodeProperty.Action.TIMESTAMP, now += diff);
+			rating3.setProperty(NodeProperty.Action.TIMESTAMP, now += diff);
+			rating4.setProperty(NodeProperty.Action.TIMESTAMP, now += diff);
+			c4.setProperty(NodeProperty.Action.TIMESTAMP, now += diff);
+			c5.setProperty(NodeProperty.Action.TIMESTAMP, now += diff);
+			rating5.setProperty(NodeProperty.Action.TIMESTAMP, now += diff);
+			rating6.setProperty(NodeProperty.Action.TIMESTAMP, now += diff);
+
 			addAction(db, rating1);
 			addAction(db, c1);
 			addAction(db, c2);
@@ -305,21 +363,27 @@ public final class Testdb {
 			addAction(db, rating6);
 
 			/* CREATE BREWRIES */
-			
-			
-			/*final Node guinness = createBeerNode(db, "Guinness", "Guinness Draught", "");
-			final Node kilkenny = createBeerNode(db, "Kilkenny", "Kilkenny", "");
-			final Node quoellfrisch = createBeerNode(db, "Appenzeller Bier", "Quöllfrisch blond", "");
-			final Node vollmond = createBeerNode(db, "Appenzeller Bier", "Vollmond Bier blond", "");
-			final Node holzfass = createBeerNode(db, "Appenzeller Bier", "Holzfass Bier", "");*/
-			
+
+			/*
+			 * final Node guinness = createBeerNode(db, "Guinness", "Guinness Draught", ""); final Node kilkenny =
+			 * createBeerNode(db, "Kilkenny", "Kilkenny", ""); final Node quoellfrisch = createBeerNode(db,
+			 * "Appenzeller Bier", "Quöllfrisch blond", ""); final Node vollmond = createBeerNode(db,
+			 * "Appenzeller Bier", "Vollmond Bier blond", ""); final Node holzfass = createBeerNode(db,
+			 * "Appenzeller Bier", "Holzfass Bier", "");
+			 */
+
 			final Node calandaAg = createBrewery(db, "Calanda", BrewerySize.NATIONAL, "Calanda ist eine schweizer Traditions-Brauerei. Gegründet wurde sie im Jahre...", "");
 			final Node feldschloesschenAg = createBrewery(db, "Felschlösschen", BrewerySize.NATIONAL, "Feldschlösschen ist eine gesichtslose und gänzlich uninspirierte Brauerei. Sie wurde im Jahre ...", "");
 			final Node falkenAg = createBrewery(db, "Falken Brauerei", BrewerySize.REGIONAL, "Falke, der. Ein majestätischer Jagdvogel, besonders beliebt bei Grafen und Baronen.", "");
 			final Node waedibraeuAg = createBrewery(db, "Wädibräu", BrewerySize.REGIONAL, "Eine kleine aber feine regional Brauerei. Wädibräu stellt Bier in rauen Mengen her und hat noch lange nicht genug.", "");
 			final Node guinnessBrewery = createBrewery(db, "Guinness Brewery", BrewerySize.NATIONAL, "Wurde von Arthur Guinness im Jahr 1759 in Dublin gegründet.", "");
 			final Node stFrancisAbbeyBrewery = createBrewery(db, "St. Francis Abbey Brewery", BrewerySize.NATIONAL, "Die älteste irische Brauerei, welche unter Anderem das Kilkenny Bier braut.", "");
-			final Node locherAg = createBrewery(db, "Brauerei Locher AG", BrewerySize.NATIONAL, "Die Brauerei Locher ist ein traditionsreicher Familienbetrieb in Appenzell. Seit Mitte der 1990er Jahre entwickelte sie sich von einer nur lokal aktiven zu einer in der ganzen Schweiz (und darüber hinaus) bekannten Brauerei für innovative Spezialbiere.", "");
+			final Node locherAg = createBrewery(
+					db,
+					"Brauerei Locher AG",
+					BrewerySize.NATIONAL,
+					"Die Brauerei Locher ist ein traditionsreicher Familienbetrieb in Appenzell. Seit Mitte der 1990er Jahre entwickelte sie sich von einer nur lokal aktiven zu einer in der ganzen Schweiz (und darüber hinaus) bekannten Brauerei für innovative Spezialbiere.",
+					"");
 
 			breweryIndex.createRelationshipTo(calandaAg, RelType.INDEXES);
 			breweryIndex.createRelationshipTo(feldschloesschenAg, RelType.INDEXES);
@@ -368,9 +432,13 @@ public final class Testdb {
 
 	/**
 	 * Create a beertype node.
-	 * @param db Database
-	 * @param name Name
-	 * @param description Description
+	 * 
+	 * @param db
+	 *            Database
+	 * @param name
+	 *            Name
+	 * @param description
+	 *            Description
 	 * @return Beertype node
 	 */
 	private static Node createBeertype(EmbeddedGraphDatabase db, String name, String description) {
@@ -383,10 +451,15 @@ public final class Testdb {
 
 	/**
 	 * Create a beer node.
-	 * @param db Database
-	 * @param brand Brand
-	 * @param name Name
-	 * @param image Image
+	 * 
+	 * @param db
+	 *            Database
+	 * @param brand
+	 *            Brand
+	 * @param name
+	 *            Name
+	 * @param image
+	 *            Image
 	 * @return Beer node
 	 */
 	private static Node createBeerNode(EmbeddedGraphDatabase db, String brand, String name, String image) {
@@ -400,12 +473,19 @@ public final class Testdb {
 
 	/**
 	 * Create a user node.
-	 * @param db Database
-	 * @param prename Prename
-	 * @param surname Surname
-	 * @param email Email
-	 * @param username Username
-	 * @param password Password (SHA-1)
+	 * 
+	 * @param db
+	 *            Database
+	 * @param prename
+	 *            Prename
+	 * @param surname
+	 *            Surname
+	 * @param email
+	 *            Email
+	 * @param username
+	 *            Username
+	 * @param password
+	 *            Password (SHA-1)
 	 * @return User node
 	 */
 	private static Node createUser(EmbeddedGraphDatabase db, String prename, String surname, String email, String username, String password) {
