@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 
+import ch.hsr.bieridee.config.Res;
 import ch.hsr.bieridee.test.ServerTest;
 import ch.hsr.bieridee.utils.NodeProperty;
 
@@ -22,7 +23,7 @@ public class BreweryResourceTest extends ResourceTest {
 		final JSONObject brewery = this.getJSON(uri);
 		try {
 			Assert.assertEquals(66, brewery.getInt("id"));
-			Assert.assertEquals(uri, brewery.getString("uri"));
+			Assert.assertEquals(uri, brewery.getString("uri").replace(Res.API_URL, ServerTest.BASE_URL));
 			Assert.assertEquals("Felschlösschen", brewery.getString(NodeProperty.Brewery.NAME));
 			Assert.assertEquals("national", brewery.getString(NodeProperty.Brewery.SIZE));
 			Assert.assertTrue(brewery.getString(NodeProperty.Brewery.DESCRIPTION).startsWith("Feldschlösschen ist eine gesichtslose und gänzlich uninspirierte Brauerei."));

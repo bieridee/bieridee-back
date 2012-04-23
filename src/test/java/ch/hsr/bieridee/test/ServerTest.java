@@ -13,7 +13,7 @@ import ch.hsr.bieridee.Dispatcher;
  */
 public abstract class ServerTest {
 
-	final static int SERVER_PORT = 8080;
+	final static int SERVER_PORT = 1337;
 	public final static String BASE_URL = "http://localhost:" + SERVER_PORT;
 	private static Component COMPONENT;
 
