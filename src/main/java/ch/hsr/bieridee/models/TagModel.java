@@ -55,7 +55,8 @@ public class TagModel extends AbstractModel {
 	/**
 	 * Creates a tag model from a given Tag. Creates a new Node in the DB.
 	 * 
-	 * @param t Tag Object.
+	 * @param t
+	 *            Tag Object.
 	 */
 	public TagModel(Tag t) {
 		this.domainObject = t;
@@ -84,5 +85,14 @@ public class TagModel extends AbstractModel {
 	@Override
 	public int hashCode() {
 		return this.node.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (!(o instanceof TagModel)) {
+			return false;
+		}
+		final TagModel tm = (TagModel) o;
+		return this.node.getId() == tm.node.getId();
 	}
 }

@@ -4,7 +4,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
-import ch.hsr.bieridee.config.Res;
+
+import ch.hsr.bieridee.test.ServerTest;
 import ch.hsr.bieridee.utils.NodeProperty;
 
 /**
@@ -17,8 +18,8 @@ public class BreweryResourceTest extends ResourceTest {
 	 */
 	@Test
 	public void testSingleBrewery() {
-		String uri = Res.API_URL + "/breweries/66";
-		JSONObject brewery = this.getJSON(uri);
+		final String uri = ServerTest.BASE_URL + "/breweries/66";
+		final JSONObject brewery = this.getJSON(uri);
 		try {
 			Assert.assertEquals(66, brewery.getInt("id"));
 			Assert.assertEquals(uri, brewery.getString("uri"));

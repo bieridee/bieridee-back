@@ -69,7 +69,7 @@ public class DBUtilTest {
 		try {
 			bm1 = new BeerModel(31);
 			bm2 = new BeerModel(32);
-			bm3 = new BeerModel(10);
+			bm3 = new BeerModel(30);
 		} catch (NotFoundException e1) {
 			e1.printStackTrace();
 		} catch (WrongNodeTypeException e1) {
@@ -81,7 +81,9 @@ public class DBUtilTest {
 		try {
 			tm = new TagModel(tagNode);
 		} catch (NotFoundException e) {
+			e.printStackTrace();
 		} catch (WrongNodeTypeException e) {
+			e.printStackTrace();
 		}
 
 		final List<Node> beerNodes = DBUtil.getBeerNodeList(tm.getName());
@@ -89,7 +91,9 @@ public class DBUtilTest {
 		try {
 			beerModels = DomainConverter.createBeerModelsFromList(beerNodes);
 		} catch (WrongNodeTypeException e) {
+			e.printStackTrace();
 		} catch (NodeNotFoundException e) {
+			e.printStackTrace();
 		}
 
 		System.out.println(bm1.getName());

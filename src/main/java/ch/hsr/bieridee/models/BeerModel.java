@@ -177,6 +177,9 @@ public class BeerModel extends AbstractModel {
 
 	@Override
 	public boolean equals(Object o) {
+		if (!(o instanceof BeerModel)) {
+			return false;
+		}
 		return this.node.getId() == ((BeerModel) o).getId();
 	}
 }

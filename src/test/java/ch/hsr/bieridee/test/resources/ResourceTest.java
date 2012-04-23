@@ -9,11 +9,14 @@ import org.restlet.data.MediaType;
 import org.restlet.representation.Representation;
 import org.restlet.resource.ClientResource;
 
-public abstract class ResourceTest {
+import ch.hsr.bieridee.test.ServerTest;
+
+public abstract class ResourceTest extends ServerTest {
 	/**
 	 * Returns the JSONObject for a specific URI.
 	 * 
-	 * @param uri The resource URI
+	 * @param uri
+	 *            The resource URI
 	 * @return JSON representation of the resource
 	 */
 	protected JSONObject getJSON(String uri) {

@@ -5,7 +5,7 @@ import ch.hsr.bieridee.domain.interfaces.IDomain;
 /**
  * Class representing a Tag.
  */
-public class Tag implements IDomain{
+public class Tag implements IDomain {
 	private String name;
 
 	/**
@@ -27,6 +27,20 @@ public class Tag implements IDomain{
 	@Override
 	public String toString() {
 		return "Tag name: " + this.name;
+	}
+
+	@Override
+	public int hashCode() {
+		return this.name.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (!(o instanceof Tag)) {
+			return false;
+		}
+		final Tag t = (Tag) o;
+		return this.getName().equals(t.getName());
 	}
 
 }

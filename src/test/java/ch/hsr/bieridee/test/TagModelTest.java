@@ -21,11 +21,11 @@ public class TagModelTest {
 	 */
 	@Test
 	public void addTagToBeerModel() {
-		final String tagValue = "sehr fein";
+		final String tagValue = "billig";
 
 		try {
 			final TagModel t = new TagModel("gruusig");
-			final BeerModel beerModel = new BeerModel(9);
+			final BeerModel beerModel = new BeerModel(29);
 			beerModel.addTag(t);
 
 		} catch (WrongNodeTypeException e) {
@@ -33,9 +33,11 @@ public class TagModelTest {
 		}
 
 		try {
-			final BeerModel beerModel = new BeerModel(9);
+			final BeerModel beerModel = new BeerModel(29);
 			final TagModel tagModel = new TagModel(DBUtil.getTagByName(tagValue));
-			final boolean tagWasAdded = beerModel.getTags().contains(tagModel);
+			System.out.println(tagModel.getName()+ " - "+beerModel.getTags());
+			final boolean tagWasAdded = beerModel.getTags().contains(tagModel.getDomainObject());
+			System.out.println("contained: "+tagWasAdded);
 			Assert.assertTrue(tagWasAdded);
 		} catch (NotFoundException e) {
 			e.printStackTrace();
@@ -50,13 +52,13 @@ public class TagModelTest {
 	 */
 	@Test
 	public void createNewTag() {
-		final String tagName = "awesome!";
+		final String tagName = "hell";
 		final Tag tag = new Tag(tagName);
 		final TagModel tagModel = new TagModel(tag);
 		final Node nodeFromDB = DBUtil.getTagByName(tagName);
 		try {
 			final TagModel modelFromDB = new TagModel(nodeFromDB);
-			Assert.assertEquals(tagModel, modelFromDB);
+			Assert.assertEquals(tagModel.getName(), modelFromDB.getName());
 		} catch (NotFoundException e) {
 			e.printStackTrace();
 		} catch (WrongNodeTypeException e) {

@@ -1,64 +1,28 @@
-package ch.hsr.bieridee.test;
+package ch.hsr.bieridee.test.resources;
 
 import java.io.IOException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.restlet.Component;
 import org.restlet.data.MediaType;
-import org.restlet.data.Protocol;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.ClientResource;
 
-import ch.hsr.bieridee.Dispatcher;
-import ch.hsr.bieridee.config.Res;
+import ch.hsr.bieridee.test.ServerTest;
 import ch.hsr.bieridee.utils.NodeProperty;
 
 /**
  * Test the creation of a new user via PUT on the user resource.
  * 
  */
-public class UserPutTest {
+public class UserPutTest extends ServerTest {
 
 	final String testUsername = "tester";
 	final JSONObject userJson = new JSONObject();
-	final static int SERVER_PORT = 8080;
-	private static Component component;
-
-	@AfterClass
-	public static void shutdownDB() {
-		try {
-			component.stop();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@BeforeClass
-	public static void voidStartDB() {
-		// System.out.println("starting reslet and db");
-		// GRAPHDB = Testdb.createDB(Config.DB_PATH);
-		// Testdb.fillDB(GRAPHDB);
-		component = new Component();
-
-		// Add a new HTTP server listening on a local port
-		component.getServers().add(Protocol.HTTP, SERVER_PORT);
-
-		// Attach the dispatcher.
-		component.getDefaultHost().attach(new Dispatcher());
-
-		try {
-			component.start();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * Test setup.
@@ -81,7 +45,7 @@ public class UserPutTest {
 	 */
 	@Test
 	public void createAndGetCreatedUser() {
-		final ClientResource clientResource = new ClientResource(Res.API_URL + "/users/" + this.testUsername);
+		final ClientResource clientResource = new ClientResource(ServerTest.BASE_URL + "/users/" + this.testUsername);
 
 		final Representation rep = new StringRepresentation(this.userJson.toString(), MediaType.APPLICATION_JSON);
 		clientResource.put(rep);
@@ -114,7 +78,7 @@ public class UserPutTest {
 	 */
 	@Test
 	public void updateAndGetUser() {
-		final ClientResource clientResource = new ClientResource(Res.API_URL + "/users/" + this.testUsername);
+		final ClientResource clientResource = new ClientResource(ServerTest.BASE_URL + "/users/" + this.testUsername);
 
 		final JSONObject partialUserJson = new JSONObject();
 		try {
