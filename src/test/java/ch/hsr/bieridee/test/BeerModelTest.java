@@ -16,9 +16,6 @@ import ch.hsr.bieridee.utils.DomainConverter;
 
 /**
  * Tests the <code>BeerModel</code>.
- * 
- * @author jfurrer
- * 
  */
 public class BeerModelTest {
 
