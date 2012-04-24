@@ -15,7 +15,7 @@ import ch.hsr.bieridee.utils.DBUtil;
  * Tests the TagModel Class.
  * 
  */
-public class TagModelTest {
+public class TagModelTest extends DBTest {
 	/**
 	 * Creates new Tag and Links it with a BeerModel.
 	 */
@@ -35,9 +35,7 @@ public class TagModelTest {
 		try {
 			final BeerModel beerModel = new BeerModel(29);
 			final TagModel tagModel = new TagModel(DBUtil.getTagByName(tagValue));
-			System.out.println(tagModel.getName()+ " - "+beerModel.getTags());
 			final boolean tagWasAdded = beerModel.getTags().contains(tagModel.getDomainObject());
-			System.out.println("contained: "+tagWasAdded);
 			Assert.assertTrue(tagWasAdded);
 		} catch (NotFoundException e) {
 			e.printStackTrace();

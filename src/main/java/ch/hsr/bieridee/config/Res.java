@@ -16,7 +16,7 @@ public final class Res {
 		// do not instantiate.
 	}
 
-	public static final String API_URL = "http://localhost:8080";
+	public static final String API_URL = "http://" + Config.API_HOST + ":" + Config.API_PORT;
 
 	// beer
 	public static final String BEER_COLLECTION = "/beers";
@@ -28,7 +28,7 @@ public final class Res {
 	public static final String BEERTYPE_COLLECTION = "/beertypes";
 	public static final String BEERTYPE_REQ_ATTR = "beertype-id";
 	public static final String BEERTYPE_DOCUMENT = "/beertypes/{" + BEERTYPE_REQ_ATTR + "}";
-	
+
 	// brewery
 	public static final String BREWERY_COLLECTION = "/breweries";
 	public static final String BREWERY_REQ_ATTR = "brewery-id";
@@ -56,7 +56,7 @@ public final class Res {
 		final Class<? extends IDomain> c = domainObject.getClass();
 		String uri = null;
 		final String pattern = "\\{.*\\}";
-		
+
 		if (c == Beer.class) {
 			final long id = ((Beer) domainObject).getId();
 			uri = API_URL + BEER_DOCUMENT.replaceAll(pattern, Long.toString(id));

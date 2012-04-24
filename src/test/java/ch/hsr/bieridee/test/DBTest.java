@@ -6,17 +6,15 @@ import org.junit.BeforeClass;
 import ch.hsr.bieridee.Main;
 
 /**
- * Base class for all tests needing access to the REST api.
+ * Base class for database tests. Ensures that the database is available and cleaned after each test.
  * 
  */
-public abstract class ServerTest {
-
+public abstract class DBTest {
 	/**
 	 * shuts down the REST api server.
 	 */
 	@AfterClass
 	public static void shutdownDB() {
-		Main.stopAPI();
 		Main.stopDB();
 	}
 
@@ -26,7 +24,6 @@ public abstract class ServerTest {
 	@BeforeClass
 	public static void startResletAPI() {
 		Main.startDB(true);
-		Main.startAPI();
 	}
 
 }

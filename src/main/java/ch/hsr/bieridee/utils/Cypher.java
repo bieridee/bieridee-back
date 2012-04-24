@@ -7,13 +7,14 @@ import java.util.List;
 import org.neo4j.cypher.javacompat.ExecutionEngine;
 import org.neo4j.cypher.javacompat.ExecutionResult;
 import org.neo4j.graphdb.Node;
-
-import ch.hsr.bieridee.Main;
+import org.neo4j.kernel.EmbeddedGraphDatabase;
 
 /**
- * Class containg all the cipher queries.
+ * Class containing all the cipher queries.
  */
 public final class Cypher {
+
+	private static EmbeddedGraphDatabase DB;
 
 	private Cypher() {
 		// do not instantiate.
@@ -29,7 +30,7 @@ public final class Cypher {
 	 * @return A List containing the nodes returned by the query.
 	 */
 	public static List<Node> executeAndGetNodes(String query, String column) {
-		final ExecutionEngine engine = new ExecutionEngine(Main.getGraphDb());
+		final ExecutionEngine engine = new ExecutionEngine(DB);
 		final ExecutionResult result = (ExecutionResult) engine.execute(query);
 		final Iterator<Node> iterator = result.columnAs(column);
 		final List<Node> resultNodes = new LinkedList<Node>();
@@ -37,6 +38,14 @@ public final class Cypher {
 			resultNodes.add(iterator.next());
 		}
 		return resultNodes;
+	}
+
+	/**
+	 * Sets the database.
+	 * @param db The database.
+	 */
+	public static void setDB(EmbeddedGraphDatabase db) {
+		DB = db;
 	}
 
 	/**
@@ -102,7 +111,7 @@ public final class Cypher {
 	 * @return The desired node or null if none found
 	 */
 	public static Node executeAndGetSingleNode(String query, String column) {
-		final ExecutionEngine engine = new ExecutionEngine(Main.getGraphDb());
+		final ExecutionEngine engine = new ExecutionEngine(DB);
 		final ExecutionResult result = (ExecutionResult) engine.execute(query);
 		final Iterator<Node> iterator = result.columnAs(column);
 		Node resultNode = null;

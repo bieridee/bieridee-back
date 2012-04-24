@@ -13,7 +13,7 @@ import ch.hsr.bieridee.domain.Beertype;
 import ch.hsr.bieridee.domain.Brewery;
 import ch.hsr.bieridee.domain.Tag;
 
-public class ResTest {
+public class ResTest extends DBTest {
 
 	@Test
 	public void beerUriTest() {

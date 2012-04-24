@@ -17,7 +17,7 @@ import ch.hsr.bieridee.utils.DomainConverter;
 /**
  * Tests the <code>BeerModel</code>.
  */
-public class BeerModelTest {
+public class BeerModelTest extends DBTest {
 
 	/**
 	 * TEST.

@@ -18,7 +18,7 @@ import ch.hsr.bieridee.utils.DomainConverter;
  * Tests DBUtil functionality.
  * 
  */
-public class DBUtilTest {
+public class DBUtilTest extends DBTest {
 
 	/**
 	 * Tests if a beer could be obtained by name.
@@ -32,8 +32,10 @@ public class DBUtilTest {
 		try {
 			bm1 = new BeerModel(beerNode);
 		} catch (NotFoundException e) {
+			Assert.fail();
 			e.printStackTrace();
 		} catch (WrongNodeTypeException e) {
+			Assert.fail();
 			e.printStackTrace();
 		}
 
@@ -49,10 +51,9 @@ public class DBUtilTest {
 	@Test(expected = NotFoundException.class)
 	public void getNotExistingBeerByNameTest() throws NotFoundException, WrongNodeTypeException {
 		final String beerName = "Chrigis Super Brew!";
-		BeerModel bm1 = null;
 		final Node beerNode = DBUtil.getBeerByName(beerName);
 		System.out.println(beerNode);
-		bm1 = new BeerModel(beerNode);
+		final BeerModel bm1 = new BeerModel(beerNode);
 		Assert.assertNull(beerNode);
 	}
 
@@ -71,8 +72,10 @@ public class DBUtilTest {
 			bm2 = new BeerModel(32);
 			bm3 = new BeerModel(30);
 		} catch (NotFoundException e1) {
+			Assert.fail();
 			e1.printStackTrace();
 		} catch (WrongNodeTypeException e1) {
+			Assert.fail();
 			e1.printStackTrace();
 		}
 
@@ -81,8 +84,10 @@ public class DBUtilTest {
 		try {
 			tm = new TagModel(tagNode);
 		} catch (NotFoundException e) {
+			Assert.fail();
 			e.printStackTrace();
 		} catch (WrongNodeTypeException e) {
+			Assert.fail();
 			e.printStackTrace();
 		}
 
@@ -91,12 +96,12 @@ public class DBUtilTest {
 		try {
 			beerModels = DomainConverter.createBeerModelsFromList(beerNodes);
 		} catch (WrongNodeTypeException e) {
+			Assert.fail();
 			e.printStackTrace();
 		} catch (NodeNotFoundException e) {
+			Assert.fail();
 			e.printStackTrace();
 		}
-
-		System.out.println(bm1.getName());
 
 		Assert.assertTrue(beerModels.contains(bm1));
 		Assert.assertTrue(beerModels.contains(bm2));

@@ -12,6 +12,7 @@ import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.ClientResource;
 
+import ch.hsr.bieridee.config.Res;
 import ch.hsr.bieridee.test.ServerTest;
 import ch.hsr.bieridee.utils.NodeProperty;
 
@@ -45,7 +46,7 @@ public class UserPutTest extends ServerTest {
 	 */
 	@Test
 	public void createAndGetCreatedUser() {
-		final ClientResource clientResource = new ClientResource(ServerTest.BASE_URL + "/users/" + this.testUsername);
+		final ClientResource clientResource = new ClientResource(Res.API_URL + "/users/" + this.testUsername);
 
 		final Representation rep = new StringRepresentation(this.userJson.toString(), MediaType.APPLICATION_JSON);
 		clientResource.put(rep);
@@ -55,8 +56,10 @@ public class UserPutTest extends ServerTest {
 		try {
 			newUser = new JSONObject(newUserRep.getText());
 		} catch (IOException e) {
+			Assert.fail();
 			e.printStackTrace();
 		} catch (JSONException e) {
+			Assert.fail();
 			e.printStackTrace();
 		}
 
@@ -67,6 +70,7 @@ public class UserPutTest extends ServerTest {
 			Assert.assertEquals(this.userJson.get(NodeProperty.User.SURNAME), newUser.get(NodeProperty.User.SURNAME));
 			Assert.assertEquals(this.userJson.get(NodeProperty.User.EMAIL), newUser.get(NodeProperty.User.EMAIL));
 		} catch (JSONException e) {
+			Assert.fail();
 			e.printStackTrace();
 		}
 
@@ -78,7 +82,7 @@ public class UserPutTest extends ServerTest {
 	 */
 	@Test
 	public void updateAndGetUser() {
-		final ClientResource clientResource = new ClientResource(ServerTest.BASE_URL + "/users/" + this.testUsername);
+		final ClientResource clientResource = new ClientResource(Res.API_URL + "/users/" + this.testUsername);
 
 		final JSONObject partialUserJson = new JSONObject();
 		try {
@@ -86,6 +90,7 @@ public class UserPutTest extends ServerTest {
 			partialUserJson.put(NodeProperty.User.PRENAME, "DJ");
 			partialUserJson.put(NodeProperty.User.SURNAME, "Bobo");
 		} catch (JSONException e) {
+			Assert.fail();
 			e.printStackTrace();
 		}
 
@@ -97,8 +102,10 @@ public class UserPutTest extends ServerTest {
 		try {
 			updatedUser = new JSONObject(updatedUserRep.getText());
 		} catch (IOException e) {
+			Assert.fail();
 			e.printStackTrace();
 		} catch (JSONException e) {
+			Assert.fail();
 			e.printStackTrace();
 		}
 
@@ -109,6 +116,7 @@ public class UserPutTest extends ServerTest {
 			Assert.assertEquals(partialUserJson.get(NodeProperty.User.SURNAME), updatedUser.get(NodeProperty.User.SURNAME));
 			Assert.assertEquals(this.userJson.get(NodeProperty.User.EMAIL), updatedUser.get(NodeProperty.User.EMAIL));
 		} catch (JSONException e) {
+			Assert.fail();
 			e.printStackTrace();
 		}
 

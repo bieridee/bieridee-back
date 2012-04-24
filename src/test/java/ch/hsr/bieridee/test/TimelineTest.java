@@ -14,7 +14,7 @@ import ch.hsr.bieridee.utils.NodeProperty;
  * Tests Timeline functionality.
  * 
  */
-public class TimelineTest {
+public class TimelineTest extends DBTest {
 	/**
 	 * Tests the chronological timeline "chaining".
 	 */

@@ -8,7 +8,6 @@ import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.kernel.EmbeddedGraphDatabase;
 
-import ch.hsr.bieridee.Main;
 import ch.hsr.bieridee.config.NodeType;
 import ch.hsr.bieridee.config.RelType;
 
@@ -17,7 +16,11 @@ import ch.hsr.bieridee.config.RelType;
  */
 public final class DBUtil {
 
-	private static EmbeddedGraphDatabase DB = Main.getGraphDb();
+	private static EmbeddedGraphDatabase DB;
+
+	public static void setDB(EmbeddedGraphDatabase db) {
+		DB = db;
+	}
 
 	private DBUtil() {
 		// do not instantiate
@@ -270,7 +273,7 @@ public final class DBUtil {
 	 *            the action node to be added.
 	 */
 	public static void addToTimeLine(Node node) {
-		final Node home = Main.getGraphDb().getReferenceNode();
+		final Node home = DB.getReferenceNode();
 		final Node timeLineStart = home.getSingleRelationship(RelType.INDEX_TIMELINESTART, Direction.OUTGOING).getEndNode();
 		final Relationship relationToNext = timeLineStart.getSingleRelationship(RelType.NEXT, Direction.OUTGOING);
 		final Node next = relationToNext.getEndNode();
