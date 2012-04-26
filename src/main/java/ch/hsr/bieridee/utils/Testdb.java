@@ -302,7 +302,7 @@ public final class Testdb {
 			danilo.createRelationshipTo(rating5, RelType.DOES);
 			rating5.createRelationshipTo(feldschloesschen, RelType.CONTAINS);
 
-			urs.createRelationshipTo(rating6, RelType.DOES);
+			danilo.createRelationshipTo(rating6, RelType.DOES);
 			rating6.createRelationshipTo(feldschloesschen, RelType.CONTAINS);
 
 			/* CREATE CONSUMPTIONS */
