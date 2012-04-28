@@ -34,7 +34,7 @@ public final class Main {
 	 * */
 	public static void main(String[] args) {
 
-		if (args.length > 1 && "fillTestDB".equals(args[1])) {
+		if (args.length >= 1 && "fillTestDB".equals(args[0])) {
 			FILL_TEST_DB = true;
 		} else {
 			FILL_TEST_DB = false;
