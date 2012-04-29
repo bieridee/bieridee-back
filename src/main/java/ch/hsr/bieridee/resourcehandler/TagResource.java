@@ -8,7 +8,6 @@ import org.restlet.resource.ServerResource;
 
 import ch.hsr.bieridee.config.Config;
 import ch.hsr.bieridee.config.Res;
-import ch.hsr.bieridee.domain.Tag;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.TagModel;
 import ch.hsr.bieridee.resourcehandler.interfaces.IStoreResource;
@@ -28,10 +27,9 @@ public class TagResource extends ServerResource implements IStoreResource {
 	
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
-		final TagModel tm = new TagModel(this.tagName);
+		final TagModel tagModel = new TagModel(this.tagName);
 		
-		final Tag tag = tm.getDomainObject();
-		final JacksonRepresentation<Tag> tagJacksonRep = new JacksonRepresentation<Tag>(tag);
+		final JacksonRepresentation<TagModel> tagJacksonRep = new JacksonRepresentation<TagModel>(tagModel);
 		tagJacksonRep.setObjectMapper(Config.getObjectMapper());
 		
 		return tagJacksonRep;
