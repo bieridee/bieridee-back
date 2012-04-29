@@ -9,7 +9,6 @@ import org.restlet.resource.ServerResource;
 
 import ch.hsr.bieridee.config.Config;
 import ch.hsr.bieridee.config.Res;
-import ch.hsr.bieridee.domain.Brewery;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.BreweryModel;
 import ch.hsr.bieridee.resourcehandler.interfaces.IDocumentResource;
@@ -30,10 +29,9 @@ public class BreweryResource extends ServerResource implements IDocumentResource
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
 		
-		final BreweryModel model = new BreweryModel(this.breweryId);
-		final Brewery brewery = model.getDomainObject();
+		final BreweryModel breweryModel = new BreweryModel(this.breweryId);
 		
-		final JacksonRepresentation<Brewery> beerJacksonRep = new JacksonRepresentation<Brewery>(brewery);
+		final JacksonRepresentation<BreweryModel> beerJacksonRep = new JacksonRepresentation<BreweryModel>(breweryModel);
 		beerJacksonRep.setObjectMapper(Config.getObjectMapper());
 		
 		return beerJacksonRep;

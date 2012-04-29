@@ -7,26 +7,26 @@ import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.SerializerProvider;
 
-import ch.hsr.bieridee.domain.Brewery;
+import ch.hsr.bieridee.models.BreweryModel;
 
 /**
  * JSON serializer for an array of brewery objects.
  */
-public class BreweryListSerializer extends JsonSerializer<Brewery[]> {
+public class BreweryListSerializer extends JsonSerializer<BreweryModel[]> {
 
 	@Override
-	public void serialize(Brewery[] breweryList, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
+	public void serialize(BreweryModel[] breweryModelList, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
 
 		jsonGenerator.writeStartArray();
-		for (Brewery brewery : breweryList) {
-			new BrewerySerializer().serialize(brewery, jsonGenerator, serializerProvider);
+		for (BreweryModel breweryModel : breweryModelList) {
+			new BrewerySerializer().serialize(breweryModel, jsonGenerator, serializerProvider);
 		}
 		jsonGenerator.writeEndArray();
 	}
 
 	@Override
-	public Class<Brewery[]> handledType() {
-		return Brewery[].class;
+	public Class<BreweryModel[]> handledType() {
+		return BreweryModel[].class;
 	}
 
 }
