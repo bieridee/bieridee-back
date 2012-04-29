@@ -1,5 +1,8 @@
 package ch.hsr.bieridee.models;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.NotFoundException;
 
@@ -131,11 +134,38 @@ public class UserModel extends AbstractModel {
 	/**
 	 * Creates a new user and returns a new UserModel for it.
 	 * 
-	 * @param user
-	 *            The user object to be persisted.
+	 * @param username
+	 *            Name of the new user
+	 * @param password
+	 *            Password for the new user
+	 * @param prename
+	 *            Prename of the new user
+	 * @param surname
+	 *            Surname of the new user
+	 * @param email
+	 *            Email address of the new user
 	 * @return The UserModel containing the new user node and the user domain object
 	 */
-	public static UserModel create(User user) {
-		return new UserModel(user);
+	public static UserModel create(String username, String password, String prename, String surname, String email) {
+		return new UserModel(new User(username, password, prename, surname, email));
 	}
+
+	/**
+	 * Gets a list of all users as <code>UserModel</code>s.
+	 * 
+	 * @return List of <code>UserModel</code>
+	 * @throws NotFoundException
+	 *             Thrown if a node is not existant.
+	 * @throws WrongNodeTypeException
+	 *             Thrown if a node is not of the desired type
+	 */
+	public static List<UserModel> getAll() throws NotFoundException, WrongNodeTypeException {
+		final List<Node> userNodes = DBUtil.getUserNodeList();
+		final List<UserModel> userModels = new LinkedList<UserModel>();
+		for (Node n : userNodes) {
+			userModels.add(new UserModel(n));
+		}
+		return userModels;
+	}
+
 }

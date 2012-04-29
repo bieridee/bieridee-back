@@ -24,12 +24,10 @@ public class UserListResource extends ServerResource implements IReadOnlyResourc
 
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
-		final List<Node> userNodes = DBUtil.getUserNodeList();
-		final List<UserModel> userModels = DomainConverter.createUserModelsFromList(userNodes);
-		final List<User> userList = DomainConverter.extractDomainObjectFromModel(userModels);
-		final User[] users = userList.toArray(new User[userList.size()]);
+		final List<UserModel> userModels = UserModel.getAll();
+		final UserModel[] userModelArray = userModels.toArray(new UserModel[userModels.size()]);
 		
-		final JacksonRepresentation<User[]> usersJacksonRep = new JacksonRepresentation<User[]>(users);
+		final JacksonRepresentation<UserModel[]> usersJacksonRep = new JacksonRepresentation<UserModel[]>(userModelArray);
 		usersJacksonRep.setObjectMapper(Config.getObjectMapper());
 		
 		return usersJacksonRep;

@@ -9,27 +9,30 @@ import org.codehaus.jackson.map.SerializerProvider;
 
 import ch.hsr.bieridee.config.Res;
 import ch.hsr.bieridee.domain.User;
+import ch.hsr.bieridee.models.UserModel;
 
 /**
  * JSON serializer for the user object.
- *
+ * 
  */
-public class UserSerializer extends JsonSerializer<User> {
+public class UserSerializer extends JsonSerializer<UserModel> {
 
 	@Override
-	public void serialize(User user, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
-		  jsonGenerator.writeStartObject();
-		  jsonGenerator.writeStringField("username", user.getUsername());
-		  jsonGenerator.writeStringField("prename", user.getPrename());
-		  jsonGenerator.writeStringField("surname", user.getSurname());
-		  jsonGenerator.writeStringField("email", user.getEmail());
-		  jsonGenerator.writeStringField("uri", Res.getResourceUri(user));
-		  jsonGenerator.writeEndObject();
+	public void serialize(UserModel userModel, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
+		final User user = userModel.getDomainObject();
+		
+		jsonGenerator.writeStartObject();
+		jsonGenerator.writeStringField("username", user.getUsername());
+		jsonGenerator.writeStringField("prename", user.getPrename());
+		jsonGenerator.writeStringField("surname", user.getSurname());
+		jsonGenerator.writeStringField("email", user.getEmail());
+		jsonGenerator.writeStringField("uri", Res.getResourceUri(user));
+		jsonGenerator.writeEndObject();
 	}
-	
-	@Override 
-	public Class<User> handledType() {
-		return User.class;
+
+	@Override
+	public Class<UserModel> handledType() {
+		return UserModel.class;
 	}
 
 }
