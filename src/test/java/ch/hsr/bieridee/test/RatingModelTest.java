@@ -9,19 +9,21 @@ import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.RatingModel;
 import ch.hsr.bieridee.utils.DBUtil;
 
-public class RatingModelTest {
+public class RatingModelTest extends DBTest{
 	@Test
 	public void getRatingByNodeTest() {
-		Node ratingNode = DBUtil.getNodeById(54);
+		System.out.println("begin");
+		final Node ratingNode = DBUtil.getNodeById(54);
+		System.out.println("rating node:"+ratingNode);
 		RatingModel rm = null;
 		try {
 			rm = new RatingModel(ratingNode);
 		} catch (NotFoundException e) {
-			Assert.fail();
 			e.printStackTrace();
+			Assert.fail();
 		} catch (WrongNodeTypeException e) {
-			Assert.fail();
 			e.printStackTrace();
+			Assert.fail();
 		}
 
 		Assert.assertNotNull(rm);

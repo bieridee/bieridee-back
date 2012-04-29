@@ -47,7 +47,7 @@ public class RatingModel extends AbstractModel {
 	 *             Thrown if the given node is not of type user
 	 */
 	public RatingModel(Node node) throws NotFoundException, WrongNodeTypeException {
-		NodeUtil.checkNode(node, NodeType.USER);
+		NodeUtil.checkNode(node, NodeType.RATING);
 
 		this.node = node;
 		final int rating = (Integer) this.node.getProperty(NodeProperty.Rating.RATING);
@@ -58,7 +58,7 @@ public class RatingModel extends AbstractModel {
 		final BeerModel beerModel = new BeerModel(beerNode);
 
 		final Relationship userRel = this.node.getSingleRelationship(RelType.DOES, Direction.INCOMING);
-		final Node userNode = userRel.getEndNode();
+		final Node userNode = userRel.getStartNode();
 		final UserModel userModel = new UserModel(userNode);
 
 		final Date d = new Date(timeStamp);
