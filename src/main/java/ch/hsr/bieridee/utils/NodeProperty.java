@@ -37,6 +37,7 @@ public final class NodeProperty {
 		public static final String NAME = "name";
 		public static final String BRAND = "brand";
 		public static final String IMAGE = "image";
+		public static final String AVERAGE_RATING = "averagerating";
 	}
 
 	/**
@@ -46,7 +47,7 @@ public final class NodeProperty {
 		public static final String NAME = "name";
 		public static final String DESCRIPTION = "description";
 	}
-	
+
 	/**
 	 * Brewery specific properties.
 	 */
@@ -63,5 +64,14 @@ public final class NodeProperty {
 	public static final class Tag {
 		public static final String NAME = "name";
 		public static final String TYPE = "type";
+	}
+
+	/**
+	 * Rating specific properties.
+	 * 
+	 */
+	public static final class Rating {
+		public static final String RATING = "rating";
+		public static final String TIMESTAMP = "timestamp";
 	}
 }

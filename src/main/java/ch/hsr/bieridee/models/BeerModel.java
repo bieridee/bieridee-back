@@ -27,6 +27,7 @@ public class BeerModel extends AbstractModel {
 
 	private Beer domainObject;
 	private Node node;
+	private double averageRating;
 
 	/**
 	 * Creates a BeerModel for the desired beer.
@@ -59,6 +60,7 @@ public class BeerModel extends AbstractModel {
 		final String name = (String) this.node.getProperty(NodeProperty.Beer.NAME);
 		final String brand = (String) this.node.getProperty(NodeProperty.Beer.BRAND);
 		final String image = (String) this.node.getProperty(NodeProperty.Beer.IMAGE);
+		this.averageRating = (Double) this.node.getProperty(NodeProperty.Beer.AVERAGE_RATING, 0.0);
 		final List<Tag> tags = new LinkedList<Tag>();
 
 		for (Relationship r : this.node.getRelationships(RelType.HAS_TAG)) {
@@ -114,6 +116,10 @@ public class BeerModel extends AbstractModel {
 
 	public List<Tag> getTags() {
 		return this.domainObject.getTags();
+	}
+	
+	public double getAverageRating() {
+		return averageRating;
 	}
 
 	// SUPPRESS CHECKSTYLE: setter

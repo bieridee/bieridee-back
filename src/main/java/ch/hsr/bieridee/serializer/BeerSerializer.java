@@ -21,7 +21,7 @@ public class BeerSerializer extends JsonSerializer<Beer> {
 		jsonGenerator.writeStartObject();
 		jsonGenerator.writeNumberField("id", beer.getId());
 		jsonGenerator.writeStringField("name", beer.getName());
-		jsonGenerator.writeStringField("image", beer.getPicture());
+		jsonGenerator.writeStringField("image", Res.API_URL + Res.IMAGE_COLLECTION + "/" + beer.getPicture());
 		jsonGenerator.writeStringField("brand", beer.getBrand());
 
 		jsonGenerator.writeObjectFieldStart("brewery");

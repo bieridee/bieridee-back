@@ -2,11 +2,13 @@ package ch.hsr.bieridee.domain;
 
 import java.util.Date;
 
+import ch.hsr.bieridee.domain.interfaces.IDomain;
+
 /**
  * @author chrigi
  * 
  */
-public class Rating extends Action {
+public class Rating extends Action implements IDomain{
 
 	private int value;
 

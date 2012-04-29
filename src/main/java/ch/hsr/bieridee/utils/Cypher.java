@@ -42,7 +42,9 @@ public final class Cypher {
 
 	/**
 	 * Sets the database.
-	 * @param db The database.
+	 * 
+	 * @param db
+	 *            The database.
 	 */
 	public static void setDB(EmbeddedGraphDatabase db) {
 		DB = db;
@@ -55,13 +57,16 @@ public final class Cypher {
 	 *            The cypher query
 	 * @param column
 	 *            Column name containing the Nodes that will be returned.
-	 * @param param
+	 * @param params
 	 *            The parameter will be used as a replacement for the first occurence of the literal '$1' in the cypher
 	 *            query
 	 * @return A List containing the nodes returned by the query.
 	 */
-	public static List<Node> executeAndGetNodes(String query, String column, String param) {
-		return executeAndGetNodes(query.replace("$1", param), column);
+	public static List<Node> executeAndGetNodes(String query, String column, String... params) {
+		for (String param : params) {
+			query = query.replaceFirst("\\$\\$", param);
+		}
+		return executeAndGetNodes(query, column);
 	}
 
 	/**
@@ -69,18 +74,20 @@ public final class Cypher {
 	 *            The cypher query
 	 * @param column
 	 *            Column name containing the Nodes that will be returned
-	 * @param param
-	 *            The parameter will be used as a replacement for the first occurence of the literal '$1' in the cypher
 	 * @param limit
 	 *            Max. number of Nodes returned.
+	 * @param params
+	 *            These parameters will be used as replacements for the occurences of the literal '$$' in the cypher
+	 *            query (in the given order). First $$ would be replaced by the first params value, second $$ by the
+	 *            params' second and so on.
 	 * @return A List containing the nodes returned by the query.
 	 */
-	public static List<Node> executeAndGetNodes(String query, String column, String param, int limit) {
+	public static List<Node> executeAndGetNodes(String query, String column, int limit, String... params) {
 		if (limit <= 0) {
-			return Cypher.executeAndGetNodes(query, column, param);
+			return Cypher.executeAndGetNodes(query, column, params);
 		}
 		final String limitClause = " LIMIT " + limit;
-		return Cypher.executeAndGetNodes(query + limitClause, column, param);
+		return Cypher.executeAndGetNodes(query + limitClause, column, params);
 
 	}
 
@@ -129,14 +136,50 @@ public final class Cypher {
 	 * @param column
 	 *            Column name containing the Nodes that will be returned.
 	 * 
-	 * @param param
-	 *            The parameter will be used as a replacement for the first occurence of the literal '$1' in the cypher
-	 *            query
+	 * @param params
+	 *            These parameters will be used as replacements for the occurences of the literal '$$' in the cypher
+	 *            query (in the given order). First $$ would be replaced by the first params value, second $$ by the
+	 *            params' second and so on.
 	 * 
 	 * @return The desired node
 	 */
-	public static Node executeAndGetSingleNode(String query, String column, String param) {
-		return Cypher.executeAndGetSingleNode(query.replace("$1", param), column);
+	public static Node executeAndGetSingleNode(String query, String column, String... params) {
+		for (String param : params) {
+			query = query.replaceFirst("\\$\\$", param);
+		}
+		return Cypher.executeAndGetSingleNode(query, column);
+	}
+
+	/**
+	 * Returns the double value returned by the given cypher-query.
+	 * 
+	 * @param query
+	 *            The cypher query to be executed
+	 * @param valueName
+	 *            Name of the value in the query
+	 * @return The calculated value
+	 */
+	public static double executeAndGetDouble(String query, String valueName) {
+		final ExecutionEngine engine = new ExecutionEngine(DB);
+		final ExecutionResult result = (ExecutionResult) engine.execute(query);
+		final Iterator<Double> doubles = result.columnAs(valueName);
+		return doubles.next();
+	}
+
+	/**
+	 * @param query
+	 *            The cypher query to be executed
+	 * @param valueName
+	 *            Name of the value in the query
+	 * @param params
+	 *            Parameters to be replaced in the query (in the given order)
+	 * @return Double value.
+	 */
+	public static double executeAndGetDouble(String query, String valueName, String... params) {
+		for (String param : params) {
+			query = query.replaceFirst("\\$\\$", param);
+		}
+		return executeAndGetDouble(query, valueName);
 	}
 
 }

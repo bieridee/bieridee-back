@@ -69,6 +69,7 @@ public final class Testdb {
 	 *            The database to be filled
 	 * @return The filled database
 	 */
+	// SUPPRESS CHECKSTYLE: only for test purposes.
 	public static EmbeddedGraphDatabase fillDB(EmbeddedGraphDatabase db) {
 		final Transaction transaction = db.beginTx();
 
@@ -99,7 +100,7 @@ public final class Testdb {
 			// Gemäss http://de.wikipedia.org/wiki/Bier#Unterg.C3.A4rige_Biere
 			final Node ale = createBeertype(db, "Ale", "Ale ist ein althergebrachter Begriff für ein fermentiertes alkoholisches Getränk, das hauptsächlich aus gemälzter Gerste hergestellt wird. Ale ist in Grossbritannien beheimatet.");
 			final Node altbier = createBeertype(db, "Altbier", "Altbier (oft nur Alt genannt) ist eine dunkle obergärige Biersorte, die überwiegend am Niederrhein getrunken wird.");
-			final Node berliner_weisse = createBeertype(
+			final Node berlinerWeisse = createBeertype(
 					db,
 					"Berliner Weisse",
 					"Die Berliner Weisse ist ein obergäriges Schankbier aus Gersten- und Weizenmalz. Sie hat eine Stammwürze von 7-8% und einen Alkoholgehalt von ca. 2.8% vol. Ihre Farbe ist ein dunkles, leicht hefetrübes Gelb. Anders als bei den meisten anderen Biersorten folgt bei der Berliner Weissen auf die alkoholische Gärung eine zweite Milchsäuregärung bei etwas höheren Temperaturen. Das verlängert einerseits die Haltbarkeit erheblich, sorgt andererseits für vergleichsweise sauren Geschmack. Das Bier wird heute meist in Kombination mit süssem Fruchtsirup getrunken.");
@@ -141,7 +142,7 @@ public final class Testdb {
 					"Helles als Biersorte ist vor allem in Bayern ein untergäriges, gelbes Bier mit einer Stammwürze von 11–13% und einem Alkoholgehalt von 4.5–6% vol. Dabei gibt es keine scharfe Grenze zu den Biersorten Lager und Export.");
 			final Node lagerbier = createBeertype(db, "Lagerbier",
 					"Als Lagerbier werden in Deutschland heute Biere bezeichnet, die den Stammwürzegehalt eines Vollbieres aufweisen, im Gegensatz zum Pilsner Bier jedoch in der Regel nur schwach gehopft sind.");
-			final Node muenchner_dunkel = createBeertype(
+			final Node muenchnerDunkel = createBeertype(
 					db,
 					"Münchner Dunkel",
 					"Münchner Dunkel ist eine traditionelle untergärige Münchner Biersorte. Es variiert farblich je nach Herstellungsverfahren und Zutaten zwischen kräftig kupferrot bis dunkelbraun, ist nur mäßig gehopft und daher eher mild und hat meist eine deutlich malzig-süße Note.");
@@ -160,7 +161,7 @@ public final class Testdb {
 
 			beertypeIndex.createRelationshipTo(ale, RelType.INDEXES);
 			beertypeIndex.createRelationshipTo(altbier, RelType.INDEXES);
-			beertypeIndex.createRelationshipTo(berliner_weisse, RelType.INDEXES);
+			beertypeIndex.createRelationshipTo(berlinerWeisse, RelType.INDEXES);
 			beertypeIndex.createRelationshipTo(gose, RelType.INDEXES);
 			beertypeIndex.createRelationshipTo(haferbier, RelType.INDEXES);
 			beertypeIndex.createRelationshipTo(koelsch, RelType.INDEXES);
@@ -173,7 +174,7 @@ public final class Testdb {
 			beertypeIndex.createRelationshipTo(exportbier, RelType.INDEXES);
 			beertypeIndex.createRelationshipTo(helles, RelType.INDEXES);
 			beertypeIndex.createRelationshipTo(lagerbier, RelType.INDEXES);
-			beertypeIndex.createRelationshipTo(muenchner_dunkel, RelType.INDEXES);
+			beertypeIndex.createRelationshipTo(muenchnerDunkel, RelType.INDEXES);
 			beertypeIndex.createRelationshipTo(maerzen, RelType.INDEXES);
 			beertypeIndex.createRelationshipTo(pils, RelType.INDEXES);
 			beertypeIndex.createRelationshipTo(schwarzbier, RelType.INDEXES);
