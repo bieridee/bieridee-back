@@ -1,5 +1,6 @@
 package ch.hsr.bieridee.models;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,7 +17,6 @@ import ch.hsr.bieridee.domain.Brewery;
 import ch.hsr.bieridee.domain.Tag;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.utils.DBUtil;
-import ch.hsr.bieridee.utils.DomainConverter;
 import ch.hsr.bieridee.utils.NodeProperty;
 import ch.hsr.bieridee.utils.NodeUtil;
 
@@ -162,7 +162,10 @@ public class BeerModel extends AbstractModel {
 
 	// SUPPRESS CHECKSTYLE: setter
 	public void setTags(List<TagModel> tags) {
-		final List<Tag> tagDomainList = DomainConverter.extractDomainObjectFromModel(tags);
+		final List<Tag> tagDomainList = Collections.emptyList();
+		for(TagModel tagModel : tags) {
+			tagDomainList.add(tagModel.getDomainObject());
+		}
 		this.domainObject.setTags(tagDomainList);
 
 		for (TagModel t : tags) {
