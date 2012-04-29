@@ -202,7 +202,7 @@ public class BeerModel extends AbstractModel {
 	 * @param filterTag Tag to be filterd with
 	 * @return Filtered list of BeerModels
 	  * @throws NotFoundException
-	 *             Thrown if a node is not existant.
+	 *             Thrown if a node is not existant
 	 * @throws WrongNodeTypeException
 	 *             Thrown if a node is not of the desired type
 	 */
