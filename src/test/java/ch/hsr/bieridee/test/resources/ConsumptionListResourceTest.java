@@ -61,6 +61,9 @@ public class ConsumptionListResourceTest extends ResourceTest {
 		}
 	}
 
+	/**
+	 * Tests if the order of consumptions is chronological and if the cypherquery only returns consumption nodes.
+	 */
 	@Test
 	public void getChronologicalConsumptions() {
 		final List<Node> consumptions = Cypher.executeAndGetNodes(Cypherqueries.GET_ALL_CONSUMPTIONS, "Action");
