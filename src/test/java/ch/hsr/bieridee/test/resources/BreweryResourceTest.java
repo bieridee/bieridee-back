@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import ch.hsr.bieridee.config.Res;
+import ch.hsr.bieridee.test.helpers.Helpers;
 import ch.hsr.bieridee.utils.NodeProperty;
 
 /**
@@ -18,7 +19,7 @@ public class BreweryResourceTest extends ResourceTest {
 	 */
 	@Test
 	public void testSingleBrewery() {
-		final String uri = Res.API_URL + "/breweries/66";
+		final String uri = Helpers.buildResourceUri("/breweries/66");
 		final JSONObject brewery = this.getJSON(uri);
 		try {
 			Assert.assertEquals(66, brewery.getInt("id"));

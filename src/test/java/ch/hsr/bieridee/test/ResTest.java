@@ -18,7 +18,7 @@ public class ResTest extends DBTest {
 	@Test
 	public void beerUriTest() {
 		Beer b = new Beer(3, "name", "brand", "pic", new LinkedList<Tag>(), new Beertype("", ""), new Brewery("", "", "", ""));
-		String URI = Res.API_URL + Res.BEER_DOCUMENT.replaceAll("\\{.*\\}", "3");
+		String URI = Res.PUBLIC_API_URL + Res.BEER_DOCUMENT.replaceAll("\\{.*\\}", "3");
 		Assert.assertEquals(URI, Res.getResourceUri(b));
 	}
 

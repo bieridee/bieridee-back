@@ -14,6 +14,7 @@ import org.restlet.resource.ClientResource;
 
 import ch.hsr.bieridee.config.Res;
 import ch.hsr.bieridee.test.ServerTest;
+import ch.hsr.bieridee.test.helpers.Helpers;
 import ch.hsr.bieridee.utils.NodeProperty;
 
 /**
@@ -46,7 +47,8 @@ public class UserPutTest extends ServerTest {
 	 */
 	@Test
 	public void createAndGetCreatedUser() {
-		final ClientResource clientResource = new ClientResource(Res.API_URL + "/users/" + this.testUsername);
+		final String uri = Helpers.buildResourceUri("users/" + this.testUsername);
+		final ClientResource clientResource = new ClientResource(uri);
 
 		final Representation rep = new StringRepresentation(this.userJson.toString(), MediaType.APPLICATION_JSON);
 		clientResource.put(rep);
@@ -82,7 +84,8 @@ public class UserPutTest extends ServerTest {
 	 */
 	@Test
 	public void updateAndGetUser() {
-		final ClientResource clientResource = new ClientResource(Res.API_URL + "/users/" + this.testUsername);
+		final String uri = Helpers.buildResourceUri("/users/" + this.testUsername);
+		final ClientResource clientResource = new ClientResource(uri);
 
 		final JSONObject partialUserJson = new JSONObject();
 		try {

@@ -10,9 +10,9 @@ import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.NotFoundException;
 
 import ch.hsr.bieridee.config.NodeType;
-import ch.hsr.bieridee.config.Res;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.BeerModel;
+import ch.hsr.bieridee.test.helpers.Helpers;
 import ch.hsr.bieridee.utils.DBUtil;
 import ch.hsr.bieridee.utils.NodeProperty;
 
@@ -35,7 +35,8 @@ public class RatingResourceTest extends ResourceTest {
 			e.printStackTrace();
 		}
 
-		putJSON(Res.API_URL + "/beers/30/ratings/alki", rating);
+		final String uri = Helpers.buildResourceUri("/beers/30/ratings/alki");
+		putJSON(uri, rating);
 		final List<Node> ratingNodes = DBUtil.getTimeLine(1);
 		
 		final Node ratingNode = ratingNodes.get(0);
@@ -53,7 +54,8 @@ public class RatingResourceTest extends ResourceTest {
 			e.printStackTrace();
 		}
 
-		putJSON(Res.API_URL + "/beers/28/ratings/saeufer", rating);
+		final String uri = Helpers.buildResourceUri("/beers/28/ratings/saeufer");
+		putJSON(uri, rating);
 		
 		BeerModel beerModel = null;
 		try {

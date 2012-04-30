@@ -16,7 +16,7 @@ public final class Res {
 		// do not instantiate.
 	}
 
-	public static final String API_URL = "http://" + Config.API_HOSTSTRING;
+	public static final String PUBLIC_API_URL = "http://" + Config.API_HOSTSTRING;
 
 	// beer
 	public static final String BEER_COLLECTION = "/beers";
@@ -68,23 +68,23 @@ public final class Res {
 
 		if (c == Beer.class) {
 			final long id = ((Beer) domainObject).getId();
-			uri = API_URL + BEER_DOCUMENT.replaceAll(pattern, Long.toString(id));
+			uri = PUBLIC_API_URL + BEER_DOCUMENT.replaceAll(pattern, Long.toString(id));
 		}
 		if (c == Beertype.class) {
 			final long id = ((Beertype) domainObject).getId();
-			uri = API_URL + BEERTYPE_DOCUMENT.replaceAll(pattern, Long.toString(id));
+			uri = PUBLIC_API_URL + BEERTYPE_DOCUMENT.replaceAll(pattern, Long.toString(id));
 		}
 		if (c == Brewery.class) {
 			final long id = ((Brewery) domainObject).getId();
-			uri = API_URL + BREWERY_DOCUMENT.replaceAll(pattern, Long.toString(id));
+			uri = PUBLIC_API_URL + BREWERY_DOCUMENT.replaceAll(pattern, Long.toString(id));
 		}
 		if (c == Tag.class) {
 			final String name = ((Tag) domainObject).getName();
-			uri = API_URL + TAG_DOCUMENT.replaceAll(pattern, name);
+			uri = PUBLIC_API_URL + TAG_DOCUMENT.replaceAll(pattern, name);
 		}
 		if (c == User.class) {
 			final String name = ((User) domainObject).getUsername();
-			uri = Res.API_URL + USER_DOCUMENT.replaceAll(pattern, name);
+			uri = Res.PUBLIC_API_URL + USER_DOCUMENT.replaceAll(pattern, name);
 		}
 
 		return uri;
