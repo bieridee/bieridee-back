@@ -40,10 +40,19 @@ public final class Res {
 	public static final String TAG_REQ_ATTR = "tag-name";
 	public static final String TAG_DOCUMENT = "/tags/{" + TAG_REQ_ATTR + "}";
 
+	// image
+	public static final String IMAGE_COLLECTION = "/images";
+	public static final String IMAGE_REQ_ATTR = "image-id";
+	public static final String IMAGE_DOCUMENT = "/images/{" + IMAGE_REQ_ATTR + "}";
+
 	// user
 	public static final String USER_COLLECTION = "/users";
 	public static final String USER_REQ_ATTR = "user-name";
 	public static final String USER_DOCUMENT = "/users/{" + USER_REQ_ATTR + "}";
+
+	// rating
+	public static final String RATING_COLLECTION = "/ratings";
+	public static final String RATING_DOCUMENT = BEER_DOCUMENT + RATING_COLLECTION + "/{" + USER_REQ_ATTR + "}";
 
 	/**
 	 * Returns the resource URI of the given domain object.

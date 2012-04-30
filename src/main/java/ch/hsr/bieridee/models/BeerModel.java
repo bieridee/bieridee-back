@@ -16,6 +16,8 @@ import ch.hsr.bieridee.domain.Beertype;
 import ch.hsr.bieridee.domain.Brewery;
 import ch.hsr.bieridee.domain.Tag;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
+import ch.hsr.bieridee.utils.Cypher;
+import ch.hsr.bieridee.utils.Cypherqueries;
 import ch.hsr.bieridee.utils.DBUtil;
 import ch.hsr.bieridee.utils.NodeProperty;
 import ch.hsr.bieridee.utils.NodeUtil;
@@ -27,6 +29,7 @@ public class BeerModel extends AbstractModel {
 
 	private Beer domainObject;
 	private Node node;
+	private double averageRating;
 
 	/**
 	 * Creates a BeerModel for the desired beer.
@@ -59,6 +62,7 @@ public class BeerModel extends AbstractModel {
 		final String name = (String) this.node.getProperty(NodeProperty.Beer.NAME);
 		final String brand = (String) this.node.getProperty(NodeProperty.Beer.BRAND);
 		final String image = (String) this.node.getProperty(NodeProperty.Beer.IMAGE);
+		this.averageRating = (Double) this.node.getProperty(NodeProperty.Beer.AVERAGE_RATING, 0.0);
 		final List<Tag> tags = new LinkedList<Tag>();
 
 		for (Relationship r : this.node.getRelationships(RelType.HAS_TAG)) {
@@ -92,6 +96,14 @@ public class BeerModel extends AbstractModel {
 		return this.domainObject.getId();
 	}
 
+	/**
+	 * calculates the average rating and saves the value in the database.
+	 */
+	public void calculateAndUpdateAverageRating() {
+		final Double averageRating = Cypher.executeAndGetDouble(Cypherqueries.GET_AVERAGE_RATING_OF_BEER, "AverageRating", this.getId() + "", Long.toString(this.node.getId()));
+		DBUtil.setProperty(this.getNode(), NodeProperty.Beer.AVERAGE_RATING, averageRating);
+	}
+
 	public Beertype getBeertype() {
 		return this.domainObject.getBeertype();
 	}
@@ -114,6 +126,10 @@ public class BeerModel extends AbstractModel {
 
 	public List<Tag> getTags() {
 		return this.domainObject.getTags();
+	}
+
+	public double getAverageRating() {
+		return averageRating;
 	}
 
 	// SUPPRESS CHECKSTYLE: setter
