@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import org.junit.Assert;
 import org.restlet.data.MediaType;
 import org.restlet.representation.Representation;
+import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.ClientResource;
 
 import ch.hsr.bieridee.test.ServerTest;
@@ -33,5 +34,12 @@ public abstract class ResourceTest extends ServerTest {
 		Assert.assertNotNull(jsonObject);
 		clientResource.release();
 		return jsonObject;
+	}
+
+	protected void putJSON(String uri, JSONObject object) {
+		final ClientResource clientResource = new ClientResource(uri);
+		final Representation rep = new StringRepresentation(object.toString(), MediaType.APPLICATION_JSON);
+		clientResource.put(rep);
+		clientResource.release();
 	}
 }

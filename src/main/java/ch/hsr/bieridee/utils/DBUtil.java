@@ -183,19 +183,16 @@ public final class DBUtil {
 		return rel;
 	}
 
-	private static Node createUserNode(Node blankNode) {
+	private static void connectUserNodeToIndex(Node blankNode) {
 		final Node indexNode = getUserIndex();
 		blankNode.setProperty(NodeProperty.TYPE, NodeType.USER);
 		indexNode.createRelationshipTo(blankNode, RelType.INDEXES);
-		return blankNode;
-
 	}
 
-	private static Node createConsumptionNode(Node blankNode) {
+	private static void connectActionNodeToIndex(Node blankNode, String actionType) {
 		final Node indexNode = getTimelineIndex();
-		blankNode.setProperty(NodeProperty.TYPE, NodeType.CONSUMPTION);
+		blankNode.setProperty(NodeProperty.TYPE, actionType);
 		indexNode.createRelationshipTo(blankNode, RelType.INDEXES);
-		return blankNode;
 	}
 
 	/**
@@ -210,10 +207,15 @@ public final class DBUtil {
 			newNode = DB.createNode();
 			transaction.success();
 			if (type.equals(NodeType.USER)) {
-				createUserNode(newNode);
+				connectUserNodeToIndex(newNode);
 			}
 			if (type.equals(NodeType.CONSUMPTION)) {
-				createConsumptionNode(newNode);
+				connectActionNodeToIndex(newNode, NodeType.CONSUMPTION);
+				addToTimeLine(newNode);
+			}
+			if (type.equals(NodeType.RATING)) {
+				connectActionNodeToIndex(newNode, NodeType.RATING);
+				addToTimeLine(newNode);
 			}
 		} finally {
 			transaction.finish();
@@ -287,4 +289,5 @@ public final class DBUtil {
 			tx.finish();
 		}
 	}
+
 }

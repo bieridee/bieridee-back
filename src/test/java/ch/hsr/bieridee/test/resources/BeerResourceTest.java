@@ -32,7 +32,7 @@ public class BeerResourceTest extends ServerTest {
 		System.out.println(beerURI);
 		final ClientResource clientResource = new ClientResource(beerURI);
 
-		Representation beerRepresentation = clientResource.get(MediaType.APPLICATION_JSON);
+		final Representation beerRepresentation = clientResource.get(MediaType.APPLICATION_JSON);
 
 		JSONObject beerJSON = null;
 		try {
@@ -48,7 +48,7 @@ public class BeerResourceTest extends ServerTest {
 		Assert.assertNotNull(beerJSON);
 		try {
 			Assert.assertEquals(beerJSON.get(NodeProperty.Beer.NAME), "Calanda Meisterbräu");
-			Assert.assertEquals(beerJSON.get(NodeProperty.Beer.IMAGE), "");
+			Assert.assertEquals(Res.API_URL+Res.IMAGE_COLLECTION + "/", beerJSON.get(NodeProperty.Beer.IMAGE));
 			Assert.assertEquals(beerJSON.get(NodeProperty.Beer.BRAND), "Calanda");
 
 			final JSONObject beertype = beerJSON.getJSONObject("beertype");
