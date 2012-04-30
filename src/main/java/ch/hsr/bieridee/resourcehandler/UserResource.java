@@ -25,10 +25,7 @@ import ch.hsr.bieridee.utils.NodeProperty;
 
 /**
  * Server resource to provide access to users.
-<<<<<<< HEAD
-=======
  * 
->>>>>>> putuser
  */
 
 public class UserResource extends ServerResource implements IStoreResource {
@@ -44,10 +41,8 @@ public class UserResource extends ServerResource implements IStoreResource {
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
 		final UserModel userModel = new UserModel(this.username);
-
-		final User user = userModel.getDomainObject();
-
-		final JacksonRepresentation<User> userJacksonRep = new JacksonRepresentation<User>(user);
+		
+		final JacksonRepresentation<UserModel> userJacksonRep = new JacksonRepresentation<UserModel>(userModel);
 		userJacksonRep.setObjectMapper(Config.getObjectMapper());
 
 		return userJacksonRep;
@@ -104,9 +99,7 @@ public class UserResource extends ServerResource implements IStoreResource {
 		final String email = userJson.getString(NodeProperty.User.EMAIL);
 		final String password = userJson.getString(NodeProperty.User.PASSWORD);
 
-		final User userObject = new User(username, password, prename, surname, email);
-
-		UserModel.create(userObject);
+		UserModel.create(username, password, prename, surname, email);
 
 		setStatus(Status.SUCCESS_CREATED);
 	}

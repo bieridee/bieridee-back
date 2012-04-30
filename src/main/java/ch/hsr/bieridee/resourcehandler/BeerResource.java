@@ -9,7 +9,6 @@ import org.restlet.resource.ServerResource;
 
 import ch.hsr.bieridee.config.Config;
 import ch.hsr.bieridee.config.Res;
-import ch.hsr.bieridee.domain.Beer;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.BeerModel;
 import ch.hsr.bieridee.resourcehandler.interfaces.IDocumentResource;
@@ -29,12 +28,10 @@ public class BeerResource extends ServerResource implements IDocumentResource {
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
 		
-		final BeerModel bm = new BeerModel(this.beerId);
-		
-		final Beer b = bm.getDomainObject();
+		final BeerModel beerModel = new BeerModel(this.beerId);
 		
 		// json representation
-		final JacksonRepresentation<Beer> beerJacksonRep = new JacksonRepresentation<Beer>(b);
+		final JacksonRepresentation<BeerModel> beerJacksonRep = new JacksonRepresentation<BeerModel>(beerModel);
 		beerJacksonRep.setObjectMapper(Config.getObjectMapper());
 		
 		return beerJacksonRep;

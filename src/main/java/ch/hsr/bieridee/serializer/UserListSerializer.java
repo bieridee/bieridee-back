@@ -7,26 +7,26 @@ import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.SerializerProvider;
 
-import ch.hsr.bieridee.domain.User;
+import ch.hsr.bieridee.models.UserModel;
 
 /**
  * JSON serializer for the user array.
  *
  */
-public class UserListSerializer extends JsonSerializer<User[]> {
+public class UserListSerializer extends JsonSerializer<UserModel[]> {
 
 	@Override
-	public void serialize(User[] users, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
+	public void serialize(UserModel[] userModels, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
 		jsonGenerator.writeStartArray();
-		for (User user : users) {
-			new UserSerializer().serialize(user, jsonGenerator, serializerProvider);
+		for (UserModel userModel : userModels) {
+			new UserSerializer().serialize(userModel, jsonGenerator, serializerProvider);
 		}
 		jsonGenerator.writeEndArray();
 	}
 	
 	@Override
-	public Class<User[]> handledType() {
-		return User[].class;
+	public Class<UserModel[]> handledType() {
+		return UserModel[].class;
 	}
 
 }

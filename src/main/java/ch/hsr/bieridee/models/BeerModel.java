@@ -1,5 +1,6 @@
 package ch.hsr.bieridee.models;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,7 +17,6 @@ import ch.hsr.bieridee.domain.Brewery;
 import ch.hsr.bieridee.domain.Tag;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.utils.DBUtil;
-import ch.hsr.bieridee.utils.DomainConverter;
 import ch.hsr.bieridee.utils.NodeProperty;
 import ch.hsr.bieridee.utils.NodeUtil;
 
@@ -162,7 +162,10 @@ public class BeerModel extends AbstractModel {
 
 	// SUPPRESS CHECKSTYLE: setter
 	public void setTags(List<TagModel> tags) {
-		final List<Tag> tagDomainList = DomainConverter.extractDomainObjectFromModel(tags);
+		final List<Tag> tagDomainList = new LinkedList<Tag>();
+		for(TagModel tagModel : tags) {
+			tagDomainList.add(tagModel.getDomainObject());
+		}
 		this.domainObject.setTags(tagDomainList);
 
 		for (TagModel t : tags) {
@@ -182,4 +185,40 @@ public class BeerModel extends AbstractModel {
 		}
 		return this.node.getId() == ((BeerModel) o).getId();
 	}
+
+	/**
+	 * Gets a list of all beers as <code>BeerModel</code>s.
+	 * 
+	 * @return List of <code>BeerModel</code>
+	 * @throws NotFoundException
+	 *             Thrown if a node is not existant.
+	 * @throws WrongNodeTypeException
+	 *             Thrown if a node is not of the desired type
+	 */
+	public static List<BeerModel> getAll() throws NotFoundException, WrongNodeTypeException {
+		return createModelsFromNodes(DBUtil.getBeerNodeList());
+	}
+	
+	/**
+	 * Gets a list of beers as <code>BeerModel</code>s filtered by a tag.
+	 * 
+	 * @param filterTag Tag to be filterd with
+	 * @return Filtered list of BeerModels
+	  * @throws NotFoundException
+	 *             Thrown if a node is not existant
+	 * @throws WrongNodeTypeException
+	 *             Thrown if a node is not of the desired type
+	 */
+	public static List<BeerModel> getAll(String filterTag) throws NotFoundException, WrongNodeTypeException {
+		return createModelsFromNodes(DBUtil.getBeerNodeList(filterTag));
+	}
+
+	private static List<BeerModel> createModelsFromNodes(List<Node> beerNodes) throws NotFoundException, WrongNodeTypeException {
+		final List<BeerModel> models = new LinkedList<BeerModel>();
+		for (Node n : beerNodes) {
+			models.add(new BeerModel(n));
+		}
+		return models;
+	}
+
 }

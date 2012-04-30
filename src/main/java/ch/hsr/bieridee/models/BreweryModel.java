@@ -1,5 +1,8 @@
 package ch.hsr.bieridee.models;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.NotFoundException;
 
@@ -90,4 +93,41 @@ public class BreweryModel extends AbstractModel {
 		this.domainObject.setSize(size);
 		this.node.setProperty("size", size);
 	}
+
+	/**
+	 * Gets a list of all breweries as <code>BreweryModels</code>.
+	 * 
+	 * @return The list of BreweryModels
+	 * @throws NotFoundException
+	 *             Thrown if a node is not existant
+	 * @throws WrongNodeTypeException
+	 *             Thrown if a node is not of the desired type
+	 */
+	public static List<BreweryModel> getAll() throws NotFoundException, WrongNodeTypeException {
+		return createModelsFromNodes(DBUtil.getBreweryNodeList());
+	}
+
+	/**
+	 * Gets a list of BeweryModels filtered by brewerySize.
+	 * 
+	 * @param brewerySize
+	 *            The brewerySize
+	 * @return The filtered list of BreweryModels
+	 * @throws NotFoundException
+	 *             Thrown if a node is not existant
+	 * @throws WrongNodeTypeException
+	 *             Thrown if a node is not of the desired type
+	 */
+	public static List<BreweryModel> getAll(String brewerySize) throws NotFoundException, WrongNodeTypeException {
+		return createModelsFromNodes(DBUtil.getBreweryNodeList(brewerySize));
+	}
+
+	private static List<BreweryModel> createModelsFromNodes(List<Node> breweryNodes) throws NotFoundException, WrongNodeTypeException {
+		final List<BreweryModel> models = new LinkedList<BreweryModel>();
+		for (Node n : breweryNodes) {
+			models.add(new BreweryModel(n));
+		}
+		return models;
+	}
+
 }
