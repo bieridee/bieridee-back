@@ -16,7 +16,6 @@ import org.restlet.resource.ServerResource;
 
 import ch.hsr.bieridee.config.Config;
 import ch.hsr.bieridee.config.Res;
-import ch.hsr.bieridee.domain.User;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.UserModel;
 import ch.hsr.bieridee.resourcehandler.interfaces.IStoreResource;
@@ -25,7 +24,6 @@ import ch.hsr.bieridee.utils.NodeProperty;
 
 /**
  * Server resource to provide access to users.
- * 
  */
 
 public class UserResource extends ServerResource implements IStoreResource {
@@ -62,6 +60,11 @@ public class UserResource extends ServerResource implements IStoreResource {
 
 	}
 
+	/**
+	 * Update a user with changed data.
+	 * @param userJson The user JSONObject. Might contain only partial data.
+	 * @throws JSONException
+	 */
 	private void updateUser(JSONObject userJson) throws JSONException {
 		UserModel userModel = null;
 
@@ -89,9 +92,14 @@ public class UserResource extends ServerResource implements IStoreResource {
 			userModel.setPassword(userJson.getString(NodeProperty.User.PASSWORD));
 		}
 		
-		setStatus(Status.SUCCESS_CREATED);
+		setStatus(Status.SUCCESS_NO_CONTENT);
 	}
 
+	/**
+	 * Create a new user with the specified data.
+	 * @param userJson The user JSONObject.
+	 * @throws JSONException
+	 */
 	private void createNewUser(JSONObject userJson) throws JSONException {
 		final String username = userJson.getString(NodeProperty.User.USERNAME);
 		final String prename = userJson.getString(NodeProperty.User.PRENAME);
