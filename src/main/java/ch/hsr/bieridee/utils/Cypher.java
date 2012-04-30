@@ -58,8 +58,9 @@ public final class Cypher {
 	 * @param column
 	 *            Column name containing the Nodes that will be returned.
 	 * @param params
-	 *            The parameter will be used as a replacement for the first occurence of the literal '$1' in the cypher
-	 *            query
+	 *            These parameters will be used as replacements for the occurences of the literal '$$' in the cypher
+	 *            query (in the given order). First $$ would be replaced by the first params value, second $$ by the
+	 *            params' second and so on.
 	 * @return A List containing the nodes returned by the query.
 	 */
 	public static List<Node> executeAndGetNodes(String query, String column, String... params) {

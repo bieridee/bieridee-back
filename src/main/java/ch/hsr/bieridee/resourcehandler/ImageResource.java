@@ -23,7 +23,7 @@ import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.resourcehandler.interfaces.IDocumentResource;
 
 /**
- * Beer resource.
+ * Image resource.
  */
 public class ImageResource extends ServerResource implements IDocumentResource {
 
