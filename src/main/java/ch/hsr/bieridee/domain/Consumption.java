@@ -24,7 +24,7 @@ public class Consumption extends Action implements IDomain {
 
 	@Override
 	public String toString() {
-		return "Consumption, User: " + this.getUser() + ", Beer: " + this.getBeer();
+		return "Consumption @"+this.getDate().getTime()+", User: " + this.getUser() + ", Beer: " + this.getBeer();
 	}
 
 }

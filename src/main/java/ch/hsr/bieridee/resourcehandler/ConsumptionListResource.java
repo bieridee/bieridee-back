@@ -2,7 +2,6 @@ package ch.hsr.bieridee.resourcehandler;
 
 import java.io.IOException;
 
-import org.apache.commons.lang.NotImplementedException;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.neo4j.graphdb.NotFoundException;
@@ -14,15 +13,14 @@ import org.restlet.resource.ServerResource;
 import ch.hsr.bieridee.config.Res;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.BeerModel;
-import ch.hsr.bieridee.models.RatingModel;
+import ch.hsr.bieridee.models.ConsumptionModel;
 import ch.hsr.bieridee.models.UserModel;
-import ch.hsr.bieridee.resourcehandler.interfaces.IStoreResource;
-import ch.hsr.bieridee.utils.NodeProperty;
+import ch.hsr.bieridee.resourcehandler.interfaces.ICollectionResource;
 
 /**
  * Server resource to provide access to users.
  */
-public class ConsumptionResource extends ServerResource implements IStoreResource {
+public class ConsumptionListResource extends ServerResource implements ICollectionResource {
 
 	private String username;
 	private long beerId;
@@ -35,25 +33,18 @@ public class ConsumptionResource extends ServerResource implements IStoreResourc
 
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
+		// TODO
 		return new StringRepresentation("not implemented");
 
 	}
 
 	@Override
-	public void store(Representation rating) throws JSONException, IOException, NotFoundException, WrongNodeTypeException {
-
-		final JSONObject ratingJSON = new JSONObject(rating.getText());
-		final int ratingValue = ratingJSON.getInt(NodeProperty.Rating.RATING);
+	public void store(Representation consumption) throws JSONException, IOException, NotFoundException, WrongNodeTypeException {
+		final JSONObject ratingJSON = new JSONObject(consumption.getText());
 		final BeerModel beerModel = new BeerModel(this.beerId);
 		final UserModel userModel = new UserModel(this.username);
 
-		RatingModel.create(ratingValue, beerModel, userModel);
-		beerModel.calculateAndUpdateAverageRating();
+		ConsumptionModel.create(beerModel, userModel);
+		System.out.println("consumption stored. Beer: " + beerModel.getName() + ", User: " + userModel.getUsername());
 	}
-
-	@Override
-	public void remove(Representation rep) {
-		throw new NotImplementedException(); // TODO
-	}
-
 }

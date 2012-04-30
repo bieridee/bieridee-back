@@ -54,6 +54,10 @@ public final class Res {
 	public static final String RATING_COLLECTION = "/ratings";
 	public static final String RATING_DOCUMENT = BEER_DOCUMENT + RATING_COLLECTION + "/{" + USER_REQ_ATTR + "}";
 
+	// consumption
+	public static final String CONSUMPTION_COLLECTION = "/consumptions";
+	public static final String CONSUMPTION_DOCUMENT = BEER_DOCUMENT + CONSUMPTION_COLLECTION + "/{" + USER_REQ_ATTR + "}";
+
 	/**
 	 * Returns the resource URI of the given domain object.
 	 * 

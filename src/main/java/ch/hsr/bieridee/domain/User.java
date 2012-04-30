@@ -62,7 +62,7 @@ public class User implements IDomain {
 
 	@Override
 	public String toString() {
-		return "Firstname: " + this.getPrename() + ",Lastname: " + this.getSurname() + ",Email: " + getEmail();
+		return "Username: "+this.getUsername()+", Firstname: " + this.getPrename() + ", Lastname: " + this.getSurname() + ", Email: " + getEmail();
 	}
 
 	public String getSurname() {

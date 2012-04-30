@@ -84,7 +84,9 @@ public final class Testdb {
 			final Node timelineIndex = db.createNode();
 
 			final Node timelineStart = db.createNode();
+			timelineStart.setProperty("type", "timelinestart");
 			final Node timeLineEnde = db.createNode();
+			timeLineEnde.setProperty("type", "timelineend");
 			timelineStart.createRelationshipTo(timeLineEnde, RelType.NEXT);
 
 			rootNode.createRelationshipTo(userIndex, RelType.INDEX_USER);
