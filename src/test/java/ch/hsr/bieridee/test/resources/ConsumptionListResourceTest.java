@@ -35,7 +35,8 @@ public class ConsumptionListResourceTest extends ResourceTest {
 	@Test
 	public void createRating() {
 		final JSONObject rating = new JSONObject();
-		final ClientResource cl = new ClientResource(Res.API_URL + "/beers/30/consumptions/alki"); //alki is the username of jonas
+		final ClientResource cl = new ClientResource(Res.API_URL + "/beers/30/consumptions/alki"); // alki is the
+																									// username of jonas
 		final Representation rep = new StringRepresentation(rating.toString(), MediaType.APPLICATION_JSON);
 		cl.post(rep);
 
@@ -62,17 +63,25 @@ public class ConsumptionListResourceTest extends ResourceTest {
 
 	@Test
 	public void getChronologicalConsumptions() {
-	final	List<Node> consumptions = Cypher.executeAndGetNodes(Cypherqueries.GET_ALL_CONSUMPTIONS, "Action");
+		final List<Node> consumptions = Cypher.executeAndGetNodes(Cypherqueries.GET_ALL_CONSUMPTIONS, "Action");
 		System.out.println("Consumptions in the database:");
+		long time = Long.MAX_VALUE;
 		for (Node n : consumptions) {
 			try {
+				Assert.assertEquals(n.getProperty("type"), NodeProperty.Consumption.TYPE);
+
 				final ConsumptionModel cm = new ConsumptionModel(n);
-				Assert.assertEquals(cm.getNode().getProperty("type"), NodeProperty.Consumption.TYPE);
 				System.out.println(cm);
+
+				final Long thisTime = (Long) n.getProperty("timestamp");
+				Assert.assertTrue(thisTime < time);
+				time = thisTime;
 			} catch (NotFoundException e) {
 				e.printStackTrace();
+				Assert.fail();
 			} catch (WrongNodeTypeException e) {
 				e.printStackTrace();
+				Assert.fail();
 			}
 
 		}
