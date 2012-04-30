@@ -23,7 +23,7 @@ public class BreweryResourceTest extends ResourceTest {
 		final JSONObject brewery = this.getJSON(uri);
 		try {
 			Assert.assertEquals(66, brewery.getInt("id"));
-			Assert.assertEquals(uri, brewery.getString("uri"));
+			Assert.assertEquals(Res.PUBLIC_API_URL + "/breweries/66", brewery.getString("uri"));
 			Assert.assertEquals("Felschlösschen", brewery.getString(NodeProperty.Brewery.NAME));
 			Assert.assertEquals("national", brewery.getString(NodeProperty.Brewery.SIZE));
 			Assert.assertTrue(brewery.getString(NodeProperty.Brewery.DESCRIPTION).startsWith("Feldschlösschen ist eine gesichtslose und gänzlich uninspirierte Brauerei."));
