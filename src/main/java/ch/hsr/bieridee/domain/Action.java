@@ -27,7 +27,7 @@ public abstract class Action {
 	private Beer beer;
 	private User user;
 
-	Beer getBeer() {
+	public Beer getBeer() {
 		return this.beer;
 	}
 

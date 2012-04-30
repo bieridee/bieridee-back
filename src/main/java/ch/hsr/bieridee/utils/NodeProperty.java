@@ -24,13 +24,6 @@ public final class NodeProperty {
 	}
 
 	/**
-	 * Action Node specific properties.
-	 */
-	public static final class Action {
-		public static final String TIMESTAMP = "timestamp";
-	}
-
-	/**
 	 * Beer Node specific properties.
 	 */
 	public static final class Beer {
@@ -67,11 +60,26 @@ public final class NodeProperty {
 	}
 
 	/**
+	 * Action Node specific properties.
+	 */
+	public static final class Action {
+		public static final String TIMESTAMP = "timestamp";
+	}
+
+	/**
 	 * Rating specific properties.
 	 * 
 	 */
 	public static final class Rating {
 		public static final String RATING = "rating";
 		public static final String TIMESTAMP = "timestamp";
+	}
+
+	/**
+	 * Consumption specific properties.
+	 * 
+	 */
+	public static final class Consumption {
+		public static final String TYPE = "consumption";
 	}
 }
