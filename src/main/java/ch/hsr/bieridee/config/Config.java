@@ -31,6 +31,7 @@ public final class Config {
 	public static final String PROPERTY_DB_PATH = "Bieridee.api.dir";
 	public static final String PROPERTY_API_PORT = "Bieridee.api.port";
 	public static final String PROPERTY_API_HOST = "Bieridee.api.host";
+	public static final String PROPERTY_API_HOSTSTRING = "Bieridee.api.hoststring";
 	public static final String PROPERTY_DB_HOST = "Bieridee.db.host";
 	public static final String PROPERTY_DB_ADMIN_PORT = "Bieridee.db.admin.port";
 
@@ -38,6 +39,7 @@ public final class Config {
 	public static final String DB_HOST = ConfigManager.getManager().getStringProperty(PROPERTY_DB_HOST, "localhost");
 
 	public static final String API_HOST = ConfigManager.getManager().getStringProperty(PROPERTY_API_HOST, "localhost");
+	public static final String API_HOSTSTRING = ConfigManager.getManager().getStringProperty(PROPERTY_API_HOSTSTRING, "localhost");
 	public static final int API_PORT = ConfigManager.getManager().getIntProperty(PROPERTY_API_PORT, 8080);
 
 	public static final int NEO4J_WEBADMIN_PORT = ConfigManager.getManager().getIntProperty(PROPERTY_DB_ADMIN_PORT, 7474);

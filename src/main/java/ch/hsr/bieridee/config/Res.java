@@ -16,7 +16,7 @@ public final class Res {
 		// do not instantiate.
 	}
 
-	public static final String API_URL = "http://" + Config.API_HOST + ":" + Config.API_PORT;
+	public static final String API_URL = "http://" + Config.API_HOSTSTRING;
 
 	// beer
 	public static final String BEER_COLLECTION = "/beers";
