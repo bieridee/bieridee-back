@@ -17,9 +17,6 @@ import ch.hsr.bieridee.models.BeerModel;
 import ch.hsr.bieridee.models.RatingModel;
 import ch.hsr.bieridee.models.UserModel;
 import ch.hsr.bieridee.resourcehandler.interfaces.IStoreResource;
-import ch.hsr.bieridee.utils.Cypher;
-import ch.hsr.bieridee.utils.Cypherqueries;
-import ch.hsr.bieridee.utils.DBUtil;
 import ch.hsr.bieridee.utils.NodeProperty;
 
 /**
