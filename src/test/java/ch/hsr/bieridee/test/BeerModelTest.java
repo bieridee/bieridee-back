@@ -12,7 +12,6 @@ import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.BeerModel;
 import ch.hsr.bieridee.models.TagModel;
 import ch.hsr.bieridee.utils.DBUtil;
-import ch.hsr.bieridee.utils.DomainConverter;
 
 /**
  * Tests the <code>BeerModel</code>.
@@ -49,13 +48,10 @@ public class BeerModelTest extends DBTest {
 			e.printStackTrace();
 		}
 
-		final List<Node> beerNodes = DBUtil.getBeerNodeList(tm.getName());
 		List<BeerModel> beerModels = null;
 		try {
-			beerModels = DomainConverter.createBeerModelsFromList(beerNodes);
+			beerModels = BeerModel.getAll(tm.getName());
 		} catch (WrongNodeTypeException e) {
-			e.printStackTrace();
-		} catch (NodeNotFoundException e) {
 			e.printStackTrace();
 		}
 
