@@ -162,7 +162,7 @@ public class BeerModel extends AbstractModel {
 
 	// SUPPRESS CHECKSTYLE: setter
 	public void setTags(List<TagModel> tags) {
-		final List<Tag> tagDomainList = Collections.emptyList();
+		final List<Tag> tagDomainList = new LinkedList<Tag>();
 		for(TagModel tagModel : tags) {
 			tagDomainList.add(tagModel.getDomainObject());
 		}
