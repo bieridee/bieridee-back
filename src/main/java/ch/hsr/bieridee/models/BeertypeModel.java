@@ -1,5 +1,8 @@
 package ch.hsr.bieridee.models;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.NotFoundException;
 
@@ -89,6 +92,24 @@ public class BeertypeModel extends AbstractModel {
 	public void setDescription(String description) {
 		this.domainObject.setDescription(description);
 		this.node.setProperty(NodeProperty.Beertype.DESCRIPTION, description);
+	}
+
+	/**
+	 * Gets a list of all beertypes as <code>beertypeModel</code>.
+	 * 
+	 * @return The beertyeModel list
+	 * @throws NotFoundException
+	 *             Thrown if a node is not existant.
+	 * @throws WrongNodeTypeException
+	 *             Thrown if a node is not of the desired type
+	 */
+	public static List<BeertypeModel> getAll() throws NotFoundException, WrongNodeTypeException {
+		final List<Node> beerTypeNodes = DBUtil.getBeertypeNodeList();
+		final List<BeertypeModel> beertypeModels = new LinkedList<BeertypeModel>();
+		for (Node n : beerTypeNodes) {
+			beertypeModels.add(new BeertypeModel(n));
+		}
+		return beertypeModels;
 	}
 
 }

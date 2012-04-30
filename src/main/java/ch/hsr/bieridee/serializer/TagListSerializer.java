@@ -7,26 +7,26 @@ import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.SerializerProvider;
 
-import ch.hsr.bieridee.domain.Tag;
+import ch.hsr.bieridee.models.TagModel;
 
 /**
  * JSON serializer for an array of tags.
  *
  */
-public class TagListSerializer extends JsonSerializer<Tag[]> {
+public class TagListSerializer extends JsonSerializer<TagModel[]> {
 
 	@Override
-	public void serialize(Tag[] tags, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
+	public void serialize(TagModel[] tagModels, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
 		jsonGenerator.writeStartArray();
-		for(Tag tag : tags) {
-			new TagSerializer().serialize(tag, jsonGenerator, serializerProvider);
+		for(TagModel tagModel : tagModels) {
+			new TagSerializer().serialize(tagModel, jsonGenerator, serializerProvider);
 		}
 		jsonGenerator.writeEndArray();
 	}
 	
 	@Override
-	public Class<Tag[]> handledType() {
-		return Tag[].class;
+	public Class<TagModel[]> handledType() {
+		return TagModel[].class;
 	}
 
 }

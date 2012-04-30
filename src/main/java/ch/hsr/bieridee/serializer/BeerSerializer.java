@@ -10,14 +10,17 @@ import org.codehaus.jackson.map.SerializerProvider;
 import ch.hsr.bieridee.config.Res;
 import ch.hsr.bieridee.domain.Beer;
 import ch.hsr.bieridee.domain.Tag;
+import ch.hsr.bieridee.models.BeerModel;
 
 /**
  * Json Serializer for the beer domain class.
  */
-public class BeerSerializer extends JsonSerializer<Beer> {
+public class BeerSerializer extends JsonSerializer<BeerModel> {
 
 	@Override
-	public void serialize(Beer beer, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
+	public void serialize(BeerModel beerModel, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
+		final Beer beer = beerModel.getDomainObject();
+		
 		jsonGenerator.writeStartObject();
 		jsonGenerator.writeNumberField("id", beer.getId());
 		jsonGenerator.writeStringField("name", beer.getName());
@@ -48,8 +51,8 @@ public class BeerSerializer extends JsonSerializer<Beer> {
 	}
 
 	@Override
-	public Class<Beer> handledType() {
-		return Beer.class;
+	public Class<BeerModel> handledType() {
+		return BeerModel.class;
 	}
 
 }

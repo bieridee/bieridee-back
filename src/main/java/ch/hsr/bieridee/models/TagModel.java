@@ -1,5 +1,8 @@
 package ch.hsr.bieridee.models;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.NotFoundException;
 
@@ -94,5 +97,23 @@ public class TagModel extends AbstractModel {
 		}
 		final TagModel tm = (TagModel) o;
 		return this.node.getId() == tm.node.getId();
+	}
+
+	/**
+	 * Gets a list of all tags as <code>TagModels</code>.
+	 * 
+	 * @return The list of TagModels
+	 * @throws NotFoundException
+	 *             Thrown if a node is not existant
+	 * @throws WrongNodeTypeException
+	 *             Thrown if a node is not of the desired type
+	 */
+	public static List<TagModel> getAll() throws NotFoundException, WrongNodeTypeException {
+		final List<Node> tagNodes = DBUtil.getTagNodeList();
+		final List<TagModel> tagModelList = new LinkedList<TagModel>();
+		for (Node n : tagNodes) {
+			tagModelList.add(new TagModel(n));
+		}
+		return tagModelList;
 	}
 }

@@ -9,14 +9,16 @@ import org.codehaus.jackson.map.SerializerProvider;
 
 import ch.hsr.bieridee.config.Res;
 import ch.hsr.bieridee.domain.Beertype;
+import ch.hsr.bieridee.models.BeertypeModel;
 
 /**
  * Json Serializer for the beertype domain class.
  */
-public class BeertypeSerializer extends JsonSerializer<Beertype> {
+public class BeertypeSerializer extends JsonSerializer<BeertypeModel> {
 
 	@Override
-	public void serialize(Beertype beertype, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
+	public void serialize(BeertypeModel beertypeModel, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
+		final Beertype beertype = beertypeModel.getDomainObject();
 		jsonGenerator.writeStartObject();
 		jsonGenerator.writeStringField("name", beertype.getName());
 		jsonGenerator.writeStringField("description", beertype.getDescription());
@@ -25,8 +27,8 @@ public class BeertypeSerializer extends JsonSerializer<Beertype> {
 	}
 	
 	@Override
-	public Class<Beertype> handledType() {
-		return Beertype.class;
+	public Class<BeertypeModel> handledType() {
+		return BeertypeModel.class;
 	}
 
 }
