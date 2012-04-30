@@ -51,14 +51,12 @@ public class RatingResource extends ServerResource implements IStoreResource {
 		final UserModel userModel = new UserModel(this.username);
 
 		RatingModel.create(ratingValue, beerModel, userModel);
-		
-		DBUtil.setProperty(beerModel.getNode(), NodeProperty.Beer.AVERAGE_RATING, Cypher.executeAndGetDouble(Cypherqueries.GET_AVERAGE_RATING_OF_BEER, "AverageRating", beerModel.getId()+"", Long.toString(this.beerId)));
-
+		beerModel.calculateAndUpdateAverageRating();
 	}
 
 	@Override
 	public void remove(Representation rep) {
 		throw new NotImplementedException(); // TODO
 	}
-	
+
 }

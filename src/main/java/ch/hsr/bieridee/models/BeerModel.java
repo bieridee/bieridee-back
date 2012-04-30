@@ -15,6 +15,8 @@ import ch.hsr.bieridee.domain.Beertype;
 import ch.hsr.bieridee.domain.Brewery;
 import ch.hsr.bieridee.domain.Tag;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
+import ch.hsr.bieridee.utils.Cypher;
+import ch.hsr.bieridee.utils.Cypherqueries;
 import ch.hsr.bieridee.utils.DBUtil;
 import ch.hsr.bieridee.utils.DomainConverter;
 import ch.hsr.bieridee.utils.NodeProperty;
@@ -94,6 +96,14 @@ public class BeerModel extends AbstractModel {
 		return this.domainObject.getId();
 	}
 
+	/**
+	 * calculates the average rating and saves the value in the database.
+	 */
+	public void calculateAndUpdateAverageRating() {
+		final Double averageRating = Cypher.executeAndGetDouble(Cypherqueries.GET_AVERAGE_RATING_OF_BEER, "AverageRating", this.getId() + "", Long.toString(this.node.getId()));
+		DBUtil.setProperty(this.getNode(), NodeProperty.Beer.AVERAGE_RATING, averageRating);
+	}
+
 	public Beertype getBeertype() {
 		return this.domainObject.getBeertype();
 	}
@@ -117,7 +127,7 @@ public class BeerModel extends AbstractModel {
 	public List<Tag> getTags() {
 		return this.domainObject.getTags();
 	}
-	
+
 	public double getAverageRating() {
 		return averageRating;
 	}
