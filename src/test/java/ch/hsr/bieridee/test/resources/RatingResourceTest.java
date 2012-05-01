@@ -44,7 +44,7 @@ public class RatingResourceTest extends ResourceTest {
 	}
 	
 	@Test
-	public void testAverateRating() {
+	public void testNewAverateRatingCalculation() {
 		final JSONObject rating = new JSONObject();
 		try {
 			rating.put(NodeProperty.Rating.RATING, 4);
@@ -67,8 +67,25 @@ public class RatingResourceTest extends ResourceTest {
 		}
 		
 		Assert.assertNotNull(beerModel);
-				Assert.assertEquals(3.0, beerModel.getAverageRating());
+				Assert.assertEquals(2.5, beerModel.getAverageRating());
 
+	}
+	
+	@Test
+	public void getAverageRating(){
+		BeerModel beerModel = null;
+		try {
+			beerModel = new BeerModel(30);
+		} catch (NotFoundException e) {
+			e.printStackTrace();
+			Assert.fail();
+		} catch (WrongNodeTypeException e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+		
+		Assert.assertEquals(0.0, beerModel.getAverageRating());
+		
 	}
 
 	
