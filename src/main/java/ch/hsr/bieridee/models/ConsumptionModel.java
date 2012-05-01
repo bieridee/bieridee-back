@@ -51,8 +51,6 @@ public class ConsumptionModel extends AbstractActionModel {
 	public void setDate(Date d) {
 		this.domainObject.setDate(d);
 		DBUtil.setProperty(this.node, NodeProperty.Rating.TIMESTAMP, d.getTime());
-	}public Date getDate() {
-		return this.domainObject.getDate();
 	}
 
 	/**

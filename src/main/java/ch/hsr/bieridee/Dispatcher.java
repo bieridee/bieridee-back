@@ -16,6 +16,7 @@ import ch.hsr.bieridee.resourcehandler.ImageResource;
 import ch.hsr.bieridee.resourcehandler.RatingResource;
 import ch.hsr.bieridee.resourcehandler.TagListResource;
 import ch.hsr.bieridee.resourcehandler.TagResource;
+import ch.hsr.bieridee.resourcehandler.TimelineResource;
 import ch.hsr.bieridee.resourcehandler.UserListResource;
 import ch.hsr.bieridee.resourcehandler.UserResource;
 import ch.hsr.bieridee.services.BeerAppStatusService;
@@ -56,6 +57,7 @@ public class Dispatcher extends Application {
 		router.attach(Res.USER_COLLECTION, UserListResource.class);
 		router.attach(Res.USER_DOCUMENT, UserResource.class);
 		router.attach(Res.IMAGE_DOCUMENT, ImageResource.class);
+		router.attach(Res.TIMELINE_COLLECTION, TimelineResource.class);
 
 		return router;
 	}
