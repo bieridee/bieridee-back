@@ -1,6 +1,5 @@
 package ch.hsr.bieridee.test;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.junit.Assert;
