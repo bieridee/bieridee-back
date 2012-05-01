@@ -23,8 +23,6 @@ import ch.hsr.bieridee.utils.ConfigManager;
  */
 public final class Config {
 
-	private static ObjectMapper OBJECT_MAPPER;
-
 	public static final String DB_PATH = ConfigManager.getManager().getStringProperty("Bieridee.api.dir", "var/Testdb");
 	public static final String DB_HOST = ConfigManager.getManager().getStringProperty("Bieridee.db.host", "localhost");
 
@@ -44,13 +42,9 @@ public final class Config {
 	 * 
 	 * @return ObjectMapper
 	 */
-	public static synchronized ObjectMapper getObjectMapper() {
-		if (OBJECT_MAPPER != null) {
-			return OBJECT_MAPPER;
-		}
-
-		OBJECT_MAPPER = new ObjectMapper();
-		OBJECT_MAPPER.configure(SerializationConfig.Feature.INDENT_OUTPUT, true);
+	public static ObjectMapper getObjectMapper() {
+		final ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.configure(SerializationConfig.Feature.INDENT_OUTPUT, true);
 
 		final SimpleModule beerModule = new SimpleModule("BierIdeeModule", new Version(1, 0, 0, null));
 		beerModule.addSerializer(new BeerSerializer());
@@ -64,9 +58,8 @@ public final class Config {
 		beerModule.addSerializer(new UserSerializer());
 		beerModule.addSerializer(new UserListSerializer());
 
-		OBJECT_MAPPER.registerModule(beerModule);
-
-		return OBJECT_MAPPER;
+		objectMapper.registerModule(beerModule);
+		return objectMapper;
 	}
 
 }
