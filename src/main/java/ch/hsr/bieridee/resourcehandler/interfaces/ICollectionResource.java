@@ -1,5 +1,9 @@
 package ch.hsr.bieridee.resourcehandler.interfaces;
 
+import java.io.IOException;
+
+import org.json.JSONException;
+import org.neo4j.graphdb.NotFoundException;
 import org.neo4j.server.rest.web.NodeNotFoundException;
 import org.restlet.representation.Representation;
 import org.restlet.resource.Get;
@@ -23,7 +27,11 @@ public interface ICollectionResource {
 	/**
 	 * Create a collection item.
 	 * @param rep Representation of the collection item to create.
+	 * @throws IOException 
+	 * @throws JSONException 
+	 * @throws WrongNodeTypeException 
+	 * @throws NotFoundException 
 	 */
 	@Post
-	void store(Representation rep);
+	void store(Representation rep) throws JSONException, IOException, NotFoundException, WrongNodeTypeException;
 }

@@ -95,4 +95,9 @@ public class ConsumptionModel extends AbstractModel {
 		return new ConsumptionModel(beerModel, userModel);
 	}
 
+	@Override
+	public String toString() {
+		return this.domainObject.toString();
+	}
+
 }
