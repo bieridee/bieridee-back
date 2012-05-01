@@ -10,6 +10,8 @@ import org.neo4j.kernel.EmbeddedGraphDatabase;
 
 import ch.hsr.bieridee.config.NodeType;
 import ch.hsr.bieridee.config.RelType;
+import ch.hsr.bieridee.models.BeerModel;
+import ch.hsr.bieridee.models.UserModel;
 
 /**
  * Utility to work with the neo4J graph-db.
@@ -288,6 +290,46 @@ public final class DBUtil {
 		} finally {
 			tx.finish();
 		}
+	}
+
+	/**
+	 * @param beerId
+	 *            ID of the beer.
+	 * @param username
+	 *            Username of the user.
+	 * @return The most recent rating for the given beer of the given user.
+	 */
+	public static Node getActiveUserRatingForBeer(long beerId, String username) {
+		final Node activeRating = Cypher.executeAndGetSingleNode(Cypherqueries.GET_ACTIVE_RATING, "Rating", Long.toString(beerId), username);
+		return activeRating;
+	}
+
+	/**
+	 * @param node
+	 *            Rating node.
+	 * @param beerModel
+	 *            BeerModel rated by the rating
+	 * @param userModel
+	 *            UserModel that rates the beer.
+	 */
+	public static void addToRatingIndex(Node node, BeerModel beerModel, UserModel userModel) {
+		final Node home = DB.getReferenceNode();
+		final Transaction tx = DB.beginTx();
+		try {
+			final Node activeRatingIndex = home.getSingleRelationship(RelType.INDEX_ACTIVERATINGINDEX, Direction.OUTGOING).getEndNode();
+			final Node activeRating = getActiveUserRatingForBeer(beerModel.getId(), userModel.getUsername());
+			if (activeRating != null) {
+				System.out.println("active Rating "+activeRating);
+				final Relationship rel = activeRating.getSingleRelationship(RelType.INDEXES_ACTIVE, Direction.INCOMING);
+				System.out.println("Relationship "+rel);
+				rel.delete();
+			}
+			activeRatingIndex.createRelationshipTo(node, RelType.INDEXES_ACTIVE);
+			tx.success();
+		} finally {
+			tx.finish();
+		}
+
 	}
 
 }
