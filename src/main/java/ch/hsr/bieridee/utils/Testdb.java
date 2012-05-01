@@ -82,6 +82,7 @@ public final class Testdb {
 			final Node tagIndex = db.createNode();
 			final Node breweryIndex = db.createNode();
 			final Node timelineIndex = db.createNode();
+			
 
 			final Node timelineStart = db.createNode();
 			timelineStart.setProperty("type", "timelinestart");
@@ -96,6 +97,7 @@ public final class Testdb {
 			rootNode.createRelationshipTo(timelineIndex, RelType.INDEX_TIMELINE);
 			rootNode.createRelationshipTo(beertypeIndex, RelType.INDEX_BEERTYPE);
 			rootNode.createRelationshipTo(timelineStart, RelType.INDEX_TIMELINESTART);
+			
 
 			/* CREATE BEERTYPES */
 
@@ -308,6 +310,8 @@ public final class Testdb {
 			danilo.createRelationshipTo(rating6, RelType.DOES);
 			rating6.createRelationshipTo(feldschloesschen, RelType.CONTAINS);
 
+			
+
 			/* CREATE CONSUMPTIONS */
 
 			final Node c1 = createConsumption(db);
@@ -405,6 +409,16 @@ public final class Testdb {
 			quoellfrisch.createRelationshipTo(locherAg, RelType.BREWN_BY);
 			vollmond.createRelationshipTo(locherAg, RelType.BREWN_BY);
 			holzfass.createRelationshipTo(locherAg, RelType.BREWN_BY);
+			
+			final Node activeRatingIndex = db.createNode();
+			rootNode.createRelationshipTo(activeRatingIndex, RelType.INDEX_ACTIVERATINGINDEX);
+			
+			activeRatingIndex.createRelationshipTo(rating6, RelType.INDEXES_ACTIVE);
+			System.out.println("rating 6 is on node : "+rating6+ " and beer on node: "+feldschloesschen);
+			activeRatingIndex.createRelationshipTo(rating1, RelType.INDEXES_ACTIVE);
+			activeRatingIndex.createRelationshipTo(rating2, RelType.INDEXES_ACTIVE);
+			activeRatingIndex.createRelationshipTo(rating3, RelType.INDEXES_ACTIVE);
+			activeRatingIndex.createRelationshipTo(rating4, RelType.INDEXES_ACTIVE);
 
 			transaction.success();
 		} finally {

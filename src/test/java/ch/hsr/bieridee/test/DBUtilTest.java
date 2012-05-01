@@ -10,7 +10,9 @@ import org.neo4j.server.rest.web.NodeNotFoundException;
 
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.BeerModel;
+import ch.hsr.bieridee.models.RatingModel;
 import ch.hsr.bieridee.models.TagModel;
+import ch.hsr.bieridee.models.UserModel;
 import ch.hsr.bieridee.utils.DBUtil;
 
 /**
@@ -51,7 +53,7 @@ public class DBUtilTest extends DBTest {
 	public void getNotExistingBeerByNameTest() throws NotFoundException, WrongNodeTypeException {
 		final String beerName = "Chrigis Super Brew!";
 		final Node beerNode = DBUtil.getBeerByName(beerName);
-		System.out.println(beerNode);
+		System.out.println("Not existing node:" + beerNode);
 		final BeerModel bm1 = new BeerModel(beerNode);
 		Assert.assertNull(beerNode);
 	}
@@ -102,6 +104,50 @@ public class DBUtilTest extends DBTest {
 		Assert.assertTrue(beerModels.contains(bm2));
 		Assert.assertTrue(!beerModels.contains(bm3));
 
+	}
+
+	/**
+	 * Tests if only the most recent rating is linked to the Active Index. Tests if the creation of new rating (to a
+	 * already rated beer from the same user) is linked correctly.
+	 */
+	@Test
+	public void getMostRecentRatingforUserANDcrateNewRatingForAlreadyRatedBeer() {
+		getMostRecentRatingForUser();
+		createNewRatingforAlreadyRatedBeer();
+	}
+
+	private void getMostRecentRatingForUser() {
+		final Node activeRating = DBUtil.getActiveUserRatingForBeer(28, "saeufer");
+		System.out.println("active rating dbtest: " + activeRating);
+		RatingModel rm;
+		try {
+			rm = new RatingModel(activeRating);
+			System.out.println("DOmain object: " + rm.getBeer().getDomainObject());
+		} catch (NotFoundException e) {
+			e.printStackTrace();
+		} catch (WrongNodeTypeException e) {
+			e.printStackTrace();
+		}
+		Assert.assertEquals(59L, activeRating.getId());
+	}
+
+	private void createNewRatingforAlreadyRatedBeer() {
+		UserModel um = null;
+		BeerModel bm = null;
+		try {
+			bm = new BeerModel(28);
+			um = new UserModel("saeufer");
+		} catch (NotFoundException e) {
+			e.printStackTrace();
+			Assert.fail();
+		} catch (WrongNodeTypeException e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+		RatingModel.create(3, bm, um);
+		final Node activeRating = DBUtil.getActiveUserRatingForBeer(28, "saeufer");
+		System.out.println("new active rating: " + activeRating);
+		Assert.assertNotSame(activeRating.getId(), 59L);
 	}
 
 }

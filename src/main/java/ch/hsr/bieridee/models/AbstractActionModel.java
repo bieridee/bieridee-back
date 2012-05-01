@@ -42,6 +42,7 @@ public abstract class AbstractActionModel extends AbstractModel {
 		this.node = DBUtil.createNode(type);
 		DBUtil.createRelationship(this.node, RelType.CONTAINS, beerModel.getNode());
 		DBUtil.createRelationship(userModel.getNode(), RelType.DOES, this.node);
+		DBUtil.addToRatingIndex(this.node, beerModel, userModel);
 	}
 
 	/**
