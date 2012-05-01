@@ -19,7 +19,7 @@ public class BreweryResourceTest extends ResourceTest {
 	@Test
 	public void testSingleBrewery() {
 		final String uri = Res.API_URL + "/breweries/66";
-		final JSONObject brewery = this.getJSON(uri);
+		final JSONObject brewery = this.getJSONObject(uri);
 		try {
 			Assert.assertEquals(66, brewery.getInt("id"));
 			Assert.assertEquals(uri, brewery.getString("uri"));
