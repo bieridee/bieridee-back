@@ -24,16 +24,16 @@ import ch.hsr.bieridee.utils.DBUtil;
 import ch.hsr.bieridee.utils.NodeProperty;
 
 /**
- * Tests for the beer rating.
+ * Tests for the beer consumptions.
  * 
  */
 public class ConsumptionListResourceTest extends ResourceTest {
 
 	/**
-	 * Tests the creation of a rating.
+	 * Tests the creation of a consumption.
 	 */
 	@Test
-	public void createRating() {
+	public void createConsumption() {
 		final JSONObject rating = new JSONObject();
 		final ClientResource cl = new ClientResource(Res.API_URL + "/beers/30/consumptions/alki"); // alki is the
 																									// username of jonas
