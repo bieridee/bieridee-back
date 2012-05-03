@@ -19,8 +19,9 @@ public class BreweryResourceTest extends ResourceTest {
 	 */
 	@Test
 	public void testSingleBrewery() {
-		final String uri = Helpers.buildResourceUri("/breweries/66");
-		final JSONObject brewery = this.getJSON(uri);
+		final String uri = Res.PUBLIC_API_URL + "/breweries/66";
+		final JSONObject brewery = this.getJSONObject(uri);
+
 		try {
 			Assert.assertEquals(66, brewery.getInt("id"));
 			Assert.assertEquals(Res.PUBLIC_API_URL + "/breweries/66", brewery.getString("uri"));

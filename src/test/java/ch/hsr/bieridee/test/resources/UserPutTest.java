@@ -47,7 +47,7 @@ public class UserPutTest extends ServerTest {
 	 */
 	@Test
 	public void createAndGetCreatedUser() {
-		final String uri = Helpers.buildResourceUri("users/" + this.testUsername);
+		final String uri = Helpers.buildResourceUri("/users/" + this.testUsername);
 		final ClientResource clientResource = new ClientResource(uri);
 
 		final Representation rep = new StringRepresentation(this.userJson.toString(), MediaType.APPLICATION_JSON);

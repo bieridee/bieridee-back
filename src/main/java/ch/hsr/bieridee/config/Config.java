@@ -11,6 +11,8 @@ import ch.hsr.bieridee.serializer.BeertypeListSerializer;
 import ch.hsr.bieridee.serializer.BeertypeSerializer;
 import ch.hsr.bieridee.serializer.BreweryListSerializer;
 import ch.hsr.bieridee.serializer.BrewerySerializer;
+import ch.hsr.bieridee.serializer.ConsumptionSerializer;
+import ch.hsr.bieridee.serializer.RatingSerializer;
 import ch.hsr.bieridee.serializer.TagListSerializer;
 import ch.hsr.bieridee.serializer.TagSerializer;
 import ch.hsr.bieridee.serializer.UserListSerializer;
@@ -38,7 +40,7 @@ public final class Config {
 	}
 	
 	/**
-	 * Returns the ObjectMapper for the JacksonSerializations.
+	 * Returns thehh ObjectMapper for the JacksonSerializations.
 	 * 
 	 * @return ObjectMapper
 	 */
@@ -57,6 +59,8 @@ public final class Config {
 		beerModule.addSerializer(new TagListSerializer());
 		beerModule.addSerializer(new UserSerializer());
 		beerModule.addSerializer(new UserListSerializer());
+		beerModule.addSerializer(new ConsumptionSerializer());
+		beerModule.addSerializer(new RatingSerializer());
 
 		objectMapper.registerModule(beerModule);
 		return objectMapper;

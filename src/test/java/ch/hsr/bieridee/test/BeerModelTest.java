@@ -57,6 +57,5 @@ public class BeerModelTest extends DBTest {
 
 		Assert.assertTrue(beerModels.contains(bm1));
 		Assert.assertTrue(beerModels.contains(bm2));
-
 	}
 }

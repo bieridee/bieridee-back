@@ -41,7 +41,7 @@ public class RatingModelTest extends DBTest {
 	@Test(expected = WrongNodeTypeException.class)
 	public void illegalNodeType() throws NotFoundException, WrongNodeTypeException {
 		Node n = DBUtil.getNodeById(0);
-		final RatingModel rm = new RatingModel(n);
+		new RatingModel(n);
 		Assert.fail();
 	}
 

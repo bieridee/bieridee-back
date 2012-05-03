@@ -9,6 +9,8 @@ import java.util.Date;
 public abstract class Action {
 
 	private Date date;
+	private Beer beer;
+	private User user;
 
 	/**
 	 * @param date
@@ -19,15 +21,13 @@ public abstract class Action {
 	 *            The <code>User</code> created that created the activity
 	 */
 	public Action(Date date, Beer beer, User user) {
-		this.date = date;
-		this.beer = beer;
-		this.user = user;
+		this.setDate(date);
+		this.setBeer(beer);
+		this.setUser(user);
 	}
 
-	private Beer beer;
-	private User user;
 
-	Beer getBeer() {
+	public Beer getBeer() {
 		return this.beer;
 	}
 
