@@ -36,7 +36,7 @@ public class RatingResource extends ServerResource implements IStoreResource {
 
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
-		final RatingModel ratingModel = RatingModel.getActive(new BeerModel(this.beerId), new UserModel(this.username));
+		final RatingModel ratingModel = RatingModel.getCurrent(new BeerModel(this.beerId), new UserModel(this.username));
 		final JacksonRepresentation<RatingModel> ratingRep = new JacksonRepresentation<RatingModel>(ratingModel);
 		ratingRep.setObjectMapper(Config.getObjectMapper());
 		return ratingRep;

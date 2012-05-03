@@ -95,7 +95,7 @@ public class RatingModel extends AbstractActionModel {
 	 * @throws WrongNodeTypeException
 	 *             Thrown if the given node is not of type user
 	 */
-	public static RatingModel getActive(BeerModel beerModel, UserModel userModel) throws NotFoundException, WrongNodeTypeException {
+	public static RatingModel getCurrent(BeerModel beerModel, UserModel userModel) throws NotFoundException, WrongNodeTypeException {
 		final Node ratingNode = DBUtil.getActiveUserRatingForBeer(beerModel.getId(), userModel.getUsername());
 		return new RatingModel(ratingNode);
 	}
