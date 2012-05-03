@@ -33,7 +33,7 @@ public class RatingResourceTest extends ResourceTest {
 		}
 
 		final String uri = Helpers.buildResourceUri("/beers/30/ratings/alki");
-		putJSON(uri, rating);
+		postJson(uri, rating);
 		final List<Node> ratingNodes = DBUtil.getTimeLine(1);
 		
 		final Node ratingNode = ratingNodes.get(0);
