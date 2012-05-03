@@ -7,10 +7,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.neo4j.graphdb.NotFoundException;
 import org.neo4j.server.rest.web.NodeNotFoundException;
+import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
-import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.ServerResource;
 
+import ch.hsr.bieridee.config.Config;
 import ch.hsr.bieridee.config.Res;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.BeerModel;
@@ -35,8 +36,10 @@ public class RatingResource extends ServerResource implements IStoreResource {
 
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
-		return new StringRepresentation("not implemented");
-
+		final RatingModel ratingModel = RatingModel.getActive(new BeerModel(this.beerId), new UserModel(this.username));
+		final JacksonRepresentation<RatingModel> ratingRep = new JacksonRepresentation<RatingModel>(ratingModel);
+		ratingRep.setObjectMapper(Config.getObjectMapper());
+		return ratingRep;
 	}
 
 	@Override

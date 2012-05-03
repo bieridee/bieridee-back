@@ -41,4 +41,20 @@ public class RatingResourceTest extends ResourceTest {
 		Assert.assertEquals(4, ratingNode.getProperty(NodeProperty.Rating.RATING));
 	}
 	
+	/**
+	 * Tests the retrieval of an active rating.
+	 */
+	public void getRating() {
+		final String uri = Helpers.buildResourceUri("/beers/28/ratings/saeufer");
+		final JSONObject ratingJson = getJSONObject(uri);
+		
+		try {
+			Assert.assertEquals("rating", ratingJson.get("type"));
+			Assert.assertEquals(3, ratingJson.getInt("rating"));
+		} catch (JSONException e) {
+			Assert.fail();
+			e.printStackTrace();
+		}
+	}
+	
 }
