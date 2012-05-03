@@ -50,7 +50,7 @@ public class RatingModel extends AbstractActionModel {
 	public Rating getDomainObject() {
 		return this.domainObject;
 	}
-	
+
 	// SUPPRESS CHECKSTYLE: setter
 	public void setDate(Date d) {
 		this.domainObject.setDate(d);
@@ -81,5 +81,23 @@ public class RatingModel extends AbstractActionModel {
 	public static RatingModel create(int value, BeerModel beerModel, UserModel userModel) {
 		return new RatingModel(value, beerModel, userModel);
 	}
-	
+
+	/**
+	 * Gets the active rating for the given user and the given beer.
+	 * 
+	 * @param beerModel
+	 *            The beermodel
+	 * @param userModel
+	 *            The usermodel
+	 * @return The active rating
+	 * @throws NotFoundException
+	 *             Thrown if the given node can not be found
+	 * @throws WrongNodeTypeException
+	 *             Thrown if the given node is not of type user
+	 */
+	public static RatingModel getCurrent(BeerModel beerModel, UserModel userModel) throws NotFoundException, WrongNodeTypeException {
+		final Node ratingNode = DBUtil.getActiveUserRatingForBeer(beerModel.getId(), userModel.getUsername());
+		return new RatingModel(ratingNode);
+	}
+
 }
