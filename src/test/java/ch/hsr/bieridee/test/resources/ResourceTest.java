@@ -62,4 +62,11 @@ public abstract class ResourceTest extends ServerTest {
 		clientResource.put(rep);
 		clientResource.release();
 	}
+	
+	protected void postJson(String uri, JSONObject object) {
+		final ClientResource clientResource = new ClientResource(uri);
+		final Representation rep = new StringRepresentation(object.toString(), MediaType.APPLICATION_JSON);
+		clientResource.post(rep);
+		clientResource.release();
+	}
 }
