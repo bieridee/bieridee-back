@@ -101,6 +101,7 @@ public class BeerModel extends AbstractModel {
 	public void calculateAndUpdateAverageRating() {
 		final Double averageRating = Cypher.executeAndGetDouble(Cypherqueries.GET_AVERAGE_RATING_OF_BEER, "AverageRating", this.getId() + "", Long.toString(this.node.getId()));
 		DBUtil.setProperty(this.getNode(), NodeProperty.Beer.AVERAGE_RATING, averageRating);
+		this.averageRating = averageRating;
 	}
 
 	public Beertype getBeertype() {
