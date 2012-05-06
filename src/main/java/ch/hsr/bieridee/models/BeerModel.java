@@ -1,5 +1,6 @@
 package ch.hsr.bieridee.models;
 
+import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -132,6 +133,15 @@ public class BeerModel extends AbstractModel {
 		return averageRating;
 	}
 
+	/**
+	 * @return double value containing only one decimal place.
+	 */
+	public double getAverageRatingShortened() {
+		final DecimalFormat df = new DecimalFormat("0.0");
+		final String doubleString = df.format(getAverageRating());
+		return new Double(doubleString);
+	}
+
 	// SUPPRESS CHECKSTYLE: setter
 	public void setBeertype(Beertype beertype) {
 		// TODO
@@ -179,7 +189,7 @@ public class BeerModel extends AbstractModel {
 	// SUPPRESS CHECKSTYLE: setter
 	public void setTags(List<TagModel> tags) {
 		final List<Tag> tagDomainList = new LinkedList<Tag>();
-		for(TagModel tagModel : tags) {
+		for (TagModel tagModel : tags) {
 			tagDomainList.add(tagModel.getDomainObject());
 		}
 		this.domainObject.setTags(tagDomainList);
@@ -214,13 +224,14 @@ public class BeerModel extends AbstractModel {
 	public static List<BeerModel> getAll() throws NotFoundException, WrongNodeTypeException {
 		return createModelsFromNodes(DBUtil.getBeerNodeList());
 	}
-	
+
 	/**
 	 * Gets a list of beers as <code>BeerModel</code>s filtered by a tag.
 	 * 
-	 * @param filterTag Tag to be filterd with
+	 * @param filterTag
+	 *            Tag to be filterd with
 	 * @return Filtered list of BeerModels
-	  * @throws NotFoundException
+	 * @throws NotFoundException
 	 *             Thrown if a node is not existant
 	 * @throws WrongNodeTypeException
 	 *             Thrown if a node is not of the desired type

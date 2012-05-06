@@ -81,7 +81,7 @@ public class RatingResource extends ServerResource {
 		beerModel.calculateAndUpdateAverageRating();
 
 		final JSONObject newAverageRating = new JSONObject();
-		newAverageRating.put(NodeProperty.Beer.AVERAGE_RATING, beerModel.getAverageRating());
+		newAverageRating.put(NodeProperty.Beer.AVERAGE_RATING, beerModel.getAverageRatingShortened());
 		return new JsonRepresentation(newAverageRating.toString());
 	}
 
