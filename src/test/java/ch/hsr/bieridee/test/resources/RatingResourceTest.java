@@ -1,5 +1,6 @@
 package ch.hsr.bieridee.test.resources;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.json.JSONException;
@@ -7,6 +8,9 @@ import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 import org.neo4j.graphdb.Node;
+import org.restlet.Response;
+import org.restlet.ext.json.JsonRepresentation;
+import org.restlet.representation.Representation;
 
 import ch.hsr.bieridee.config.NodeType;
 import ch.hsr.bieridee.test.helpers.Helpers;
@@ -32,8 +36,20 @@ public class RatingResourceTest extends ResourceTest {
 			e.printStackTrace();
 		}
 
-		final String uri = Helpers.buildResourceUri("/beers/30/ratings/alki");
-		postJson(uri, rating);
+		final String uri = Helpers.buildResourceUri("/beers/33/ratings/alki");
+		final Representation responseRep = postJson(uri, rating);
+		
+		try {
+			final JSONObject avgRating = new JSONObject(responseRep.getText());
+			Assert.assertEquals(4.0, avgRating.getDouble(NodeProperty.Beer.AVERAGE_RATING));
+		} catch (IOException e) {
+			Assert.fail();
+			e.printStackTrace();
+		} catch (JSONException e) {
+			Assert.fail();
+			e.printStackTrace();
+		}
+		
 		final List<Node> ratingNodes = DBUtil.getTimeLine(1);
 		
 		final Node ratingNode = ratingNodes.get(0);

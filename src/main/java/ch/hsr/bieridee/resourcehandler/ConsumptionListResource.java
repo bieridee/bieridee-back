@@ -40,11 +40,9 @@ public class ConsumptionListResource extends ServerResource implements ICollecti
 
 	@Override
 	public void store(Representation consumption) throws JSONException, IOException, NotFoundException, WrongNodeTypeException {
-		final JSONObject ratingJSON = new JSONObject(consumption.getText());
 		final BeerModel beerModel = new BeerModel(this.beerId);
 		final UserModel userModel = new UserModel(this.username);
 
 		ConsumptionModel.create(beerModel, userModel);
-		System.out.println("consumption stored. Beer: " + beerModel.getName() + ", User: " + userModel.getUsername());
 	}
 }
