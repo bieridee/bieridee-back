@@ -6,8 +6,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.neo4j.graphdb.NotFoundException;
 import org.neo4j.server.rest.web.NodeNotFoundException;
+import org.restlet.data.MediaType;
 import org.restlet.ext.jackson.JacksonRepresentation;
+import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
+import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
@@ -56,6 +59,7 @@ public class RatingResource extends ServerResource {
 	 * 
 	 * @param rating
 	 *            The new raing
+	 * @return The new average rating of the beer
 	 * @throws JSONException
 	 *             We got json problem
 	 * @throws IOException
@@ -66,7 +70,7 @@ public class RatingResource extends ServerResource {
 	 *             We got type problem
 	 */
 	@Post
-	public void store(Representation rating) throws JSONException, IOException, NotFoundException, WrongNodeTypeException {
+	public Representation store(Representation rating) throws JSONException, IOException, NotFoundException, WrongNodeTypeException {
 
 		final JSONObject ratingJSON = new JSONObject(rating.getText());
 		final int ratingValue = ratingJSON.getInt(NodeProperty.Rating.RATING);
@@ -75,6 +79,10 @@ public class RatingResource extends ServerResource {
 
 		RatingModel.create(ratingValue, beerModel, userModel);
 		beerModel.calculateAndUpdateAverageRating();
+
+		final JSONObject newAverageRating = new JSONObject();
+		newAverageRating.put(NodeProperty.Beer.AVERAGE_RATING, beerModel.getAverageRatingShortened());
+		return new JsonRepresentation(newAverageRating.toString());
 	}
 
 }

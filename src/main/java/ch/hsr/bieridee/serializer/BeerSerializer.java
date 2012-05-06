@@ -1,6 +1,7 @@
 package ch.hsr.bieridee.serializer;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.JsonProcessingException;
@@ -20,13 +21,14 @@ public class BeerSerializer extends JsonSerializer<BeerModel> {
 	@Override
 	public void serialize(BeerModel beerModel, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
 		final Beer beer = beerModel.getDomainObject();
-		
+
 		jsonGenerator.writeStartObject();
 		jsonGenerator.writeNumberField("id", beer.getId());
 		jsonGenerator.writeStringField("name", beer.getName());
 		jsonGenerator.writeStringField("image", Res.PUBLIC_API_URL + Res.IMAGE_COLLECTION + "/" + beer.getPicture());
 		jsonGenerator.writeStringField("brand", beer.getBrand());
-		jsonGenerator.writeNumberField("rating", beerModel.getAverageRating());
+
+		jsonGenerator.writeNumberField("rating", beerModel.getAverageRatingShortened());
 
 		jsonGenerator.writeObjectFieldStart("brewery");
 		jsonGenerator.writeStringField("name", beer.getBrewery().getName());
