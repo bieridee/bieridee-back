@@ -61,6 +61,9 @@ public final class Res {
 	// timeline
 	public static final String TIMELINE_COLLECTION = "/timeline";
 	
+	// load test resource
+	public static final String LOADTEST = "/mu-de20a9df-45567641-e6aff7ea-3179451e.txt";
+	
 	/**
 	 * Returns the resource URI of the given domain object.
 	 * 
