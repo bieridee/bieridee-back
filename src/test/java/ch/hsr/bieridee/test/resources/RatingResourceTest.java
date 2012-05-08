@@ -8,14 +8,12 @@ import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 import org.neo4j.graphdb.Node;
-import org.restlet.Response;
-import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
 
+import ch.hsr.bieridee.config.NodeProperty;
 import ch.hsr.bieridee.config.NodeType;
 import ch.hsr.bieridee.test.helpers.Helpers;
 import ch.hsr.bieridee.utils.DBUtil;
-import ch.hsr.bieridee.utils.NodeProperty;
 
 /**
  * Tests for the beer rating.

@@ -12,10 +12,9 @@ import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.ClientResource;
 
-import ch.hsr.bieridee.config.Res;
+import ch.hsr.bieridee.config.NodeProperty;
 import ch.hsr.bieridee.test.ServerTest;
 import ch.hsr.bieridee.test.helpers.Helpers;
-import ch.hsr.bieridee.utils.NodeProperty;
 
 /**
  * Test the creation of a new user via PUT on the user resource.

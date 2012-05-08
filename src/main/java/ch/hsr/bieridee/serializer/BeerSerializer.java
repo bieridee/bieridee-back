@@ -1,26 +1,28 @@
 package ch.hsr.bieridee.serializer;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
 
+import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.SerializerProvider;
+import org.neo4j.graphdb.NotFoundException;
 
 import ch.hsr.bieridee.config.Res;
-import ch.hsr.bieridee.domain.Beer;
-import ch.hsr.bieridee.domain.Tag;
+import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.BeerModel;
+import ch.hsr.bieridee.models.TagModel;
 
 /**
  * Json Serializer for the beer domain class.
  */
 public class BeerSerializer extends JsonSerializer<BeerModel> {
-
+	
+	private static final Logger LOG = Logger.getLogger(BeerSerializer.class);
+	
 	@Override
-	public void serialize(BeerModel beerModel, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
-		final Beer beer = beerModel.getDomainObject();
+	public void serialize(BeerModel beer, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
 
 		jsonGenerator.writeStartObject();
 		jsonGenerator.writeNumberField("id", beer.getId());
@@ -28,26 +30,44 @@ public class BeerSerializer extends JsonSerializer<BeerModel> {
 		jsonGenerator.writeStringField("image", Res.PUBLIC_API_URL + Res.IMAGE_COLLECTION + "/" + beer.getPicture());
 		jsonGenerator.writeStringField("brand", beer.getBrand());
 
-		jsonGenerator.writeNumberField("rating", beerModel.getAverageRatingShortened());
-
-		jsonGenerator.writeObjectFieldStart("brewery");
-		jsonGenerator.writeStringField("name", beer.getBrewery().getName());
-		jsonGenerator.writeStringField("uri", Res.getResourceUri(beer.getBrewery()));
-		jsonGenerator.writeEndObject();
-
-		jsonGenerator.writeObjectFieldStart("beertype");
-		jsonGenerator.writeStringField("name", beer.getBeertype().getName());
-		jsonGenerator.writeStringField("uri", Res.getResourceUri(beer.getBeertype()));
-		jsonGenerator.writeEndObject();
-
-		jsonGenerator.writeArrayFieldStart("tags");
-		for (Tag tag : beer.getTags()) {
-			jsonGenerator.writeStartObject();
-			jsonGenerator.writeStringField("name", tag.getName());
-			jsonGenerator.writeStringField("uri", Res.getResourceUri(tag));
+		jsonGenerator.writeNumberField("rating", beer.getAverageRatingShortened());
+	
+		try {
+			jsonGenerator.writeObjectFieldStart("brewery");
+			jsonGenerator.writeStringField("name", beer.getBrewery().getName());
+			jsonGenerator.writeStringField("uri", Res.getResourceUri(beer.getBreweryModel()));
 			jsonGenerator.writeEndObject();
+		} catch (WrongNodeTypeException e) {
+			LOG.error(e.getMessage(), e);
+		} catch (NotFoundException e) {
+			LOG.error(e.getMessage(), e);
 		}
-		jsonGenerator.writeEndArray();
+
+		try {
+			jsonGenerator.writeObjectFieldStart("beertype");
+			jsonGenerator.writeStringField("name", beer.getBeertype().getName());
+			jsonGenerator.writeStringField("uri", Res.getResourceUri(beer.getBeertypeModel()));
+			jsonGenerator.writeEndObject();
+		} catch (NotFoundException e) {
+			LOG.error(e.getMessage(), e);
+		} catch (WrongNodeTypeException e) {
+			LOG.error(e.getMessage(), e);
+		}
+
+		try {
+			jsonGenerator.writeArrayFieldStart("tags");
+			for (TagModel tag : beer.getTagModels()) {
+				jsonGenerator.writeStartObject();
+				jsonGenerator.writeStringField("name", tag.getName());
+				jsonGenerator.writeStringField("uri", Res.getResourceUri(tag));
+				jsonGenerator.writeEndObject();
+			}
+			jsonGenerator.writeEndArray();
+		} catch (NotFoundException e) {
+			LOG.error(e.getMessage(), e);
+		} catch (WrongNodeTypeException e) {
+			LOG.error(e.getMessage(), e);
+		}
 
 		jsonGenerator.writeStringField("uri", Res.getResourceUri(beer));
 		jsonGenerator.writeEndObject();

@@ -15,12 +15,11 @@ import org.restlet.representation.Representation;
 import org.restlet.resource.ServerResource;
 
 import ch.hsr.bieridee.config.Config;
+import ch.hsr.bieridee.config.NodeProperty;
 import ch.hsr.bieridee.config.Res;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.UserModel;
 import ch.hsr.bieridee.resourcehandler.interfaces.IStoreResource;
-import ch.hsr.bieridee.utils.DBUtil;
-import ch.hsr.bieridee.utils.NodeProperty;
 
 /**
  * Server resource to provide access to users.
@@ -52,7 +51,7 @@ public class UserResource extends ServerResource implements IStoreResource {
 
 		final JSONObject userJson = new JSONObject(user.getText());
 
-		if (DBUtil.doesUserExist(this.username)) {
+		if (UserModel.doesUserExist(this.username)) {
 			updateUser(userJson);
 		} else {
 			createNewUser(userJson);

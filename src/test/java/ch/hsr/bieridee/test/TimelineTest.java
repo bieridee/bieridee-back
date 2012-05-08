@@ -6,9 +6,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.neo4j.graphdb.Node;
 
+import ch.hsr.bieridee.config.NodeProperty;
 import ch.hsr.bieridee.config.NodeType;
 import ch.hsr.bieridee.utils.DBUtil;
-import ch.hsr.bieridee.utils.NodeProperty;
 
 /**
  * Tests Timeline functionality.

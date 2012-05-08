@@ -1,28 +1,20 @@
 package ch.hsr.bieridee.test.resources;
 
-import java.io.IOException;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.restlet.data.MediaType;
-import org.restlet.representation.Representation;
-import org.restlet.representation.StringRepresentation;
-import org.restlet.resource.ClientResource;
 
+import ch.hsr.bieridee.config.NodeProperty;
 import ch.hsr.bieridee.config.Res;
-import ch.hsr.bieridee.test.ServerTest;
 import ch.hsr.bieridee.test.helpers.Helpers;
-import ch.hsr.bieridee.utils.NodeProperty;
 
 /**
  * Test the creation of a new user via PUT on the user resource.
  * 
  */
-public class BeerResourceTest extends ServerTest {
+public class BeerResourceTest extends ResourceTest {
 
 	/**
 	 * Tests the creation of a new user.
@@ -30,21 +22,7 @@ public class BeerResourceTest extends ServerTest {
 	@Test
 	public void receiveSingleBeer() {
 		final String uri = Helpers.buildResourceUri(Res.BEER_COLLECTION + "/30");
-		System.out.println(uri);
-		final ClientResource clientResource = new ClientResource(uri);
-
-		final Representation beerRepresentation = clientResource.get(MediaType.APPLICATION_JSON);
-
-		JSONObject beerJSON = null;
-		try {
-			beerJSON = new JSONObject(beerRepresentation.getText());
-		} catch (IOException e) {
-			Assert.fail();
-			e.printStackTrace();
-		} catch (JSONException e) {
-			Assert.fail();
-			e.printStackTrace();
-		}
+		final JSONObject beerJSON = getJSONObject(uri);
 
 		Assert.assertNotNull(beerJSON);
 		try {
@@ -75,6 +53,5 @@ public class BeerResourceTest extends ServerTest {
 			e.printStackTrace();
 		}
 
-		clientResource.release();
 	}
 }

@@ -16,21 +16,21 @@ import ch.hsr.bieridee.models.ConsumptionModel;
  */
 public class ConsumptionSerializer extends JsonSerializer<ConsumptionModel> {
 	@Override
-	public void serialize(ConsumptionModel consumptionModel, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
+	public void serialize(ConsumptionModel consumption, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
 
 		jsonGenerator.writeStartObject();
-		jsonGenerator.writeStringField("type", consumptionModel.getType());
-		jsonGenerator.writeStringField("date", consumptionModel.getDate().toString());
-		jsonGenerator.writeNumberField("timestamp", consumptionModel.getDate().getTime());
+		jsonGenerator.writeStringField("type", consumption.getType());
+		jsonGenerator.writeStringField("date", consumption.getDate().toString());
+		jsonGenerator.writeNumberField("timestamp", consumption.getDate().getTime());
 
 		jsonGenerator.writeObjectFieldStart("beer");
-		jsonGenerator.writeStringField("name", consumptionModel.getBeer().getName());
-		jsonGenerator.writeStringField("uri", Res.getResourceUri(consumptionModel.getBeer().getDomainObject()));
+		jsonGenerator.writeStringField("name", consumption.getBeer().getName());
+		jsonGenerator.writeStringField("uri", Res.getResourceUri(consumption));
 		jsonGenerator.writeEndObject();
 
 		jsonGenerator.writeObjectFieldStart("user");
-		jsonGenerator.writeStringField("user", consumptionModel.getUser().getUsername());
-		jsonGenerator.writeStringField("uri", Res.getResourceUri(consumptionModel.getUser().getDomainObject()));
+		jsonGenerator.writeStringField("user", consumption.getUser().getUsername());
+		jsonGenerator.writeStringField("uri", Res.getResourceUri(consumption));
 		jsonGenerator.writeEndObject();
 
 		jsonGenerator.writeEndObject();
