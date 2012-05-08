@@ -1,0 +1,1381 @@
+<class-diagram version="1.0.8" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
+  realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.resourcehandler.ImageResource" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/resourcehandler/ImageResource.java" 
+    binary="false">    
+    <position height="161" width="164" x="6264" y="830"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="2" corner="BOTTOM_RIGHT" language="java" 
+    name="ch.hsr.bieridee.resourcehandler.interfaces.IDocumentResource" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/resourcehandler/interfaces/IDocumentResource.java" binary="false">    
+    <position height="110" width="183" x="6058" y="1065"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.serializer.RatingSerializer" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/serializer/RatingSerializer.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="3320" y="989"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="4" corner="BOTTOM_RIGHT" language="java" 
+    name="ch.hsr.bieridee.resourcehandler.interfaces.ICollectionResource" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/resourcehandler/interfaces/ICollectionResource.java" 
+    binary="false">    
+    <position height="93" width="183" x="6520" y="1892"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="5" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.resourcehandler.UserListResource" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/resourcehandler/UserListResource.java" 
+    binary="false">    
+    <position height="93" width="145" x="5583" y="830"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="6" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.domain.Action" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/domain/Action.java" binary="false">    
+    <position height="229" width="136" x="4569" y="1334"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="7" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.serializer.ConsumptionSerializer" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/serializer/ConsumptionSerializer.java" 
+    binary="false">    
+    <position height="110" width="347" x="3915" y="1065"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="8" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.resourcehandler.BreweryListResource" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/resourcehandler/BreweryListResource.java" 
+    binary="false">    
+    <position height="110" width="153" x="6694" y="1334"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="9" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.resourcehandler.Resource42" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/resourcehandler/Resource42.java" 
+    binary="false">    
+    <position height="93" width="145" x="5831" y="830"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="10" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.config.NodeProperty" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/config/NodeProperty.java" binary="false">    
+    <position height="93" width="103" x="1714" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="11" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.domain.Brewery" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/domain/Brewery.java" binary="false">    
+    <position height="365" width="219" x="4622" y="3042"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="12" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.domain.Recommendation" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/domain/Recommendation.java" 
+    binary="false">    
+    <position height="246" width="176" x="3891" y="1892"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="13" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.resourcehandler.BeerListResource" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/resourcehandler/BeerListResource.java" 
+    binary="false">    
+    <position height="110" width="153" x="6501" y="1334"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="14" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.domain.Timeline" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/domain/Timeline.java" binary="false">    
+    <position height="178" width="174" x="6281" y="1065"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="15" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.services.BeerAppStatusService" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/services/BeerAppStatusService.java" 
+    binary="false">    
+    <position height="93" width="214" x="7335" y="830"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="16" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.Dispatcher" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/Dispatcher.java" binary="false">    
+    <position height="93" width="159" x="6876" y="629"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="17" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.resourcehandler.BeertypeResource" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/resourcehandler/BeertypeResource.java" 
+    binary="false">    
+    <position height="161" width="164" x="6876" y="830"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="18" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.resourcehandler.BreweryResource" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/resourcehandler/BreweryResource.java" 
+    binary="false">    
+    <position height="161" width="164" x="6672" y="830"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="19" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.models.RatingModel" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/models/RatingModel.java" binary="false">    
+    <position height="-1" width="-1" x="3742" y="1435"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="20" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.serializer.BreweryListSerializer" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/serializer/BreweryListSerializer.java" 
+    binary="false">    
+    <position height="110" width="334" x="2814" y="1065"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="21" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.config.NodeProperty.Brewery" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/config/NodeProperty.java" binary="false">    
+    <position height="144" width="123" x="1116" y="629"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="22" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.domain.Beer" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/domain/Beer.java" binary="false">    
+    <position height="467" width="310" x="4335" y="2535"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="23" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.serializer.BeertypeListSerializer" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/serializer/BeertypeListSerializer.java" 
+    binary="false">    
+    <position height="110" width="335" x="5334" y="1065"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="24" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.resourcehandler.BeerResource" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/resourcehandler/BeerResource.java" 
+    binary="false">    
+    <position height="161" width="164" x="6468" y="830"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="25" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.domain.interfaces.IDomain" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/domain/interfaces/IDomain.java" 
+    binary="false">    
+    <position height="59" width="147" x="4295" y="3447"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="26" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.models.UserModel" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/models/UserModel.java" binary="false">    
+    <position height="399" width="269" x="3582" y="1892"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="27" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.resourcehandler.TagListResource" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/resourcehandler/TagListResource.java" 
+    binary="false">    
+    <position height="93" width="145" x="6058" y="830"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="28" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.models.AbstractModel" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/models/AbstractModel.java" binary="false">    
+    <position height="144" width="153" x="4529" y="629"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="29" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.config.Res" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/config/Res.java" binary="false">    
+    <position height="552" width="242" x="6018" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="30" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.domain.User" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/domain/User.java" binary="false">    
+    <position height="365" width="207" x="4046" y="2535"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="31" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.domain.Consumption" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/domain/Consumption.java" binary="false">    
+    <position height="93" width="167" x="4295" y="1892"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="32" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.exceptions.WrongNodeTypeException" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/exceptions/WrongNodeTypeException.java" 
+    binary="false">    
+    <position height="144" width="242" x="7288" y="1892"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="33" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.resourcehandler.RatingResource" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/resourcehandler/RatingResource.java" 
+    binary="false">    
+    <position height="161" width="206" x="4302" y="1065"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="34" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.models.BeerModel" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/models/BeerModel.java" binary="false">    
+    <position height="603" width="289" x="5036" y="1892"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="35" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.resourcehandler.TagResource" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/resourcehandler/TagResource.java" 
+    binary="false">    
+    <position height="161" width="164" x="7345" y="1334"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="36" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.models.TagModel" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/models/TagModel.java" binary="false">    
+    <position height="263" width="136" x="6009" y="2535"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="37" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.models.BeertypeModel" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/models/BeertypeModel.java" binary="false">    
+    <position height="280" width="163" x="6461" y="2535"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="38" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.config.NodeProperty.User" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/config/NodeProperty.java" binary="false">    
+    <position height="161" width="117" x="1279" y="629"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="39" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.serializer.UserSerializer" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/serializer/UserSerializer.java" 
+    binary="false">    
+    <position height="110" width="308" x="2888" y="1334"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="40" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.utils.Testdb" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/utils/Testdb.java" binary="false">    
+    <position height="348" width="395" x="41" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="41" corner="BOTTOM_RIGHT" language="java" 
+    name="ch.hsr.bieridee.resourcehandler.interfaces.IReadOnlyResource" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/resourcehandler/interfaces/IReadOnlyResource.java" binary="false">    
+    <position height="76" width="183" x="5730" y="1065"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="42" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.config.NodeProperty.Consumption" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/config/NodeProperty.java" binary="false">    
+    <position height="93" width="100" x="1436" y="629"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="43" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.config.RelType" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/config/RelType.java" binary="false">    
+    <position height="348" width="206" x="2551" y="1892"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="44" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.config.NodeProperty.Tag" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/config/NodeProperty.java" binary="false">    
+    <position height="110" width="98" x="1576" y="629"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="45" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.serializer.BeertypeSerializer" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/serializer/BeertypeSerializer.java" 
+    binary="false">    
+    <position height="110" width="329" x="5584" y="1334"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="46" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.serializer.TagSerializer" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/serializer/TagSerializer.java" 
+    binary="false">    
+    <position height="110" width="302" x="4852" y="1334"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="47" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.domain.Rating" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/domain/Rating.java" binary="false">    
+    <position height="144" width="148" x="4107" y="1892"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="48" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.models.ConsumptionModel" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/models/ConsumptionModel.java" 
+    binary="false">    
+    <position height="178" width="261" x="3935" y="1334"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="49" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.utils.ConfigManager" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/utils/ConfigManager.java" binary="false">    
+    <position height="229" width="262" x="476" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="50" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.models.AbstractActionModel" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/models/AbstractActionModel.java" 
+    binary="false">    
+    <position height="229" width="269" x="3606" y="1065"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="51" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.domain.Beertype" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/domain/Beertype.java" binary="false">    
+    <position height="263" width="158" x="5057" y="3042"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="52" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.config.NodeType" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/config/NodeType.java" binary="false">    
+    <position height="195" width="131" x="778" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="53" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.resourcehandler.BeertypeListResource" 
+    project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/resourcehandler/BeertypeListResource.java" binary="false">    
+    <position height="110" width="153" x="6887" y="1334"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="54" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.domain.Tag" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/domain/Tag.java" binary="false">    
+    <position height="178" width="136" x="4881" y="3042"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="55" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.utils.Cypher" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/utils/Cypher.java" binary="false">    
+    <position height="246" width="306" x="949" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="56" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.models.BreweryModel" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/models/BreweryModel.java" binary="false">    
+    <position height="348" width="309" x="4685" y="2535"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="57" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.serializer.BeerListSerializer" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/serializer/BeerListSerializer.java" 
+    binary="false">    
+    <position height="110" width="314" x="4959" y="1065"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="58" corner="BOTTOM_RIGHT" language="java" 
+    name="ch.hsr.bieridee.resourcehandler.interfaces.IStoreResource" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/resourcehandler/interfaces/IStoreResource.java" binary="false">    
+    <position height="110" width="183" x="7570" y="1892"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="59" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.resourcehandler.ConsumptionListResource" 
+    project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/resourcehandler/ConsumptionListResource.java" binary="false">    
+    <position height="161" width="177" x="5995" y="1334"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="60" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.config.NodeProperty.Action" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/config/NodeProperty.java" binary="false">    
+    <position height="93" width="114" x="1714" y="629"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="61" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.resourcehandler.TimelineResource" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/resourcehandler/TimelineResource.java" 
+    binary="false">    
+    <position height="93" width="145" x="5398" y="830"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="62" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.serializer.TagListSerializer" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/serializer/TagListSerializer.java" 
+    binary="false">    
+    <position height="110" width="308" x="4569" y="1065"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="63" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.config.NodeProperty.Beertype" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/config/NodeProperty.java" binary="false">    
+    <position height="110" width="123" x="1868" y="629"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="64" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.domain.BrewerySize" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/domain/BrewerySize.java" binary="false">    
+    <position height="127" width="110" x="1295" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="65" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.Main" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/Main.java" binary="false">    
+    <position height="280" width="279" x="6876" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="66" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.serializer.BeerSerializer" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/serializer/BeerSerializer.java" 
+    binary="false">    
+    <position height="127" width="308" x="5215" y="1334"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="67" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.models.TimelineModel" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/models/TimelineModel.java" binary="false">    
+    <position height="-1" width="-1" x="3726" y="859"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="68" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.config.Config" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/config/Config.java" binary="false">    
+    <position height="195" width="184" x="4324" y="830"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="69" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.config.NodeProperty.Rating" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/config/NodeProperty.java" binary="false">    
+    <position height="110" width="114" x="2031" y="629"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="70" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.utils.DBUtil" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/utils/DBUtil.java" binary="false">    
+    <position height="518" width="276" x="2551" y="1334"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="71" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.utils.NodeUtil" project="bieridee-back" 
+    file="/bieridee-back/src/main/java/ch/hsr/bieridee/utils/NodeUtil.java" binary="false">    
+    <position height="93" width="183" x="7122" y="1334"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="72" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.utils.Cypherqueries" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/utils/Cypherqueries.java" binary="false">    
+    <position height="399" width="229" x="1445" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="73" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.config.NodeProperty.Beer" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/config/NodeProperty.java" binary="false">    
+    <position height="144" width="151" x="2185" y="629"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="74" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.resourcehandler.UserResource" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/resourcehandler/UserResource.java" 
+    binary="false">    
+    <position height="212" width="190" x="7570" y="1334"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="75" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.serializer.UserListSerializer" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/serializer/UserListSerializer.java" 
+    binary="false">    
+    <position height="110" width="314" x="2439" y="1065"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="76" corner="BOTTOM_RIGHT" language="java" name="ch.hsr.bieridee.serializer.BrewerySerializer" 
+    project="bieridee-back" file="/bieridee-back/src/main/java/ch/hsr/bieridee/serializer/BrewerySerializer.java" 
+    binary="false">    
+    <position height="110" width="328" x="3257" y="1334"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <dependency id="77">    
+    <bendpoint x="5553" y="1334"/>    
+    <bendpoint x="5553" y="1892"/>    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="78">    
+    <end type="SOURCE" refId="68"/>    
+    <end type="TARGET" refId="57"/>  
+  </dependency>  
+  <nesting id="79">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="63"/>  
+  </nesting>  
+  <dependency id="80">    
+    <bendpoint x="6027" y="629"/>    
+    <bendpoint x="6027" y="830"/>    
+    <bendpoint x="6027" y="1065"/>    
+    <bendpoint x="6223" y="1334"/>    
+    <bendpoint x="6223" y="1892"/>    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="56"/>  
+  </dependency>  
+  <dependency id="81">    
+    <bendpoint x="4226" y="1334"/>    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="82">    
+    <bendpoint x="2857" y="1334"/>    
+    <end type="SOURCE" refId="75"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="83">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="56"/>  
+  </dependency>  
+  <dependency id="84">    
+    <end type="SOURCE" refId="68"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <dependency id="85">    
+    <end type="SOURCE" refId="68"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="86">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="24"/>  
+  </dependency>  
+  <nesting id="87">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="21"/>  
+  </nesting>  
+  <dependency id="88">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="34"/>  
+  </dependency>  
+  <dependency id="89">    
+    <bendpoint x="6286" y="1892"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="56"/>  
+  </dependency>  
+  <dependency id="90">    
+    <end type="SOURCE" refId="62"/>    
+    <end type="TARGET" refId="46"/>  
+  </dependency>  
+  <generalization id="91">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <realization id="92">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="25"/>  
+  </realization>  
+  <dependency id="93">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="48"/>  
+  </dependency>  
+  <dependency id="94">    
+    <end type="SOURCE" refId="75"/>    
+    <end type="TARGET" refId="39"/>  
+  </dependency>  
+  <generalization id="95">    
+    <bendpoint x="2408" y="1334"/>    
+    <bendpoint x="2408" y="1065"/>    
+    <bendpoint x="2408" y="830"/>    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="28"/>  
+  </generalization>  
+  <dependency id="96">    
+    <bendpoint x="3615" y="1334"/>    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <generalization id="97">    
+    <end type="SOURCE" refId="67"/>    
+    <end type="TARGET" refId="28"/>  
+  </generalization>  
+  <dependency id="98">    
+    <bendpoint x="4517" y="1334"/>    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="34"/>  
+  </dependency>  
+  <nesting id="99">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="73"/>  
+  </nesting>  
+  <nesting id="100">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="60"/>  
+  </nesting>  
+  <generalization id="101">    
+    <bendpoint x="4077" y="830"/>    
+    <end type="SOURCE" refId="50"/>    
+    <end type="TARGET" refId="28"/>  
+  </generalization>  
+  <dependency id="102">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="103">    
+    <bendpoint x="4735" y="1334"/>    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="34"/>  
+  </dependency>  
+  <nesting id="104">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="42"/>  
+  </nesting>  
+  <dependency id="105">    
+    <bendpoint x="4580" y="1892"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <dependency id="106">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <dependency id="107">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="108">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="45"/>  
+  </dependency>  
+  <realization id="109">    
+    <end type="SOURCE" refId="74"/>    
+    <end type="TARGET" refId="58"/>  
+  </realization>  
+  <dependency id="110">    
+    <bendpoint x="7091" y="830"/>    
+    <bendpoint x="7070" y="1065"/>    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <dependency id="111">    
+    <bendpoint x="5045" y="2535"/>    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="54"/>  
+  </dependency>  
+  <dependency id="112">    
+    <bendpoint x="7133" y="830"/>    
+    <bendpoint x="7154" y="1065"/>    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="35"/>  
+  </dependency>  
+  <dependency id="113">    
+    <bendpoint x="6265" y="1892"/>    
+    <end type="SOURCE" refId="45"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="114">    
+    <end type="SOURCE" refId="56"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <dependency id="115">    
+    <bendpoint x="4821" y="1334"/>    
+    <bendpoint x="5355" y="1892"/>    
+    <end type="SOURCE" refId="62"/>    
+    <end type="TARGET" refId="36"/>  
+  </dependency>  
+  <dependency id="116">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <dependency id="117">    
+    <end type="SOURCE" refId="68"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <dependency id="118">    
+    <end type="SOURCE" refId="66"/>    
+    <end type="TARGET" refId="32"/>  
+  </dependency>  
+  <dependency id="119">    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="120">    
+    <bendpoint x="4559" y="1892"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <dependency id="121">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="61"/>  
+  </dependency>  
+  <realization id="122">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <dependency id="123">    
+    <bendpoint x="7579" y="830"/>    
+    <bendpoint x="7579" y="1065"/>    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="74"/>  
+  </dependency>  
+  <dependency id="124">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="47"/>  
+  </dependency>  
+  <dependency id="125">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <realization id="126">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="41"/>  
+  </realization>  
+  <dependency id="127">    
+    <bendpoint x="7539" y="1065"/>    
+    <bendpoint x="7539" y="1334"/>    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="32"/>  
+  </dependency>  
+  <dependency id="128">    
+    <end type="SOURCE" refId="61"/>    
+    <end type="TARGET" refId="50"/>  
+  </dependency>  
+  <dependency id="129">    
+    <end type="SOURCE" refId="65"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <dependency id="130">    
+    <bendpoint x="2387" y="830"/>    
+    <bendpoint x="2387" y="1065"/>    
+    <bendpoint x="2366" y="1334"/>    
+    <bendpoint x="2366" y="1892"/>    
+    <bendpoint x="2366" y="2535"/>    
+    <bendpoint x="2366" y="3042"/>    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="25"/>  
+  </dependency>  
+  <dependency id="131">    
+    <end type="SOURCE" refId="47"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <realization id="132">    
+    <bendpoint x="4179" y="3042"/>    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="25"/>  
+  </realization>  
+  <dependency id="133">    
+    <bendpoint x="5779" y="629"/>    
+    <bendpoint x="5779" y="830"/>    
+    <bendpoint x="5964" y="1065"/>    
+    <bendpoint x="5964" y="1334"/>    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="34"/>  
+  </dependency>  
+  <dependency id="134">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="135">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <realization id="136">    
+    <end type="SOURCE" refId="61"/>    
+    <end type="TARGET" refId="41"/>  
+  </realization>  
+  <dependency id="137">    
+    <bendpoint x="2783" y="1065"/>    
+    <end type="SOURCE" refId="68"/>    
+    <end type="TARGET" refId="39"/>  
+  </dependency>  
+  <dependency id="138">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <dependency id="139">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <nesting id="140">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="69"/>  
+  </nesting>  
+  <dependency id="141">    
+    <bendpoint x="7070" y="830"/>    
+    <bendpoint x="7049" y="1065"/>    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <association id="142">    
+    <end type="SOURCE" refId="49" navigable="false">      
+      <attribute id="143" name="CONFIG_MANAGER_SINGLETON"/>      
+      <multiplicity id="144" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="49" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="145">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <generalization id="146">    
+    <end type="SOURCE" refId="47"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <realization id="147">    
+    <end type="SOURCE" refId="51"/>    
+    <end type="TARGET" refId="25"/>  
+  </realization>  
+  <dependency id="148">    
+    <bendpoint x="6506" y="1065"/>    
+    <bendpoint x="6449" y="1334"/>    
+    <bendpoint x="6449" y="1892"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="36"/>  
+  </dependency>  
+  <dependency id="149">    
+    <end type="SOURCE" refId="70"/>    
+    <end type="TARGET" refId="43"/>  
+  </dependency>  
+  <dependency id="150">    
+    <bendpoint x="7070" y="1892"/>    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="36"/>  
+  </dependency>  
+  <dependency id="151">    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="152">    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="54"/>  
+  </dependency>  
+  <dependency id="153">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <generalization id="154">    
+    <bendpoint x="6470" y="1892"/>    
+    <bendpoint x="6470" y="1334"/>    
+    <bendpoint x="6548" y="1065"/>    
+    <bendpoint x="6233" y="830"/>    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="28"/>  
+  </generalization>  
+  <dependency id="155">    
+    <bendpoint x="5699" y="1065"/>    
+    <end type="SOURCE" refId="68"/>    
+    <end type="TARGET" refId="45"/>  
+  </dependency>  
+  <realization id="156">    
+    <bendpoint x="4304" y="2535"/>    
+    <bendpoint x="4304" y="3042"/>    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="25"/>  
+  </realization>  
+  <dependency id="157">    
+    <bendpoint x="7790" y="629"/>    
+    <bendpoint x="7790" y="830"/>    
+    <bendpoint x="7790" y="1065"/>    
+    <bendpoint x="7790" y="1334"/>    
+    <bendpoint x="7790" y="1892"/>    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <realization id="158">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="41"/>  
+  </realization>  
+  <realization id="159">    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <dependency id="160">    
+    <end type="SOURCE" refId="70"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="161">    
+    <bendpoint x="4907" y="1065"/>    
+    <end type="SOURCE" refId="68"/>    
+    <end type="TARGET" refId="46"/>  
+  </dependency>  
+  <dependency id="162">    
+    <bendpoint x="7112" y="830"/>    
+    <bendpoint x="7112" y="1065"/>    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="53"/>  
+  </dependency>  
+  <dependency id="163">    
+    <bendpoint x="6527" y="1065"/>    
+    <bendpoint x="6386" y="1334"/>    
+    <bendpoint x="6244" y="1892"/>    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="56"/>  
+  </dependency>  
+  <dependency id="164">    
+    <end type="SOURCE" refId="71"/>    
+    <end type="TARGET" refId="32"/>  
+  </dependency>  
+  <dependency id="165">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="51"/>  
+  </dependency>  
+  <dependency id="166">    
+    <bendpoint x="5024" y="2535"/>    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <dependency id="167">    
+    <bendpoint x="2366" y="629"/>    
+    <bendpoint x="2366" y="830"/>    
+    <bendpoint x="2366" y="1065"/>    
+    <bendpoint x="2387" y="1334"/>    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="168">    
+    <bendpoint x="5303" y="1065"/>    
+    <end type="SOURCE" refId="68"/>    
+    <end type="TARGET" refId="66"/>  
+  </dependency>  
+  <dependency id="169">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="34"/>  
+  </dependency>  
+  <dependency id="170">    
+    <end type="SOURCE" refId="68"/>    
+    <end type="TARGET" refId="62"/>  
+  </dependency>  
+  <dependency id="171">    
+    <bendpoint x="5184" y="1334"/>    
+    <end type="SOURCE" refId="57"/>    
+    <end type="TARGET" refId="34"/>  
+  </dependency>  
+  <dependency id="172">    
+    <bendpoint x="7049" y="1892"/>    
+    <end type="SOURCE" refId="53"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="173">    
+    <bendpoint x="5367" y="830"/>    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="33"/>  
+  </dependency>  
+  <realization id="174">    
+    <bendpoint x="4283" y="2535"/>    
+    <bendpoint x="4283" y="3042"/>    
+    <end type="SOURCE" refId="47"/>    
+    <end type="TARGET" refId="25"/>  
+  </realization>  
+  <realization id="175">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <dependency id="176">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="54"/>  
+  </dependency>  
+  <dependency id="177">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <dependency id="178">    
+    <end type="SOURCE" refId="66"/>    
+    <end type="TARGET" refId="34"/>  
+  </dependency>  
+  <dependency id="179">    
+    <bendpoint x="4513" y="1892"/>    
+    <end type="SOURCE" refId="76"/>    
+    <end type="TARGET" refId="56"/>  
+  </dependency>  
+  <realization id="180">    
+    <end type="SOURCE" refId="54"/>    
+    <end type="TARGET" refId="25"/>  
+  </realization>  
+  <realization id="181">    
+    <end type="SOURCE" refId="53"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <dependency id="182">    
+    <bendpoint x="3178" y="1065"/>    
+    <end type="SOURCE" refId="67"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <dependency id="183">    
+    <end type="SOURCE" refId="70"/>    
+    <end type="TARGET" refId="34"/>  
+  </dependency>  
+  <realization id="184">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <dependency id="185">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="30"/>  
+  </dependency>  
+  <dependency id="186">    
+    <bendpoint x="7091" y="1065"/>    
+    <bendpoint x="7091" y="1334"/>    
+    <bendpoint x="7091" y="1892"/>    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="187">    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="51"/>  
+  </dependency>  
+  <dependency id="188">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="31"/>  
+  </dependency>  
+  <dependency id="189">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="190">    
+    <bendpoint x="3199" y="1065"/>    
+    <end type="SOURCE" refId="68"/>    
+    <end type="TARGET" refId="76"/>  
+  </dependency>  
+  <dependency id="191">    
+    <bendpoint x="6006" y="830"/>    
+    <bendpoint x="5985" y="1065"/>    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="59"/>  
+  </dependency>  
+  <dependency id="192">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="36"/>  
+  </dependency>  
+  <dependency id="193">    
+    <end type="SOURCE" refId="68"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <generalization id="194">    
+    <bendpoint x="4538" y="1892"/>    
+    <bendpoint x="4538" y="1334"/>    
+    <bendpoint x="4538" y="1065"/>    
+    <bendpoint x="4538" y="830"/>    
+    <end type="SOURCE" refId="56"/>    
+    <end type="TARGET" refId="28"/>  
+  </generalization>  
+  <realization id="195">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="41"/>  
+  </realization>  
+  <dependency id="196">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <realization id="197">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <dependency id="198">    
+    <bendpoint x="4928" y="1065"/>    
+    <bendpoint x="4496" y="1334"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <nesting id="199">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="38"/>  
+  </nesting>  
+  <dependency id="200">    
+    <end type="SOURCE" refId="47"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <realization id="201">    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="58"/>  
+  </realization>  
+  <dependency id="202">    
+    <bendpoint x="6485" y="1065"/>    
+    <bendpoint x="6202" y="1334"/>    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="34"/>  
+  </dependency>  
+  <dependency id="203">    
+    <bendpoint x="5066" y="2535"/>    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="51"/>  
+  </dependency>  
+  <dependency id="204">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="76"/>  
+  </dependency>  
+  <dependency id="205">    
+    <end type="SOURCE" refId="68"/>    
+    <end type="TARGET" refId="75"/>  
+  </dependency>  
+  <dependency id="206">    
+    <end type="SOURCE" refId="74"/>    
+    <end type="TARGET" refId="32"/>  
+  </dependency>  
+  <nesting id="207">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="44"/>  
+  </nesting>  
+  <dependency id="208">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="37"/>  
+  </dependency>  
+  <dependency id="209">    
+    <bendpoint x="5439" y="1892"/>    
+    <end type="SOURCE" refId="46"/>    
+    <end type="TARGET" refId="36"/>  
+  </dependency>  
+  <generalization id="210">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="50"/>  
+  </generalization>  
+  <generalization id="211">    
+    <bendpoint x="5943" y="1334"/>    
+    <bendpoint x="5943" y="1065"/>    
+    <bendpoint x="5758" y="830"/>    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="28"/>  
+  </generalization>  
+  <realization id="212">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <dependency id="213">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="34"/>  
+  </dependency>  
+  <dependency id="214">    
+    <bendpoint x="3869" y="1018"/>    
+    <bendpoint x="3919" y="1243"/>    
+    <end type="SOURCE" refId="67"/>    
+    <end type="TARGET" refId="48"/>  
+  </dependency>  
+  <dependency id="215">    
+    <bendpoint x="7154" y="629"/>    
+    <bendpoint x="7154" y="830"/>    
+    <bendpoint x="7133" y="1065"/>    
+    <bendpoint x="7070" y="1334"/>    
+    <bendpoint x="7028" y="1892"/>    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="36"/>  
+  </dependency>  
+  <dependency id="216">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <dependency id="217">    
+    <end type="SOURCE" refId="74"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="218">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="219">    
+    <end type="SOURCE" refId="57"/>    
+    <end type="TARGET" refId="66"/>  
+  </dependency>  
+  <dependency id="220">    
+    <bendpoint x="5532" y="1892"/>    
+    <end type="SOURCE" refId="66"/>    
+    <end type="TARGET" refId="36"/>  
+  </dependency>  
+  <dependency id="221">    
+    <end type="SOURCE" refId="59"/>    
+    <end type="TARGET" refId="34"/>  
+  </dependency>  
+  <dependency id="222">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <realization id="223">    
+    <bendpoint x="4325" y="3042"/>    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="25"/>  
+  </realization>  
+  <generalization id="224">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="50"/>  
+  </generalization>  
+  <dependency id="225">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="226">    
+    <end type="SOURCE" refId="67"/>    
+    <end type="TARGET" refId="50"/>  
+  </dependency>  
+  <dependency id="227">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <dependency id="228">    
+    <bendpoint x="3231" y="1436"/>    
+    <bendpoint x="4492" y="1892"/>    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="56"/>  
+  </dependency>  
+  <dependency id="229">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <generalization id="230">    
+    <bendpoint x="6307" y="1892"/>    
+    <bendpoint x="6244" y="1334"/>    
+    <bendpoint x="6006" y="1065"/>    
+    <bendpoint x="5800" y="830"/>    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="28"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
