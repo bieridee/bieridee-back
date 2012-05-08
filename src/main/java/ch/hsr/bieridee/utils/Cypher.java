@@ -31,7 +31,7 @@ public final class Cypher {
 	 */
 	public static List<Node> executeAndGetNodes(String query, String column) {
 		final ExecutionEngine engine = new ExecutionEngine(DB);
-		final ExecutionResult result = (ExecutionResult) engine.execute(query);
+		final ExecutionResult result = engine.execute(query);
 		final Iterator<Node> iterator = result.columnAs(column);
 		final List<Node> resultNodes = new LinkedList<Node>();
 		while (iterator.hasNext()) {
@@ -120,7 +120,7 @@ public final class Cypher {
 	 */
 	public static Node executeAndGetSingleNode(String query, String column) {
 		final ExecutionEngine engine = new ExecutionEngine(DB);
-		final ExecutionResult result = (ExecutionResult) engine.execute(query);
+		final ExecutionResult result = engine.execute(query);
 		final Iterator<Node> iterator = result.columnAs(column);
 		Node resultNode = null;
 		if (iterator.hasNext()) {
@@ -162,7 +162,7 @@ public final class Cypher {
 	 */
 	public static double executeAndGetDouble(String query, String valueName) {
 		final ExecutionEngine engine = new ExecutionEngine(DB);
-		final ExecutionResult result = (ExecutionResult) engine.execute(query);
+		final ExecutionResult result = engine.execute(query);
 		final Iterator<Double> doubles = result.columnAs(valueName);
 		return doubles.next();
 	}

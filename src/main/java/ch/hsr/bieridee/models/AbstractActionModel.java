@@ -7,10 +7,10 @@ import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.NotFoundException;
 import org.neo4j.graphdb.Relationship;
 
+import ch.hsr.bieridee.config.NodeProperty;
 import ch.hsr.bieridee.config.RelType;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.utils.DBUtil;
-import ch.hsr.bieridee.utils.NodeProperty;
 import ch.hsr.bieridee.utils.NodeUtil;
 
 /**

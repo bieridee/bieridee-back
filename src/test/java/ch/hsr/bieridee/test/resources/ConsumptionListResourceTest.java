@@ -12,6 +12,7 @@ import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.ClientResource;
 
+import ch.hsr.bieridee.config.NodeProperty;
 import ch.hsr.bieridee.config.NodeType;
 import ch.hsr.bieridee.config.Res;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
@@ -21,7 +22,6 @@ import ch.hsr.bieridee.models.UserModel;
 import ch.hsr.bieridee.utils.Cypher;
 import ch.hsr.bieridee.utils.Cypherqueries;
 import ch.hsr.bieridee.utils.DBUtil;
-import ch.hsr.bieridee.utils.NodeProperty;
 
 /**
  * Tests for the beer consumptions.

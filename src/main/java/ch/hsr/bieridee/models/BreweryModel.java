@@ -130,4 +130,12 @@ public class BreweryModel extends AbstractModel {
 		return models;
 	}
 
+	public String getDescription() {
+		return this.domainObject.getDescription();
+	}
+
+	public String getPicture() {
+		return this.domainObject.getPicture();
+	}
+
 }

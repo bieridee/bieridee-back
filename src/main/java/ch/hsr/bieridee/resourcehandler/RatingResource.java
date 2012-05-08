@@ -6,22 +6,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.neo4j.graphdb.NotFoundException;
 import org.neo4j.server.rest.web.NodeNotFoundException;
-import org.restlet.data.MediaType;
 import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
-import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
 
 import ch.hsr.bieridee.config.Config;
+import ch.hsr.bieridee.config.NodeProperty;
 import ch.hsr.bieridee.config.Res;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.BeerModel;
 import ch.hsr.bieridee.models.RatingModel;
 import ch.hsr.bieridee.models.UserModel;
-import ch.hsr.bieridee.utils.NodeProperty;
 
 /**
  * Server resource to provide access to users.
