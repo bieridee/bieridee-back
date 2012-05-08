@@ -8,7 +8,6 @@ import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.SerializerProvider;
 
 import ch.hsr.bieridee.config.Res;
-import ch.hsr.bieridee.domain.User;
 import ch.hsr.bieridee.models.UserModel;
 
 /**
@@ -18,8 +17,7 @@ import ch.hsr.bieridee.models.UserModel;
 public class UserSerializer extends JsonSerializer<UserModel> {
 
 	@Override
-	public void serialize(UserModel userModel, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
-		final User user = userModel.getDomainObject();
+	public void serialize(UserModel user, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
 		
 		jsonGenerator.writeStartObject();
 		jsonGenerator.writeStringField("username", user.getUsername());

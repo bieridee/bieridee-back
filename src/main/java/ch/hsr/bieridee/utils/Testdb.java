@@ -14,8 +14,8 @@ import org.neo4j.kernel.EmbeddedGraphDatabase;
 import org.neo4j.server.WrappingNeoServerBootstrapper;
 import org.neo4j.server.configuration.EmbeddedServerConfigurator;
 
+import ch.hsr.bieridee.config.NodeProperty;
 import ch.hsr.bieridee.config.RelType;
-import ch.hsr.bieridee.domain.BrewerySize;
 
 /**
  * Utiltiy to create a neo4j database with some testdata.
@@ -82,7 +82,6 @@ public final class Testdb {
 			final Node tagIndex = db.createNode();
 			final Node breweryIndex = db.createNode();
 			final Node timelineIndex = db.createNode();
-			
 
 			final Node timelineStart = db.createNode();
 			timelineStart.setProperty("type", "timelinestart");
@@ -97,7 +96,6 @@ public final class Testdb {
 			rootNode.createRelationshipTo(timelineIndex, RelType.INDEX_TIMELINE);
 			rootNode.createRelationshipTo(beertypeIndex, RelType.INDEX_BEERTYPE);
 			rootNode.createRelationshipTo(timelineStart, RelType.INDEX_TIMELINESTART);
-			
 
 			/* CREATE BEERTYPES */
 
@@ -310,8 +308,6 @@ public final class Testdb {
 			danilo.createRelationshipTo(rating6, RelType.DOES);
 			rating6.createRelationshipTo(feldschloesschen, RelType.CONTAINS);
 
-			
-
 			/* CREATE CONSUMPTIONS */
 
 			final Node c1 = createConsumption(db);
@@ -379,16 +375,16 @@ public final class Testdb {
 			 * "Appenzeller Bier", "Holzfass Bier", "");
 			 */
 
-			final Node calandaAg = createBrewery(db, "Calanda", BrewerySize.NATIONAL, "Calanda ist eine schweizer Traditions-Brauerei. Gegründet wurde sie im Jahre...", "");
-			final Node feldschloesschenAg = createBrewery(db, "Felschlösschen", BrewerySize.NATIONAL, "Feldschlösschen ist eine gesichtslose und gänzlich uninspirierte Brauerei. Sie wurde im Jahre ...", "");
-			final Node falkenAg = createBrewery(db, "Falken Brauerei", BrewerySize.REGIONAL, "Falke, der. Ein majestätischer Jagdvogel, besonders beliebt bei Grafen und Baronen.", "");
-			final Node waedibraeuAg = createBrewery(db, "Wädibräu", BrewerySize.REGIONAL, "Eine kleine aber feine regional Brauerei. Wädibräu stellt Bier in rauen Mengen her und hat noch lange nicht genug.", "");
-			final Node guinnessBrewery = createBrewery(db, "Guinness Brewery", BrewerySize.NATIONAL, "Wurde von Arthur Guinness im Jahr 1759 in Dublin gegründet.", "");
-			final Node stFrancisAbbeyBrewery = createBrewery(db, "St. Francis Abbey Brewery", BrewerySize.NATIONAL, "Die älteste irische Brauerei, welche unter Anderem das Kilkenny Bier braut.", "");
+			final Node calandaAg = createBrewery(db, "Calanda", "national", "Calanda ist eine schweizer Traditions-Brauerei. Gegründet wurde sie im Jahre...", "");
+			final Node feldschloesschenAg = createBrewery(db, "Felschlösschen", "national", "Feldschlösschen ist eine gesichtslose und gänzlich uninspirierte Brauerei. Sie wurde im Jahre ...", "");
+			final Node falkenAg = createBrewery(db, "Falken Brauerei", "regional", "Falke, der. Ein majestätischer Jagdvogel, besonders beliebt bei Grafen und Baronen.", "");
+			final Node waedibraeuAg = createBrewery(db, "Wädibräu", "regional", "Eine kleine aber feine regional Brauerei. Wädibräu stellt Bier in rauen Mengen her und hat noch lange nicht genug.", "");
+			final Node guinnessBrewery = createBrewery(db, "Guinness Brewery", "national", "Wurde von Arthur Guinness im Jahr 1759 in Dublin gegründet.", "");
+			final Node stFrancisAbbeyBrewery = createBrewery(db, "St. Francis Abbey Brewery", "national", "Die älteste irische Brauerei, welche unter Anderem das Kilkenny Bier braut.", "");
 			final Node locherAg = createBrewery(
 					db,
 					"Brauerei Locher AG",
-					BrewerySize.NATIONAL,
+					"national",
 					"Die Brauerei Locher ist ein traditionsreicher Familienbetrieb in Appenzell. Seit Mitte der 1990er Jahre entwickelte sie sich von einer nur lokal aktiven zu einer in der ganzen Schweiz (und darüber hinaus) bekannten Brauerei für innovative Spezialbiere.",
 					"");
 
@@ -409,12 +405,12 @@ public final class Testdb {
 			quoellfrisch.createRelationshipTo(locherAg, RelType.BREWN_BY);
 			vollmond.createRelationshipTo(locherAg, RelType.BREWN_BY);
 			holzfass.createRelationshipTo(locherAg, RelType.BREWN_BY);
-			
+
 			final Node activeRatingIndex = db.createNode();
 			rootNode.createRelationshipTo(activeRatingIndex, RelType.INDEX_ACTIVERATINGINDEX);
-			
+
 			activeRatingIndex.createRelationshipTo(rating6, RelType.INDEXES_ACTIVE);
-			System.out.println("rating 6 is on node : "+rating6+ " and beer on node: "+feldschloesschen);
+			System.out.println("rating 6 is on node : " + rating6 + " and beer on node: " + feldschloesschen);
 			activeRatingIndex.createRelationshipTo(rating1, RelType.INDEXES_ACTIVE);
 			activeRatingIndex.createRelationshipTo(rating2, RelType.INDEXES_ACTIVE);
 			activeRatingIndex.createRelationshipTo(rating3, RelType.INDEXES_ACTIVE);

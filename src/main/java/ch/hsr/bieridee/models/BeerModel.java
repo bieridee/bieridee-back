@@ -9,6 +9,7 @@ import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.NotFoundException;
 import org.neo4j.graphdb.Relationship;
 
+import ch.hsr.bieridee.config.NodeProperty;
 import ch.hsr.bieridee.config.NodeType;
 import ch.hsr.bieridee.config.RelType;
 import ch.hsr.bieridee.domain.Beer;
@@ -19,7 +20,6 @@ import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.utils.Cypher;
 import ch.hsr.bieridee.utils.Cypherqueries;
 import ch.hsr.bieridee.utils.DBUtil;
-import ch.hsr.bieridee.utils.NodeProperty;
 import ch.hsr.bieridee.utils.NodeUtil;
 
 /**
@@ -108,6 +108,11 @@ public class BeerModel extends AbstractModel {
 	public Beertype getBeertype() {
 		return this.domainObject.getBeertype();
 	}
+	
+	// SUPPRESS CHECKSTYLE: getter
+	public BeertypeModel getBeertypeModel() throws NotFoundException, WrongNodeTypeException {
+		return new BeertypeModel(this.getBeertype().getId());
+	}
 
 	public String getBrand() {
 		return this.domainObject.getBrand();
@@ -116,21 +121,35 @@ public class BeerModel extends AbstractModel {
 	public Brewery getBrewery() {
 		return this.domainObject.getBrewery();
 	}
+	
+	// SUPPRESS CHECKSTYLE: getter
+	public BreweryModel getBreweryModel() throws NotFoundException, WrongNodeTypeException {
+		return new BreweryModel(this.getBrewery().getId());
+	}
 
 	public String getName() {
 		return this.domainObject.getName();
 	}
 
-	public String getImage() {
+	public String getPicture() {
 		return this.domainObject.getPicture();
 	}
 
 	public List<Tag> getTags() {
 		return this.domainObject.getTags();
 	}
+	
+	// SUPPRESS CHECKSTYLE: getter
+	public List<TagModel> getTagModels() throws NotFoundException, WrongNodeTypeException {
+		final List<TagModel> tagModels = new LinkedList<TagModel>();
+		for(Tag tag : this.getTags()) {
+			tagModels.add(new TagModel(tag.getName()));
+		}
+		return tagModels;
+	}
 
 	public double getAverageRating() {
-		return averageRating;
+		return this.averageRating;
 	}
 
 	/**
@@ -138,7 +157,7 @@ public class BeerModel extends AbstractModel {
 	 */
 	public double getAverageRatingShortened() {
 		final DecimalFormat df = new DecimalFormat("0.0");
-		final String doubleString = df.format(getAverageRating());
+		final String doubleString = df.format(this.getAverageRating());
 		return new Double(doubleString);
 	}
 

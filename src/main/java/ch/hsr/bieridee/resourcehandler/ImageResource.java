@@ -1,15 +1,6 @@
 package ch.hsr.bieridee.resourcehandler;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Iterator;
-
-import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
-import javax.imageio.stream.ImageInputStream;
 
 import org.apache.commons.lang.NotImplementedException;
 import org.neo4j.server.rest.web.NodeNotFoundException;

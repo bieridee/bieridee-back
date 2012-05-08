@@ -8,7 +8,6 @@ import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.SerializerProvider;
 
 import ch.hsr.bieridee.config.Res;
-import ch.hsr.bieridee.domain.Tag;
 import ch.hsr.bieridee.models.TagModel;
 
 /**
@@ -17,8 +16,8 @@ import ch.hsr.bieridee.models.TagModel;
 public class TagSerializer extends JsonSerializer<TagModel> {
 
 	@Override
-	public void serialize(TagModel tagModel, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
-		final Tag tag = tagModel.getDomainObject();
+	public void serialize(TagModel tag, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
+
 		jsonGenerator.writeStartObject();
 		jsonGenerator.writeStringField("name", tag.getName());
 		jsonGenerator.writeStringField("uri", Res.getResourceUri(tag));

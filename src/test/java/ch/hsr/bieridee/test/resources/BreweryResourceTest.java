@@ -5,9 +5,8 @@ import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 
+import ch.hsr.bieridee.config.NodeProperty;
 import ch.hsr.bieridee.config.Res;
-import ch.hsr.bieridee.test.helpers.Helpers;
-import ch.hsr.bieridee.utils.NodeProperty;
 
 /**
  * Brewery resource tests.

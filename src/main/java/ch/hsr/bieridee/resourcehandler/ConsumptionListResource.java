@@ -3,7 +3,6 @@ package ch.hsr.bieridee.resourcehandler;
 import java.io.IOException;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.neo4j.graphdb.NotFoundException;
 import org.neo4j.server.rest.web.NodeNotFoundException;
 import org.restlet.representation.Representation;

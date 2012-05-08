@@ -1,5 +1,6 @@
 package ch.hsr.bieridee.utils;
 
+import ch.hsr.bieridee.config.NodeProperty;
 import ch.hsr.bieridee.config.NodeType;
 
 /**
