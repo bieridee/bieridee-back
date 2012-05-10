@@ -242,6 +242,7 @@ public final class Testdb {
 			tagIndex.createRelationshipTo(schweiz, RelType.INDEXES);
 			tagIndex.createRelationshipTo(dunkel, RelType.INDEXES);
 			tagIndex.createRelationshipTo(hell, RelType.INDEXES);
+			tagIndex.createRelationshipTo(rot, RelType.INDEXES);
 			tagIndex.createRelationshipTo(holzig, RelType.INDEXES);
 
 			/* ADD TAGS TO BEERS */
