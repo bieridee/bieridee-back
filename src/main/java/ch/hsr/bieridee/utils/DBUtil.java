@@ -258,6 +258,21 @@ public final class DBUtil {
 	}
 
 	/**
+	 * @param username
+	 *            Username used to filter the timeline.
+	 * @return Chronological list of actions filtered by Username.
+	 * @param maxNumberOfItems
+	 *            number of max. Items (actions) returned. Pass 0 for all Items.
+	 */
+	public static List<Node> getTimeLineForUser(String username, int maxNumberOfItems) {
+		if (maxNumberOfItems <= 0) {
+			return Cypher.executeAndGetNodes(Cypherqueries.GET_TIMELINE_FOR_USER, "Action", 0, username);
+		} else {
+			return Cypher.executeAndGetNodes(Cypherqueries.GET_TIMELINE_FOR_USER, "Action", maxNumberOfItems, username);
+		}
+	}
+
+	/**
 	 * @param maxNumberOfItems
 	 *            number of max. Items (actions) returned. Pass 0 for all Items.
 	 * @return Chronological list of all actions (Ratings and Consumptions).
@@ -319,9 +334,9 @@ public final class DBUtil {
 			final Node activeRatingIndex = home.getSingleRelationship(RelType.INDEX_ACTIVERATINGINDEX, Direction.OUTGOING).getEndNode();
 			final Node activeRating = getActiveUserRatingForBeer(beerModel.getId(), userModel.getUsername());
 			if (activeRating != null) {
-				System.out.println("active Rating "+activeRating);
+				System.out.println("active Rating " + activeRating);
 				final Relationship rel = activeRating.getSingleRelationship(RelType.INDEXES_ACTIVE, Direction.INCOMING);
-				System.out.println("Relationship "+rel);
+				System.out.println("Relationship " + rel);
 				rel.delete();
 			}
 			activeRatingIndex.createRelationshipTo(node, RelType.INDEXES_ACTIVE);

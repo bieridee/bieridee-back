@@ -31,6 +31,20 @@ public class TimelineModel extends AbstractModel {
 	}
 
 	/**
+	 * @param username
+	 * @return
+	 * @throws WrongNodeTypeException
+	 * @throws NotFoundException
+	 */
+	public static List<AbstractActionModel> getAllForUser(String username) throws NotFoundException, WrongNodeTypeException {
+		return createModelsFromNodes(DBUtil.getTimeLineForUser(username, 0));
+	}
+
+	public static List<AbstractActionModel> getAllForUser(String username, int maxNumber) throws NotFoundException, WrongNodeTypeException {
+		return createModelsFromNodes(DBUtil.getTimeLineForUser(username, maxNumber));
+	}
+
+	/**
 	 * Gets a limited number of actions.
 	 * 
 	 * @param maxNumber

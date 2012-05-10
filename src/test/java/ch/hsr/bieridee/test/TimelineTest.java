@@ -2,11 +2,17 @@ package ch.hsr.bieridee.test;
 
 import java.util.List;
 
+import javax.swing.AbstractAction;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.NotFoundException;
 
 import ch.hsr.bieridee.config.NodeType;
+import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
+import ch.hsr.bieridee.models.AbstractActionModel;
+import ch.hsr.bieridee.models.TimelineModel;
 import ch.hsr.bieridee.utils.DBUtil;
 import ch.hsr.bieridee.utils.NodeProperty;
 
@@ -73,5 +79,36 @@ public class TimelineTest extends DBTest {
 		final Node first = actions.get(0);
 		final Long savedTime = (Long) first.getProperty(NodeProperty.Action.TIMESTAMP);
 		Assert.assertEquals(time, savedTime);
+	}
+
+	/**
+	 * Tests the Timeline User filter functionality.
+	 */
+	@Test
+	public void testTimelineUserFilter() {
+		final String username = "alki";
+		try {
+			for (AbstractActionModel actionModel : TimelineModel.getAllForUser(username)) {
+				Assert.assertEquals(username, actionModel.getUser().getUsername());
+			}
+		} catch (NotFoundException e) {
+			Assert.fail();
+			e.printStackTrace();
+		} catch (WrongNodeTypeException e) {
+			Assert.fail();
+			e.printStackTrace();
+		}
+
+		final int limit = 2;
+		try {
+			Assert.assertEquals(limit, TimelineModel.getAllForUser(username, limit).size());
+		} catch (NotFoundException e) {
+			Assert.fail();
+			e.printStackTrace();
+		} catch (WrongNodeTypeException e) {
+			Assert.fail();
+			e.printStackTrace();
+		}
+
 	}
 }
