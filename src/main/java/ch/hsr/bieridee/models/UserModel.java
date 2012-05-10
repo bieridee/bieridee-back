@@ -6,11 +6,11 @@ import java.util.List;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.NotFoundException;
 
+import ch.hsr.bieridee.config.NodeProperty;
 import ch.hsr.bieridee.config.NodeType;
 import ch.hsr.bieridee.domain.User;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.utils.DBUtil;
-import ch.hsr.bieridee.utils.NodeProperty;
 import ch.hsr.bieridee.utils.NodeUtil;
 
 /**
@@ -166,6 +166,17 @@ public class UserModel extends AbstractModel {
 			userModels.add(new UserModel(n));
 		}
 		return userModels;
+	}
+
+	/**
+	 * Checks wether a user exists or not.
+	 * 
+	 * @param username
+	 *            Username of the user to be checked
+	 * @return True if the user exists, false otherwise
+	 */
+	public static boolean doesUserExist(String username) {
+		return DBUtil.doesUserExist(username);
 	}
 
 }

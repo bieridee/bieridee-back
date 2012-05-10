@@ -8,12 +8,16 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+
 /**
  * ConfigManger providing settings listed in the conf.properties file.
  * 
  */
 public final class ConfigManager {
 
+	
+	private static final Logger LOG = Logger.getLogger(ConfigManager.class);
 	private static Properties CONFIGPROPERTY = new Properties();
 
 	private static ConfigManager CONFIG_MANAGER_SINGLETON = new ConfigManager();
@@ -26,6 +30,7 @@ public final class ConfigManager {
 		try {
 			ConfigManager.CONFIGPROPERTY.load(new BufferedInputStream(new FileInputStream(ConfigManager.FILENAME)));
 		} catch (IOException e) {
+			LOG.error(e.getMessage(), e);
 			System.err.println("Exception while reading config File - using default properties");
 		}
 

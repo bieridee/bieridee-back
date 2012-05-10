@@ -8,7 +8,6 @@ import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.SerializerProvider;
 
 import ch.hsr.bieridee.config.Res;
-import ch.hsr.bieridee.domain.Beertype;
 import ch.hsr.bieridee.models.BeertypeModel;
 
 /**
@@ -17,8 +16,8 @@ import ch.hsr.bieridee.models.BeertypeModel;
 public class BeertypeSerializer extends JsonSerializer<BeertypeModel> {
 
 	@Override
-	public void serialize(BeertypeModel beertypeModel, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
-		final Beertype beertype = beertypeModel.getDomainObject();
+	public void serialize(BeertypeModel beertype, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
+
 		jsonGenerator.writeStartObject();
 		jsonGenerator.writeStringField("name", beertype.getName());
 		jsonGenerator.writeStringField("description", beertype.getDescription());

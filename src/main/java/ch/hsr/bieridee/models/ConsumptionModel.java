@@ -5,11 +5,11 @@ import java.util.Date;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.NotFoundException;
 
+import ch.hsr.bieridee.config.NodeProperty;
 import ch.hsr.bieridee.config.NodeType;
 import ch.hsr.bieridee.domain.Consumption;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.utils.DBUtil;
-import ch.hsr.bieridee.utils.NodeProperty;
 
 /**
  * Model to work with and persist the User object.

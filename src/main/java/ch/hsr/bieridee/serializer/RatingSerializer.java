@@ -16,24 +16,24 @@ import ch.hsr.bieridee.models.RatingModel;
  */
 public class RatingSerializer extends JsonSerializer<RatingModel> {
 	@Override
-	public void serialize(RatingModel ratingModel, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
+	public void serialize(RatingModel rating, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
 
 		jsonGenerator.writeStartObject();
-		jsonGenerator.writeStringField("type", ratingModel.getType());
-		jsonGenerator.writeStringField("date", ratingModel.getDate().toString());
-		jsonGenerator.writeNumberField("timestamp", ratingModel.getDate().getTime());
+		jsonGenerator.writeStringField("type", rating.getType());
+		jsonGenerator.writeStringField("date", rating.getDate().toString());
+		jsonGenerator.writeNumberField("timestamp", rating.getDate().getTime());
 		
 		jsonGenerator.writeObjectFieldStart("beer");
-		jsonGenerator.writeStringField("name", ratingModel.getBeer().getName());
-		jsonGenerator.writeStringField("uri", Res.getResourceUri(ratingModel.getBeer().getDomainObject()));
+		jsonGenerator.writeStringField("name", rating.getBeer().getName());
+		jsonGenerator.writeStringField("uri", Res.getResourceUri(rating));
 		jsonGenerator.writeEndObject();
 
 		jsonGenerator.writeObjectFieldStart("user");
-		jsonGenerator.writeStringField("user", ratingModel.getUser().getUsername());
-		jsonGenerator.writeStringField("uri", Res.getResourceUri(ratingModel.getUser().getDomainObject()));
+		jsonGenerator.writeStringField("user", rating.getUser().getUsername());
+		jsonGenerator.writeStringField("uri", Res.getResourceUri(rating));
 		jsonGenerator.writeEndObject();
 
-		jsonGenerator.writeNumberField("rating", ratingModel.getRating());
+		jsonGenerator.writeNumberField("rating", rating.getRating());
 
 		jsonGenerator.writeEndObject();
 

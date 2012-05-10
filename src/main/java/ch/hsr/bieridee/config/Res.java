@@ -1,11 +1,11 @@
 package ch.hsr.bieridee.config;
 
-import ch.hsr.bieridee.domain.Beer;
-import ch.hsr.bieridee.domain.Beertype;
-import ch.hsr.bieridee.domain.Brewery;
-import ch.hsr.bieridee.domain.Tag;
-import ch.hsr.bieridee.domain.User;
-import ch.hsr.bieridee.domain.interfaces.IDomain;
+import ch.hsr.bieridee.models.AbstractModel;
+import ch.hsr.bieridee.models.BeerModel;
+import ch.hsr.bieridee.models.BeertypeModel;
+import ch.hsr.bieridee.models.BreweryModel;
+import ch.hsr.bieridee.models.TagModel;
+import ch.hsr.bieridee.models.UserModel;
 
 /**
  * Resources.
@@ -68,33 +68,33 @@ public final class Res {
 	/**
 	 * Returns the resource URI of the given domain object.
 	 * 
-	 * @param domainObject
-	 *            Domain object
+	 * @param model
+	 *            Model
 	 * @return The resource URI
 	 */
-	public static String getResourceUri(IDomain domainObject) {
-		final Class<? extends IDomain> c = domainObject.getClass();
+	public static String getResourceUri(AbstractModel model) {
+		final Class<? extends AbstractModel> c = model.getClass();
 		String uri = null;
 		final String pattern = "\\{.*\\}";
 
-		if (c == Beer.class) {
-			final long id = ((Beer) domainObject).getId();
+		if (c == BeerModel.class) {
+			final long id = ((BeerModel) model).getId();
 			uri = PUBLIC_API_URL + BEER_DOCUMENT.replaceAll(pattern, Long.toString(id));
 		}
-		if (c == Beertype.class) {
-			final long id = ((Beertype) domainObject).getId();
+		if (c == BeertypeModel.class) {
+			final long id = ((BeertypeModel) model).getId();
 			uri = PUBLIC_API_URL + BEERTYPE_DOCUMENT.replaceAll(pattern, Long.toString(id));
 		}
-		if (c == Brewery.class) {
-			final long id = ((Brewery) domainObject).getId();
+		if (c == BreweryModel.class) {
+			final long id = ((BreweryModel) model).getId();
 			uri = PUBLIC_API_URL + BREWERY_DOCUMENT.replaceAll(pattern, Long.toString(id));
 		}
-		if (c == Tag.class) {
-			final String name = ((Tag) domainObject).getName();
+		if (c == TagModel.class) {
+			final String name = ((TagModel) model).getName();
 			uri = PUBLIC_API_URL + TAG_DOCUMENT.replaceAll(pattern, name);
 		}
-		if (c == User.class) {
-			final String name = ((User) domainObject).getUsername();
+		if (c == UserModel.class) {
+			final String name = ((UserModel) model).getUsername();
 			uri = Res.PUBLIC_API_URL + USER_DOCUMENT.replaceAll(pattern, name);
 		}
 
