@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.NotFoundException;
 
-import ch.hsr.bieridee.domain.Tag;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.BeerModel;
 import ch.hsr.bieridee.models.TagModel;
@@ -24,7 +23,7 @@ public class TagModelTest extends DBTest {
 		final String tagValue = "billig";
 
 		try {
-			final TagModel t = new TagModel("gruusig");
+			final TagModel t = new TagModel(DBUtil.getTagByName("gruusig"));
 			final BeerModel beerModel = new BeerModel(29);
 			beerModel.addTag(t);
 
@@ -51,8 +50,7 @@ public class TagModelTest extends DBTest {
 	@Test
 	public void createNewTag() {
 		final String tagName = "hell";
-		final Tag tag = new Tag(tagName);
-		final TagModel tagModel = new TagModel(tag);
+		final TagModel tagModel = TagModel.create(tagName);
 		final Node nodeFromDB = DBUtil.getTagByName(tagName);
 		try {
 			final TagModel modelFromDB = new TagModel(nodeFromDB);

@@ -25,15 +25,15 @@ public class TagModel extends AbstractModel {
 	/**
 	 * Creates a TagModel form a node id.
 	 * 
-	 * @param name
-	 *            The name of the desired tag
+	 * @param id
+	 *            The id of the desired tag
 	 * @throws WrongNodeTypeException
 	 *             Thrown if the node with the given name is not of type tag
 	 * @throws NotFoundException
 	 *             Thrown if the node with the given name is not existing
 	 */
-	public TagModel(String name) throws WrongNodeTypeException, NotFoundException {
-		this(DBUtil.getTagByName(name));
+	public TagModel(long id) throws WrongNodeTypeException, NotFoundException {
+		this(DBUtil.getNodeById(id));
 	}
 
 	/**
@@ -50,21 +50,26 @@ public class TagModel extends AbstractModel {
 		NodeUtil.checkNode(tagNode, NodeType.TAG);
 
 		this.node = tagNode;
+		final long id = this.node.getId();
 		final String name = (String) this.node.getProperty(NodeProperty.Tag.NAME);
 
-		this.domainObject = new Tag(name);
+		this.domainObject = new Tag(id, name);
 	}
 
 	/**
-	 * Creates a tag model from a given Tag. Creates a new Node in the DB.
+	 * Creates a tag model from a given nave. Creates a new Node in the DB.
 	 * 
-	 * @param t
-	 *            Tag Object.
+	 * @param name
+	 *            Name of the new tag
 	 */
-	public TagModel(Tag t) {
-		this.domainObject = t;
+	private TagModel(String name) {
 		this.node = DBUtil.createNode(NodeProperty.Tag.TYPE);
-		this.setName(t.getName());
+		this.domainObject = new Tag(this.node.getId(), name);
+		this.setName(name);
+	}
+
+	public long getId() {
+		return this.domainObject.getId();
 	}
 
 	public String getName() {
@@ -115,5 +120,16 @@ public class TagModel extends AbstractModel {
 			tagModelList.add(new TagModel(n));
 		}
 		return tagModelList;
+	}
+
+	/**
+	 * Creates an new Tag.
+	 * 
+	 * @param name
+	 *            Name of the new Tag
+	 * @return TagModel representing the new Tag
+	 */
+	public static TagModel create(String name) {
+		return new TagModel(name);
 	}
 }
