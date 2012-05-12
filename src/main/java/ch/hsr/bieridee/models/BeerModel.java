@@ -255,7 +255,7 @@ public class BeerModel extends AbstractModel {
 	 * @throws WrongNodeTypeException
 	 *             Thrown if a node is not of the desired type
 	 */
-	public static List<BeerModel> getAll(String filterTag) throws NotFoundException, WrongNodeTypeException {
+	public static List<BeerModel> getAll(long filterTag) throws NotFoundException, WrongNodeTypeException {
 		return createModelsFromNodes(DBUtil.getBeerNodeList(filterTag));
 	}
 

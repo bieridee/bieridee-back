@@ -23,11 +23,12 @@ public class BeerListResource extends ServerResource implements ICollectionResou
 	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
 		
 		List<BeerModel> beerModels;
-		final String tagName = getQuery().getFirstValue(Res.BEER_FILTER_PARAMETER_TAG);
-		if (tagName != null) {
-			beerModels = BeerModel.getAll(tagName);
-		} else {
+		
+		if (getQuery().isEmpty()) {
 			beerModels = BeerModel.getAll();
+		} else {
+			final long tagId = Long.parseLong(getQuery().getFirstValue(Res.BEER_FILTER_PARAMETER_TAG));
+			beerModels = BeerModel.getAll(tagId);
 		}
 		
 		final BeerModel[] beerModelArray = beerModels.toArray(new BeerModel[beerModels.size()]);

@@ -59,12 +59,13 @@ public final class DBUtil {
 	}
 
 	/**
-	 * @param tagName
-	 *            value of a Tag which is used as a filter.
+	 * Gets a list of all tags with the given tag.
+	 * @param tagId
+	 *            Id of a Tag which is used as a filter.
 	 * @return a List of Beers matching the given Tag name.
 	 */
-	public static List<Node> getBeerNodeList(String tagName) {
-		return Cypher.executeAndGetNodes(Cypherqueries.GET_BEERS_BY_TAG_NAME, "Beer", tagName);
+	public static List<Node> getBeerNodeList(long tagId) {
+		return Cypher.executeAndGetNodes(Cypherqueries.GET_BEERS_BY_TAG_ID, "Beer", Long.toString(tagId));
 	}
 
 	/**

@@ -14,8 +14,8 @@ public final class Cypherqueries {
 	// Beers
 	public static final String GET_ALL_BEERS = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_BEER]-BEER_INDEX-[:INDEXES]->Beer RETURN Beer ORDER BY Beer.name ASC";
 	public static final String GET_BEER_BY_NAME = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_BEER]-BEER_INDEX-[:INDEXES]->Beer WHERE Beer.name = \'$$\' RETURN Beer";
-	public static final String GET_BEERS_BY_TAG_NAME = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_TAG]-()-[:INDEXES]-TAG<-[:HAS_TAG]-Beer WHERE TAG.name = \'$$\'  RETURN Beer ORDER BY Beer.name ASC";
-
+	public static final String GET_BEERS_BY_TAG_ID = "START TAG_NODE = node($$) MATCH TAG_NODE<-[:HAS_TAG]-Beer RETURN Beer ORDER BY Beer.name ASC";
+	
 	// Users
 	public static final String GET_ALL_USERS = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_USER]-USER_INDEX-[:INDEXES]->User RETURN User ORDER BY User.username ASC";
 	public static final String GET_USER_BY_NAME = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_USER]-USER_INDEX-[:INDEXES]->User WHERE User.username = \'$$\' RETURN User";
