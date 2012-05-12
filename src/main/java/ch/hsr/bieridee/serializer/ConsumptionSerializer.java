@@ -25,12 +25,12 @@ public class ConsumptionSerializer extends JsonSerializer<ConsumptionModel> {
 
 		jsonGenerator.writeObjectFieldStart("beer");
 		jsonGenerator.writeStringField("name", consumption.getBeer().getName());
-		jsonGenerator.writeStringField("uri", Res.getResourceUri(consumption));
+		jsonGenerator.writeStringField("uri", Res.getResourceUri(consumption.getBeer()));
 		jsonGenerator.writeEndObject();
 
 		jsonGenerator.writeObjectFieldStart("user");
 		jsonGenerator.writeStringField("user", consumption.getUser().getUsername());
-		jsonGenerator.writeStringField("uri", Res.getResourceUri(consumption));
+		jsonGenerator.writeStringField("uri", Res.getResourceUri(consumption.getUser()));
 		jsonGenerator.writeEndObject();
 
 		jsonGenerator.writeEndObject();

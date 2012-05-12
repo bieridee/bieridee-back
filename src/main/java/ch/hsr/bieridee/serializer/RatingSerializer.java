@@ -25,12 +25,12 @@ public class RatingSerializer extends JsonSerializer<RatingModel> {
 		
 		jsonGenerator.writeObjectFieldStart("beer");
 		jsonGenerator.writeStringField("name", rating.getBeer().getName());
-		jsonGenerator.writeStringField("uri", Res.getResourceUri(rating));
+		jsonGenerator.writeStringField("uri", Res.getResourceUri(rating.getBeer()));
 		jsonGenerator.writeEndObject();
 
 		jsonGenerator.writeObjectFieldStart("user");
 		jsonGenerator.writeStringField("user", rating.getUser().getUsername());
-		jsonGenerator.writeStringField("uri", Res.getResourceUri(rating));
+		jsonGenerator.writeStringField("uri", Res.getResourceUri(rating.getUser()));
 		jsonGenerator.writeEndObject();
 
 		jsonGenerator.writeNumberField("rating", rating.getRating());
