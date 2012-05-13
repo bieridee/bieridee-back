@@ -84,7 +84,7 @@ public class ConsumptionModel extends AbstractActionModel {
 	}
 
 	/**
-	 * Gets all consumptions of a specific user for thas he given beer.
+	 * Gets all consumptions of a specific user for the given beer.
 	 * 
 	 * @param beerId
 	 *            The beer to be filterd with
