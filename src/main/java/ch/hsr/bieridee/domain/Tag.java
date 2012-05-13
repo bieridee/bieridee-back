@@ -6,14 +6,22 @@ import ch.hsr.bieridee.domain.interfaces.IDomain;
  * Class representing a Tag.
  */
 public class Tag implements IDomain {
+	private long id;
 	private String name;
 
 	/**
+	 * @param id
+	 *            The id of the tag
 	 * @param name
-	 *            String containing the name of the Tag.
+	 *            String containing the name of the Tag
 	 */
-	public Tag(String name) {
+	public Tag(long id, String name) {
+		this.setId(id);
 		this.setName(name);
+	}
+
+	public long getId() {
+		return this.id;
 	}
 
 	public String getName() {
@@ -24,14 +32,18 @@ public class Tag implements IDomain {
 		this.name = name;
 	}
 
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
-		return "Tag name: " + this.name;
+		return "Tag id: "+ this.id +", Tag name: " + this.name;
 	}
 
 	@Override
 	public int hashCode() {
-		return this.name.hashCode();
+		return (Long.toString(this.id) + this.name).hashCode();
 	}
 
 	@Override
@@ -40,7 +52,7 @@ public class Tag implements IDomain {
 			return false;
 		}
 		final Tag t = (Tag) o;
-		return this.getName().equals(t.getName());
+		return new Long(this.getId()).equals(t.getId());
 	}
 
 }

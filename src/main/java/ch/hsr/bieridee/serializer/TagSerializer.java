@@ -19,6 +19,7 @@ public class TagSerializer extends JsonSerializer<TagModel> {
 	public void serialize(TagModel tag, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
 
 		jsonGenerator.writeStartObject();
+		jsonGenerator.writeNumberField("id", tag.getId());
 		jsonGenerator.writeStringField("name", tag.getName());
 		jsonGenerator.writeStringField("uri", Res.getResourceUri(tag));
 		jsonGenerator.writeEndObject();

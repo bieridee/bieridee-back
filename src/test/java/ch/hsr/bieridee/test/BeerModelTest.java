@@ -49,7 +49,7 @@ public class BeerModelTest extends DBTest {
 
 		List<BeerModel> beerModels = null;
 		try {
-			beerModels = BeerModel.getAll(tm.getName());
+			beerModels = BeerModel.getAll(tm.getId());
 		} catch (WrongNodeTypeException e) {
 			e.printStackTrace();
 		}

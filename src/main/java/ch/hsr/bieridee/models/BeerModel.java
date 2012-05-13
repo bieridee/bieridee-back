@@ -67,7 +67,7 @@ public class BeerModel extends AbstractModel {
 
 		for (Relationship r : this.node.getRelationships(RelType.HAS_TAG)) {
 			final Node nodeTag = r.getEndNode();
-			final Tag domainTag = new Tag((String) nodeTag.getProperty(NodeProperty.Beer.NAME));
+			final Tag domainTag = new Tag(nodeTag.getId(), (String) nodeTag.getProperty(NodeProperty.Beer.NAME));
 			tags.add(domainTag);
 		}
 
@@ -143,7 +143,7 @@ public class BeerModel extends AbstractModel {
 	public List<TagModel> getTagModels() throws NotFoundException, WrongNodeTypeException {
 		final List<TagModel> tagModels = new LinkedList<TagModel>();
 		for(Tag tag : this.getTags()) {
-			tagModels.add(new TagModel(tag.getName()));
+			tagModels.add(new TagModel(tag.getId()));
 		}
 		return tagModels;
 	}
@@ -255,7 +255,7 @@ public class BeerModel extends AbstractModel {
 	 * @throws WrongNodeTypeException
 	 *             Thrown if a node is not of the desired type
 	 */
-	public static List<BeerModel> getAll(String filterTag) throws NotFoundException, WrongNodeTypeException {
+	public static List<BeerModel> getAll(long filterTag) throws NotFoundException, WrongNodeTypeException {
 		return createModelsFromNodes(DBUtil.getBeerNodeList(filterTag));
 	}
 

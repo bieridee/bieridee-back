@@ -53,7 +53,7 @@ public class DBUtilTest extends DBTest {
 		final String beerName = "Chrigis Super Brew!";
 		final Node beerNode = DBUtil.getBeerByName(beerName);
 		System.out.println("Not existing node:" + beerNode);
-		final BeerModel bm1 = new BeerModel(beerNode);
+		new BeerModel(beerNode);
 		Assert.assertNull(beerNode);
 	}
 
@@ -93,7 +93,7 @@ public class DBUtilTest extends DBTest {
 
 		List<BeerModel> beerModels = null;
 		try {
-			beerModels = BeerModel.getAll(tm.getName());
+			beerModels = BeerModel.getAll(tm.getId());
 		} catch (WrongNodeTypeException e) {
 			Assert.fail();
 			e.printStackTrace();

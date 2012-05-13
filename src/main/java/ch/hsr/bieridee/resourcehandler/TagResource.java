@@ -18,16 +18,16 @@ import ch.hsr.bieridee.resourcehandler.interfaces.IStoreResource;
  */
 public class TagResource extends ServerResource implements IStoreResource {
 	
-	private String tagName;
+	private long tagId;
 	
 	@Override
 	public void doInit() {
-		this.tagName = (String) getRequestAttributes().get(Res.TAG_REQ_ATTR);
+		this.tagId = Long.parseLong((String) getRequestAttributes().get(Res.TAG_REQ_ATTR));
 	}
 	
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
-		final TagModel tagModel = new TagModel(this.tagName);
+		final TagModel tagModel = new TagModel(this.tagId);
 		
 		final JacksonRepresentation<TagModel> tagJacksonRep = new JacksonRepresentation<TagModel>(tagModel);
 		tagJacksonRep.setObjectMapper(Config.getObjectMapper());
