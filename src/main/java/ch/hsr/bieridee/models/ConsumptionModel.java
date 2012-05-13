@@ -1,6 +1,8 @@
 package ch.hsr.bieridee.models;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.NotFoundException;
@@ -64,6 +66,46 @@ public class ConsumptionModel extends AbstractActionModel {
 	 */
 	public static ConsumptionModel create(BeerModel beerModel, UserModel userModel) {
 		return new ConsumptionModel(beerModel, userModel);
+	}
+
+	/**
+	 * Gets all consumptions for the given beer.
+	 * 
+	 * @param beerId
+	 *            The beer to be filterd with
+	 * @return A list of ConsumptionModels for the given beer
+	 * @throws NotFoundException
+	 *             Thrown if a node could not be found
+	 * @throws WrongNodeTypeException
+	 *             Thronw if a node has the wrong type
+	 */
+	public static List<ConsumptionModel> getAll(long beerId) throws NotFoundException, WrongNodeTypeException {
+		return createModelsFromNodes(DBUtil.getConsumptionsByBeer(beerId));
+	}
+
+	/**
+	 * Gets all consumptions of a specific user for the given beer.
+	 * 
+	 * @param beerId
+	 *            The beer to be filterd with
+	 * @param username
+	 *            The drinker
+	 * @return List of ConsumptionModels for the user and the beer
+	 * @throws NotFoundException
+	 *             Thrown if a node could not be found
+	 * @throws WrongNodeTypeException
+	 *             Thronw if a node has the wrong type
+	 */
+	public static List<ConsumptionModel> getAll(long beerId, String username) throws NotFoundException, WrongNodeTypeException {
+		return createModelsFromNodes(DBUtil.getConsumptionsForUserByBeer(username, beerId));
+	}
+
+	private static List<ConsumptionModel> createModelsFromNodes(List<Node> nodes) throws NotFoundException, WrongNodeTypeException {
+		final List<ConsumptionModel> models = new LinkedList<ConsumptionModel>();
+		for (Node node : nodes) {
+			models.add(new ConsumptionModel(node));
+		}
+		return models;
 	}
 
 	@Override

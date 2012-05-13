@@ -1,14 +1,17 @@
 package ch.hsr.bieridee.resourcehandler;
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.json.JSONException;
 import org.neo4j.graphdb.NotFoundException;
 import org.neo4j.server.rest.web.NodeNotFoundException;
+import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
-import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.ServerResource;
 
+import ch.hsr.bieridee.config.Config;
 import ch.hsr.bieridee.config.Res;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.BeerModel;
@@ -32,9 +35,19 @@ public class ConsumptionListResource extends ServerResource implements ICollecti
 
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
-		// TODO
-		return new StringRepresentation("not implemented");
-
+		List<ConsumptionModel> consumptionModels = new LinkedList<ConsumptionModel>();
+		
+		if(this.username != null) { // get consumptions for user/beer
+			consumptionModels = ConsumptionModel.getAll(this.beerId, this.username);
+		} else { // get all consumptions for the beer, no user given
+			consumptionModels = ConsumptionModel.getAll(this.beerId);
+		}
+		
+		final ConsumptionModel[] consumptionModelArray = consumptionModels.toArray(new ConsumptionModel[consumptionModels.size()]);
+		final JacksonRepresentation<ConsumptionModel[]> consumptionsRep = new JacksonRepresentation<ConsumptionModel[]>(consumptionModelArray);
+		consumptionsRep.setObjectMapper(Config.getObjectMapper());
+		
+		return consumptionsRep;
 	}
 
 	@Override

@@ -60,6 +60,7 @@ public final class DBUtil {
 
 	/**
 	 * Gets a list of all tags with the given tag.
+	 * 
 	 * @param tagId
 	 *            Id of a Tag which is used as a filter.
 	 * @return a List of Beers matching the given Tag name.
@@ -347,6 +348,31 @@ public final class DBUtil {
 			tx.finish();
 		}
 
+	}
+
+	/**
+	 * Gets a list of all consuptions nodes for the given beer.
+	 * 
+	 * @param beerId
+	 *            The id of the beer
+	 * @return List of consumption nodes
+	 */
+	public static List<Node> getConsumptionsByBeer(long beerId) {
+		return Cypher.executeAndGetNodes(Cypherqueries.GET_ALL_CONSUMPTIONS_FOR_BEER, "consumption", Long.toString(beerId));
+	}
+
+	/**
+	 * Gets a list of consumption nodes for the user and the beer. The result is a list of all consumptions of a user
+	 * for the given beer.
+	 * 
+	 * @param username
+	 *            The user
+	 * @param beerId
+	 *            The beer
+	 * @return The node list
+	 */
+	public static List<Node> getConsumptionsForUserByBeer(String username, long beerId) {
+		return Cypher.executeAndGetNodes(Cypherqueries.GET_ALL_BEER_CONSUMPTIONS_FOR_USER, "consumption", Long.toString(beerId), username);
 	}
 
 }

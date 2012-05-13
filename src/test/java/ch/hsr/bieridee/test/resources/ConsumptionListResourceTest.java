@@ -2,14 +2,13 @@ package ch.hsr.bieridee.test.resources;
 
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.NotFoundException;
-import org.restlet.data.MediaType;
-import org.restlet.representation.Representation;
-import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.ClientResource;
 
 import ch.hsr.bieridee.config.NodeProperty;
@@ -34,11 +33,8 @@ public class ConsumptionListResourceTest extends ResourceTest {
 	 */
 	@Test
 	public void createConsumption() {
-		final JSONObject rating = new JSONObject();
-		final ClientResource cl = new ClientResource(Res.PUBLIC_API_URL + "/beers/30/consumptions/alki"); // alki is the
-																									// username of jonas
-		final Representation rep = new StringRepresentation(rating.toString(), MediaType.APPLICATION_JSON);
-		cl.post(rep);
+		final ClientResource cl = new ClientResource(Res.PUBLIC_API_URL + "/beers/30/consumptions/alki");
+		cl.post(null);
 
 		final List<Node> consumptionNodes = DBUtil.getTimeLine(1);
 		final Node consumptionNode = consumptionNodes.get(0);
@@ -67,26 +63,59 @@ public class ConsumptionListResourceTest extends ResourceTest {
 	@Test
 	public void getChronologicalConsumptions() {
 		final List<Node> consumptions = Cypher.executeAndGetNodes(Cypherqueries.GET_ALL_CONSUMPTIONS, "Action");
-		System.out.println("Consumptions in the database:");
 		long time = Long.MAX_VALUE;
 		for (Node n : consumptions) {
 			try {
 				Assert.assertEquals(n.getProperty("type"), NodeProperty.Consumption.TYPE);
-
-				final ConsumptionModel cm = new ConsumptionModel(n);
-				System.out.println(cm);
-
 				final Long thisTime = (Long) n.getProperty("timestamp");
 				Assert.assertTrue(thisTime < time);
 				time = thisTime;
 			} catch (NotFoundException e) {
 				e.printStackTrace();
 				Assert.fail();
-			} catch (WrongNodeTypeException e) {
-				e.printStackTrace();
-				Assert.fail();
 			}
+		}
+	}
 
+	/**
+	 * Tests the retrieval of all consumptions of a beer.
+	 */
+	@Test
+	public void getBeerConsumptions() {
+		final String uri = Res.PUBLIC_API_URL + "/beers/30/consumptions";
+		final JSONArray consumptionsJSON = getJSONArray(uri);
+		try {
+			final JSONObject cons1 = (JSONObject) consumptionsJSON.get(0);
+			final JSONObject cons2 = (JSONObject) consumptionsJSON.get(1);
+			final JSONObject beer1 = (JSONObject) cons1.get("beer");
+			final JSONObject beer2 = (JSONObject) cons2.get("beer");
+
+			Assert.assertEquals("consumption", cons1.get("type"));
+			Assert.assertEquals("consumption", cons2.get("type"));
+			Assert.assertEquals(Res.PUBLIC_API_URL + "/beers/30", beer1.get("uri"));
+			Assert.assertEquals(Res.PUBLIC_API_URL + "/beers/30", beer2.get("uri"));
+		} catch (JSONException e) {
+			Assert.fail();
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Tests the beer consumptions of a specific beer for specific user.
+	 */
+	@Test
+	public void getUserBeerConsumptions() {
+		final String uri = Res.PUBLIC_API_URL + "/beers/28/consumptions/trinker";
+		final JSONArray consumptionsJSON = getJSONArray(uri);
+		try {
+			final JSONObject cons1 = (JSONObject) consumptionsJSON.get(0);
+			final JSONObject user1 = (JSONObject) cons1.get("user");
+
+			Assert.assertEquals("consumption", cons1.get("type"));
+			Assert.assertEquals("trinker", user1.get("user"));
+		} catch (JSONException e) {
+			Assert.fail();
+			e.printStackTrace();
 		}
 	}
 }
