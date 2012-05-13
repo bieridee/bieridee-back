@@ -35,6 +35,8 @@ public final class Cypherqueries {
 	// Consumptions
 	public static final String GET_ALL_USER_CONSUMPTIONS = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_USER]-USER_INDEX-[:INDEXES]-User-[:HAS_CONSUMED]-Beer RETURN Beer";
 	public static final String GET_ALL_CONSUMPTIONS = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_TIMELINESTART]-TIMELINESTART-[:NEXT*]-Action-[:NEXT]->TIMELINEEND WHERE Action.type = '" + NodeType.CONSUMPTION + "' RETURN Action ORDER BY Action.timestamp DESC";
+	public static final String GET_ALL_CONSUMPTIONS_FOR_BEER = "START beer = node($$) MATCH beer<-[:CONTAINS]-consumption WHERE consumption.type = '"+ NodeType.CONSUMPTION +"' RETURN consumption ORDER BY consumption.timestamp DESC";
+	public static final String GET_ALL_BEER_CONSUMPTIONS_FOR_USER = "START beer = node($$) MATCH beer<-[:CONTAINS]-consumption<-[:DOES]-user WHERE user.username = \'$$\' AND consumption.type = '"+ NodeType.CONSUMPTION +"' RETURN consumption ORDER BY consumption.timestamp DESC";
 
 	// Timeline
 	public static final String GET_TIMELINE = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_TIMELINESTART]-TIMELINESTART-[:NEXT*]-Action-[:NEXT]->TIMELINEEND RETURN Action";

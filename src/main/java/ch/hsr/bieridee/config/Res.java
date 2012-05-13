@@ -57,6 +57,7 @@ public final class Res {
 	// consumption
 	public static final String CONSUMPTION_COLLECTION = "/consumptions";
 	public static final String CONSUMPTION_DOCUMENT = BEER_DOCUMENT + CONSUMPTION_COLLECTION + "/{" + USER_REQ_ATTR + "}";
+	public static final String CONSUMPTION_BEER_COLLECTION = BEER_DOCUMENT + CONSUMPTION_COLLECTION;
 
 	// timeline
 	public static final String TIMELINE_COLLECTION = "/timeline";

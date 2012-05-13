@@ -49,6 +49,7 @@ public class Dispatcher extends Application {
 		router.attach(Res.BEER_DOCUMENT, BeerResource.class);
 		router.attach(Res.RATING_DOCUMENT, RatingResource.class);
 		router.attach(Res.CONSUMPTION_DOCUMENT, ConsumptionListResource.class);
+		router.attach(Res.CONSUMPTION_BEER_COLLECTION, ConsumptionListResource.class);
 		router.attach(Res.BREWERY_COLLECTION, BreweryListResource.class);
 		router.attach(Res.BREWERY_DOCUMENT, BreweryResource.class);
 		router.attach(Res.BEERTYPE_COLLECTION, BeertypeListResource.class);
