@@ -43,10 +43,10 @@ public class BeerResourceTest extends ResourceTest {
 			final JSONObject t1 = tags.getJSONObject(1);
 
 			Assert.assertEquals("suess", t1.get(NodeProperty.Tag.NAME));
-			Assert.assertEquals(Res.PUBLIC_API_URL + "/tags/suess", t1.get("uri"));
+			Assert.assertEquals(Res.PUBLIC_API_URL + "/tags/39", t1.get("uri"));
 
-			Assert.assertEquals(t2.get(NodeProperty.Tag.NAME), "lecker");
-			Assert.assertEquals(Res.PUBLIC_API_URL + "/tags/lecker", t2.get("uri"));
+			Assert.assertEquals("lecker", t2.get(NodeProperty.Tag.NAME));
+			Assert.assertEquals(Res.PUBLIC_API_URL + "/tags/37", t2.get("uri"));
 
 		} catch (JSONException e) {
 			Assert.fail();

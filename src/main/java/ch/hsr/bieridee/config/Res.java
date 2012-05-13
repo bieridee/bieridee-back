@@ -37,7 +37,7 @@ public final class Res {
 
 	// tag
 	public static final String TAG_COLLECTION = "/tags";
-	public static final String TAG_REQ_ATTR = "tag-name";
+	public static final String TAG_REQ_ATTR = "tag-id";
 	public static final String TAG_DOCUMENT = "/tags/{" + TAG_REQ_ATTR + "}";
 
 	// image
@@ -70,7 +70,7 @@ public final class Res {
 	 * 
 	 * @param model
 	 *            Model
-	 * @return The resource URI
+	 * @return The resource URI, or null if no matching URI could be found
 	 */
 	public static String getResourceUri(AbstractModel model) {
 		final Class<? extends AbstractModel> c = model.getClass();
@@ -90,8 +90,8 @@ public final class Res {
 			uri = PUBLIC_API_URL + BREWERY_DOCUMENT.replaceAll(pattern, Long.toString(id));
 		}
 		if (c == TagModel.class) {
-			final String name = ((TagModel) model).getName();
-			uri = PUBLIC_API_URL + TAG_DOCUMENT.replaceAll(pattern, name);
+			final long id = ((TagModel) model).getId();
+			uri = PUBLIC_API_URL + TAG_DOCUMENT.replaceAll(pattern, Long.toString(id));
 		}
 		if (c == UserModel.class) {
 			final String name = ((UserModel) model).getUsername();
