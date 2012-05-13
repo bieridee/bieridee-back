@@ -24,11 +24,11 @@ public class BeerListResource extends ServerResource implements ICollectionResou
 		
 		List<BeerModel> beerModels;
 		
-		if (getQuery().isEmpty()) {
-			beerModels = BeerModel.getAll();
+		final String tagId = getQuery().getFirstValue(Res.BEER_FILTER_PARAMETER_TAG);
+		if (tagId != null) {
+			beerModels = BeerModel.getAll(Long.parseLong(tagId));
 		} else {
-			final long tagId = Long.parseLong(getQuery().getFirstValue(Res.BEER_FILTER_PARAMETER_TAG));
-			beerModels = BeerModel.getAll(tagId);
+			beerModels = BeerModel.getAll();
 		}
 		
 		final BeerModel[] beerModelArray = beerModels.toArray(new BeerModel[beerModels.size()]);
