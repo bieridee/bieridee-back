@@ -85,6 +85,7 @@ public final class Main {
 		RESTLET_SERVER = new Component();
 		RESTLET_SERVER.getServers().add(Protocol.HTTP, Config.API_HOST, Config.API_PORT);
 		RESTLET_SERVER.getDefaultHost().attach(new Dispatcher());
+		RESTLET_SERVER.getContext().getParameters().add("useForwardedForHeader", "true");
 
 		// Register custom AuthenticatorHelper
 		Engine.getInstance().getRegisteredAuthenticators().add(new BierideeHmacHelper());
