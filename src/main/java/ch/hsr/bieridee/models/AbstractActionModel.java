@@ -89,5 +89,14 @@ public abstract class AbstractActionModel extends AbstractModel {
 	public UserModel getUser() {
 		return this.userModel;
 	}
-	
+
+	/**
+	 * @return number of seconds ago the action was created.
+	 */
+	public long getSecondsAgo() {
+		final long timestampNow = System.currentTimeMillis();
+		final long timestampCreated = this.getDate().getTime();
+		return (timestampNow - timestampCreated) / 1000;
+	}
+
 }
