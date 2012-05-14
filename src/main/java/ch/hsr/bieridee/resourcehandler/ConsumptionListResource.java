@@ -51,10 +51,15 @@ public class ConsumptionListResource extends ServerResource implements ICollecti
 	}
 
 	@Override
-	public void store(Representation consumption) throws JSONException, IOException, NotFoundException, WrongNodeTypeException {
+	public Representation store(Representation consumption) throws JSONException, IOException, NotFoundException, WrongNodeTypeException {
 		final BeerModel beerModel = new BeerModel(this.beerId);
 		final UserModel userModel = new UserModel(this.username);
 
-		ConsumptionModel.create(beerModel, userModel);
+		final ConsumptionModel newConsumptionModel = ConsumptionModel.create(beerModel, userModel);
+		
+		final JacksonRepresentation<ConsumptionModel> consumptionRep = new JacksonRepresentation<ConsumptionModel>(newConsumptionModel);
+		consumptionRep.setObjectMapper(Config.getObjectMapper());
+		
+		return consumptionRep;
 	}
 }

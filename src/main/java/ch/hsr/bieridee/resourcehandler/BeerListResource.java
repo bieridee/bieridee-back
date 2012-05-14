@@ -1,8 +1,11 @@
 package ch.hsr.bieridee.resourcehandler;
 
+import java.io.IOException;
 import java.util.List;
 
-import org.apache.commons.lang.NotImplementedException;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.neo4j.graphdb.NotFoundException;
 import org.neo4j.server.rest.web.NodeNotFoundException;
 import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
@@ -12,6 +15,8 @@ import ch.hsr.bieridee.config.Config;
 import ch.hsr.bieridee.config.Res;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.BeerModel;
+import ch.hsr.bieridee.models.BeertypeModel;
+import ch.hsr.bieridee.models.BreweryModel;
 import ch.hsr.bieridee.resourcehandler.interfaces.ICollectionResource;
 
 /**
@@ -42,8 +47,21 @@ public class BeerListResource extends ServerResource implements ICollectionResou
 
 
 	@Override
-	public void store(Representation rep) {
-		throw new NotImplementedException(); // TODO
+	public Representation store(Representation beer) throws JSONException, IOException, NotFoundException, WrongNodeTypeException {
+		
+		final JSONObject beerJson = new JSONObject(beer.getText());
+
+		final String name = beerJson.getString("name");
+		final String brand = beerJson.getString("brand");
+		final BeertypeModel beertypeModel = new BeertypeModel(beerJson.getLong("beertype"));
+		final BreweryModel breweryModel = new BreweryModel(beerJson.getLong("brewery"));
+		
+		final BeerModel newBeerModel = BeerModel.create(name, brand, beertypeModel, breweryModel);
+		
+		final JacksonRepresentation<BeerModel> newBeerRep = new JacksonRepresentation<BeerModel>(newBeerModel);
+		newBeerRep.setObjectMapper(Config.getObjectMapper());
+
+		return newBeerRep;
 	}
 
 }

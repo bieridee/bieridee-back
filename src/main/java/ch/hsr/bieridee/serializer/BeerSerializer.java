@@ -35,7 +35,7 @@ public class BeerSerializer extends JsonSerializer<BeerModel> {
 		try {
 			jsonGenerator.writeObjectFieldStart("brewery");
 			jsonGenerator.writeStringField("name", beer.getBrewery().getName());
-			jsonGenerator.writeStringField("uri", Res.getResourceUri(beer.getBreweryModel()));
+			jsonGenerator.writeStringField("uri", Res.getResourceUri(beer.getBrewery()));
 			jsonGenerator.writeEndObject();
 		} catch (WrongNodeTypeException e) {
 			LOG.error(e.getMessage(), e);
@@ -46,7 +46,7 @@ public class BeerSerializer extends JsonSerializer<BeerModel> {
 		try {
 			jsonGenerator.writeObjectFieldStart("beertype");
 			jsonGenerator.writeStringField("name", beer.getBeertype().getName());
-			jsonGenerator.writeStringField("uri", Res.getResourceUri(beer.getBeertypeModel()));
+			jsonGenerator.writeStringField("uri", Res.getResourceUri(beer.getBeertype()));
 			jsonGenerator.writeEndObject();
 		} catch (NotFoundException e) {
 			LOG.error(e.getMessage(), e);

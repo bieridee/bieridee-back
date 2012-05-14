@@ -151,6 +151,10 @@ public final class DBUtil {
 	private static Node getTimelineIndex() {
 		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_TIMELINE_INDEX_NODE, "TIMELINE_INDEX");
 	}
+	
+	private static Node getBeerIndex() {
+		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_BEER_INDEX_NODE, "BEER_INDEX");
+	}
 
 	/**
 	 * @param type
@@ -199,6 +203,12 @@ public final class DBUtil {
 		blankNode.setProperty(NodeProperty.TYPE, actionType);
 		indexNode.createRelationshipTo(blankNode, RelType.INDEXES);
 	}
+	
+	private static void connectBeerNodeToIndex(Node blankNode) {
+		final Node indexNode = getBeerIndex();
+		blankNode.setProperty(NodeProperty.TYPE, NodeType.BEER);
+		indexNode.createRelationshipTo(blankNode, RelType.INDEXES);
+	}
 
 	/**
 	 * @param type
@@ -221,6 +231,9 @@ public final class DBUtil {
 			if (type.equals(NodeType.RATING)) {
 				connectActionNodeToIndex(newNode, NodeType.RATING);
 				addToTimeLine(newNode);
+			}
+			if (type.equals(NodeType.BEER)) {
+				connectBeerNodeToIndex(newNode);
 			}
 		} finally {
 			transaction.finish();
