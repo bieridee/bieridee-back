@@ -1,3 +1,6 @@
 target/
 /var/
 .settings
+.idea
+bieridee-back.eml
+bieridee-back.iml
