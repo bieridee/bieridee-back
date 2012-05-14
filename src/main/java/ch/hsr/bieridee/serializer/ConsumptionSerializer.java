@@ -22,6 +22,7 @@ public class ConsumptionSerializer extends JsonSerializer<ConsumptionModel> {
 		jsonGenerator.writeStringField("type", consumption.getType());
 		jsonGenerator.writeStringField("date", consumption.getDate().toString());
 		jsonGenerator.writeNumberField("timestamp", consumption.getDate().getTime());
+		jsonGenerator.writeNumberField("secondsAgo", consumption.getSecondsAgo());
 
 		jsonGenerator.writeObjectFieldStart("beer");
 		jsonGenerator.writeNumberField("id", consumption.getBeer().getId());
