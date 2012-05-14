@@ -20,17 +20,21 @@ import ch.hsr.bieridee.resourcehandler.interfaces.IReadOnlyResource;
  * 
  */
 public class TimelineResource extends ServerResource implements IReadOnlyResource {
+	public static final int ITEM_COUNT_DEFAULT = 3;
 
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NotFoundException {
-		final String usernameParam = getQuery().getFirstValue(Res.TIMELINE_FILTER_PARAMETER_USER);
 		final List<AbstractActionModel> actionModels;
+		final String usernameParam = getQuery().getFirstValue(Res.TIMELINE_FILTER_PARAMETER_USER);
+		final int nOfItems = getNumberOfItemsParam();
+		final int page = getPageNumberParam();
+
 		if (usernameParam == null) {
-			actionModels = TimelineModel.getAll();
+			actionModels = TimelineModel.getAll(nOfItems, page * nOfItems);
 		} else if (!UserModel.doesUserExist(usernameParam)) { // Invalid Username
 			throw new NotFoundException("Username invalid");
 		} else {
-			actionModels = TimelineModel.getAllForUser(usernameParam);
+			actionModels = TimelineModel.getAllForUser(usernameParam, nOfItems, page * nOfItems);
 		}
 
 		final AbstractActionModel[] actionModelArray = actionModels.toArray(new AbstractActionModel[actionModels.size()]);
@@ -38,5 +42,23 @@ public class TimelineResource extends ServerResource implements IReadOnlyResourc
 		actionsRep.setObjectMapper(Config.getObjectMapper());
 
 		return actionsRep;
+	}
+
+	private int getPageNumberParam() {
+		final String pageNumber = getQuery().getFirstValue(Res.TIMELINE_PAGE_PARAMETER);
+		if (pageNumber != null) {
+			return Integer.parseInt(pageNumber);
+		} else {
+			return 0;
+		}
+	}
+
+	private int getNumberOfItemsParam() {
+		final String nOfItemsParam = getQuery().getFirstValue(Res.TIMELINE_LIST_SIZE_PARAMETER);
+		if (nOfItemsParam != null) {
+			return Integer.parseInt(nOfItemsParam);
+		} else {
+			return ITEM_COUNT_DEFAULT;
+		}
 	}
 }

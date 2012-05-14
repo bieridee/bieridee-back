@@ -48,7 +48,7 @@ public class RatingResourceTest extends ResourceTest {
 			e.printStackTrace();
 		}
 		
-		final List<Node> ratingNodes = DBUtil.getTimeLine(1);
+		final List<Node> ratingNodes = DBUtil.getTimeLine(1,0);
 		
 		final Node ratingNode = ratingNodes.get(0);
 		Assert.assertEquals(NodeType.RATING, ratingNode.getProperty(NodeProperty.TYPE));

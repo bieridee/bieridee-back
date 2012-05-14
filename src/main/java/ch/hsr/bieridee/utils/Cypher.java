@@ -84,12 +84,30 @@ public final class Cypher {
 	 * @return A List containing the nodes returned by the query.
 	 */
 	public static List<Node> executeAndGetNodes(String query, String column, int limit, String... params) {
+		return executeAndGetNodes(query, column, limit, 0, params);
+	}
+
+	/**
+	 * @param query
+	 *            The cypher query
+	 * @param column
+	 *            Column name containing the Nodes that will be returned
+	 * @param limit
+	 *            Max. number of Nodes returned.
+	 * @param params
+	 *            These parameters will be used as replacements for the occurences of the literal '$$' in the cypher
+	 *            query (in the given order). First $$ would be replaced by the first params value, second $$ by the
+	 *            params' second and so on.
+	 * @param skipCount
+	 *            Number of Elements to be skipped for paging.
+	 * @return A List containing the nodes returned by the query.
+	 */
+	public static List<Node> executeAndGetNodes(String query, String column, int limit, int skipCount, String... params) {
 		if (limit <= 0) {
 			return Cypher.executeAndGetNodes(query, column, params);
 		}
-		final String limitClause = " LIMIT " + limit;
+		final String limitClause = " SKIP " + skipCount + " LIMIT " + limit;
 		return Cypher.executeAndGetNodes(query + limitClause, column, params);
-
 	}
 
 	/**
@@ -102,10 +120,25 @@ public final class Cypher {
 	 * @return A List containg the nodes returned by the query.
 	 */
 	public static List<Node> executeAndGetNodes(String query, String column, int limit) {
+		return executeAndGetNodes(query, column, limit, 0);
+	}
+
+	/**
+	 * @param query
+	 *            The cypher query
+	 * @param column
+	 *            Column name containing the Nodes that will be returned.
+	 * @param limit
+	 *            number of Nodes returned.
+	 * @param skipCount
+	 *            Number of elements to be skipped for paging.
+	 * @return A List containg the nodes returned by the query.
+	 */
+	public static List<Node> executeAndGetNodes(String query, String column, int limit, int skipCount) {
 		if (limit <= 0) {
 			return Cypher.executeAndGetNodes(query, column);
 		}
-		final String limitClause = " LIMIT " + limit;
+		final String limitClause = " SKIP " + skipCount + " LIMIT " + limit;
 		return executeAndGetNodes(query + limitClause, column);
 	}
 

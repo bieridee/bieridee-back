@@ -2,8 +2,6 @@ package ch.hsr.bieridee.test;
 
 import java.util.List;
 
-import javax.swing.AbstractAction;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.neo4j.graphdb.Node;
@@ -28,7 +26,7 @@ public class TimelineTest extends DBTest {
 	@Test
 	public void testTimelineOrder() {
 
-		final List<Node> actions = DBUtil.getTimeLine(0);
+		final List<Node> actions = DBUtil.getTimeLine(0,0);
 		long previous = Long.MAX_VALUE;
 		for (Node n : actions) {
 			final Long timestamp = (Long) n.getProperty(NodeProperty.Action.TIMESTAMP);
@@ -42,7 +40,7 @@ public class TimelineTest extends DBTest {
 	 */
 	private List<Node> testTimelineSize(int size) {
 		final int limit = 3;
-		return DBUtil.getTimeLine(limit);
+		return DBUtil.getTimeLine(limit,0);
 	}
 
 	/**
@@ -75,7 +73,7 @@ public class TimelineTest extends DBTest {
 		final Long time = System.currentTimeMillis();
 		DBUtil.setProperty(consumption, NodeProperty.Action.TIMESTAMP, time);
 		DBUtil.addToTimeLine(consumption);
-		final List<Node> actions = DBUtil.getTimeLine(1);
+		final List<Node> actions = DBUtil.getTimeLine(1,0);
 		final Node first = actions.get(0);
 		final Long savedTime = (Long) first.getProperty(NodeProperty.Action.TIMESTAMP);
 		Assert.assertEquals(time, savedTime);
