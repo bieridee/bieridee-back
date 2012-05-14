@@ -1,25 +1,11 @@
 package ch.hsr.bieridee;
 
+import ch.hsr.bieridee.resourcehandler.*;
 import org.restlet.Application;
 import org.restlet.Restlet;
 import org.restlet.routing.Router;
 
 import ch.hsr.bieridee.config.Res;
-import ch.hsr.bieridee.resourcehandler.BeerListResource;
-import ch.hsr.bieridee.resourcehandler.BeerResource;
-import ch.hsr.bieridee.resourcehandler.BeertypeListResource;
-import ch.hsr.bieridee.resourcehandler.BeertypeResource;
-import ch.hsr.bieridee.resourcehandler.BreweryListResource;
-import ch.hsr.bieridee.resourcehandler.BreweryResource;
-import ch.hsr.bieridee.resourcehandler.ConsumptionListResource;
-import ch.hsr.bieridee.resourcehandler.ImageResource;
-import ch.hsr.bieridee.resourcehandler.RatingResource;
-import ch.hsr.bieridee.resourcehandler.Resource42;
-import ch.hsr.bieridee.resourcehandler.TagListResource;
-import ch.hsr.bieridee.resourcehandler.TagResource;
-import ch.hsr.bieridee.resourcehandler.TimelineResource;
-import ch.hsr.bieridee.resourcehandler.UserListResource;
-import ch.hsr.bieridee.resourcehandler.UserResource;
 import ch.hsr.bieridee.services.BeerAppStatusService;
 
 /**
@@ -58,6 +44,7 @@ public class Dispatcher extends Application {
 		router.attach(Res.TAG_DOCUMENT, TagResource.class);
 		router.attach(Res.USER_COLLECTION, UserListResource.class);
 		router.attach(Res.USER_DOCUMENT, UserResource.class);
+		router.attach(Res.USERCREDENTIALS_CONTROLLER, UserCredentialsResource.class);
 		router.attach(Res.IMAGE_DOCUMENT, ImageResource.class);
 		router.attach(Res.TIMELINE_COLLECTION, TimelineResource.class);
 		router.attach(Res.LOADTEST, Resource42.class);

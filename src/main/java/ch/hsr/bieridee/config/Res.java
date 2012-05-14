@@ -50,6 +50,9 @@ public final class Res {
 	public static final String USER_REQ_ATTR = "user-name";
 	public static final String USER_DOCUMENT = "/users/{" + USER_REQ_ATTR + "}";
 
+	// usercredentials
+	public static final String USERCREDENTIALS_CONTROLLER = "/usercredentials";
+
 	// rating
 	public static final String RATING_COLLECTION = "/ratings";
 	public static final String RATING_DOCUMENT = BEER_DOCUMENT + RATING_COLLECTION + "/{" + USER_REQ_ATTR + "}";
