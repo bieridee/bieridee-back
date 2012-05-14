@@ -1,5 +1,6 @@
 package ch.hsr.bieridee;
 
+import ch.hsr.bieridee.auth.BierideeHmacHelper;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.kernel.EmbeddedGraphDatabase;
 import org.neo4j.server.WrappingNeoServerBootstrapper;
@@ -11,6 +12,7 @@ import ch.hsr.bieridee.config.Config;
 import ch.hsr.bieridee.utils.Cypher;
 import ch.hsr.bieridee.utils.DBUtil;
 import ch.hsr.bieridee.utils.Testdb;
+import org.restlet.engine.Engine;
 
 /**
  * Main Class to start the application.
@@ -83,9 +85,13 @@ public final class Main {
 		RESTLET_SERVER = new Component();
 		RESTLET_SERVER.getServers().add(Protocol.HTTP, Config.API_HOST, Config.API_PORT);
 		RESTLET_SERVER.getDefaultHost().attach(new Dispatcher());
+
+		// Register custom AuthenticatorHelper
+		Engine.getInstance().getRegisteredAuthenticators().add(new BierideeHmacHelper());
+
 		try {
 			RESTLET_SERVER.start();
-			// SUPPRESS CHECKSTYLE: dumb restlet programmers.
+		// SUPPRESS CHECKSTYLE: dumb restlet programmers.
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -97,7 +103,7 @@ public final class Main {
 	public static void stopAPI() {
 		try {
 			RESTLET_SERVER.stop();
-			// SUPPRESS CHECKSTYLE: dumb restlet programmers.
+		// SUPPRESS CHECKSTYLE: dumb restlet programmers.
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
