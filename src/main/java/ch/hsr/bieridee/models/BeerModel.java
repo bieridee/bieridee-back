@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.NotFoundException;
@@ -84,6 +85,16 @@ public class BeerModel extends AbstractModel {
 		this.domainObject = new Beer(id, name, brand, image, tags, type, brewery);
 	}
 
+	private BeerModel(String name, String brand, BeertypeModel beertypeModel, BreweryModel breweryModel) {
+		this.node = DBUtil.createNode(NodeType.BEER);
+		this.domainObject = new Beer(this.node.getId(), name, brand, StringUtils.EMPTY, new LinkedList<Tag>(), beertypeModel.getDomainObject(), breweryModel.getDomainObject());
+		this.setName(name);
+		this.setBrand(brand);
+		this.setImage(StringUtils.EMPTY);
+		this.setBeertype(beertypeModel);
+		this.setBrewery(breweryModel);
+	}
+
 	public Node getNode() {
 		return this.node;
 	}
@@ -105,26 +116,18 @@ public class BeerModel extends AbstractModel {
 		this.averageRating = averageRating;
 	}
 
-	public Beertype getBeertype() {
-		return this.domainObject.getBeertype();
-	}
-	
 	// SUPPRESS CHECKSTYLE: getter
-	public BeertypeModel getBeertypeModel() throws NotFoundException, WrongNodeTypeException {
-		return new BeertypeModel(this.getBeertype().getId());
+	public BeertypeModel getBeertype() throws NotFoundException, WrongNodeTypeException {
+		return new BeertypeModel(this.domainObject.getBeertype().getId());
 	}
 
 	public String getBrand() {
 		return this.domainObject.getBrand();
 	}
 
-	public Brewery getBrewery() {
-		return this.domainObject.getBrewery();
-	}
-	
 	// SUPPRESS CHECKSTYLE: getter
-	public BreweryModel getBreweryModel() throws NotFoundException, WrongNodeTypeException {
-		return new BreweryModel(this.getBrewery().getId());
+	public BreweryModel getBrewery() throws NotFoundException, WrongNodeTypeException {
+		return new BreweryModel(this.domainObject.getBrewery().getId());
 	}
 
 	public String getName() {
@@ -138,11 +141,11 @@ public class BeerModel extends AbstractModel {
 	public List<Tag> getTags() {
 		return this.domainObject.getTags();
 	}
-	
+
 	// SUPPRESS CHECKSTYLE: getter
 	public List<TagModel> getTagModels() throws NotFoundException, WrongNodeTypeException {
 		final List<TagModel> tagModels = new LinkedList<TagModel>();
-		for(Tag tag : this.getTags()) {
+		for (Tag tag : this.getTags()) {
 			tagModels.add(new TagModel(tag.getId()));
 		}
 		return tagModels;
@@ -162,31 +165,33 @@ public class BeerModel extends AbstractModel {
 	}
 
 	// SUPPRESS CHECKSTYLE: setter
-	public void setBeertype(Beertype beertype) {
-		// TODO
+	public void setBeertype(BeertypeModel beertypeModel) {
+		this.domainObject.setBeertype(beertypeModel.getDomainObject());
+		DBUtil.createRelationship(this.node, RelType.HAS_BEERTYPE, beertypeModel.getNode());
 	}
 
 	// SUPPRESS CHECKSTYLE: setter
 	public void setBrand(String brand) {
 		this.domainObject.setBrand(brand);
-		this.node.setProperty(NodeProperty.Beer.BRAND, brand);
+		DBUtil.setProperty(this.node, NodeProperty.Beer.BRAND, brand);
 	}
 
 	// SUPPRESS CHECKSTYLE: setter
-	public void setBrewery(Brewery brewery) {
-		// TODO
+	public void setBrewery(BreweryModel breweryModel) {
+		this.domainObject.setBrewery(breweryModel.getDomainObject());
+		DBUtil.createRelationship(this.node, RelType.BREWN_BY, breweryModel.getNode());
 	}
 
 	// SUPPRESS CHECKSTYLE: setter
 	public void setName(String name) {
 		this.domainObject.setName(name);
-		this.node.setProperty(NodeProperty.Beer.NAME, name);
+		DBUtil.setProperty(this.node, NodeProperty.Beer.NAME, name);
 	}
 
 	// SUPPRESS CHECKSTYLE: setter
 	public void setImage(String path) {
 		this.domainObject.setPicture(path);
-		this.node.setProperty(NodeProperty.Beer.IMAGE, path);
+		DBUtil.setProperty(this.node, NodeProperty.Beer.IMAGE, path);
 	}
 
 	/**
@@ -229,6 +234,23 @@ public class BeerModel extends AbstractModel {
 			return false;
 		}
 		return this.node.getId() == ((BeerModel) o).getId();
+	}
+
+	/**
+	 * Create a new Beer! Including a fresh node and a delicious domain object.
+	 * 
+	 * @param name
+	 *            Name of the new beer
+	 * @param brand
+	 *            Brand of the new beer
+	 * @param beertypeModel
+	 *            The beertype of the new beer
+	 * @param breweryModel
+	 *            The the sacred place where this beer was brewn
+	 * @return A new BeerModel representing the new beer
+	 */
+	public static BeerModel create(String name, String brand, BeertypeModel beertypeModel, BreweryModel breweryModel) {
+		return new BeerModel(name, brand, beertypeModel, breweryModel);
 	}
 
 	/**

@@ -9,6 +9,8 @@ import org.neo4j.graphdb.NotFoundException;
 
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.BeerModel;
+import ch.hsr.bieridee.models.BeertypeModel;
+import ch.hsr.bieridee.models.BreweryModel;
 import ch.hsr.bieridee.models.TagModel;
 import ch.hsr.bieridee.utils.DBUtil;
 
@@ -56,5 +58,53 @@ public class BeerModelTest extends DBTest {
 
 		Assert.assertTrue(beerModels.contains(bm1));
 		Assert.assertTrue(beerModels.contains(bm2));
+	}
+
+	/**
+	 * Tests the creation of a new beer. (thats why the test is called 'createNewBeer').
+	 */
+	@Test
+	public void createNewBeer() {
+		final String name = "Leermond Bier";
+		final String brand = "Appenzeller Bier";
+		BeertypeModel beertypeModel = null;
+		BreweryModel breweryModel = null;
+		try {
+			beertypeModel = new BeertypeModel(22);
+			breweryModel = new BreweryModel(71);
+		} catch (NotFoundException e) {
+			Assert.fail();
+			e.printStackTrace();
+		} catch (WrongNodeTypeException e) {
+			Assert.fail();
+			e.printStackTrace();
+		}
+		Assert.assertNotNull(beertypeModel);
+		Assert.assertNotNull(breweryModel);
+
+		final BeerModel newBeer = BeerModel.create(name, brand, beertypeModel, breweryModel);
+		BeerModel checkBeer = null;
+		try {
+			checkBeer = new BeerModel(newBeer.getNode());
+		} catch (NotFoundException e) {
+			Assert.fail();
+			e.printStackTrace();
+		} catch (WrongNodeTypeException e) {
+			Assert.fail();
+			e.printStackTrace();
+		}
+		Assert.assertNotNull(checkBeer);
+		try {
+			Assert.assertEquals(name, checkBeer.getName());
+			Assert.assertEquals(brand, checkBeer.getBrand());
+			Assert.assertEquals(breweryModel.getId(), checkBeer.getBrewery().getId());
+			Assert.assertEquals(beertypeModel.getId(), checkBeer.getBeertype().getId());
+		} catch (NotFoundException e) {
+			Assert.fail();
+			e.printStackTrace();
+		} catch (WrongNodeTypeException e) {
+			Assert.fail();
+			e.printStackTrace();
+		}
 	}
 }

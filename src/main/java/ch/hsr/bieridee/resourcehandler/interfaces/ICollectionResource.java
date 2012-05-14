@@ -27,11 +27,12 @@ public interface ICollectionResource {
 	/**
 	 * Create a collection item.
 	 * @param rep Representation of the collection item to create.
+	 * @return A representation of the newly created object
 	 * @throws IOException 
 	 * @throws JSONException 
 	 * @throws WrongNodeTypeException 
 	 * @throws NotFoundException 
 	 */
 	@Post
-	void store(Representation rep) throws JSONException, IOException, NotFoundException, WrongNodeTypeException;
+	Representation store(Representation rep) throws JSONException, IOException, NotFoundException, WrongNodeTypeException;
 }
