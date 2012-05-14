@@ -20,7 +20,7 @@ import ch.hsr.bieridee.resourcehandler.interfaces.IReadOnlyResource;
  * 
  */
 public class TimelineResource extends ServerResource implements IReadOnlyResource {
-	public static final int ITEM_COUNT_DEFAULT = 3;
+	public static final int ITEM_COUNT_DEFAULT = 12;
 
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NotFoundException {
@@ -48,17 +48,17 @@ public class TimelineResource extends ServerResource implements IReadOnlyResourc
 		final String pageNumber = getQuery().getFirstValue(Res.TIMELINE_PAGE_PARAMETER);
 		if (pageNumber != null) {
 			return Integer.parseInt(pageNumber);
-		} else {
-			return 0;
 		}
+		return 0;
+
 	}
 
 	private int getNumberOfItemsParam() {
 		final String nOfItemsParam = getQuery().getFirstValue(Res.TIMELINE_LIST_SIZE_PARAMETER);
 		if (nOfItemsParam != null) {
 			return Integer.parseInt(nOfItemsParam);
-		} else {
-			return ITEM_COUNT_DEFAULT;
 		}
+		return ITEM_COUNT_DEFAULT;
+
 	}
 }
