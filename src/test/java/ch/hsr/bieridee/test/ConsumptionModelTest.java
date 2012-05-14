@@ -67,7 +67,7 @@ public class ConsumptionModelTest extends DBTest {
 	 */
 	@Test
 	public void testInsertToTimeline() {
-		final List<Node> timeLine = DBUtil.getTimeLine(1);
+		final List<Node> timeLine = DBUtil.getTimeLine(1,0);
 		final Node consumptionNode = timeLine.get(0);
 		ConsumptionModel cm = null;
 		try {

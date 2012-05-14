@@ -36,7 +36,7 @@ public class ConsumptionListResourceTest extends ResourceTest {
 		final ClientResource cl = new ClientResource(Res.PUBLIC_API_URL + "/beers/30/consumptions/alki");
 		cl.post(null);
 
-		final List<Node> consumptionNodes = DBUtil.getTimeLine(1);
+		final List<Node> consumptionNodes = DBUtil.getTimeLine(1,0);
 		final Node consumptionNode = consumptionNodes.get(0);
 		Assert.assertEquals(NodeType.CONSUMPTION, consumptionNode.getProperty(NodeProperty.TYPE));
 		try {

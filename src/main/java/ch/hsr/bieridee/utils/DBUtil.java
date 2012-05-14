@@ -279,25 +279,29 @@ public final class DBUtil {
 	 * @return Chronological list of actions filtered by Username.
 	 * @param maxNumberOfItems
 	 *            number of max. Items (actions) returned. Pass 0 for all Items.
+	 * @param skipCount
+	 * Number of elements to be skipped for paging.
 	 */
-	public static List<Node> getTimeLineForUser(String username, int maxNumberOfItems) {
+	public static List<Node> getTimeLineForUser(String username, int maxNumberOfItems, int skipCount) {
 		if (maxNumberOfItems <= 0) {
 			return Cypher.executeAndGetNodes(Cypherqueries.GET_TIMELINE_FOR_USER, "Action", 0, username);
 		} else {
-			return Cypher.executeAndGetNodes(Cypherqueries.GET_TIMELINE_FOR_USER, "Action", maxNumberOfItems, username);
+			return Cypher.executeAndGetNodes(Cypherqueries.GET_TIMELINE_FOR_USER, "Action", maxNumberOfItems, skipCount, username);
 		}
 	}
 
 	/**
 	 * @param maxNumberOfItems
 	 *            number of max. Items (actions) returned. Pass 0 for all Items.
+	 * @param skipCount
+	 *            Number of Elements to be skipped for paging.
 	 * @return Chronological list of all actions (Ratings and Consumptions).
 	 */
-	public static List<Node> getTimeLine(int maxNumberOfItems) {
+	public static List<Node> getTimeLine(int maxNumberOfItems, int skipCount) {
 		if (maxNumberOfItems <= 0) {
 			return Cypher.executeAndGetNodes(Cypherqueries.GET_TIMELINE, "Action");
 		} else {
-			return Cypher.executeAndGetNodes(Cypherqueries.GET_TIMELINE, "Action", maxNumberOfItems);
+			return Cypher.executeAndGetNodes(Cypherqueries.GET_TIMELINE, "Action", maxNumberOfItems, skipCount);
 		}
 	}
 
