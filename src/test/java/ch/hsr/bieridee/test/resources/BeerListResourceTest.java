@@ -46,7 +46,6 @@ public class BeerListResourceTest extends ResourceTest {
 		final Representation newBeerRep = postJson(uri, newBeerJson);
 		
 		try {
-			System.out.println(newBeerRep.getText());
 			final JSONObject beer = new JSONObject(newBeerRep.getText());
 			Assert.assertEquals(name, beer.getString("name"));
 			Assert.assertEquals(brand, beer.getString("brand"));

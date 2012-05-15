@@ -50,4 +50,7 @@ public final class Cypherqueries {
 	public static final String GET_RATING = "START beer = NODE($$) MATCH beer<-[:CONTAINS]-Action-[:DOES]-User where Action.type='rating' and User.username='$$' RETURN Action AS Rating, User ORDER BY Action.timestamp DESC LIMIT 1";
 	public static final String GET_ALL_RATINGS = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_TIMELINESTART]-TIMELINESTART-[:NEXT*]-Action-[:NEXT]->TIMELINEEND WHERE Action.type = '" + NodeType.RATING + "' RETURN Action";
 	public static final String GET_ACTIVE_RATING =	"START HOME_NODE = node(0), beer = node($$) MATCH HOME_NODE-[:INDEX_ACTIVERATINGINDEX]-ACTIVERATINGINDEX-[:INDEXES_ACTIVE]->Rating<-[:DOES]-User, Rating-[:CONTAINS]-beer WHERE User.username='$$' and Rating.type='rating' RETURN Rating, beer";
+
+	// Brand
+	public static final String GET_ALL_BRANDS = "START HOME = node(0) MATCH HOME-[:INDEX_BEER]->()-[:INDEXES]->Beer RETURN DISTINCT Beer.brand AS Brand ORDER BY Beer.brand ASC";
 }

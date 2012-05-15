@@ -216,4 +216,24 @@ public final class Cypher {
 		return executeAndGetDouble(query, valueName);
 	}
 
+	/**
+	 * Returns a list of strings as result of the given query.
+	 * 
+	 * @param query
+	 *            he cypher query to be executed
+	 * @param columnName
+	 *            The column name to be returned
+	 * @return List of strings
+	 */
+	public static List<String> executeAndGetStrings(String query, String columnName) {
+		final ExecutionEngine engine = new ExecutionEngine(DB);
+		final ExecutionResult result = engine.execute(query);
+		final Iterator<String> strings = result.columnAs(columnName);
+		final LinkedList<String> stringList = new LinkedList<String>();
+		while (strings.hasNext()) {
+			stringList.add(strings.next());
+		}
+		return stringList;
+	}
+
 }
