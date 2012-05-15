@@ -14,7 +14,7 @@ import org.restlet.util.Series;
 public class BierideeHmacHelper extends AuthenticatorHelper {
 
 	public static final ChallengeScheme SCHEME = new ChallengeScheme(
-			"BIERIDEE_HMAC", // name
+			"HTTP_HMAC_SHA256", // name
 			"HMAC_SHA256", // technical name
 			"Bieridee HMAC-SHA256 based authentication" // description
 	);

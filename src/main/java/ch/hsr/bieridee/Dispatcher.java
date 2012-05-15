@@ -34,34 +34,39 @@ public class Dispatcher extends Application {
 	@Override
 	public synchronized Restlet createInboundRoot() {
 
-		// Create a router
-		final Router router = new Router(getContext());
-		router.attach(Res.BEER_COLLECTION, BeerListResource.class);
-		router.attach(Res.BEER_DOCUMENT, BeerResource.class);
-		router.attach(Res.RATING_DOCUMENT, RatingResource.class);
-		router.attach(Res.CONSUMPTION_DOCUMENT, ConsumptionListResource.class);
-		router.attach(Res.CONSUMPTION_BEER_COLLECTION, ConsumptionListResource.class);
-		router.attach(Res.BREWERY_COLLECTION, BreweryListResource.class);
-		router.attach(Res.BREWERY_DOCUMENT, BreweryResource.class);
-		router.attach(Res.BEERTYPE_COLLECTION, BeertypeListResource.class);
-		router.attach(Res.BEERTYPE_DOCUMENT, BeertypeResource.class);
-		router.attach(Res.TAG_COLLECTION, TagListResource.class);
-		router.attach(Res.TAG_DOCUMENT, TagResource.class);
-		router.attach(Res.USER_COLLECTION, UserListResource.class);
-		router.attach(Res.IMAGE_DOCUMENT, ImageResource.class);
-		router.attach(Res.TIMELINE_COLLECTION, TimelineResource.class);
-		router.attach(Res.LOADTEST, Resource42.class);
+		// Create routers
+		final Router rootRouter = new Router(getContext());
+		final Router guardedRouter = new Router(getContext());
 
-		router.attach(Res.USER_DOCUMENT, UserResource.class);
-		router.attach(Res.USERCREDENTIALS_CONTROLLER, UserCredentialsResource.class);
+		// Add guarded resources
+		guardedRouter.attach(Res.BEER_COLLECTION, BeerListResource.class);
+		guardedRouter.attach(Res.BEER_DOCUMENT, BeerResource.class);
+		guardedRouter.attach(Res.RATING_DOCUMENT, RatingResource.class);
+		guardedRouter.attach(Res.CONSUMPTION_DOCUMENT, ConsumptionListResource.class);
+		guardedRouter.attach(Res.CONSUMPTION_BEER_COLLECTION, ConsumptionListResource.class);
+		guardedRouter.attach(Res.BREWERY_COLLECTION, BreweryListResource.class);
+		guardedRouter.attach(Res.BREWERY_DOCUMENT, BreweryResource.class);
+		guardedRouter.attach(Res.BEERTYPE_COLLECTION, BeertypeListResource.class);
+		guardedRouter.attach(Res.BEERTYPE_DOCUMENT, BeertypeResource.class);
+		guardedRouter.attach(Res.TAG_COLLECTION, TagListResource.class);
+		guardedRouter.attach(Res.TAG_DOCUMENT, TagResource.class);
+		guardedRouter.attach(Res.USER_COLLECTION, UserListResource.class);
+		guardedRouter.attach(Res.USERCREDENTIALS_CONTROLLER, UserCredentialsResource.class);
+		guardedRouter.attach(Res.IMAGE_DOCUMENT, ImageResource.class);
+		guardedRouter.attach(Res.TIMELINE_COLLECTION, TimelineResource.class);
+		guardedRouter.attach(Res.LOADTEST, Resource42.class);
 
 		// Create a guard
 		ChallengeAuthenticator guard = new ChallengeAuthenticator(
 				getContext(), BierideeHmacHelper.SCHEME, "BierIdee API");
 		guard.setVerifier(new HmacSha256Verifier());
-		guard.setNext(router);
+		guard.setNext(guardedRouter);
+		rootRouter.attach(guard);
 
-		return guard;
+		// Attach public resources
+		rootRouter.attach(Res.USER_DOCUMENT, UserResource.class);
+
+		return rootRouter;
 	}
 
 }
