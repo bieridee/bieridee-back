@@ -57,6 +57,13 @@ public class BeertypeModel extends AbstractModel {
 		this.domainObject = new Beertype(id, name, description);
 	}
 
+	private BeertypeModel(String name, String description) {
+		this.node = DBUtil.createNode(NodeType.BEERTYPE);
+		this.domainObject = new Beertype(name, description);
+		this.setName(name);
+		this.setDescription(description);
+	}
+
 	public Beertype getDomainObject() {
 		return this.domainObject;
 	}
@@ -85,13 +92,13 @@ public class BeertypeModel extends AbstractModel {
 	// SUPPRESS CHECKSTYLE: setter
 	public void setName(String name) {
 		this.domainObject.setName(name);
-		this.node.setProperty(NodeProperty.Beertype.NAME, name);
+		DBUtil.setProperty(this.node, NodeProperty.Beertype.NAME, name);
 	}
 
 	// SUPPRESS CHECKSTYLE: setter
 	public void setDescription(String description) {
 		this.domainObject.setDescription(description);
-		this.node.setProperty(NodeProperty.Beertype.DESCRIPTION, description);
+		DBUtil.setProperty(this.node, NodeProperty.Beertype.DESCRIPTION, description);
 	}
 
 	/**
@@ -110,6 +117,17 @@ public class BeertypeModel extends AbstractModel {
 			beertypeModels.add(new BeertypeModel(n));
 		}
 		return beertypeModels;
+	}
+
+	/**
+	 * @param name
+	 *            name of the beertype.
+	 * @param description
+	 *            detailed description of the beertype.
+	 * @return a new <code>BeertypeModel</code> representing the beertype.
+	 */
+	public static BeertypeModel create(String name, String description) {
+		return new BeertypeModel(name, description);
 	}
 
 }

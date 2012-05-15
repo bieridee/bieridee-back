@@ -7,8 +7,10 @@ import org.junit.Test;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.NotFoundException;
 
+import ch.hsr.bieridee.config.NodeType;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.BeerModel;
+import ch.hsr.bieridee.models.BeertypeModel;
 import ch.hsr.bieridee.models.RatingModel;
 import ch.hsr.bieridee.models.TagModel;
 import ch.hsr.bieridee.models.UserModel;
@@ -147,6 +149,20 @@ public class DBUtilTest extends DBTest {
 		final Node activeRating = DBUtil.getActiveUserRatingForBeer(28, "saeufer");
 		System.out.println("new active rating: " + activeRating);
 		Assert.assertNotSame(activeRating.getId(), 59L);
+	}
+
+	@Test
+	public void createAndGetBeertype() {
+		final String name = "test";
+		final String description = "test123";
+		final BeertypeModel bm = BeertypeModel.create(name, description);
+		for (Node n : DBUtil.getBeertypeNodeList()) {
+			if (n.getProperty("name").equals(name)) {
+				return;
+			}
+		}
+		Assert.fail();
+
 	}
 
 }
