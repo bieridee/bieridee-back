@@ -404,5 +404,8 @@ public final class DBUtil {
 	public static List<Node> getConsumptionsForUserByBeer(String username, long beerId) {
 		return Cypher.executeAndGetNodes(Cypherqueries.GET_ALL_BEER_CONSUMPTIONS_FOR_USER, "consumption", Long.toString(beerId), username);
 	}
-
+	
+	public static List<String> getAllBrands() {
+		return Cypher.executeAndGetStrings(Cypherqueries.GET_ALL_BRANDS, "Brand");
+	}
 }
