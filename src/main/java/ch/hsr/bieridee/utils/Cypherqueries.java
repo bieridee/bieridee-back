@@ -53,4 +53,7 @@ public final class Cypherqueries {
 
 	// Brand
 	public static final String GET_ALL_BRANDS = "START HOME = node(0) MATCH HOME-[:INDEX_BEER]->()-[:INDEXES]->Beer RETURN DISTINCT Beer.brand AS Brand ORDER BY Beer.brand ASC";
+
+	// Beertype
+	public static final String GET_BEERTYPE_INDEX_NODE = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_BEERTYPE]->BEERTYPE_INDEX RETURN BEERTYPE_INDEX";
 }
