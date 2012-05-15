@@ -19,6 +19,7 @@ public class BeertypeSerializer extends JsonSerializer<BeertypeModel> {
 	public void serialize(BeertypeModel beertype, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
 
 		jsonGenerator.writeStartObject();
+		jsonGenerator.writeNumberField("id", beertype.getId());
 		jsonGenerator.writeStringField("name", beertype.getName());
 		jsonGenerator.writeStringField("description", beertype.getDescription());
 		jsonGenerator.writeStringField("uri", Res.getResourceUri(beertype));
