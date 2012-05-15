@@ -151,7 +151,7 @@ public final class DBUtil {
 	private static Node getTimelineIndex() {
 		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_TIMELINE_INDEX_NODE, "TIMELINE_INDEX");
 	}
-	
+
 	private static Node getBeerIndex() {
 		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_BEER_INDEX_NODE, "BEER_INDEX");
 	}
@@ -203,7 +203,7 @@ public final class DBUtil {
 		blankNode.setProperty(NodeProperty.TYPE, actionType);
 		indexNode.createRelationshipTo(blankNode, RelType.INDEXES);
 	}
-	
+
 	private static void connectBeerNodeToIndex(Node blankNode) {
 		final Node indexNode = getBeerIndex();
 		blankNode.setProperty(NodeProperty.TYPE, NodeType.BEER);
@@ -280,7 +280,7 @@ public final class DBUtil {
 	 * @param maxNumberOfItems
 	 *            number of max. Items (actions) returned. Pass 0 for all Items.
 	 * @param skipCount
-	 * Number of elements to be skipped for paging.
+	 *            Number of elements to be skipped for paging.
 	 */
 	public static List<Node> getTimeLineForUser(String username, int maxNumberOfItems, int skipCount) {
 		if (maxNumberOfItems <= 0) {
@@ -392,4 +392,15 @@ public final class DBUtil {
 		return Cypher.executeAndGetNodes(Cypherqueries.GET_ALL_BEER_CONSUMPTIONS_FOR_USER, "consumption", Long.toString(beerId), username);
 	}
 
+	/**
+	 * @param username
+	 *            username of the user
+	 * @param limit
+	 *            number of maximal items returned
+	 * @return List containing the beer nodes the user rated
+	 */
+	public static List<Node> getBeersRatedByUser(String username, int limit) {
+		final Node userNode = DBUtil.getUserByName(username);
+		return Cypher.executeAndGetNodes(Cypherqueries.GET_USER_RATED_BEERS, "Beer", limit, userNode.getId() + "");
+	}
 }

@@ -281,7 +281,7 @@ public class BeerModel extends AbstractModel {
 		return createModelsFromNodes(DBUtil.getBeerNodeList(filterTag));
 	}
 
-	private static List<BeerModel> createModelsFromNodes(List<Node> beerNodes) throws NotFoundException, WrongNodeTypeException {
+	public static List<BeerModel> createModelsFromNodes(List<Node> beerNodes) throws NotFoundException, WrongNodeTypeException {
 		final List<BeerModel> models = new LinkedList<BeerModel>();
 		for (Node n : beerNodes) {
 			models.add(new BeerModel(n));

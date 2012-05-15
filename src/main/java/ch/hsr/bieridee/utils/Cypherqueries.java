@@ -19,7 +19,7 @@ public final class Cypherqueries {
 	public static final String GET_TOTAL_CONSUMPTIONS_OF_BEER = "START BEER = node($$) MATCH BEER<-[:CONTAINS]-ACTION WHERE ACTION.type='" + NodeType.CONSUMPTION + "' RETURN COUNT(*)";
 	public static final String GET_TOTAL_CONSUMPTIONS_OF_BEER_FROM_USER = "START BEER = node($$) MATCH BEER<-[:CONTAINS]-ACTION-[:DOES]-USER WHERE ACTION.type='" + NodeType.CONSUMPTION + "' AND USER.username='$$' RETURN COUNT(*)";
 	public static final String GET_MOST_RECENT_CONSUMPTION_OF_BEER = "START BEER = node($$) MATCH BEER<-[:CONTAINS]-ACTION WHERE ACTION.type='" + NodeType.CONSUMPTION + "' RETURN ACTION ORDER BY ACTION.timestamp DESC LIMIT 1";
-	
+
 	// Users
 	public static final String GET_ALL_USERS = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_USER]-USER_INDEX-[:INDEXES]->User RETURN User ORDER BY User.username ASC";
 	public static final String GET_USER_BY_NAME = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_USER]-USER_INDEX-[:INDEXES]->User WHERE User.username = \'$$\' RETURN User";
@@ -55,7 +55,9 @@ public final class Cypherqueries {
 	public static final String GET_RATING = "START beer = NODE($$) MATCH beer<-[:CONTAINS]-Action-[:DOES]-User where Action.type='rating' and User.username='$$' RETURN Action AS Rating, User ORDER BY Action.timestamp DESC LIMIT 1";
 	public static final String GET_ALL_RATINGS = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_TIMELINESTART]-TIMELINESTART-[:NEXT*]-Action-[:NEXT]->TIMELINEEND WHERE Action.type = '" + NodeType.RATING + "' RETURN Action";
 	public static final String GET_ACTIVE_RATING = "START HOME_NODE = node(0), beer = node($$) MATCH HOME_NODE-[:INDEX_ACTIVERATINGINDEX]-ACTIVERATINGINDEX-[:INDEXES_ACTIVE]->Rating<-[:DOES]-User, Rating-[:CONTAINS]-beer WHERE User.username='$$' and Rating.type='rating' RETURN Rating, beer";
-	
+
 	// Recommendations
-	
+	public static final String GET_USER_RATED_BEERS = "START USER = node($$) MATCH USER-[:DOES]-Action-[:CONTAINS]->Beer, Action-[:INDEXES_ACTIVE]-() WHERE Action.type='rating' RETURN Beer ORDER BY Action.rating DESC";
+	//public static final String GET_MY_CONSUMED_BEERS = "START USER = node($$) MATCH USER-[:DOES]-Action-[:CONTAINS]-Beer WHERE Action.type='consumption' RETURN Beer";
+	//public static final String GET_FRIEND_RATED_BEERS = "START BEER = node ($$) MATCH User<-[:DOES]-Action-[:CONTAINS]-BEER WHERE Action.type='rating' AND not(Beer != BEER RETURN USER ORDER BY Action.rating DESC";
 }

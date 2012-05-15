@@ -14,6 +14,7 @@ import ch.hsr.bieridee.resourcehandler.BreweryResource;
 import ch.hsr.bieridee.resourcehandler.ConsumptionListResource;
 import ch.hsr.bieridee.resourcehandler.ImageResource;
 import ch.hsr.bieridee.resourcehandler.RatingResource;
+import ch.hsr.bieridee.resourcehandler.RecommendationResource;
 import ch.hsr.bieridee.resourcehandler.Resource42;
 import ch.hsr.bieridee.resourcehandler.TagListResource;
 import ch.hsr.bieridee.resourcehandler.TagResource;
@@ -60,6 +61,7 @@ public class Dispatcher extends Application {
 		router.attach(Res.USER_DOCUMENT, UserResource.class);
 		router.attach(Res.IMAGE_DOCUMENT, ImageResource.class);
 		router.attach(Res.TIMELINE_COLLECTION, TimelineResource.class);
+		router.attach(Res.USER_RECOMMENDATION_COLLECTION, RecommendationResource.class);
 		router.attach(Res.LOADTEST, Resource42.class);
 
 		return router;

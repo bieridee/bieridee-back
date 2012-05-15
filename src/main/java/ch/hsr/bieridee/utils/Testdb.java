@@ -417,6 +417,12 @@ public final class Testdb {
 			activeRatingIndex.createRelationshipTo(rating3, RelType.INDEXES_ACTIVE);
 			activeRatingIndex.createRelationshipTo(rating4, RelType.INDEXES_ACTIVE);
 
+			final Node doubleConsumption = createConsumption(db);
+			doubleConsumption.setProperty(NodeProperty.Action.TIMESTAMP, now += diff);
+			timelineIndex.createRelationshipTo(doubleConsumption, RelType.INDEXES);
+			doubleConsumption.createRelationshipTo(feldschloesschen, RelType.CONTAINS);
+			jonas.createRelationshipTo(doubleConsumption, RelType.DOES);
+
 			transaction.success();
 		} finally {
 			transaction.finish();
