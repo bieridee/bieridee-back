@@ -16,6 +16,9 @@ public final class Cypherqueries {
 	public static final String GET_BEER_BY_NAME = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_BEER]-BEER_INDEX-[:INDEXES]->Beer WHERE Beer.name = \'$$\' RETURN Beer";
 	public static final String GET_BEERS_BY_TAG_ID = "START TAG_NODE = node($$) MATCH TAG_NODE<-[:HAS_TAG]-Beer RETURN Beer ORDER BY Beer.name ASC";
 	public static final String GET_BEER_INDEX_NODE = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_BEER]->BEER_INDEX RETURN BEER_INDEX";
+	public static final String GET_TOTAL_CONSUMPTIONS_OF_BEER = "START BEER = node($$) MATCH BEER<-[:CONTAINS]-ACTION WHERE ACTION.type='" + NodeType.CONSUMPTION + "' RETURN COUNT(*)";
+	public static final String GET_TOTAL_CONSUMPTIONS_OF_BEER_FROM_USER = "START BEER = node($$) MATCH BEER<-[:CONTAINS]-ACTION-[:DOES]-USER WHERE ACTION.type='" + NodeType.CONSUMPTION + "' AND USER.username='$$' RETURN COUNT(*)";
+	public static final String GET_MOST_RECENT_CONSUMPTION_OF_BEER = "START BEER = node($$) MATCH BEER<-[:CONTAINS]-ACTION WHERE ACTION.type='" + NodeType.CONSUMPTION + "' RETURN ACTION ORDER BY ACTION.timestamp DESC LIMIT 1";
 	
 	// Users
 	public static final String GET_ALL_USERS = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_USER]-USER_INDEX-[:INDEXES]->User RETURN User ORDER BY User.username ASC";
@@ -35,9 +38,11 @@ public final class Cypherqueries {
 
 	// Consumptions
 	public static final String GET_ALL_USER_CONSUMPTIONS = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_USER]-USER_INDEX-[:INDEXES]-User-[:HAS_CONSUMED]-Beer RETURN Beer";
-	public static final String GET_ALL_CONSUMPTIONS = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_TIMELINESTART]-TIMELINESTART-[:NEXT*]-Action-[:NEXT]->TIMELINEEND WHERE Action.type = '" + NodeType.CONSUMPTION + "' RETURN Action ORDER BY Action.timestamp DESC";
-	public static final String GET_ALL_CONSUMPTIONS_FOR_BEER = "START beer = node($$) MATCH beer<-[:CONTAINS]-consumption WHERE consumption.type = '"+ NodeType.CONSUMPTION +"' RETURN consumption ORDER BY consumption.timestamp DESC";
-	public static final String GET_ALL_BEER_CONSUMPTIONS_FOR_USER = "START beer = node($$) MATCH beer<-[:CONTAINS]-consumption<-[:DOES]-user WHERE user.username = \'$$\' AND consumption.type = '"+ NodeType.CONSUMPTION +"' RETURN consumption ORDER BY consumption.timestamp DESC";
+	public static final String GET_ALL_CONSUMPTIONS = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_TIMELINESTART]-TIMELINESTART-[:NEXT*]-Action-[:NEXT]->TIMELINEEND WHERE Action.type = '" + NodeType.CONSUMPTION
+			+ "' RETURN Action ORDER BY Action.timestamp DESC";
+	public static final String GET_ALL_CONSUMPTIONS_FOR_BEER = "START beer = node($$) MATCH beer<-[:CONTAINS]-consumption WHERE consumption.type = '" + NodeType.CONSUMPTION + "' RETURN consumption ORDER BY consumption.timestamp DESC";
+	public static final String GET_ALL_BEER_CONSUMPTIONS_FOR_USER = "START beer = node($$) MATCH beer<-[:CONTAINS]-consumption<-[:DOES]-user WHERE user.username = \'$$\' AND consumption.type = '" + NodeType.CONSUMPTION
+			+ "' RETURN consumption ORDER BY consumption.timestamp DESC";
 
 	// Timeline
 	public static final String GET_TIMELINE = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_TIMELINESTART]-TIMELINESTART-[:NEXT*]-Action-[:NEXT]->TIMELINEEND RETURN Action";
@@ -49,5 +54,8 @@ public final class Cypherqueries {
 			+ ") AS AverageRating";
 	public static final String GET_RATING = "START beer = NODE($$) MATCH beer<-[:CONTAINS]-Action-[:DOES]-User where Action.type='rating' and User.username='$$' RETURN Action AS Rating, User ORDER BY Action.timestamp DESC LIMIT 1";
 	public static final String GET_ALL_RATINGS = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_TIMELINESTART]-TIMELINESTART-[:NEXT*]-Action-[:NEXT]->TIMELINEEND WHERE Action.type = '" + NodeType.RATING + "' RETURN Action";
-	public static final String GET_ACTIVE_RATING =	"START HOME_NODE = node(0), beer = node($$) MATCH HOME_NODE-[:INDEX_ACTIVERATINGINDEX]-ACTIVERATINGINDEX-[:INDEXES_ACTIVE]->Rating<-[:DOES]-User, Rating-[:CONTAINS]-beer WHERE User.username='$$' and Rating.type='rating' RETURN Rating, beer";
+	public static final String GET_ACTIVE_RATING = "START HOME_NODE = node(0), beer = node($$) MATCH HOME_NODE-[:INDEX_ACTIVERATINGINDEX]-ACTIVERATINGINDEX-[:INDEXES_ACTIVE]->Rating<-[:DOES]-User, Rating-[:CONTAINS]-beer WHERE User.username='$$' and Rating.type='rating' RETURN Rating, beer";
+	
+	// Recommendations
+	
 }
