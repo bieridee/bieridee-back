@@ -1,14 +1,13 @@
 package ch.hsr.bieridee.resourcehandler;
 
 
-import ch.hsr.bieridee.auth.BierideeHmacHelper;
+import ch.hsr.bieridee.exceptions.UnauthorizedException;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.UserModel;
 import org.apache.log4j.Logger;
 import org.bouncycastle.util.encoders.Hex;
 import org.neo4j.graphdb.NotFoundException;
 import org.restlet.Request;
-import org.restlet.data.ChallengeRequest;
 import org.restlet.data.Status;
 import org.restlet.representation.Representation;
 import org.restlet.resource.Post;
@@ -20,8 +19,6 @@ import javax.crypto.spec.SecretKeySpec;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Server resource controller to verify user credentials.
@@ -55,8 +52,9 @@ public final class UserCredentialsResource extends ServerResource {
 		try {
 			userModel = new UserModel(reqUsername);
 		} catch (NotFoundException e) {
-			LOG.error("User " + reqUsername + " not found!");
-			return this.unauthorized();
+			final String msg = "User " + reqUsername + " not found!";
+			LOG.error(msg);
+			throw new UnauthorizedException(msg);
 		}
 
 		// Get request information for HMAC calculation
@@ -72,11 +70,12 @@ public final class UserCredentialsResource extends ServerResource {
 		final String calculatedHMAC = calculateHMAC(hmacInputData, signingKey);
 
 		// Verify HMAC
-		if (reqHMAC.equals(calculatedHMAC)) {
-			return this.authorized();
-		} else {
-			return this.unauthorized();
+		if (!reqHMAC.equals(calculatedHMAC)) {
+			throw new UnauthorizedException("HMAC does not match.");
 		}
+
+		setStatus(Status.SUCCESS_NO_CONTENT);
+		return null;
 	}
 
 	/**
@@ -105,28 +104,5 @@ public final class UserCredentialsResource extends ServerResource {
 			throw e;
 		}
 		return calculatedHMAC;
-	}
-
-	/**
-	 * Return a HTTP 401 response and set challenge request headers.
-	 *
-	 * @return null
-	 */
-	private Representation unauthorized() {
-		final List<ChallengeRequest> list = new CopyOnWriteArrayList<ChallengeRequest>();
-		list.add(new ChallengeRequest(BierideeHmacHelper.SCHEME));
-		setChallengeRequests(list); // TODO does not work
-		setStatus(Status.CLIENT_ERROR_UNAUTHORIZED);
-		return null;
-	}
-
-	/**
-	 * Return a HTTP 204 response.
-	 * 
-	 * @return null
-	 */
-	private Representation authorized() {
-		setStatus(Status.SUCCESS_NO_CONTENT);
-		return null;
 	}
 }

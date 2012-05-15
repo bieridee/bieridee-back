@@ -1,25 +1,22 @@
 package ch.hsr.bieridee.exceptions;
 
 /**
- * Exception to be thrown when a node hasn't the expected type.
- *
+ * Exception to be thrown when request is not authorized.
  */
-public class WrongNodeTypeException extends Exception {
-
+public class UnauthorizedException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Default constructor.
 	 */
-	public WrongNodeTypeException() {
+	public UnauthorizedException() {
 	}
-
 
 	/**
 	 * Constructor with message.
 	 * @param msg The message
 	 */
-	public WrongNodeTypeException(String msg) {
+	public UnauthorizedException(String msg) {
 		super(msg);
 	}
 
@@ -27,7 +24,7 @@ public class WrongNodeTypeException extends Exception {
 	 * Constructor with cause.
 	 * @param cause The cause
 	 */
-	public WrongNodeTypeException(Throwable cause) {
+	public UnauthorizedException(Throwable cause) {
 		super(cause);
 	}
 
@@ -36,8 +33,7 @@ public class WrongNodeTypeException extends Exception {
 	 * @param msg The message
 	 * @param cause The cause
 	 */
-	public WrongNodeTypeException(String msg, Throwable cause) {
+	public UnauthorizedException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
-
 }
