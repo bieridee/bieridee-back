@@ -1,7 +1,6 @@
 package ch.hsr.bieridee.services;
 
 import ch.hsr.bieridee.auth.BierideeHmacHelper;
-import ch.hsr.bieridee.exceptions.UnauthorizedException;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import org.neo4j.graphdb.NotFoundException;
 import org.restlet.data.ChallengeRequest;
@@ -34,11 +33,6 @@ public class BeerAppStatusService extends StatusService {
 			returnStatus = Status.CLIENT_ERROR_NOT_FOUND;
 		} else if (clazz.equals(NotFoundException.class)) {
 			returnStatus = Status.CLIENT_ERROR_NOT_FOUND;
-		} else if (clazz.equals(UnauthorizedException.class)) {
-			final List<ChallengeRequest> list = new LinkedList<ChallengeRequest>();
-			list.add(new ChallengeRequest(BierideeHmacHelper.SCHEME));
-			resource.getResponse().setChallengeRequests(list); // TODO does not work
-			returnStatus = Status.CLIENT_ERROR_UNAUTHORIZED;
 		} else {
 			returnStatus = super.getStatus(throwable, resource);
 		}
