@@ -30,6 +30,7 @@ public final class Cypherqueries {
 	public static final String GET_ALL_BEERTYPES = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_BEERTYPE]-BEERTYPE_INDEX-[:INDEXES]->Beertype RETURN Beertype ORDER BY Beertype.name ASC";
 
 	// Breweries
+	public static final String GET_BREWERY_INDEX_NODE = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_BREWERY]->BREWERY_INDEX RETURN BREWERY_INDEX";
 	public static final String GET_ALL_BREWERIES = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_BREWERY]-BREWERY_INDEX-[:INDEXES]->Brewery RETURN Brewery ORDER BY Brewery.name ASC";
 	public static final String GET_BREWERIES_BY_TAG_NAME = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_BREWERY]-BREWERY_INDEX-[:INDEXES]->Brewery WHERE Brewery.size = \'$$\' RETURN Brewery ORDER BY Brewery.name ASC";
 

@@ -238,6 +238,9 @@ public final class DBUtil {
 			if (type.equals(NodeType.BEERTYPE)) {
 				connectBeertypeNodeToIndex(newNode);
 			}
+			if (type.equals(NodeType.BREWERY)) {
+				connectBreweryNodeToIndex(newNode);
+			}
 		} finally {
 			transaction.finish();
 		}
@@ -245,10 +248,20 @@ public final class DBUtil {
 
 	}
 
+	private static void connectBreweryNodeToIndex(Node newNode) {
+		final Node indexNode = getBreweryIndex();
+		DBUtil.setProperty(newNode, NodeProperty.TYPE, NodeType.BREWERY);
+		DBUtil.createRelationship(indexNode, RelType.INDEXES, newNode);
+	}
+
 	private static void connectBeertypeNodeToIndex(Node newNode) {
 		final Node indexNode = getBeertypeIndex();
-		newNode.setProperty(NodeProperty.TYPE, NodeType.BEERTYPE);
-		indexNode.createRelationshipTo(newNode, RelType.INDEXES);
+		DBUtil.setProperty(newNode, NodeProperty.TYPE, NodeType.BEERTYPE);
+		DBUtil.createRelationship(indexNode, RelType.INDEXES, newNode);
+	}
+
+	private static Node getBreweryIndex() {
+		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_BREWERY_INDEX_NODE, "BREWERY_INDEX");
 	}
 
 	private static Node getBeertypeIndex() {
@@ -404,7 +417,7 @@ public final class DBUtil {
 	public static List<Node> getConsumptionsForUserByBeer(String username, long beerId) {
 		return Cypher.executeAndGetNodes(Cypherqueries.GET_ALL_BEER_CONSUMPTIONS_FOR_USER, "consumption", Long.toString(beerId), username);
 	}
-	
+
 	public static List<String> getAllBrands() {
 		return Cypher.executeAndGetStrings(Cypherqueries.GET_ALL_BRANDS, "Brand");
 	}
