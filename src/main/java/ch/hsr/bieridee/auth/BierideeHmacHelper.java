@@ -19,6 +19,9 @@ public class BierideeHmacHelper extends AuthenticatorHelper {
 			"Bieridee HMAC-SHA256 based authentication" // description
 	);
 
+	/**
+	 * @{inheritDoc}
+	 */
 	public BierideeHmacHelper() {
 		super(SCHEME, false, true);
 	}

@@ -4,7 +4,6 @@ import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.UserModel;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.bouncycastle.asn1.pkcs.PBKDF2Params;
 import org.bouncycastle.util.encoders.Hex;
 import org.neo4j.graphdb.NotFoundException;
 import org.restlet.Request;
@@ -18,6 +17,9 @@ import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * This verifier verifies the HMAC-SHA256 auth header.
+ */
 public class HmacSha256Verifier implements Verifier {
 
 	private static final Logger LOG = Logger.getLogger(HmacSha256Verifier.class);

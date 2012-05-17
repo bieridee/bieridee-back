@@ -38,6 +38,9 @@ public class Dispatcher extends Application {
 		final Router rootRouter = new Router(getContext());
 		final Router guardedRouter = new Router(getContext());
 
+		// Attach public resources
+		rootRouter.attach(Res.USER_DOCUMENT, UserResource.class);
+
 		// Add guarded resources
 		guardedRouter.attach(Res.BEER_COLLECTION, BeerListResource.class);
 		guardedRouter.attach(Res.BEER_DOCUMENT, BeerResource.class);
@@ -62,9 +65,6 @@ public class Dispatcher extends Application {
 		guard.setVerifier(new HmacSha256Verifier());
 		guard.setNext(guardedRouter);
 		rootRouter.attach(guard);
-
-		// Attach public resources
-		rootRouter.attach(Res.USER_DOCUMENT, UserResource.class);
 
 		return rootRouter;
 	}

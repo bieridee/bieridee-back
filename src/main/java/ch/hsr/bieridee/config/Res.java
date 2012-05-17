@@ -68,7 +68,7 @@ public final class Res {
 	public static final String TIMELINE_PAGE_PARAMETER = "page";
 	public static final String TIMELINE_LIST_SIZE_PARAMETER = "nOfItems";
 
-	// load test resource
+	// load test resource (needed for http://blitz.io/)
 	public static final String LOADTEST = "/mu-de20a9df-45567641-e6aff7ea-3179451e.txt";
 
 	/**
