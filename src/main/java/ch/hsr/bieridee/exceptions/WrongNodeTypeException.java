@@ -13,8 +13,8 @@ public class WrongNodeTypeException extends Exception {
 	 */
 	public WrongNodeTypeException() {
 	}
-	
-	
+
+
 	/**
 	 * Constructor with message.
 	 * @param msg The message
