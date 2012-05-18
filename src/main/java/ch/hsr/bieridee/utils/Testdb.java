@@ -265,7 +265,7 @@ public final class Testdb {
 
 			/* CREATE USERS */
 
-			final Node danilo = createUser(db, "danilo", "bargen", "bargi@beer.ch", "saeufer", getSHA1("******"));
+			final Node danilo = createUser(db, "danilo", "bargen", "bargi@beer.ch", "saeufer", "$2$10$da9f6713671da24a575ffOvGAfpamSEapYskRCFoDkKGRc4bl4Qzu");
 			final Node jonas = createUser(db, "jonas", "furrer", "jonas@beer.ch", "alki", getSHA1("ILIKECOFFEE"));
 			final Node chrigi = createUser(db, "chrigi", "fässler", "chrigi@beer.ch", "trinker", getSHA1("DjBobo"));
 			final Node urs = createUser(db, "urs", "baumann", "urs@beer.ch", "uese", getSHA1("creat user : user with password"));
@@ -416,6 +416,10 @@ public final class Testdb {
 			activeRatingIndex.createRelationshipTo(rating2, RelType.INDEXES_ACTIVE);
 			activeRatingIndex.createRelationshipTo(rating3, RelType.INDEXES_ACTIVE);
 			activeRatingIndex.createRelationshipTo(rating4, RelType.INDEXES_ACTIVE);
+
+			/* CREATE TESTUSER */
+			final Node testuser = createUser(db, "Test", "User", "test@nusszipfel.com", "testuser", "$2$10$ae5deb822e0d719929004uD0KL0l5rHNCSFKcfBvoTzG5Og6O/Xxu");
+			userIndex.createRelationshipTo(testuser, RelType.INDEXES);
 
 			transaction.success();
 		} finally {

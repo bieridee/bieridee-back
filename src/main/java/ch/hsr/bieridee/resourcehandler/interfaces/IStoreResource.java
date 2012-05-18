@@ -23,7 +23,7 @@ public interface IStoreResource {
 	 * @throws WrongNodeTypeException 
 	 */
 	@Get
-	Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException;
+	Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException, JSONException;
 	
 	/**
 	 * Update or create a store item.
@@ -41,5 +41,5 @@ public interface IStoreResource {
 	 * @param rep Representation of the store item to delete.
 	 */
 	@Delete
-	void remove(Representation rep);
+	void remove(Representation rep) throws JSONException;
 }
