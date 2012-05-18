@@ -1,15 +1,13 @@
 package ch.hsr.bieridee.services;
 
+import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import org.neo4j.graphdb.NotFoundException;
 import org.restlet.data.Status;
 import org.restlet.resource.Resource;
 import org.restlet.service.StatusService;
 
-import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
-
 /**
  * Custom StatusService for the BeerApp.
- * 
  */
 public class BeerAppStatusService extends StatusService {
 
@@ -23,6 +21,7 @@ public class BeerAppStatusService extends StatusService {
 	@Override
 	public Status getStatus(Throwable throwable, Resource resource) {
 		Status returnStatus = null;
+		String message = throwable.getMessage();
 		final Class<? extends Throwable> clazz = throwable.getCause().getClass();
 
 		if (clazz.equals(WrongNodeTypeException.class)) {

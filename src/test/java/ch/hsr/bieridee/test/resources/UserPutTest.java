@@ -20,7 +20,7 @@ import ch.hsr.bieridee.test.helpers.Helpers;
  * Test the creation of a new user via PUT on the user resource.
  * 
  */
-public class UserPutTest extends ServerTest {
+public class UserPutTest extends ResourceTest {
 
 	final String testUsername = "tester";
 	final JSONObject userJson = new JSONObject();
@@ -52,17 +52,7 @@ public class UserPutTest extends ServerTest {
 		final Representation rep = new StringRepresentation(this.userJson.toString(), MediaType.APPLICATION_JSON);
 		clientResource.put(rep);
 
-		final Representation newUserRep = clientResource.get(MediaType.APPLICATION_JSON);
-		JSONObject newUser = null;
-		try {
-			newUser = new JSONObject(newUserRep.getText());
-		} catch (IOException e) {
-			Assert.fail();
-			e.printStackTrace();
-		} catch (JSONException e) {
-			Assert.fail();
-			e.printStackTrace();
-		}
+		JSONObject newUser = this.getJSONObject(uri);
 
 		Assert.assertNotNull(newUser);
 		try {
@@ -84,7 +74,6 @@ public class UserPutTest extends ServerTest {
 	@Test
 	public void updateAndGetUser() {
 		final String uri = Helpers.buildResourceUri("/users/" + this.testUsername);
-		final ClientResource clientResource = new ClientResource(uri);
 
 		final JSONObject partialUserJson = new JSONObject();
 		try {
@@ -96,20 +85,9 @@ public class UserPutTest extends ServerTest {
 			e.printStackTrace();
 		}
 
-		final Representation rep = new StringRepresentation(partialUserJson.toString(), MediaType.APPLICATION_JSON);
-		clientResource.put(rep);
+		this.putJSON(uri, partialUserJson);
 
-		final Representation updatedUserRep = clientResource.get(MediaType.APPLICATION_JSON);
-		JSONObject updatedUser = null;
-		try {
-			updatedUser = new JSONObject(updatedUserRep.getText());
-		} catch (IOException e) {
-			Assert.fail();
-			e.printStackTrace();
-		} catch (JSONException e) {
-			Assert.fail();
-			e.printStackTrace();
-		}
+		JSONObject updatedUser = this.getJSONObject(uri);
 
 		Assert.assertNotNull(updatedUser);
 		try {
@@ -121,7 +99,5 @@ public class UserPutTest extends ServerTest {
 			Assert.fail();
 			e.printStackTrace();
 		}
-
-		clientResource.release();
 	}
 }

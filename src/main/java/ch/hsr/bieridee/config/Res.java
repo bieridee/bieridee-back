@@ -50,6 +50,9 @@ public final class Res {
 	public static final String USER_REQ_ATTR = "user-name";
 	public static final String USER_DOCUMENT = "/users/{" + USER_REQ_ATTR + "}";
 
+	// usercredentials
+	public static final String USERCREDENTIALS_CONTROLLER = "/usercredentials";
+
 	// rating
 	public static final String RATING_COLLECTION = "/ratings";
 	public static final String RATING_DOCUMENT = BEER_DOCUMENT + RATING_COLLECTION + "/{" + USER_REQ_ATTR + "}";
@@ -68,7 +71,7 @@ public final class Res {
 	// brands
 	public static final String BRAND_COLLECTION = "/brands";
 
-	// load test resource
+	// load test resource (needed for http://blitz.io/)
 	public static final String LOADTEST = "/mu-de20a9df-45567641-e6aff7ea-3179451e.txt";
 
 	/**
