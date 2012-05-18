@@ -43,9 +43,9 @@ public class BreweryListResourceTest extends ResourceTest {
 			Assert.fail();
 		}
 
-		final Representation breweryRep = this.postJson(uri, breweryJSON);
+		final String breweryJSONString = this.postJson(uri, breweryJSON);
 		try {
-			final JSONObject responseObject = new JSONObject(breweryRep.getText());
+			final JSONObject responseObject = new JSONObject(breweryJSONString);
 			System.out.println("brewery id was: "+responseObject.getLong("id"));
 			final BreweryModel bm = new BreweryModel(responseObject.getLong("id"));
 
@@ -63,8 +63,6 @@ public class BreweryListResourceTest extends ResourceTest {
 		} catch (NotFoundException e) {
 			e.printStackTrace();
 			Assert.fail();
-		} catch (IOException e) {
-			e.printStackTrace();
 		} catch (WrongNodeTypeException e) {
 			e.printStackTrace();
 		}
