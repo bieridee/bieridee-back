@@ -49,6 +49,7 @@ public final class Res {
 	public static final String USER_COLLECTION = "/users";
 	public static final String USER_REQ_ATTR = "user-name";
 	public static final String USER_DOCUMENT = "/users/{" + USER_REQ_ATTR + "}";
+	public static final String USER_RECOMMENDATION_COLLECTION = USER_DOCUMENT + "/recommendations";
 
 	// usercredentials
 	public static final String USERCREDENTIALS_CONTROLLER = "/usercredentials";
@@ -67,6 +68,9 @@ public final class Res {
 	public static final String TIMELINE_FILTER_PARAMETER_USER = "username";
 	public static final String TIMELINE_PAGE_PARAMETER = "page";
 	public static final String TIMELINE_LIST_SIZE_PARAMETER = "nOfItems";
+
+	// brewerysize
+	public static final String BREWERYSIZE_COLLECTION = "/brewerysizes";
 	
 	// brands
 	public static final String BRAND_COLLECTION = "/brands";
