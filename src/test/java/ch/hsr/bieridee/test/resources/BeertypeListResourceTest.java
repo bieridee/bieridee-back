@@ -37,9 +37,9 @@ public class BeertypeListResourceTest extends ResourceTest {
 			Assert.fail();
 		}
 
-		final Representation beertypeRep = this.postJson(uri, beertype);
+		final String beertypeJSONString = this.postJson(uri, beertype);
 		try {
-			final JSONObject responseObject = new JSONObject(beertypeRep.getText());
+			final JSONObject responseObject = new JSONObject(beertypeJSONString);
 			final BeertypeModel btm = new BeertypeModel(responseObject.getLong("id"));
 
 			Assert.assertEquals(responseObject.getString("name"), name);
@@ -54,8 +54,6 @@ public class BeertypeListResourceTest extends ResourceTest {
 		} catch (NotFoundException e) {
 			e.printStackTrace();
 			Assert.fail();
-		} catch (IOException e) {
-			e.printStackTrace();
 		} catch (WrongNodeTypeException e) {
 			e.printStackTrace();
 		}

@@ -49,6 +49,10 @@ public final class Res {
 	public static final String USER_COLLECTION = "/users";
 	public static final String USER_REQ_ATTR = "user-name";
 	public static final String USER_DOCUMENT = "/users/{" + USER_REQ_ATTR + "}";
+	public static final String USER_RECOMMENDATION_COLLECTION = USER_DOCUMENT + "/recommendations";
+
+	// usercredentials
+	public static final String USERCREDENTIALS_CONTROLLER = "/usercredentials";
 
 	// rating
 	public static final String RATING_COLLECTION = "/ratings";
@@ -64,11 +68,14 @@ public final class Res {
 	public static final String TIMELINE_FILTER_PARAMETER_USER = "username";
 	public static final String TIMELINE_PAGE_PARAMETER = "page";
 	public static final String TIMELINE_LIST_SIZE_PARAMETER = "nOfItems";
+
+	// brewerysize
+	public static final String BREWERYSIZE_COLLECTION = "/brewerysizes";
 	
 	// brands
 	public static final String BRAND_COLLECTION = "/brands";
 
-	// load test resource
+	// load test resource (needed for http://blitz.io/)
 	public static final String LOADTEST = "/mu-de20a9df-45567641-e6aff7ea-3179451e.txt";
 
 	/**

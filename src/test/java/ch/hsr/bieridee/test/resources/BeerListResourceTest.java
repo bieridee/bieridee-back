@@ -1,18 +1,14 @@
 package ch.hsr.bieridee.test.resources;
 
-import java.io.IOException;
-
+import ch.hsr.bieridee.config.Res;
+import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
+import ch.hsr.bieridee.models.BeertypeModel;
+import ch.hsr.bieridee.models.BreweryModel;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 import org.neo4j.graphdb.NotFoundException;
-import org.restlet.representation.Representation;
-
-import ch.hsr.bieridee.config.Res;
-import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
-import ch.hsr.bieridee.models.BeertypeModel;
-import ch.hsr.bieridee.models.BreweryModel;
 
 
 /**
@@ -43,10 +39,10 @@ public class BeerListResourceTest extends ResourceTest {
 			e.printStackTrace();
 		}
 		final String uri = Res.PUBLIC_API_URL + Res.BEER_COLLECTION;
-		final Representation newBeerRep = postJson(uri, newBeerJson);
+		final String newBeerJSONString = postJson(uri, newBeerJson);
 		
 		try {
-			final JSONObject beer = new JSONObject(newBeerRep.getText());
+			final JSONObject beer = new JSONObject(newBeerJSONString);
 			Assert.assertEquals(name, beer.getString("name"));
 			Assert.assertEquals(brand, beer.getString("brand"));
 			
@@ -54,9 +50,6 @@ public class BeerListResourceTest extends ResourceTest {
 			Assert.assertEquals(Res.getResourceUri(new BeertypeModel(beertypeId)), beer.getJSONObject("beertype").getString("uri"));
 			
 		} catch (JSONException e) {
-			Assert.fail();
-			e.printStackTrace();
-		} catch (IOException e) {
 			Assert.fail();
 			e.printStackTrace();
 		} catch (NotFoundException e) {

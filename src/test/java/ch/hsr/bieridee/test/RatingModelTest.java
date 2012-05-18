@@ -20,7 +20,7 @@ public class RatingModelTest extends DBTest {
 	@Test
 	public void getRatingByNodeTest() {
 		System.out.println("begin");
-		final Node ratingNode = DBUtil.getNodeById(54);
+		final Node ratingNode = DBUtil.getNodeById(55);
 		System.out.println("rating node:" + ratingNode);
 		RatingModel rm = null;
 		try {
@@ -34,8 +34,8 @@ public class RatingModelTest extends DBTest {
 		}
 
 		Assert.assertNotNull(rm);
-		Assert.assertEquals(rm.getRating(), 1);
-		Assert.assertEquals(rm.getNode(), ratingNode);
+		Assert.assertEquals(2, rm.getRating());
+		Assert.assertEquals(ratingNode, rm.getNode());
 	}
 
 	@Test(expected = WrongNodeTypeException.class)

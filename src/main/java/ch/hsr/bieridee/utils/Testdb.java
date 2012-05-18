@@ -417,6 +417,10 @@ public final class Testdb {
 			activeRatingIndex.createRelationshipTo(rating3, RelType.INDEXES_ACTIVE);
 			activeRatingIndex.createRelationshipTo(rating4, RelType.INDEXES_ACTIVE);
 
+			/* CREATE TESTUSER */
+			final Node testuser = createUser(db, "Test", "User", "test@nusszipfel.com", "testuser", "$2$10$ae5deb822e0d719929004uD0KL0l5rHNCSFKcfBvoTzG5Og6O/Xxu");
+			userIndex.createRelationshipTo(testuser, RelType.INDEXES);
+
 			transaction.success();
 		} finally {
 			transaction.finish();
