@@ -112,6 +112,8 @@ public class UserResource extends ServerResource implements IStoreResource {
 	private void updateUser(JSONObject userJson) throws JSONException {
 		UserModel userModel = null;
 
+		// TODO assert that a user can only update his own information
+
 		try {
 			userModel = new UserModel(this.username);
 		} catch (NotFoundException e) {

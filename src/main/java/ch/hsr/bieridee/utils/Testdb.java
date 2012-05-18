@@ -269,13 +269,11 @@ public final class Testdb {
 			final Node jonas = createUser(db, "jonas", "furrer", "jonas@beer.ch", "alki", getSHA1("ILIKECOFFEE"));
 			final Node chrigi = createUser(db, "chrigi", "fässler", "chrigi@beer.ch", "trinker", getSHA1("DjBobo"));
 			final Node urs = createUser(db, "urs", "baumann", "urs@beer.ch", "uese", getSHA1("creat user : user with password"));
-			final Node testuser = createUser(db, "Test", "User", "test@nusszipfel.com", "testuser", "$2$10$ae5deb822e0d719929004uD0KL0l5rHNCSFKcfBvoTzG5Og6O/Xxu");
 
 			userIndex.createRelationshipTo(danilo, RelType.INDEXES);
 			userIndex.createRelationshipTo(jonas, RelType.INDEXES);
 			userIndex.createRelationshipTo(chrigi, RelType.INDEXES);
 			userIndex.createRelationshipTo(urs, RelType.INDEXES);
-			userIndex.createRelationshipTo(testuser, RelType.INDEXES);
 
 			/* CREATE RATINGS */
 
@@ -418,6 +416,10 @@ public final class Testdb {
 			activeRatingIndex.createRelationshipTo(rating2, RelType.INDEXES_ACTIVE);
 			activeRatingIndex.createRelationshipTo(rating3, RelType.INDEXES_ACTIVE);
 			activeRatingIndex.createRelationshipTo(rating4, RelType.INDEXES_ACTIVE);
+
+			/* CREATE TESTUSER */
+			final Node testuser = createUser(db, "Test", "User", "test@nusszipfel.com", "testuser", "$2$10$ae5deb822e0d719929004uD0KL0l5rHNCSFKcfBvoTzG5Og6O/Xxu");
+			userIndex.createRelationshipTo(testuser, RelType.INDEXES);
 
 			transaction.success();
 		} finally {

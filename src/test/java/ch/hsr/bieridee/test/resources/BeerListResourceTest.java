@@ -43,11 +43,11 @@ public class BeerListResourceTest extends ResourceTest {
 			e.printStackTrace();
 		}
 		final String uri = Res.PUBLIC_API_URL + Res.BEER_COLLECTION;
-		final Representation newBeerRep = postJson(uri, newBeerJson);
+		final String newBeerJSONString = postJson(uri, newBeerJson);
 		
 		try {
-			System.out.println(newBeerRep.getText());
-			final JSONObject beer = new JSONObject(newBeerRep.getText());
+			System.out.println(newBeerJSONString);
+			final JSONObject beer = new JSONObject(newBeerJSONString);
 			Assert.assertEquals(name, beer.getString("name"));
 			Assert.assertEquals(brand, beer.getString("brand"));
 			
@@ -55,9 +55,6 @@ public class BeerListResourceTest extends ResourceTest {
 			Assert.assertEquals(Res.getResourceUri(new BeertypeModel(beertypeId)), beer.getJSONObject("beertype").getString("uri"));
 			
 		} catch (JSONException e) {
-			Assert.fail();
-			e.printStackTrace();
-		} catch (IOException e) {
 			Assert.fail();
 			e.printStackTrace();
 		} catch (NotFoundException e) {
