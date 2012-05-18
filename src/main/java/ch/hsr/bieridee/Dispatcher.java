@@ -9,6 +9,7 @@ import ch.hsr.bieridee.resourcehandler.BeerListResource;
 import ch.hsr.bieridee.resourcehandler.BeerResource;
 import ch.hsr.bieridee.resourcehandler.BeertypeListResource;
 import ch.hsr.bieridee.resourcehandler.BeertypeResource;
+import ch.hsr.bieridee.resourcehandler.BrandListResource;
 import ch.hsr.bieridee.resourcehandler.BreweryListResource;
 import ch.hsr.bieridee.resourcehandler.BreweryResource;
 import ch.hsr.bieridee.resourcehandler.BrewerySizeResource;
@@ -62,6 +63,7 @@ public class Dispatcher extends Application {
 		router.attach(Res.IMAGE_DOCUMENT, ImageResource.class);
 		router.attach(Res.TIMELINE_COLLECTION, TimelineResource.class);
 		router.attach(Res.BREWERYSIZE_COLLECTION, BrewerySizeResource.class);
+		router.attach(Res.BRAND_COLLECTION, BrandListResource.class);
 		router.attach(Res.LOADTEST, Resource42.class);
 
 		return router;

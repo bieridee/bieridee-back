@@ -68,6 +68,9 @@ public final class Res {
 
 	// brewerysize
 	public static final String BREWERYSIZE_COLLECTION = "/brewerysizes";
+	
+	// brands
+	public static final String BRAND_COLLECTION = "/brands";
 
 	// load test resource
 	public static final String LOADTEST = "/mu-de20a9df-45567641-e6aff7ea-3179451e.txt";
