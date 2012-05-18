@@ -6,6 +6,7 @@ import org.restlet.representation.Representation;
 import org.restlet.resource.ServerResource;
 
 import ch.hsr.bieridee.config.Config;
+import ch.hsr.bieridee.domain.BrewerySize;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.resourcehandler.interfaces.IReadOnlyResource;
 
@@ -14,11 +15,9 @@ import ch.hsr.bieridee.resourcehandler.interfaces.IReadOnlyResource;
  * 
  */
 public class BrewerySizeResource extends ServerResource implements IReadOnlyResource {
-	public static final String[] BREWERYSIZES = { "Size-S", "Size-M", "Size-L" };
-
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
-		final JacksonRepresentation<String[]> jacksonRep = new JacksonRepresentation<String[]>(BREWERYSIZES);
+		final JacksonRepresentation<String[]> jacksonRep = new JacksonRepresentation<String[]>(BrewerySize.SIZES);
 		jacksonRep.setObjectMapper(Config.getObjectMapper());
 		return jacksonRep;
 	}
