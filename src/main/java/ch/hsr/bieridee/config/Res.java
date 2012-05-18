@@ -65,7 +65,10 @@ public final class Res {
 	public static final String TIMELINE_FILTER_PARAMETER_USER = "username";
 	public static final String TIMELINE_PAGE_PARAMETER = "page";
 	public static final String TIMELINE_LIST_SIZE_PARAMETER = "nOfItems";
-	
+
+	// brewerysize
+	public static final String BREWERYSIZE_COLLECTION = "/brewerysizes";
+
 	// load test resource
 	public static final String LOADTEST = "/mu-de20a9df-45567641-e6aff7ea-3179451e.txt";
 
