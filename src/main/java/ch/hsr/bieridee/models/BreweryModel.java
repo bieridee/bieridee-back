@@ -6,6 +6,7 @@ import java.util.List;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.NotFoundException;
 
+import ch.hsr.bieridee.config.NodeProperty;
 import ch.hsr.bieridee.config.NodeType;
 import ch.hsr.bieridee.domain.Brewery;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
@@ -48,13 +49,23 @@ public class BreweryModel extends AbstractModel {
 		NodeUtil.checkNode(node, NodeType.BREWERY);
 
 		this.node = node;
-
 		final long id = this.node.getId();
 		final String name = (String) this.node.getProperty("name");
 		final String size = (String) this.node.getProperty("size");
 		final String description = (String) this.node.getProperty("description");
 		final String picture = (String) this.node.getProperty("picture");
-		this.domainObject = new Brewery(id, name, size, description, picture);
+		this.domainObject = new Brewery(name, size, description, picture);
+		this.setId(id);
+	}
+
+	private BreweryModel(String name, String description, String picture, String size) {
+		final Node breweryNode = DBUtil.createNode(NodeType.BREWERY);
+		this.node = breweryNode;
+		this.domainObject = new Brewery(this.node.getId(), name, size, description, picture);
+		this.setName(name);
+		this.setSize(size);
+		this.setDescription(description);
+		this.setPicture(picture);
 	}
 
 	public Brewery getDomainObject() {
@@ -69,19 +80,16 @@ public class BreweryModel extends AbstractModel {
 		return this.domainObject.getId();
 	}
 
-	// SUPPRESS CHECKSTYLE: setter
-	public void setId(long id) {
-		this.domainObject.setId(id);
+	public String getDescription() {
+		return this.domainObject.getDescription();
+	}
+
+	public String getPicture() {
+		return this.domainObject.getPicture();
 	}
 
 	public String getName() {
 		return this.domainObject.getName();
-	}
-
-	// SUPPRESS CHECKSTYLE: setter
-	public void setName(String name) {
-		this.domainObject.setName(name);
-		this.node.setProperty("name", name);
 	}
 
 	public String getSize() {
@@ -89,9 +97,32 @@ public class BreweryModel extends AbstractModel {
 	}
 
 	// SUPPRESS CHECKSTYLE: setter
+	public void setId(long id) {
+		this.domainObject.setId(id);
+	}
+
+	// SUPPRESS CHECKSTYLE: setter
+	public void setName(String name) {
+		DBUtil.setProperty(this.node, NodeProperty.Brewery.NAME, name);
+		this.domainObject.setName(name);
+	}
+
+	// SUPPRESS CHECKSTYLE: setter
 	public void setSize(String size) {
+		DBUtil.setProperty(this.node, NodeProperty.Brewery.SIZE, size);
 		this.domainObject.setSize(size);
-		this.node.setProperty("size", size);
+	}
+
+	// SUPPRESS CHECKSTYLE: setter
+	public void setDescription(String description) {
+		DBUtil.setProperty(this.node, NodeProperty.Brewery.DESCRIPTION, description);
+		this.domainObject.setDescription(description);
+	}
+
+	// SUPPRESS CHECKSTYLE: setter
+	public void setPicture(String picture) {
+		DBUtil.setProperty(this.node, NodeProperty.Brewery.PICTURE, picture);
+		this.domainObject.setPicture(picture);
 	}
 
 	/**
@@ -130,12 +161,21 @@ public class BreweryModel extends AbstractModel {
 		return models;
 	}
 
-	public String getDescription() {
-		return this.domainObject.getDescription();
-	}
-
-	public String getPicture() {
-		return this.domainObject.getPicture();
+	/**
+	 * Creates a new Brewery and saves it persistent into the database.
+	 * 
+	 * @param name
+	 *            name of the brewery.
+	 * @param description
+	 *            text describing the brewery
+	 * @param picture
+	 *            path to the picture
+	 * @param size
+	 *            size of the brewery
+	 * @return a <code>BreweryModel</code> representing the created brewery.
+	 */
+	public static BreweryModel create(String name, String description, String picture, String size) {
+		return new BreweryModel(name, description, picture, size);
 	}
 
 }

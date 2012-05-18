@@ -2,13 +2,12 @@ package ch.hsr.bieridee;
 
 import ch.hsr.bieridee.auth.BierideeHmacHelper;
 import ch.hsr.bieridee.auth.HmacSha256Verifier;
+import ch.hsr.bieridee.config.Res;
 import ch.hsr.bieridee.resourcehandler.*;
+import ch.hsr.bieridee.services.BeerAppStatusService;
 import org.restlet.Application;
 import org.restlet.Restlet;
 import org.restlet.routing.Router;
-
-import ch.hsr.bieridee.config.Res;
-import ch.hsr.bieridee.services.BeerAppStatusService;
 import org.restlet.security.ChallengeAuthenticator;
 
 /**
@@ -28,7 +27,7 @@ public class Dispatcher extends Application {
 
 	/**
 	 * Creates a root Restlet that will receive all incoming calls.
-	 * 
+	 *
 	 * @return A restlet router
 	 */
 	@Override
@@ -58,6 +57,7 @@ public class Dispatcher extends Application {
 		guardedRouter.attach(Res.IMAGE_DOCUMENT, ImageResource.class);
 		guardedRouter.attach(Res.TIMELINE_COLLECTION, TimelineResource.class);
 		guardedRouter.attach(Res.LOADTEST, Resource42.class);
+		guardedRouter.attach(Res.BRAND_COLLECTION, BrandListResource.class);
 
 		// Create a guard
 		ChallengeAuthenticator guard = new ChallengeAuthenticator(

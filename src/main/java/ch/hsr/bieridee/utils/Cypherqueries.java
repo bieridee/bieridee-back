@@ -30,6 +30,7 @@ public final class Cypherqueries {
 	public static final String GET_ALL_BEERTYPES = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_BEERTYPE]-BEERTYPE_INDEX-[:INDEXES]->Beertype RETURN Beertype ORDER BY Beertype.name ASC";
 
 	// Breweries
+	public static final String GET_BREWERY_INDEX_NODE = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_BREWERY]->BREWERY_INDEX RETURN BREWERY_INDEX";
 	public static final String GET_ALL_BREWERIES = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_BREWERY]-BREWERY_INDEX-[:INDEXES]->Brewery RETURN Brewery ORDER BY Brewery.name ASC";
 	public static final String GET_BREWERIES_BY_TAG_NAME = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_BREWERY]-BREWERY_INDEX-[:INDEXES]->Brewery WHERE Brewery.size = \'$$\' RETURN Brewery ORDER BY Brewery.name ASC";
 
@@ -50,4 +51,10 @@ public final class Cypherqueries {
 	public static final String GET_RATING = "START beer = NODE($$) MATCH beer<-[:CONTAINS]-Action-[:DOES]-User where Action.type='rating' and User.username='$$' RETURN Action AS Rating, User ORDER BY Action.timestamp DESC LIMIT 1";
 	public static final String GET_ALL_RATINGS = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_TIMELINESTART]-TIMELINESTART-[:NEXT*]-Action-[:NEXT]->TIMELINEEND WHERE Action.type = '" + NodeType.RATING + "' RETURN Action";
 	public static final String GET_ACTIVE_RATING =	"START HOME_NODE = node(0), beer = node($$) MATCH HOME_NODE-[:INDEX_ACTIVERATINGINDEX]-ACTIVERATINGINDEX-[:INDEXES_ACTIVE]->Rating<-[:DOES]-User, Rating-[:CONTAINS]-beer WHERE User.username='$$' and Rating.type='rating' RETURN Rating, beer";
+
+	// Brand
+	public static final String GET_ALL_BRANDS = "START HOME = node(0) MATCH HOME-[:INDEX_BEER]->()-[:INDEXES]->Beer RETURN DISTINCT Beer.brand AS Brand ORDER BY Beer.brand ASC";
+
+	// Beertype
+	public static final String GET_BEERTYPE_INDEX_NODE = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_BEERTYPE]->BEERTYPE_INDEX RETURN BEERTYPE_INDEX";
 }

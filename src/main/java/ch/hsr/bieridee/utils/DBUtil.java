@@ -151,7 +151,7 @@ public final class DBUtil {
 	private static Node getTimelineIndex() {
 		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_TIMELINE_INDEX_NODE, "TIMELINE_INDEX");
 	}
-	
+
 	private static Node getBeerIndex() {
 		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_BEER_INDEX_NODE, "BEER_INDEX");
 	}
@@ -203,7 +203,7 @@ public final class DBUtil {
 		blankNode.setProperty(NodeProperty.TYPE, actionType);
 		indexNode.createRelationshipTo(blankNode, RelType.INDEXES);
 	}
-	
+
 	private static void connectBeerNodeToIndex(Node blankNode) {
 		final Node indexNode = getBeerIndex();
 		blankNode.setProperty(NodeProperty.TYPE, NodeType.BEER);
@@ -235,11 +235,37 @@ public final class DBUtil {
 			if (type.equals(NodeType.BEER)) {
 				connectBeerNodeToIndex(newNode);
 			}
+			if (type.equals(NodeType.BEERTYPE)) {
+				connectBeertypeNodeToIndex(newNode);
+			}
+			if (type.equals(NodeType.BREWERY)) {
+				connectBreweryNodeToIndex(newNode);
+			}
 		} finally {
 			transaction.finish();
 		}
 		return newNode;
 
+	}
+
+	private static void connectBreweryNodeToIndex(Node newNode) {
+		final Node indexNode = getBreweryIndex();
+		DBUtil.setProperty(newNode, NodeProperty.TYPE, NodeType.BREWERY);
+		DBUtil.createRelationship(indexNode, RelType.INDEXES, newNode);
+	}
+
+	private static void connectBeertypeNodeToIndex(Node newNode) {
+		final Node indexNode = getBeertypeIndex();
+		DBUtil.setProperty(newNode, NodeProperty.TYPE, NodeType.BEERTYPE);
+		DBUtil.createRelationship(indexNode, RelType.INDEXES, newNode);
+	}
+
+	private static Node getBreweryIndex() {
+		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_BREWERY_INDEX_NODE, "BREWERY_INDEX");
+	}
+
+	private static Node getBeertypeIndex() {
+		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_BEERTYPE_INDEX_NODE, "BEERTYPE_INDEX");
 	}
 
 	/**
@@ -280,7 +306,7 @@ public final class DBUtil {
 	 * @param maxNumberOfItems
 	 *            number of max. Items (actions) returned. Pass 0 for all Items.
 	 * @param skipCount
-	 * Number of elements to be skipped for paging.
+	 *            Number of elements to be skipped for paging.
 	 */
 	public static List<Node> getTimeLineForUser(String username, int maxNumberOfItems, int skipCount) {
 		if (maxNumberOfItems <= 0) {
@@ -392,4 +418,7 @@ public final class DBUtil {
 		return Cypher.executeAndGetNodes(Cypherqueries.GET_ALL_BEER_CONSUMPTIONS_FOR_USER, "consumption", Long.toString(beerId), username);
 	}
 
+	public static List<String> getAllBrands() {
+		return Cypher.executeAndGetStrings(Cypherqueries.GET_ALL_BRANDS, "Brand");
+	}
 }
