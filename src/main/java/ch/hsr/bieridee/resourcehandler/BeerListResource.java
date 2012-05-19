@@ -26,16 +26,16 @@ public class BeerListResource extends ServerResource implements ICollectionResou
 
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
-		
+
 		List<BeerModel> beerModels;
-		
+
 		final String tagId = getQuery().getFirstValue(Res.BEER_FILTER_PARAMETER_TAG);
 		if (tagId != null) {
 			beerModels = BeerModel.getAll(Long.parseLong(tagId));
 		} else {
 			beerModels = BeerModel.getAll();
 		}
-		
+
 		final BeerModel[] beerModelArray = beerModels.toArray(new BeerModel[beerModels.size()]);
 
 		// json representation
@@ -45,19 +45,31 @@ public class BeerListResource extends ServerResource implements ICollectionResou
 		return beerArrayJacksonRep;
 	}
 
-
 	@Override
 	public Representation store(Representation beer) throws JSONException, IOException, NotFoundException, WrongNodeTypeException {
-		
+
 		final JSONObject beerJson = new JSONObject(beer.getText());
 
 		final String name = beerJson.getString("name");
 		final String brand = beerJson.getString("brand");
-		final BeertypeModel beertypeModel = new BeertypeModel(beerJson.getLong("beertype"));
-		final BreweryModel breweryModel = new BreweryModel(beerJson.getLong("brewery"));
 		
+		BeertypeModel beertypeModel = null;
+		// is the beertype unknown?
+		if (beerJson.optBoolean("unknownbeertype")) {
+			beertypeModel = BeertypeModel.getUnknown();
+		} else {
+			beertypeModel = new BeertypeModel(beerJson.getLong("beertype"));
+		}
+		
+		BreweryModel breweryModel = null;
+		// ist the brewery unknown?
+		if (beerJson.optBoolean("unknownbrewery")) {
+			breweryModel = BreweryModel.getUnknown();
+		} else {
+			breweryModel = new BreweryModel(beerJson.getLong("brewery"));
+		}
 		final BeerModel newBeerModel = BeerModel.create(name, brand, beertypeModel, breweryModel);
-		
+
 		final JacksonRepresentation<BeerModel> newBeerRep = new JacksonRepresentation<BeerModel>(newBeerModel);
 		newBeerRep.setObjectMapper(Config.getObjectMapper());
 
@@ -65,4 +77,3 @@ public class BeerListResource extends ServerResource implements ICollectionResou
 	}
 
 }
-

@@ -11,6 +11,7 @@ public final class NodeProperty {
 	}
 
 	public static final String TYPE = "type";
+	public static final String UNKOWNNODE = "unknownnode";
 
 	/**
 	 * User Node specific properties.

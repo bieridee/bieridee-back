@@ -63,6 +63,10 @@ public class BeertypeModel extends AbstractModel {
 		this.setName(name);
 		this.setDescription(description);
 	}
+	
+	public boolean isUnknown() {
+		return this.node.hasProperty(NodeProperty.UNKOWNNODE);
+	}
 
 	public Beertype getDomainObject() {
 		return this.domainObject;
@@ -128,6 +132,19 @@ public class BeertypeModel extends AbstractModel {
 	 */
 	public static BeertypeModel create(String name, String description) {
 		return new BeertypeModel(name, description);
+	}
+	
+	/**
+	 * Gets the BeertypeModel for an unknown beertype.
+	 * 
+	 * @return The mysterious unknown beertyppe
+	 * @throws NotFoundException
+	 *             Thrown if a node is not existant
+	 * @throws WrongNodeTypeException
+	 *             Thrown if a node is not of the desired type
+	 */
+	public static BeertypeModel getUnknown() throws NotFoundException, WrongNodeTypeException {
+		return new BeertypeModel(DBUtil.getUnknownNode(NodeType.BEERTYPE));
 	}
 
 }
