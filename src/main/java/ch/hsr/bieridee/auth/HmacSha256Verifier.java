@@ -69,7 +69,8 @@ public class HmacSha256Verifier implements Verifier {
 		final String reqUri = request.getOriginalRef().getIdentifier(true);
 		final String reqAccept = StringUtils.defaultString(reqHeaders.getFirstValue("Accept"));
 		final String reqContentLength = StringUtils.defaultString(reqHeaders.getFirstValue("Content-Length"), "0");
-		final String reqBody = StringUtils.defaultString(request.getEntityAsText());
+		//final String reqBody = StringUtils.defaultString(request.getEntityAsText());
+		final String reqBody = "";
 
 		// Calculate HMAC
 		final String hmacInputString = reqMethod + reqUri + reqAccept + reqContentLength + reqBody;

@@ -36,13 +36,13 @@ public class HMACAuthRequestProcessor implements IRequestProcessor {
 			final HttpEntity entity = ((HttpEntityEnclosingRequestBase) request).getEntity();
 			if (entity != null) {
 				contentLength = String.valueOf(entity.getContentLength());
-				final byte[] content = new byte[(int)entity.getContentLength()];
-				try {
-					((HttpEntityEnclosingRequestBase) request).getEntity().getContent().read(content);
-				} catch (IOException e) {
-					throw new RuntimeException("Could not get body from " + request.getMethod().toUpperCase() + " request.");
-				}
-				body = new String(content);
+//				final byte[] content = new byte[(int)entity.getContentLength()];
+//				try {
+//					((HttpEntityEnclosingRequestBase) request).getEntity().getContent().read(content);
+//				} catch (IOException e) {
+//					throw new RuntimeException("Could not get body from " + request.getMethod().toUpperCase() + " request.");
+//				}
+//				body = new String(content);
 			}
 		}
 
