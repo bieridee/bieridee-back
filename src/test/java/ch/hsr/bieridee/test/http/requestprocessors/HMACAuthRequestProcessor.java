@@ -19,13 +19,6 @@ public class HMACAuthRequestProcessor implements IRequestProcessor {
 	private String username;
 	private String password;
 
-	public HMACAuthRequestProcessor()  {
-		this.username = "testuser";
-		this.password = "$2$10$ae5deb822e0d719929004uD0KL0l5rHNCSFKcfBvoTzG5Og6O/Xxu";
-		if (this.username.isEmpty() || this.password.isEmpty()) {
-			throw new RuntimeException("Could not retrieve username / password for signing the request.");
-		}
-	}
 	public HMACAuthRequestProcessor(final String username, final String password) {
 		this.username = username;
 		this.password = password;
