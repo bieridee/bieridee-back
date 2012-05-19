@@ -26,6 +26,7 @@ public class BrewerySerializer extends JsonSerializer<BreweryModel> {
 		jsonGenerator.writeStringField("picture", brewery.getPicture());
 		jsonGenerator.writeStringField("uri", Res.getResourceUri(brewery));
 		jsonGenerator.writeEndObject();
+		
 	}
 
 	@Override
