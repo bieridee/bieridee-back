@@ -3,22 +3,17 @@ package ch.hsr.bieridee.test.resources;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
-import ch.hsr.bieridee.test.http.AuthJsonHttp;
-import ch.hsr.bieridee.test.http.HttpHelper;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
-import org.restlet.data.MediaType;
-import org.restlet.representation.Representation;
-import org.restlet.representation.StringRepresentation;
-import org.restlet.resource.ClientResource;
 
 import ch.hsr.bieridee.test.ServerTest;
+import ch.hsr.bieridee.test.http.AuthJsonHttp;
+import ch.hsr.bieridee.test.http.HttpHelper;
 
 /**
  * Baseclass for all resource tests.
@@ -33,6 +28,11 @@ public abstract class ResourceTest extends ServerTest {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	protected HttpResponse getResponse(String uri) {
+		final HttpHelper httpHelper = AuthJsonHttp.create();
+		return httpHelper.get(uri);
 	}
 
 	protected JSONObject getJSONObject(String uri) {

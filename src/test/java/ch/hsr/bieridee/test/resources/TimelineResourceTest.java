@@ -1,20 +1,12 @@
 package ch.hsr.bieridee.test.resources;
 
-import groovy.util.ResourceException;
-
-import java.io.IOException;
-
-import javax.ws.rs.core.Response.Status;
-
 import junit.framework.Assert;
 
+import org.apache.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
-import org.restlet.data.MediaType;
-import org.restlet.representation.Representation;
-import org.restlet.resource.ClientResource;
 
 import ch.hsr.bieridee.config.Res;
 
@@ -84,16 +76,8 @@ public class TimelineResourceTest extends ResourceTest {
 	@Test
 	public void retrieveTimelineWithNonExistingUser() {
 		final String username = "alki12";
-		final String request = Res.PUBLIC_API_URL + Res.TIMELINE_COLLECTION + "?username=" + username;
-		ClientResource clientResource = null;
-		try {
-			clientResource = new ClientResource(request);
-			clientResource.get(MediaType.APPLICATION_JSON);
-		} catch (org.restlet.resource.ResourceException e) {
-			Assert.assertEquals(404, clientResource.getStatus().getCode());
-		} finally {
-			clientResource.release();
-		}
-
+		final String uri = Res.PUBLIC_API_URL + Res.TIMELINE_COLLECTION + "?username=" + username;
+		final HttpResponse response = getResponse(uri);
+		Assert.assertEquals(404, response.getStatusLine().getStatusCode());
 	}
 }

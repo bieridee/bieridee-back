@@ -54,7 +54,6 @@ public class DBUtilTest extends DBTest {
 	public void getNotExistingBeerByNameTest() throws NotFoundException, WrongNodeTypeException {
 		final String beerName = "Chrigis Super Brew!";
 		final Node beerNode = DBUtil.getBeerByName(beerName);
-		System.out.println("Not existing node:" + beerNode);
 		new BeerModel(beerNode);
 		Assert.assertNull(beerNode);
 	}
@@ -119,11 +118,9 @@ public class DBUtilTest extends DBTest {
 
 	private void getMostRecentRatingForUser() {
 		final Node activeRating = DBUtil.getActiveUserRatingForBeer(28, "saeufer");
-		System.out.println("active rating dbtest: " + activeRating);
 		RatingModel rm;
 		try {
 			rm = new RatingModel(activeRating);
-			System.out.println("DOmain object: " + rm.getBeer().getDomainObject());
 		} catch (NotFoundException e) {
 			e.printStackTrace();
 		} catch (WrongNodeTypeException e) {
@@ -147,7 +144,6 @@ public class DBUtilTest extends DBTest {
 		}
 		RatingModel.create(3, bm, um);
 		final Node activeRating = DBUtil.getActiveUserRatingForBeer(28, "saeufer");
-		System.out.println("new active rating: " + activeRating);
 		Assert.assertNotSame(activeRating.getId(), 59L);
 	}
 
