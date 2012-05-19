@@ -19,9 +19,7 @@ public class RatingModelTest extends DBTest {
 	 */
 	@Test
 	public void getRatingByNodeTest() {
-		System.out.println("begin");
 		final Node ratingNode = DBUtil.getNodeById(55);
-		System.out.println("rating node:" + ratingNode);
 		RatingModel rm = null;
 		try {
 			rm = new RatingModel(ratingNode);

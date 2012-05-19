@@ -9,7 +9,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.NotFoundException;
-import org.restlet.resource.ClientResource;
 
 import ch.hsr.bieridee.config.NodeProperty;
 import ch.hsr.bieridee.config.NodeType;
@@ -33,8 +32,8 @@ public class ConsumptionListResourceTest extends ResourceTest {
 	 */
 	@Test
 	public void createConsumption() {
-		final ClientResource cl = new ClientResource(Res.PUBLIC_API_URL + "/beers/30/consumptions/alki");
-		cl.post(null);
+		final String uri = Res.PUBLIC_API_URL + "/beers/30/consumptions/alki";
+		this.postJson(uri, new JSONObject());
 
 		final List<Node> consumptionNodes = DBUtil.getTimeLine(1,0);
 		final Node consumptionNode = consumptionNodes.get(0);

@@ -145,7 +145,6 @@ public final class Main {
 			public void run() {
 				graphDb.shutdown();
 				SRV.stop();
-				System.out.println("Shutdown hook called");
 			}
 		});
 	}
