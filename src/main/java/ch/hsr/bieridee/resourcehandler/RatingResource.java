@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.neo4j.graphdb.NotFoundException;
 import org.neo4j.server.rest.web.NodeNotFoundException;
+import org.restlet.data.Status;
 import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
@@ -80,6 +81,8 @@ public class RatingResource extends ServerResource {
 
 		final JSONObject newAverageRating = new JSONObject();
 		newAverageRating.put(NodeProperty.Beer.AVERAGE_RATING, beerModel.getAverageRatingShortened());
+
+		setStatus(Status.SUCCESS_CREATED);
 		return new JsonRepresentation(newAverageRating.toString());
 	}
 
