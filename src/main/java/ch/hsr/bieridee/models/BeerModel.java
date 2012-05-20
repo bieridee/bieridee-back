@@ -289,4 +289,11 @@ public class BeerModel extends AbstractModel {
 		return models;
 	}
 
+	/**
+	 * Removes the Beermodel from the database.
+	 */
+	public void delete() {
+		
+	}
+
 }

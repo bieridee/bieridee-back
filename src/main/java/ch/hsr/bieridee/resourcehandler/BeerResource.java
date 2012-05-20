@@ -1,6 +1,7 @@
 package ch.hsr.bieridee.resourcehandler;
 
 import org.apache.commons.lang.NotImplementedException;
+import org.neo4j.graphdb.NotFoundException;
 import org.neo4j.server.rest.web.NodeNotFoundException;
 import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
@@ -11,6 +12,7 @@ import ch.hsr.bieridee.config.Res;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.BeerModel;
 import ch.hsr.bieridee.resourcehandler.interfaces.IDocumentResource;
+import ch.hsr.bieridee.utils.DBUtil;
 
 /**
  * Beer resource.
@@ -42,8 +44,9 @@ public class BeerResource extends ServerResource implements IDocumentResource {
 	}
 
 	@Override
-	public void remove(Representation rep) {
-		System.out.println("remove called: "+rep);
+	public void remove() throws NotFoundException, WrongNodeTypeException {
+		BeerModel bm = new BeerModel(this.beerId);
+		bm.delete();
 	}
 
 }

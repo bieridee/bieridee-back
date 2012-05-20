@@ -1,5 +1,6 @@
 package ch.hsr.bieridee.resourcehandler.interfaces;
 
+import org.neo4j.graphdb.NotFoundException;
 import org.neo4j.server.rest.web.NodeNotFoundException;
 import org.restlet.representation.Representation;
 import org.restlet.resource.Get;
@@ -31,7 +32,9 @@ public interface IDocumentResource {
 	/**
 	 * Delete a document.
 	 * @param rep Representation of the document to delete.
+	 * @throws WrongNodeTypeException 
+	 * @throws NotFoundException 
 	 */
 	@Delete
-	void remove(Representation rep);
+	void remove() throws NotFoundException, WrongNodeTypeException;
 }

@@ -43,7 +43,7 @@ public class BreweryResource extends ServerResource implements IDocumentResource
 	}
 
 	@Override
-	public void remove(Representation rep) {
+	public void remove() {
 		throw new NotImplementedException(); // TODO
 	}
 

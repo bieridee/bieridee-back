@@ -43,7 +43,7 @@ public class BeertypeResource extends ServerResource implements IDocumentResourc
 	}
 
 	@Override
-	public void remove(Representation rep) {
+	public void remove() {
 		throw new NotImplementedException(); // TODO
 	}
 
