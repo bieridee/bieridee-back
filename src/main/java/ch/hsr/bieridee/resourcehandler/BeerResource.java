@@ -49,8 +49,8 @@ public class BeerResource extends ServerResource implements IDocumentResource {
 
 		final String brand = beerJson.getString("brand");
 		final String name = beerJson.getString("name");
-		final long beertypeId = beerJson.getJSONObject("beertype").getLong("beertype");
-		final long breweryId = beerJson.getJSONObject("brewery").getLong("brewery");
+		final long beertypeId = beerJson.getLong("beertype");
+		final long breweryId = beerJson.getLong("brewery");
 
 		final BeerModel bm = new BeerModel(this.beerId);
 		final BreweryModel breweryModel = new BreweryModel(breweryId);
