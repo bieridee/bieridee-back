@@ -419,4 +419,13 @@ public final class DBUtil {
 	public static List<String> getAllBrands() {
 		return Cypher.executeAndGetStrings(Cypherqueries.GET_ALL_BRANDS, "Brand");
 	}
+	
+	/**
+	 * Gets the "Unknown-Node" for a specific type.
+	 * @param type Nodetype
+	 * @return The "Unknown-Node"
+	 */
+	public static Node getUnknownNode(String type) {
+		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_UNKNOWN_NODE, "unknown", type);
+	}
 }

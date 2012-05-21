@@ -61,4 +61,44 @@ public class BeerListResourceTest extends ResourceTest {
 		}
 	}
 	
+	/**
+	 * Tests the creation of a beer with unknown brewery and beertype.
+	 */
+	@Test
+	public void createBeerWithUnknownBreweryAndBeertype() {
+		final String name = "Nastro Azzurro";
+		final String brand = "Azzurro";
+		
+		final JSONObject newBeerJson = new JSONObject();
+		try {
+			newBeerJson.put("name", name);
+			newBeerJson.put("brand", brand);
+			newBeerJson.put("unknownbrewery", true);
+			newBeerJson.put("unknownbeertype", true);
+		} catch (JSONException e) {
+			Assert.fail();
+			e.printStackTrace();
+		}
+		
+		final String uri = Res.PUBLIC_API_URL + Res.BEER_COLLECTION;
+		final String newBeerJSONString = postJson(uri, newBeerJson);
+		
+		try {
+			final JSONObject beer = new JSONObject(newBeerJSONString);
+			
+			Assert.assertEquals(name, beer.getString("name"));
+			Assert.assertEquals(brand, beer.getString("brand"));
+			
+			Assert.assertEquals(true, beer.getJSONObject("brewery").getBoolean("unknown"));
+			Assert.assertEquals(true, beer.getJSONObject("beertype").getBoolean("unknown"));
+			
+		} catch (JSONException e) {
+			Assert.fail();
+			e.printStackTrace();
+		} catch (NotFoundException e) {
+			Assert.fail();
+			e.printStackTrace();
+		}
+	}
+	
 }
