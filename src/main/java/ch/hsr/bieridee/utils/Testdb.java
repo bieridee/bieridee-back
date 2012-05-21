@@ -265,9 +265,9 @@ public final class Testdb {
 
 			/* CREATE USERS */
 
-			final Node danilo = createUser(db, "danilo", "bargen", "bargi@beer.ch", "saeufer", "$2$10$da9f6713671da24a575ffOvGAfpamSEapYskRCFoDkKGRc4bl4Qzu");
-			final Node jonas = createUser(db, "jonas", "furrer", "jonas@beer.ch", "alki", getSHA1("ILIKECOFFEE"));
-			final Node chrigi = createUser(db, "chrigi", "fässler", "chrigi@beer.ch", "trinker", getSHA1("DjBobo"));
+			final Node danilo = createUser(db, "danilo", "bargen", "bargi@beer.ch", "saeufer", "$2$10$357b306e9593a80fb8241uBaNyWsVkUkNokf0hnkoqhAsxNhJgK2i");
+			final Node jonas = createUser(db, "jonas", "furrer", "jonas@beer.ch", "alki", "$2$10$582c567e42c6ebf719891uLa7l5b3qWwl.Ma//pS3JypF2WJkDTMi");
+			final Node chrigi = createUser(db, "chrigi", "fässler", "chrigi@beer.ch", "trinker", "$2$10$2f8ed556165a7642f0a9eu3I4DaCM35Gzo043e6wd16TFangjzvE6");
 			final Node urs = createUser(db, "urs", "baumann", "urs@beer.ch", "uese", getSHA1("creat user : user with password"));
 
 			userIndex.createRelationshipTo(danilo, RelType.INDEXES);

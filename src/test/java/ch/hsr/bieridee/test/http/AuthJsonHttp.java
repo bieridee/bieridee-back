@@ -19,10 +19,9 @@ public final class AuthJsonHttp {
 	 * @return HttpHelper instance
 	 */
 	public static HttpHelper create() {
-		final HttpHelper httpHelper = new HttpHelper();
-		httpHelper.addRequestProcessor(new AcceptRequestProcessor(AcceptRequestProcessor.ContentType.JSON));
-		httpHelper.addRequestProcessor(new HMACAuthRequestProcessor());
-		return httpHelper;
+		final String username = "testuser";
+		final String password = "$2$10$ae5deb822e0d719929004uD0KL0l5rHNCSFKcfBvoTzG5Og6O/Xxu";
+		return create(username, password);
 	}
 
 	/**

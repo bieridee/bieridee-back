@@ -46,7 +46,6 @@ public class BreweryListResourceTest extends ResourceTest {
 		final String breweryJSONString = this.postJson(uri, breweryJSON);
 		try {
 			final JSONObject responseObject = new JSONObject(breweryJSONString);
-			System.out.println("brewery id was: "+responseObject.getLong("id"));
 			final BreweryModel bm = new BreweryModel(responseObject.getLong("id"));
 
 			Assert.assertEquals(responseObject.getString("name"), name);
@@ -78,7 +77,6 @@ public class BreweryListResourceTest extends ResourceTest {
 		final JSONArray array = this.getJSONArray(uri);
 		try {
 			final BreweryModel bm = new BreweryModel(71);
-			System.out.println("brewery: "+bm);
 			final JSONObject locher = array.getJSONObject(0);
 			Assert.assertEquals(bm.getName(), locher.getString("name"));
 			Assert.assertEquals(bm.getDescription(), locher.getString("description"));
