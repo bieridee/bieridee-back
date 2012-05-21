@@ -1,6 +1,10 @@
 package ch.hsr.bieridee.resourcehandler;
 
+import java.io.IOException;
+
 import org.apache.commons.lang.NotImplementedException;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.neo4j.graphdb.NotFoundException;
 import org.neo4j.server.rest.web.NodeNotFoundException;
 import org.restlet.ext.jackson.JacksonRepresentation;
@@ -39,8 +43,15 @@ public class BeerResource extends ServerResource implements IDocumentResource {
 	}
 
 	@Override
-	public void store(Representation rep) {
-		throw new NotImplementedException(); // TODO
+	public void store(Representation rep) throws JSONException, IOException, NotFoundException, WrongNodeTypeException {
+		System.out.println("update for beer "+this.beerId+ " called");
+		final JSONObject beerJson = new JSONObject(rep.getText());
+		final String brand = beerJson.getString("brand");
+		final String name = beerJson.getString("name");
+		final BeerModel bm = new BeerModel(this.beerId);
+		bm.setName(name);
+		bm.setBrand(brand);
+
 	}
 
 	@Override

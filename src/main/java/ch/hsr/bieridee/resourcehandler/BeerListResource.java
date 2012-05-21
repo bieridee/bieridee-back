@@ -48,7 +48,7 @@ public class BeerListResource extends ServerResource implements ICollectionResou
 
 	@Override
 	public Representation store(Representation beer) throws JSONException, IOException, NotFoundException, WrongNodeTypeException {
-		
+		System.out.println("called update on list resource");
 		final JSONObject beerJson = new JSONObject(beer.getText());
 
 		final String name = beerJson.getString("name");
