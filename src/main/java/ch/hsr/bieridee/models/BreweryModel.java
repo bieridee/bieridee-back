@@ -56,6 +56,7 @@ public class BreweryModel extends AbstractModel {
 		final String picture = (String) this.node.getProperty("picture");
 		this.domainObject = new Brewery(name, size, description, picture);
 		this.setId(id);
+
 	}
 
 	private BreweryModel(String name, String description, String picture, String size) {
@@ -66,6 +67,10 @@ public class BreweryModel extends AbstractModel {
 		this.setSize(size);
 		this.setDescription(description);
 		this.setPicture(picture);
+	}
+
+	public boolean isUnknown() {
+		return this.node.hasProperty(NodeProperty.UNKOWNNODE);
 	}
 
 	public Brewery getDomainObject() {
@@ -176,6 +181,19 @@ public class BreweryModel extends AbstractModel {
 	 */
 	public static BreweryModel create(String name, String description, String picture, String size) {
 		return new BreweryModel(name, description, picture, size);
+	}
+
+	/**
+	 * Gets the BreweryModel for an unknown brewery.
+	 * 
+	 * @return The mysterious unknown brewery
+	 * @throws NotFoundException
+	 *             Thrown if a node is not existant
+	 * @throws WrongNodeTypeException
+	 *             Thrown if a node is not of the desired type
+	 */
+	public static BreweryModel getUnknown() throws NotFoundException, WrongNodeTypeException {
+		return new BreweryModel(DBUtil.getUnknownNode(NodeType.BREWERY));
 	}
 
 }

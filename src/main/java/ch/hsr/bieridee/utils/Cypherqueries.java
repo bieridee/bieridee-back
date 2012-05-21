@@ -57,4 +57,7 @@ public final class Cypherqueries {
 
 	// Beertype
 	public static final String GET_BEERTYPE_INDEX_NODE = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_BEERTYPE]->BEERTYPE_INDEX RETURN BEERTYPE_INDEX";
-}
+
+	// Unknown
+	public static final String GET_UNKNOWN_NODE = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_UNKNOWN]->()-[:INDEXES]->unknown WHERE unknown.type = \'$$\' RETURN unknown";
+}                                                  

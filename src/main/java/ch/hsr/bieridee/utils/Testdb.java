@@ -411,7 +411,6 @@ public final class Testdb {
 			rootNode.createRelationshipTo(activeRatingIndex, RelType.INDEX_ACTIVERATINGINDEX);
 
 			activeRatingIndex.createRelationshipTo(rating6, RelType.INDEXES_ACTIVE);
-			System.out.println("rating 6 is on node : " + rating6 + " and beer on node: " + feldschloesschen);
 			activeRatingIndex.createRelationshipTo(rating1, RelType.INDEXES_ACTIVE);
 			activeRatingIndex.createRelationshipTo(rating2, RelType.INDEXES_ACTIVE);
 			activeRatingIndex.createRelationshipTo(rating3, RelType.INDEXES_ACTIVE);
@@ -420,7 +419,21 @@ public final class Testdb {
 			/* CREATE TESTUSER */
 			final Node testuser = createUser(db, "Test", "User", "test@nusszipfel.com", "testuser", "$2$10$ae5deb822e0d719929004uD0KL0l5rHNCSFKcfBvoTzG5Og6O/Xxu");
 			userIndex.createRelationshipTo(testuser, RelType.INDEXES);
-
+			
+			/* CREATE MISTERIOUS UNKNOWN NODES */
+			final Node unknownIdex = db.createNode();
+			rootNode.createRelationshipTo(unknownIdex, RelType.INDEX_UNKNOWN);
+			
+			final Node unknownBrewery = createBrewery(db, "Unknown", "international", "Nothing is known about this misterious brewery. It seems to be totally unknown!", "");
+			unknownBrewery.setProperty("unknownnode", true);
+			unknownIdex.createRelationshipTo(unknownBrewery, RelType.INDEXES);
+			// not connected to breweryindex, to hide in lists
+			
+			final Node unknownBeertype = createBeertype(db, "Unknown", "This is a very strange type of beer, nobody knows it. Maybe it has a hilariously strange taste.");
+			unknownBeertype.setProperty("unknownnode", true);
+			unknownIdex.createRelationshipTo(unknownBeertype, RelType.INDEXES);
+			// not connected to beertypeindex, to hide in lists
+			
 			transaction.success();
 		} finally {
 			transaction.finish();
