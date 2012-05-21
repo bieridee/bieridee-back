@@ -28,13 +28,14 @@ public interface IDocumentResource {
 	/**
 	 * Update or create a document.
 	 * @param rep Representation of the document to store.
+	 * @return 
 	 * @throws IOException 
 	 * @throws JSONException 
 	 * @throws WrongNodeTypeException 
 	 * @throws NotFoundException 
 	 */
 	@Put
-	void store(Representation rep) throws JSONException, IOException, NotFoundException, WrongNodeTypeException;
+	Representation store(Representation rep) throws JSONException, IOException, NotFoundException, WrongNodeTypeException;
 	
 	/**
 	 * Delete a document.

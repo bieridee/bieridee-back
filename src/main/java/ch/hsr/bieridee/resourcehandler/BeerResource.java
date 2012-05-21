@@ -15,8 +15,9 @@ import ch.hsr.bieridee.config.Config;
 import ch.hsr.bieridee.config.Res;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.BeerModel;
+import ch.hsr.bieridee.models.BeertypeModel;
+import ch.hsr.bieridee.models.BreweryModel;
 import ch.hsr.bieridee.resourcehandler.interfaces.IDocumentResource;
-import ch.hsr.bieridee.utils.DBUtil;
 
 /**
  * Beer resource.
@@ -43,21 +44,32 @@ public class BeerResource extends ServerResource implements IDocumentResource {
 	}
 
 	@Override
-	public void store(Representation rep) throws JSONException, IOException, NotFoundException, WrongNodeTypeException {
-		System.out.println("update for beer "+this.beerId+ " called");
+	public Representation store(Representation rep) throws JSONException, IOException, NotFoundException, WrongNodeTypeException {
 		final JSONObject beerJson = new JSONObject(rep.getText());
+
 		final String brand = beerJson.getString("brand");
 		final String name = beerJson.getString("name");
+		final long beertypeId = beerJson.getJSONObject("beertype").getLong("beertype");
+		final long breweryId = beerJson.getJSONObject("brewery").getLong("brewery");
+
 		final BeerModel bm = new BeerModel(this.beerId);
+		final BreweryModel breweryModel = new BreweryModel(breweryId);
+		final BeertypeModel beertypeModel = new BeertypeModel(beertypeId);
+
 		bm.setName(name);
 		bm.setBrand(brand);
+		bm.setBeertype(beertypeModel);
+		bm.setBrewery(breweryModel);
+
+		final JacksonRepresentation<BeerModel> representation = new JacksonRepresentation<BeerModel>(bm);
+		representation.setObjectMapper(Config.getObjectMapper());
+		return representation;
 
 	}
 
 	@Override
 	public void remove() throws NotFoundException, WrongNodeTypeException {
-		BeerModel bm = new BeerModel(this.beerId);
-		bm.delete();
+		throw new NotImplementedException(); // TODO
 	}
 
 }

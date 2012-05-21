@@ -38,7 +38,7 @@ public class BreweryResource extends ServerResource implements IDocumentResource
 	}
 
 	@Override
-	public void store(Representation rep) {
+	public Representation store(Representation rep) {
 		throw new NotImplementedException(); // TODO
 	}
 
