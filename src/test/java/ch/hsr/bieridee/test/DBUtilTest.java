@@ -4,16 +4,20 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.NotFoundException;
 
 import ch.hsr.bieridee.config.NodeType;
+import ch.hsr.bieridee.config.RelType;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.BeerModel;
 import ch.hsr.bieridee.models.BeertypeModel;
 import ch.hsr.bieridee.models.RatingModel;
 import ch.hsr.bieridee.models.TagModel;
 import ch.hsr.bieridee.models.UserModel;
+import ch.hsr.bieridee.utils.Cypher;
+import ch.hsr.bieridee.utils.Cypherqueries;
 import ch.hsr.bieridee.utils.DBUtil;
 
 /**
@@ -159,6 +163,19 @@ public class DBUtilTest extends DBTest {
 		}
 		Assert.fail();
 
+	}
+
+	/**
+	 * Tests if the a relation is deleted propery.
+	 */
+	@Test
+	public void deleteRelationship() {
+		final Node n = DBUtil.createNode(NodeType.TAG);
+		final Node tagIndex = Cypher.executeAndGetSingleNode(Cypherqueries.GET_TAG_INDEX, "TAG_INDEX");
+
+		Assert.assertNotNull(n.getSingleRelationship(RelType.INDEXES, Direction.INCOMING));
+		DBUtil.deleteRelationship(n, RelType.INDEXES, tagIndex, Direction.INCOMING);
+		Assert.assertNull(n.getSingleRelationship(RelType.INDEXES, Direction.INCOMING));
 	}
 
 }

@@ -452,11 +452,13 @@ public final class DBUtil {
 	 * @param node2
 	 *            end node
 	 */
-	public static void deleteRelationship(Node node, RelType hasBeertype, Node node2) {
+	public static void deleteRelationship(Node node, RelType hasBeertype, Node node2, Direction direction) {
 		final Transaction tx = DB.beginTx();
 		try {
-			final Relationship oldRelation = node.getSingleRelationship(hasBeertype, Direction.OUTGOING);
-			oldRelation.delete();
+			final Relationship oldRelation = node.getSingleRelationship(hasBeertype, direction);
+			if (oldRelation != null) {
+				oldRelation.delete();
+			}
 			tx.success();
 		} finally {
 			tx.finish();
