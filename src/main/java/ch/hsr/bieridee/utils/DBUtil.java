@@ -241,11 +241,24 @@ public final class DBUtil {
 			if (type.equals(NodeType.BREWERY)) {
 				connectBreweryNodeToIndex(newNode);
 			}
+			if (type.equals(NodeType.TAG)) {
+				connectNodeTagToIndex(newNode);
+			}
 		} finally {
 			transaction.finish();
 		}
 		return newNode;
 
+	}
+
+	private static void connectNodeTagToIndex(Node newNode) {
+		final Node indexNode = getTagIndex();
+		DBUtil.setProperty(newNode, NodeProperty.TYPE, NodeType.TAG);
+		DBUtil.createRelationship(indexNode, RelType.INDEXES, newNode);
+	}
+
+	private static Node getTagIndex() {
+		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_TAG_INDEX, "TAG_INDEX");
 	}
 
 	private static void connectBreweryNodeToIndex(Node newNode) {

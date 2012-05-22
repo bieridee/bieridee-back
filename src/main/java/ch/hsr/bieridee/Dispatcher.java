@@ -21,6 +21,7 @@ import ch.hsr.bieridee.resourcehandler.ImageResource;
 import ch.hsr.bieridee.resourcehandler.RatingResource;
 import ch.hsr.bieridee.resourcehandler.Resource42;
 import ch.hsr.bieridee.resourcehandler.TagListResource;
+import ch.hsr.bieridee.resourcehandler.TagListResourceForBeer;
 import ch.hsr.bieridee.resourcehandler.TagResource;
 import ch.hsr.bieridee.resourcehandler.TimelineResource;
 import ch.hsr.bieridee.resourcehandler.UserCredentialsResource;
@@ -57,7 +58,7 @@ public class Dispatcher extends Application {
 
 		// Attach public resources
 		rootRouter.attach(Res.USER_DOCUMENT, UserResource.class);
-
+		
 		// Add guarded resources
 		guardedRouter.attach(Res.BEER_COLLECTION, BeerListResource.class);
 		guardedRouter.attach(Res.BEER_DOCUMENT, BeerResource.class);
@@ -70,6 +71,7 @@ public class Dispatcher extends Application {
 		guardedRouter.attach(Res.BEERTYPE_DOCUMENT, BeertypeResource.class);
 		guardedRouter.attach(Res.TAG_COLLECTION, TagListResource.class);
 		guardedRouter.attach(Res.TAG_DOCUMENT, TagResource.class);
+		guardedRouter.attach(Res.TAG_COLLECTION_BEER, TagListResourceForBeer.class);
 		guardedRouter.attach(Res.USER_COLLECTION, UserListResource.class);
 		guardedRouter.attach(Res.USERCREDENTIALS_CONTROLLER, UserCredentialsResource.class);
 		guardedRouter.attach(Res.IMAGE_DOCUMENT, ImageResource.class);

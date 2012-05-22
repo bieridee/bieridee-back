@@ -63,7 +63,7 @@ public class TagModel extends AbstractModel {
 	 *            Name of the new tag
 	 */
 	private TagModel(String name) {
-		this.node = DBUtil.createNode(NodeProperty.Tag.TYPE);
+		this.node = DBUtil.createNode(NodeType.TAG);
 		this.domainObject = new Tag(this.node.getId(), name);
 		this.setName(name);
 	}
@@ -115,6 +115,10 @@ public class TagModel extends AbstractModel {
 	 */
 	public static List<TagModel> getAll() throws NotFoundException, WrongNodeTypeException {
 		final List<Node> tagNodes = DBUtil.getTagNodeList();
+		return createModelsFromNodes(tagNodes);
+	}
+
+	private static List<TagModel> createModelsFromNodes(final List<Node> tagNodes) throws WrongNodeTypeException {
 		final List<TagModel> tagModelList = new LinkedList<TagModel>();
 		for (Node n : tagNodes) {
 			tagModelList.add(new TagModel(n));
@@ -132,4 +136,10 @@ public class TagModel extends AbstractModel {
 	public static TagModel create(String name) {
 		return new TagModel(name);
 	}
+
+	public static TagModel getByName(String name) throws NotFoundException, WrongNodeTypeException {
+		Node tagNode = DBUtil.getTagByName(name);
+		return new TagModel(tagNode);
+	}
+
 }
