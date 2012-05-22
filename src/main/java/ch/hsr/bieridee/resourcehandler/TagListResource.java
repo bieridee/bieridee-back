@@ -18,7 +18,6 @@ import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.BeerModel;
 import ch.hsr.bieridee.models.TagModel;
 import ch.hsr.bieridee.resourcehandler.interfaces.ICollectionResource;
-import ch.hsr.bieridee.utils.DBUtil;
 
 /**
  * Tag list resource.
