@@ -443,7 +443,9 @@ public final class DBUtil {
 		final Transaction tx = DB.beginTx();
 		try {
 			final Relationship oldRelation = node.getSingleRelationship(hasBeertype, Direction.OUTGOING);
-			oldRelation.delete();
+			if (oldRelation != null) {
+				oldRelation.delete();
+			}
 			tx.success();
 		} finally {
 			tx.finish();
