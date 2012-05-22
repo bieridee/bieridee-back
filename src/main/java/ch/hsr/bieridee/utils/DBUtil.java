@@ -419,13 +419,36 @@ public final class DBUtil {
 	public static List<String> getAllBrands() {
 		return Cypher.executeAndGetStrings(Cypherqueries.GET_ALL_BRANDS, "Brand");
 	}
-	
+
 	/**
 	 * Gets the "Unknown-Node" for a specific type.
-	 * @param type Nodetype
+	 * 
+	 * @param type
+	 *            Nodetype
 	 * @return The "Unknown-Node"
 	 */
 	public static Node getUnknownNode(String type) {
 		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_UNKNOWN_NODE, "unknown", type);
+	}
+
+	/**
+	 * @param node
+	 *            Start node
+	 * @param hasBeertype
+	 *            Relationship type (edge)
+	 * @param node2
+	 *            end node
+	 */
+	public static void deleteRelationship(Node node, RelType hasBeertype, Node node2) {
+		final Transaction tx = DB.beginTx();
+		try {
+			final Relationship oldRelation = node.getSingleRelationship(hasBeertype, Direction.OUTGOING);
+			if (oldRelation != null) {
+				oldRelation.delete();
+			}
+			tx.success();
+		} finally {
+			tx.finish();
+		}
 	}
 }
