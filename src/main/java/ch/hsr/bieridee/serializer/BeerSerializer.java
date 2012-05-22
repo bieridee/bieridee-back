@@ -18,9 +18,9 @@ import ch.hsr.bieridee.models.TagModel;
  * Json Serializer for the beer domain class.
  */
 public class BeerSerializer extends JsonSerializer<BeerModel> {
-	
+
 	private static final Logger LOG = Logger.getLogger(BeerSerializer.class);
-	
+
 	@Override
 	public void serialize(BeerModel beer, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
 
@@ -31,10 +31,10 @@ public class BeerSerializer extends JsonSerializer<BeerModel> {
 		jsonGenerator.writeStringField("brand", beer.getBrand());
 
 		jsonGenerator.writeNumberField("rating", beer.getAverageRatingShortened());
-	
+
 		try {
 			jsonGenerator.writeObjectFieldStart("brewery");
-			if(beer.getBrewery().isUnknown()) {
+			if (beer.getBrewery().isUnknown()) {
 				jsonGenerator.writeBooleanField("unknown", true);
 			} else {
 				jsonGenerator.writeNumberField("id", beer.getBrewery().getId());
@@ -50,7 +50,7 @@ public class BeerSerializer extends JsonSerializer<BeerModel> {
 
 		try {
 			jsonGenerator.writeObjectFieldStart("beertype");
-			if(beer.getBeertype().isUnknown()) {
+			if (beer.getBeertype().isUnknown()) {
 				jsonGenerator.writeBooleanField("unknown", true);
 			} else {
 				jsonGenerator.writeNumberField("id", beer.getBeertype().getId());
