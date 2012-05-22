@@ -56,7 +56,7 @@ public class TagResourceTest extends ResourceTest {
 		BeerModel bm = null;
 		try {
 			final TagModel shouldContain = new TagModel(DBUtil.getTagByName(name));
-			bm = new BeerModel(28);
+			bm = new BeerModel(beerId);
 			if (!bm.getTagModels().contains(shouldContain)) {
 				Assert.fail("Tag was not added to Beer!");
 			}
@@ -69,9 +69,13 @@ public class TagResourceTest extends ResourceTest {
 		}
 	}
 
+	/**
+	 * Create a tag with an already existing name.
+	 */
 	@Test
 	public void createAlreadyExistingTag() {
 		final long beerId = 28;
+		final long tagId = 47;
 		final String name = "hell";
 
 		final JSONObject newBeerJson = new JSONObject();
@@ -87,38 +91,42 @@ public class TagResourceTest extends ResourceTest {
 		try {
 			tagObject = new JSONObject(newTagJSONString);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Assert.assertEquals(47L, tagObject.optLong("id"));
+		Assert.assertEquals(tagId, tagObject.optLong("id"));
 
 	}
 
+	/**
+	 * 
+	 */
 	@Test
 	public void obtainAllTagsForBeer() {
+		
+		final long beerId = 28;
 
 		final JSONArray tagArray = getJSONArray(Res.PUBLIC_API_URL + Res.BEER_COLLECTION + "/28" + Res.TAG_COLLECTION);
 		BeerModel bm;
 		List<TagModel> tagModelsfromJSON = null;
 		List<TagModel> tagModel = null;
 		try {
-			bm = new BeerModel(28);
+			bm = new BeerModel(beerId);
 			tagModel = bm.getTagModels();
 			tagModelsfromJSON = new LinkedList<TagModel>();
 			for (int i = 0; i < tagArray.length(); ++i) {
-				JSONObject tagObj = tagArray.getJSONObject(i);
-				long id = tagObj.optLong("id");
+				final JSONObject tagObj = tagArray.getJSONObject(i);
+				final long id = tagObj.optLong("id");
 				tagModelsfromJSON.add(new TagModel(id));
 			}
 		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Assert.fail();
 		} catch (WrongNodeTypeException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Assert.fail();
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Assert.fail();
 		}
 		Assert.assertTrue(tagModel.containsAll(tagModelsfromJSON));
 	}
