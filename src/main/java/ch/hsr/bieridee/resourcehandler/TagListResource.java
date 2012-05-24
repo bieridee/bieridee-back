@@ -14,6 +14,7 @@ import org.restlet.resource.ServerResource;
 
 import ch.hsr.bieridee.config.Config;
 import ch.hsr.bieridee.config.Res;
+import ch.hsr.bieridee.exceptions.InvalidRequestException;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.BeerModel;
 import ch.hsr.bieridee.models.TagModel;
@@ -55,7 +56,12 @@ public class TagListResource extends ServerResource implements ICollectionResour
 	}
 
 	@Override
-	public Representation store(Representation rep) throws JSONException, IOException, NotFoundException, WrongNodeTypeException {
+	public Representation store(Representation rep) throws JSONException, IOException, NotFoundException, WrongNodeTypeException, InvalidRequestException {
+		if(this.beerId == NOT_EXISTING){
+			throw new InvalidRequestException("Invalid Beerid");
+		}
+		final BeerModel bm = new BeerModel(this.beerId);
+		
 		final JSONObject tagJSON = new JSONObject(rep.getText());
 		final String value = tagJSON.getString("value");
 		TagModel tagModel;
@@ -64,8 +70,7 @@ public class TagListResource extends ServerResource implements ICollectionResour
 		} catch (NotFoundException e) {
 			tagModel = TagModel.create(value);
 		}
-
-		final BeerModel bm = new BeerModel(this.beerId);
+		
 		bm.addTag(tagModel);
 		final JacksonRepresentation<TagModel> tagJacksonRep = new JacksonRepresentation<TagModel>(tagModel);
 		tagJacksonRep.setObjectMapper(Config.getObjectMapper());
