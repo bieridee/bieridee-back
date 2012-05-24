@@ -25,6 +25,7 @@ import ch.hsr.bieridee.resourcehandler.interfaces.ICollectionResource;
  */
 public class TagListResource extends ServerResource implements ICollectionResource {
 	private long beerId;
+	private static final int NOT_EXISTING = -1;
 
 	@Override
 	public void doInit() {
@@ -32,14 +33,14 @@ public class TagListResource extends ServerResource implements ICollectionResour
 		if (param != null) {
 			this.beerId = Long.parseLong(param);
 		} else {
-			this.beerId = 0;
+			this.beerId = NOT_EXISTING;
 		}
 	}
 
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
 		List<TagModel> tagModels = null;
-		if (this.beerId > 0) {
+		if (this.beerId > NOT_EXISTING) {
 			final BeerModel bm = new BeerModel(this.beerId);
 			tagModels = bm.getTagModels();
 		} else {
