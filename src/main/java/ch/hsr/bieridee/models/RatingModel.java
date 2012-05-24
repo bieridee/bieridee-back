@@ -1,6 +1,8 @@
 package ch.hsr.bieridee.models;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.NotFoundException;
@@ -98,6 +100,20 @@ public class RatingModel extends AbstractActionModel {
 	public static RatingModel getCurrent(BeerModel beerModel, UserModel userModel) throws NotFoundException, WrongNodeTypeException {
 		final Node ratingNode = DBUtil.getActiveUserRatingForBeer(beerModel.getId(), userModel.getUsername());
 		return new RatingModel(ratingNode);
+	}
+
+	/**
+	 * @param ratingNodes
+	 * @return
+	 * @throws NotFoundException
+	 * @throws WrongNodeTypeException
+	 */
+	public static List<RatingModel> createModelsFromNodes(List<Node> ratingNodes) throws NotFoundException, WrongNodeTypeException {
+		List<RatingModel> ratingModels = new LinkedList<RatingModel>();
+		for(Node node : ratingNodes){
+			ratingModels.add(new RatingModel(node));
+		}
+		return ratingModels;
 	}
 
 }

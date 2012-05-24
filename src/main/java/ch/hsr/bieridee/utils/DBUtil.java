@@ -399,8 +399,8 @@ public final class DBUtil {
 	 *            number of maximal items returned
 	 * @return List containing the beer nodes the user rated
 	 */
-	public static List<Node> getBeersRatedByUser(String username, int limit) {
+	public static List<Node> getBeersRatedByUser(String username) {
 		final Node userNode = DBUtil.getUserByName(username);
-		return Cypher.executeAndGetNodes(Cypherqueries.GET_USER_RATED_BEERS, "Beer", limit, userNode.getId() + "");
+		return Cypher.executeAndGetNodes(Cypherqueries.GET_USER_RATED_BEERS, "Beer", userNode.getId() + "");
 	}
 }

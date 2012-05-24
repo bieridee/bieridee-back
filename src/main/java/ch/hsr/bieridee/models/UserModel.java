@@ -179,4 +179,8 @@ public class UserModel extends AbstractModel {
 		return DBUtil.doesUserExist(username);
 	}
 
+	public long getId() {
+		return this.node.getId();
+	}
+
 }

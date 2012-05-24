@@ -112,4 +112,8 @@ public class BeertypeModel extends AbstractModel {
 		return beertypeModels;
 	}
 
+	@Override
+	public int hashCode() {
+		return new Long(this.node.getId()).hashCode();
+	}
 }
