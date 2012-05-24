@@ -72,14 +72,14 @@ public class BarcodeModel extends AbstractModel {
 
 	// SUPPRESS CHECKSTYLE: setter
 	public void setCode(String code) {
-		this.domainObject.setCode(code);
 		DBUtil.setProperty(this.node, NodeProperty.Barcode.CODE, code);
+		this.domainObject.setCode(code);
 	}
 
 	// SUPPRESS CHECKSTYLE: setter
 	public void setFormat(String format) {
-		this.domainObject.setFormat(format);
 		DBUtil.setProperty(this.node, NodeProperty.Barcode.FORMAT, format);
+		this.domainObject.setFormat(format);
 	}
 
 	/**
