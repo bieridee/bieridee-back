@@ -123,6 +123,17 @@ public final class DBUtil {
 	}
 
 	/**
+	 * Gets a neo4j beer node by the barcode.
+	 *
+	 * @param barcode
+	 *            A barcode of the beer
+	 * @return The beer associated with the given barcode or <code>null</code> if not found
+	 */
+	public static Node getBeerByBarcode(String barcode) {
+		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_BEER_BY_BARCODE, "Beer", barcode);
+	}
+
+	/**
 	 * Gets a neo4j tag node by the name of the tag.
 	 * 
 	 * @param name
@@ -241,6 +252,9 @@ public final class DBUtil {
 			if (type.equals(NodeType.BREWERY)) {
 				connectBreweryNodeToIndex(newNode);
 			}
+			if (type.equals(NodeType.BARCODE)) {
+				connectBarcodeNodeToIndex(newNode);
+			}
 		} finally {
 			transaction.finish();
 		}
@@ -260,12 +274,22 @@ public final class DBUtil {
 		DBUtil.createRelationship(indexNode, RelType.INDEXES, newNode);
 	}
 
+	private static void connectBarcodeNodeToIndex(Node newNode) {
+		final Node indexNode = getBarcodeIndex();
+		DBUtil.setProperty(newNode, NodeProperty.TYPE, NodeType.BARCODE);
+		DBUtil.createRelationship(indexNode, RelType.INDEXES, newNode);
+	}
+
 	private static Node getBreweryIndex() {
 		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_BREWERY_INDEX_NODE, "BREWERY_INDEX");
 	}
 
 	private static Node getBeertypeIndex() {
 		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_BEERTYPE_INDEX_NODE, "BEERTYPE_INDEX");
+	}
+
+	private static Node getBarcodeIndex() {
+		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_BARCODE_INDEX_NODE, "BARCODE_INDEX");
 	}
 
 	/**
@@ -427,5 +451,9 @@ public final class DBUtil {
 	 */
 	public static Node getUnknownNode(String type) {
 		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_UNKNOWN_NODE, "unknown", type);
+	}
+
+	public static Node getNodeByBarcode(String barcode) {
+		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_BARCODE_NODE, "barcode", barcode);
 	}
 }

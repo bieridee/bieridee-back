@@ -368,26 +368,13 @@ public final class Testdb {
 
 			/* CREATE BREWRIES */
 
-			/*
-			 * final Node guinness = createBeerNode(db, "Guinness", "Guinness Draught", ""); final Node kilkenny =
-			 * createBeerNode(db, "Kilkenny", "Kilkenny", ""); final Node quoellfrisch = createBeerNode(db,
-			 * "Appenzeller Bier", "Quöllfrisch blond", ""); final Node vollmond = createBeerNode(db,
-			 * "Appenzeller Bier", "Vollmond Bier blond", ""); final Node holzfass = createBeerNode(db,
-			 * "Appenzeller Bier", "Holzfass Bier", "");
-			 */
-
 			final Node calandaAg = createBrewery(db, "Calanda", "national", "Calanda ist eine schweizer Traditions-Brauerei. Gegründet wurde sie im Jahre...", "");
 			final Node feldschloesschenAg = createBrewery(db, "Felschlösschen", "national", "Feldschlösschen ist eine gesichtslose und gänzlich uninspirierte Brauerei. Sie wurde im Jahre ...", "");
 			final Node falkenAg = createBrewery(db, "Falken Brauerei", "regional", "Falke, der. Ein majestätischer Jagdvogel, besonders beliebt bei Grafen und Baronen.", "");
 			final Node waedibraeuAg = createBrewery(db, "Wädibräu", "regional", "Eine kleine aber feine regional Brauerei. Wädibräu stellt Bier in rauen Mengen her und hat noch lange nicht genug.", "");
 			final Node guinnessBrewery = createBrewery(db, "Guinness Brewery", "national", "Wurde von Arthur Guinness im Jahr 1759 in Dublin gegründet.", "");
 			final Node stFrancisAbbeyBrewery = createBrewery(db, "St. Francis Abbey Brewery", "national", "Die älteste irische Brauerei, welche unter Anderem das Kilkenny Bier braut.", "");
-			final Node locherAg = createBrewery(
-					db,
-					"Brauerei Locher AG",
-					"national",
-					"Die Brauerei Locher ist ein traditionsreicher Familienbetrieb in Appenzell. Seit Mitte der 1990er Jahre entwickelte sie sich von einer nur lokal aktiven zu einer in der ganzen Schweiz (und darüber hinaus) bekannten Brauerei für innovative Spezialbiere.",
-					"");
+			final Node locherAg = createBrewery(db, "Brauerei Locher AG", "national", "Die Brauerei Locher ist ein traditionsreicher Familienbetrieb in Appenzell. Seit Mitte der 1990er Jahre entwickelte sie sich von einer nur lokal aktiven zu einer in der ganzen Schweiz (und darüber hinaus) bekannten Brauerei für innovative Spezialbiere.", "");
 
 			breweryIndex.createRelationshipTo(calandaAg, RelType.INDEXES);
 			breweryIndex.createRelationshipTo(feldschloesschenAg, RelType.INDEXES);
@@ -417,22 +404,36 @@ public final class Testdb {
 			activeRatingIndex.createRelationshipTo(rating4, RelType.INDEXES_ACTIVE);
 
 			/* CREATE TESTUSER */
+
 			final Node testuser = createUser(db, "Test", "User", "test@nusszipfel.com", "testuser", "$2$10$ae5deb822e0d719929004uD0KL0l5rHNCSFKcfBvoTzG5Og6O/Xxu");
 			userIndex.createRelationshipTo(testuser, RelType.INDEXES);
 			
 			/* CREATE MISTERIOUS UNKNOWN NODES */
+
 			final Node unknownIdex = db.createNode();
 			rootNode.createRelationshipTo(unknownIdex, RelType.INDEX_UNKNOWN);
 			
 			final Node unknownBrewery = createBrewery(db, "Unknown", "international", "Nothing is known about this misterious brewery. It seems to be totally unknown!", "");
 			unknownBrewery.setProperty("unknownnode", true);
-			unknownIdex.createRelationshipTo(unknownBrewery, RelType.INDEXES);
-			// not connected to breweryindex, to hide in lists
+			unknownIdex.createRelationshipTo(unknownBrewery, RelType.INDEXES); // not connected to breweryindex, to hide in lists
 			
 			final Node unknownBeertype = createBeertype(db, "Unknown", "This is a very strange type of beer, nobody knows it. Maybe it has a hilariously strange taste.");
 			unknownBeertype.setProperty("unknownnode", true);
-			unknownIdex.createRelationshipTo(unknownBeertype, RelType.INDEXES);
-			// not connected to beertypeindex, to hide in lists
+			unknownIdex.createRelationshipTo(unknownBeertype, RelType.INDEXES); // not connected to beertypeindex, to hide in lists
+
+			/* CREATE BARCODE NODES */
+
+			final Node barcodeIndex = db.createNode();
+			rootNode.createRelationshipTo(barcodeIndex, RelType.INDEX_BARCODE);
+
+			final Node barcodeQuoellfrisch1 = createBarcode(db, "7611889110310");
+			barcodeIndex.createRelationshipTo(barcodeQuoellfrisch1, RelType.INDEXES);
+			quoellfrisch.createRelationshipTo(barcodeQuoellfrisch1, RelType.HAS_BARCODE);
+
+			final Node barcodeQuoellfrisch2 = createBarcode(db, "7611889110662", "EAN-13");
+			barcodeIndex.createRelationshipTo(barcodeQuoellfrisch2, RelType.INDEXES);
+			quoellfrisch.createRelationshipTo(barcodeQuoellfrisch2, RelType.HAS_BARCODE);
+
 			
 			transaction.success();
 		} finally {
@@ -553,6 +554,18 @@ public final class Testdb {
 		brewery.setProperty("description", description);
 		brewery.setProperty("picture", picture);
 		return brewery;
+	}
+
+	private static Node createBarcode(EmbeddedGraphDatabase db, String code) {
+		return createBarcode(db, code, "");
+	}
+
+	private static Node createBarcode(EmbeddedGraphDatabase db, String code, String format) {
+		final Node barcodeNode = db.createNode();
+		barcodeNode.setProperty("type", "barcode");
+		barcodeNode.setProperty("code", code);
+		barcodeNode.setProperty("format", code);
+		return barcodeNode;
 	}
 
 	private static String getSHA1(String pw) {

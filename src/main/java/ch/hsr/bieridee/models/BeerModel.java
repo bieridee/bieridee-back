@@ -164,6 +164,10 @@ public class BeerModel extends AbstractModel {
 		return new Double(doubleString);
 	}
 
+	public List<BarcodeModel> getBarcodeModels() {
+
+	}
+
 	// SUPPRESS CHECKSTYLE: setter
 	public void setBeertype(BeertypeModel beertypeModel) {
 		this.domainObject.setBeertype(beertypeModel.getDomainObject());

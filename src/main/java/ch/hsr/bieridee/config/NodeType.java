@@ -22,4 +22,6 @@ public final class NodeType {
 	public static final String CONSUMPTION = "consumption";
 
 	public static final String RATING = "rating";
+
+	public static final String BARCODE = "barcode";
 }
