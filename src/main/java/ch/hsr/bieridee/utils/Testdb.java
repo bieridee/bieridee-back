@@ -564,7 +564,7 @@ public final class Testdb {
 		final Node barcodeNode = db.createNode();
 		barcodeNode.setProperty("type", "barcode");
 		barcodeNode.setProperty("code", code);
-		barcodeNode.setProperty("format", code);
+		barcodeNode.setProperty("format", format);
 		return barcodeNode;
 	}
 

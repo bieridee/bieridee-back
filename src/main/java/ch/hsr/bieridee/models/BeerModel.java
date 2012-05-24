@@ -164,10 +164,6 @@ public class BeerModel extends AbstractModel {
 		return new Double(doubleString);
 	}
 
-	public List<BarcodeModel> getBarcodeModels() {
-
-	}
-
 	// SUPPRESS CHECKSTYLE: setter
 	public void setBeertype(BeertypeModel beertypeModel) {
 		this.domainObject.setBeertype(beertypeModel.getDomainObject());
@@ -212,6 +208,22 @@ public class BeerModel extends AbstractModel {
 			}
 		}
 		DBUtil.createRelationship(this.node, RelType.HAS_TAG, t.getNode());
+	}
+
+	/**
+	 * Add barcode to BeerModel.
+	 * @param b BarcodeModel
+	 */
+	public void addBarcode(BarcodeModel b) {
+		Node barcodeNode = DBUtil.getOrCreateBarcodeNode(b.getCode(), b.getFormat());
+		if (barcodeNode.hasRelationship(RelType.HAS_BARCODE)) {
+			final Node beerNode = barcodeNode.getRelationships(RelType.HAS_BARCODE, Direction.INCOMING).iterator().next().getEndNode();
+			if (beerNode != this.node) {
+				throw new RuntimeException("Barcode already exists for other Beer.");
+			}
+		} else {
+			DBUtil.createRelationship(this.node, RelType.HAS_BARCODE, barcodeNode);
+		}
 	}
 
 	// SUPPRESS CHECKSTYLE: setter
@@ -292,5 +304,4 @@ public class BeerModel extends AbstractModel {
 		}
 		return models;
 	}
-
 }
