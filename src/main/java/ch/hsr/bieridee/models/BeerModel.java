@@ -167,7 +167,7 @@ public class BeerModel extends AbstractModel {
 	// SUPPRESS CHECKSTYLE: setter
 	public void setBeertype(BeertypeModel beertypeModel) {
 		this.domainObject.setBeertype(beertypeModel.getDomainObject());
-		DBUtil.deleteRelationship(this.node, RelType.HAS_BEERTYPE, beertypeModel.getNode());
+		DBUtil.deleteRelationship(this.node, RelType.HAS_BEERTYPE, beertypeModel.getNode(), Direction.OUTGOING);
 		DBUtil.createRelationship(this.node, RelType.HAS_BEERTYPE, beertypeModel.getNode());
 	}
 
@@ -180,7 +180,7 @@ public class BeerModel extends AbstractModel {
 	// SUPPRESS CHECKSTYLE: setter
 	public void setBrewery(BreweryModel breweryModel) {
 		this.domainObject.setBrewery(breweryModel.getDomainObject());
-		DBUtil.deleteRelationship(this.node, RelType.BREWN_BY, breweryModel.getNode());
+		DBUtil.deleteRelationship(this.node, RelType.BREWN_BY, breweryModel.getNode(), Direction.OUTGOING);
 		DBUtil.createRelationship(this.node, RelType.BREWN_BY, breweryModel.getNode());
 	}
 

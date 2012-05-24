@@ -241,11 +241,24 @@ public final class DBUtil {
 			if (type.equals(NodeType.BREWERY)) {
 				connectBreweryNodeToIndex(newNode);
 			}
+			if (type.equals(NodeType.TAG)) {
+				connectNodeTagToIndex(newNode);
+			}
 		} finally {
 			transaction.finish();
 		}
 		return newNode;
 
+	}
+
+	private static void connectNodeTagToIndex(Node newNode) {
+		final Node indexNode = getTagIndex();
+		DBUtil.setProperty(newNode, NodeProperty.TYPE, NodeType.TAG);
+		DBUtil.createRelationship(indexNode, RelType.INDEXES, newNode);
+	}
+
+	private static Node getTagIndex() {
+		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_TAG_INDEX, "TAG_INDEX");
 	}
 
 	private static void connectBreweryNodeToIndex(Node newNode) {
@@ -438,11 +451,13 @@ public final class DBUtil {
 	 *            Relationship type (edge)
 	 * @param node2
 	 *            end node
+	 * @param direction
+	 *            Direction in which the node is connected to node2 via RelType. From the point of view of first node.
 	 */
-	public static void deleteRelationship(Node node, RelType hasBeertype, Node node2) {
+	public static void deleteRelationship(Node node, RelType hasBeertype, Node node2, Direction direction) {
 		final Transaction tx = DB.beginTx();
 		try {
-			final Relationship oldRelation = node.getSingleRelationship(hasBeertype, Direction.OUTGOING);
+			final Relationship oldRelation = node.getSingleRelationship(hasBeertype, direction);
 			if (oldRelation != null) {
 				oldRelation.delete();
 			}

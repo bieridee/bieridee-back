@@ -39,6 +39,8 @@ public final class Res {
 	public static final String TAG_COLLECTION = "/tags";
 	public static final String TAG_REQ_ATTR = "tag-id";
 	public static final String TAG_DOCUMENT = "/tags/{" + TAG_REQ_ATTR + "}";
+	public static final String TAG_FILTER_PARAMETER_BEER = "beerId";
+	public static final String TAG_COLLECTION_BEER = BEER_DOCUMENT+ TAG_COLLECTION;
 
 	// image
 	public static final String IMAGE_COLLECTION = "/images";
@@ -71,7 +73,7 @@ public final class Res {
 
 	// brewerysize
 	public static final String BREWERYSIZE_COLLECTION = "/brewerysizes";
-	
+
 	// brands
 	public static final String BRAND_COLLECTION = "/brands";
 

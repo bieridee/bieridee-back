@@ -21,6 +21,7 @@ import ch.hsr.bieridee.resourcehandler.ImageResource;
 import ch.hsr.bieridee.resourcehandler.RatingResource;
 import ch.hsr.bieridee.resourcehandler.Resource42;
 import ch.hsr.bieridee.resourcehandler.TagListResource;
+import ch.hsr.bieridee.resourcehandler.TagListResourceForBeer;
 import ch.hsr.bieridee.resourcehandler.TagResource;
 import ch.hsr.bieridee.resourcehandler.TimelineResource;
 import ch.hsr.bieridee.resourcehandler.UserCredentialsResource;
@@ -57,26 +58,28 @@ public class Dispatcher extends Application {
 
 		// Attach public resources
 		rootRouter.attach(Res.USER_DOCUMENT, UserResource.class);
-
+		
 		// Add guarded resources
-		guardedRouter.attach(Res.BEER_COLLECTION, BeerListResource.class);
-		guardedRouter.attach(Res.BEER_DOCUMENT, BeerResource.class);
-		guardedRouter.attach(Res.RATING_DOCUMENT, RatingResource.class);
-		guardedRouter.attach(Res.CONSUMPTION_DOCUMENT, ConsumptionListResource.class);
-		guardedRouter.attach(Res.CONSUMPTION_BEER_COLLECTION, ConsumptionListResource.class);
-		guardedRouter.attach(Res.BREWERY_COLLECTION, BreweryListResource.class);
-		guardedRouter.attach(Res.BREWERY_DOCUMENT, BreweryResource.class);
-		guardedRouter.attach(Res.BEERTYPE_COLLECTION, BeertypeListResource.class);
-		guardedRouter.attach(Res.BEERTYPE_DOCUMENT, BeertypeResource.class);
-		guardedRouter.attach(Res.TAG_COLLECTION, TagListResource.class);
-		guardedRouter.attach(Res.TAG_DOCUMENT, TagResource.class);
-		guardedRouter.attach(Res.USER_COLLECTION, UserListResource.class);
-		guardedRouter.attach(Res.USERCREDENTIALS_CONTROLLER, UserCredentialsResource.class);
-		guardedRouter.attach(Res.IMAGE_DOCUMENT, ImageResource.class);
-		guardedRouter.attach(Res.TIMELINE_COLLECTION, TimelineResource.class);
-		guardedRouter.attach(Res.LOADTEST, Resource42.class);
-		guardedRouter.attach(Res.BRAND_COLLECTION, BrandListResource.class);
-		guardedRouter.attach(Res.BREWERYSIZE_COLLECTION, BrewerySizeResource.class);
+		rootRouter.attach(Res.BEER_COLLECTION, BeerListResource.class);
+		rootRouter.attach(Res.BEER_DOCUMENT, BeerResource.class);
+		rootRouter.attach(Res.RATING_DOCUMENT, RatingResource.class);
+		rootRouter.attach(Res.CONSUMPTION_DOCUMENT, ConsumptionListResource.class);
+		rootRouter.attach(Res.CONSUMPTION_BEER_COLLECTION, ConsumptionListResource.class);
+		rootRouter.attach(Res.BREWERY_COLLECTION, BreweryListResource.class);
+		rootRouter.attach(Res.BREWERY_DOCUMENT, BreweryResource.class);
+		rootRouter.attach(Res.BEERTYPE_COLLECTION, BeertypeListResource.class);
+		rootRouter.attach(Res.BEERTYPE_DOCUMENT, BeertypeResource.class);
+		rootRouter.attach(Res.TAG_COLLECTION, TagListResource.class);
+		rootRouter.attach(Res.TAG_DOCUMENT, TagResource.class);
+		rootRouter.attach(Res.TAG_COLLECTION_BEER, TagListResourceForBeer.class);
+		rootRouter.attach(Res.USER_COLLECTION, UserListResource.class);
+		rootRouter.attach(Res.USERCREDENTIALS_CONTROLLER, UserCredentialsResource.class);
+		rootRouter.attach(Res.IMAGE_DOCUMENT, ImageResource.class);
+		rootRouter.attach(Res.TIMELINE_COLLECTION, TimelineResource.class);
+		rootRouter.attach(Res.LOADTEST, Resource42.class);
+		rootRouter.attach(Res.BRAND_COLLECTION, BrandListResource.class);
+		rootRouter.attach(Res.BREWERYSIZE_COLLECTION, BrewerySizeResource.class);
+
 
 		// Create a guard
 		final ChallengeAuthenticator guard = new ChallengeAuthenticator(getContext(), BierideeHmacHelper.SCHEME, "BierIdee API");
