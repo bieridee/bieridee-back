@@ -451,6 +451,8 @@ public final class DBUtil {
 	 *            Relationship type (edge)
 	 * @param node2
 	 *            end node
+	 * @param direction
+	 *            Direction in which the node is connected to node2 via RelType. From the point of view of first node.
 	 */
 	public static void deleteRelationship(Node node, RelType hasBeertype, Node node2, Direction direction) {
 		final Transaction tx = DB.beginTx();
