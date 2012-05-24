@@ -35,14 +35,11 @@ public class RatingResourceTest extends ResourceTest {
 		}
 
 		final String uri = Helpers.buildResourceUri("/beers/33/ratings/alki");
-		final Representation responseRep = postJson(uri, rating);
+		final String avgRatingResponseString = postJson(uri, rating);
 		
 		try {
-			final JSONObject avgRating = new JSONObject(responseRep.getText());
+			final JSONObject avgRating = new JSONObject(avgRatingResponseString);
 			Assert.assertEquals(4.0, avgRating.getDouble(NodeProperty.Beer.AVERAGE_RATING));
-		} catch (IOException e) {
-			Assert.fail();
-			e.printStackTrace();
 		} catch (JSONException e) {
 			Assert.fail();
 			e.printStackTrace();

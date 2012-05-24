@@ -235,11 +235,50 @@ public final class DBUtil {
 			if (type.equals(NodeType.BEER)) {
 				connectBeerNodeToIndex(newNode);
 			}
+			if (type.equals(NodeType.BEERTYPE)) {
+				connectBeertypeNodeToIndex(newNode);
+			}
+			if (type.equals(NodeType.BREWERY)) {
+				connectBreweryNodeToIndex(newNode);
+			}
+			if (type.equals(NodeType.TAG)) {
+				connectNodeTagToIndex(newNode);
+			}
 		} finally {
 			transaction.finish();
 		}
 		return newNode;
 
+	}
+
+	private static void connectNodeTagToIndex(Node newNode) {
+		final Node indexNode = getTagIndex();
+		DBUtil.setProperty(newNode, NodeProperty.TYPE, NodeType.TAG);
+		DBUtil.createRelationship(indexNode, RelType.INDEXES, newNode);
+	}
+
+	private static Node getTagIndex() {
+		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_TAG_INDEX, "TAG_INDEX");
+	}
+
+	private static void connectBreweryNodeToIndex(Node newNode) {
+		final Node indexNode = getBreweryIndex();
+		DBUtil.setProperty(newNode, NodeProperty.TYPE, NodeType.BREWERY);
+		DBUtil.createRelationship(indexNode, RelType.INDEXES, newNode);
+	}
+
+	private static void connectBeertypeNodeToIndex(Node newNode) {
+		final Node indexNode = getBeertypeIndex();
+		DBUtil.setProperty(newNode, NodeProperty.TYPE, NodeType.BEERTYPE);
+		DBUtil.createRelationship(indexNode, RelType.INDEXES, newNode);
+	}
+
+	private static Node getBreweryIndex() {
+		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_BREWERY_INDEX_NODE, "BREWERY_INDEX");
+	}
+
+	private static Node getBeertypeIndex() {
+		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_BEERTYPE_INDEX_NODE, "BEERTYPE_INDEX");
 	}
 
 	/**
@@ -354,9 +393,7 @@ public final class DBUtil {
 			final Node activeRatingIndex = home.getSingleRelationship(RelType.INDEX_ACTIVERATINGINDEX, Direction.OUTGOING).getEndNode();
 			final Node activeRating = getActiveUserRatingForBeer(beerModel.getId(), userModel.getUsername());
 			if (activeRating != null) {
-				System.out.println("active Rating " + activeRating);
 				final Relationship rel = activeRating.getSingleRelationship(RelType.INDEXES_ACTIVE, Direction.INCOMING);
-				System.out.println("Relationship " + rel);
 				rel.delete();
 			}
 			activeRatingIndex.createRelationshipTo(node, RelType.INDEXES_ACTIVE);
@@ -402,5 +439,43 @@ public final class DBUtil {
 	public static List<Node> getBeersRatedByUser(String username) {
 		final Node userNode = DBUtil.getUserByName(username);
 		return Cypher.executeAndGetNodes(Cypherqueries.GET_USER_RATED_BEERS, "Beer", userNode.getId() + "");
+	}
+
+	public static List<String> getAllBrands() {
+		return Cypher.executeAndGetStrings(Cypherqueries.GET_ALL_BRANDS, "Brand");
+	}
+
+	/**
+	 * Gets the "Unknown-Node" for a specific type.
+	 * 
+	 * @param type
+	 *            Nodetype
+	 * @return The "Unknown-Node"
+	 */
+	public static Node getUnknownNode(String type) {
+		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_UNKNOWN_NODE, "unknown", type);
+	}
+
+	/**
+	 * @param node
+	 *            Start node
+	 * @param hasBeertype
+	 *            Relationship type (edge)
+	 * @param node2
+	 *            end node
+	 * @param direction
+	 *            Direction in which the node is connected to node2 via RelType. From the point of view of first node.
+	 */
+	public static void deleteRelationship(Node node, RelType hasBeertype, Node node2, Direction direction) {
+		final Transaction tx = DB.beginTx();
+		try {
+			final Relationship oldRelation = node.getSingleRelationship(hasBeertype, direction);
+			if (oldRelation != null) {
+				oldRelation.delete();
+			}
+			tx.success();
+		} finally {
+			tx.finish();
+		}
 	}
 }

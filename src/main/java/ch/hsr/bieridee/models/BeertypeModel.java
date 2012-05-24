@@ -57,6 +57,17 @@ public class BeertypeModel extends AbstractModel {
 		this.domainObject = new Beertype(id, name, description);
 	}
 
+	private BeertypeModel(String name, String description) {
+		this.node = DBUtil.createNode(NodeType.BEERTYPE);
+		this.domainObject = new Beertype(name, description);
+		this.setName(name);
+		this.setDescription(description);
+	}
+	
+	public boolean isUnknown() {
+		return this.node.hasProperty(NodeProperty.UNKOWNNODE);
+	}
+
 	public Beertype getDomainObject() {
 		return this.domainObject;
 	}
@@ -85,13 +96,13 @@ public class BeertypeModel extends AbstractModel {
 	// SUPPRESS CHECKSTYLE: setter
 	public void setName(String name) {
 		this.domainObject.setName(name);
-		this.node.setProperty(NodeProperty.Beertype.NAME, name);
+		DBUtil.setProperty(this.node, NodeProperty.Beertype.NAME, name);
 	}
 
 	// SUPPRESS CHECKSTYLE: setter
 	public void setDescription(String description) {
 		this.domainObject.setDescription(description);
-		this.node.setProperty(NodeProperty.Beertype.DESCRIPTION, description);
+		DBUtil.setProperty(this.node, NodeProperty.Beertype.DESCRIPTION, description);
 	}
 
 	/**
@@ -116,4 +127,28 @@ public class BeertypeModel extends AbstractModel {
 	public int hashCode() {
 		return new Long(this.node.getId()).hashCode();
 	}
+	/**
+	 * @param name
+	 *            name of the beertype.
+	 * @param description
+	 *            detailed description of the beertype.
+	 * @return a new <code>BeertypeModel</code> representing the beertype.
+	 */
+	public static BeertypeModel create(String name, String description) {
+		return new BeertypeModel(name, description);
+	}
+	
+	/**
+	 * Gets the BeertypeModel for an unknown beertype.
+	 * 
+	 * @return The mysterious unknown beertyppe
+	 * @throws NotFoundException
+	 *             Thrown if a node is not existant
+	 * @throws WrongNodeTypeException
+	 *             Thrown if a node is not of the desired type
+	 */
+	public static BeertypeModel getUnknown() throws NotFoundException, WrongNodeTypeException {
+		return new BeertypeModel(DBUtil.getUnknownNode(NodeType.BEERTYPE));
+	}
+
 }

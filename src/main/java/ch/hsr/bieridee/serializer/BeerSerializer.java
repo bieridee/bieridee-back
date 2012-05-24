@@ -18,9 +18,9 @@ import ch.hsr.bieridee.models.TagModel;
  * Json Serializer for the beer domain class.
  */
 public class BeerSerializer extends JsonSerializer<BeerModel> {
-	
+
 	private static final Logger LOG = Logger.getLogger(BeerSerializer.class);
-	
+
 	@Override
 	public void serialize(BeerModel beer, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
 
@@ -31,11 +31,16 @@ public class BeerSerializer extends JsonSerializer<BeerModel> {
 		jsonGenerator.writeStringField("brand", beer.getBrand());
 
 		jsonGenerator.writeNumberField("rating", beer.getAverageRatingShortened());
-	
+
 		try {
 			jsonGenerator.writeObjectFieldStart("brewery");
-			jsonGenerator.writeStringField("name", beer.getBrewery().getName());
-			jsonGenerator.writeStringField("uri", Res.getResourceUri(beer.getBrewery()));
+			if (beer.getBrewery().isUnknown()) {
+				jsonGenerator.writeBooleanField("unknown", true);
+			} else {
+				jsonGenerator.writeNumberField("id", beer.getBrewery().getId());
+				jsonGenerator.writeStringField("name", beer.getBrewery().getName());
+				jsonGenerator.writeStringField("uri", Res.getResourceUri(beer.getBrewery()));
+			}
 			jsonGenerator.writeEndObject();
 		} catch (WrongNodeTypeException e) {
 			LOG.error(e.getMessage(), e);
@@ -45,8 +50,13 @@ public class BeerSerializer extends JsonSerializer<BeerModel> {
 
 		try {
 			jsonGenerator.writeObjectFieldStart("beertype");
-			jsonGenerator.writeStringField("name", beer.getBeertype().getName());
-			jsonGenerator.writeStringField("uri", Res.getResourceUri(beer.getBeertype()));
+			if (beer.getBeertype().isUnknown()) {
+				jsonGenerator.writeBooleanField("unknown", true);
+			} else {
+				jsonGenerator.writeNumberField("id", beer.getBeertype().getId());
+				jsonGenerator.writeStringField("name", beer.getBeertype().getName());
+				jsonGenerator.writeStringField("uri", Res.getResourceUri(beer.getBeertype()));
+			}
 			jsonGenerator.writeEndObject();
 		} catch (NotFoundException e) {
 			LOG.error(e.getMessage(), e);

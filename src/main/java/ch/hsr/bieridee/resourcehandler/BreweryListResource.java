@@ -1,8 +1,10 @@
 package ch.hsr.bieridee.resourcehandler;
 
+import java.io.IOException;
 import java.util.List;
 
-import org.apache.commons.lang.NotImplementedException;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.neo4j.server.rest.web.NodeNotFoundException;
 import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
@@ -30,7 +32,7 @@ public class BreweryListResource extends ServerResource implements ICollectionRe
 		} else {
 			breweryModels = BreweryModel.getAll();
 		}
-		
+
 		final BreweryModel[] breweryModelArray = breweryModels.toArray(new BreweryModel[breweryModels.size()]);
 
 		// Jackson representation
@@ -40,11 +42,19 @@ public class BreweryListResource extends ServerResource implements ICollectionRe
 		return breweryArrayJacksonRep;
 	}
 
-
 	@Override
-	public Representation store(Representation rep) {
-		throw new NotImplementedException(); // TODO
+	public Representation store(Representation rep) throws JSONException, IOException {
+		final JSONObject breweryJSON = new JSONObject(rep.getText());
+		final String name = breweryJSON.getString("name");
+		final String description = breweryJSON.getString("description");
+		final String size = breweryJSON.getString("size");
+		final String picture = breweryJSON.getString("picture");
+		final BreweryModel breweryModel = BreweryModel.create(name, description, picture, size);
+
+		final JacksonRepresentation<BreweryModel> newBreweryRep = new JacksonRepresentation<BreweryModel>(breweryModel);
+		newBreweryRep.setObjectMapper(Config.getObjectMapper());
+
+		return newBreweryRep;
 	}
 
 }
-

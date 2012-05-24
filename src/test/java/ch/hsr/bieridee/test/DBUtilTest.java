@@ -4,14 +4,20 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.NotFoundException;
 
+import ch.hsr.bieridee.config.NodeType;
+import ch.hsr.bieridee.config.RelType;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.models.BeerModel;
+import ch.hsr.bieridee.models.BeertypeModel;
 import ch.hsr.bieridee.models.RatingModel;
 import ch.hsr.bieridee.models.TagModel;
 import ch.hsr.bieridee.models.UserModel;
+import ch.hsr.bieridee.utils.Cypher;
+import ch.hsr.bieridee.utils.Cypherqueries;
 import ch.hsr.bieridee.utils.DBUtil;
 
 /**
@@ -52,7 +58,6 @@ public class DBUtilTest extends DBTest {
 	public void getNotExistingBeerByNameTest() throws NotFoundException, WrongNodeTypeException {
 		final String beerName = "Chrigis Super Brew!";
 		final Node beerNode = DBUtil.getBeerByName(beerName);
-		System.out.println("Not existing node:" + beerNode);
 		new BeerModel(beerNode);
 		Assert.assertNull(beerNode);
 	}
@@ -117,11 +122,9 @@ public class DBUtilTest extends DBTest {
 
 	private void getMostRecentRatingForUser() {
 		final Node activeRating = DBUtil.getActiveUserRatingForBeer(28, "saeufer");
-		System.out.println("active rating dbtest: " + activeRating);
 		RatingModel rm;
 		try {
 			rm = new RatingModel(activeRating);
-			System.out.println("DOmain object: " + rm.getBeer().getDomainObject());
 		} catch (NotFoundException e) {
 			e.printStackTrace();
 		} catch (WrongNodeTypeException e) {
@@ -145,8 +148,34 @@ public class DBUtilTest extends DBTest {
 		}
 		RatingModel.create(3, bm, um);
 		final Node activeRating = DBUtil.getActiveUserRatingForBeer(28, "saeufer");
-		System.out.println("new active rating: " + activeRating);
 		Assert.assertNotSame(activeRating.getId(), 59L);
+	}
+
+	@Test
+	public void createAndGetBeertype() {
+		final String name = "test";
+		final String description = "test123";
+		final BeertypeModel bm = BeertypeModel.create(name, description);
+		for (Node n : DBUtil.getBeertypeNodeList()) {
+			if (n.getProperty("name").equals(name)) {
+				return;
+			}
+		}
+		Assert.fail();
+
+	}
+
+	/**
+	 * Tests if the a relation is deleted propery.
+	 */
+	@Test
+	public void deleteRelationship() {
+		final Node n = DBUtil.createNode(NodeType.TAG);
+		final Node tagIndex = Cypher.executeAndGetSingleNode(Cypherqueries.GET_TAG_INDEX, "TAG_INDEX");
+
+		Assert.assertNotNull(n.getSingleRelationship(RelType.INDEXES, Direction.INCOMING));
+		DBUtil.deleteRelationship(n, RelType.INDEXES, tagIndex, Direction.INCOMING);
+		Assert.assertNull(n.getSingleRelationship(RelType.INDEXES, Direction.INCOMING));
 	}
 
 }
