@@ -1,13 +1,11 @@
 package ch.hsr.bieridee.exceptions;
 
 /**
- * @author chrigi
+ * Exception to be thrown when a request is malformed.
  * 
  */
 public class InvalidRequestException extends Exception {
-	/**
-	 * Exception to be thrown when a request is malformed.
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	/**
