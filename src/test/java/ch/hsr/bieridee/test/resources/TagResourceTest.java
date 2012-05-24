@@ -29,17 +29,17 @@ public class TagResourceTest extends ResourceTest {
 	public void createTag() {
 
 		final String name = "delicious";
-		final long beerId = 28;
+		final long tagId = 28;
 
-		final JSONObject newBeerJson = new JSONObject();
+		final JSONObject newTagJSON = new JSONObject();
 		try {
-			newBeerJson.put("value", name);
+			newTagJSON.put("value", name);
 		} catch (JSONException e) {
 			Assert.fail();
 			e.printStackTrace();
 		}
-		final String uri = Res.PUBLIC_API_URL + Res.TAG_COLLECTION + "?" + Res.TAG_FILTER_PARAMETER_BEER + "=" + beerId;
-		final String newTagJSONString = postJson(uri, newBeerJson);
+		final String uri = Res.PUBLIC_API_URL + Res.TAG_COLLECTION + "?" + Res.TAG_FILTER_PARAMETER_BEER + "=" + tagId;
+		final String newTagJSONString = postJson(uri, newTagJSON);
 
 		try {
 			final JSONObject tag = new JSONObject(newTagJSONString);
@@ -56,7 +56,7 @@ public class TagResourceTest extends ResourceTest {
 		BeerModel bm = null;
 		try {
 			final TagModel shouldContain = new TagModel(DBUtil.getTagByName(name));
-			bm = new BeerModel(beerId);
+			bm = new BeerModel(tagId);
 			if (!bm.getTagModels().contains(shouldContain)) {
 				Assert.fail("Tag was not added to Beer!");
 			}
