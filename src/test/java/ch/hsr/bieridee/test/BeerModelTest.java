@@ -148,7 +148,7 @@ public class BeerModelTest extends DBTest {
 			Assert.fail();
 		}
 		try {
-			Assert.assertEquals(sameBeerModel.getBrewery().getName(), breweryModel.getName());
+			Assert.assertEquals(sameBeerModel.getBrewery().getId(), breweryModel.getId());
 			Assert.assertEquals(sameBeerModel.getBeertype().getName(), beertypeModel.getName());
 		} catch (NotFoundException e) {
 			e.printStackTrace();
