@@ -40,12 +40,12 @@ public class ImageResource extends ServerResource implements IDocumentResource {
 	}
 
 	@Override
-	public void store(Representation rep) {
+	public Representation store(Representation rep) {
 		throw new NotImplementedException(); // TODO
 	}
 
 	@Override
-	public void remove(Representation rep) {
+	public void remove() {
 		throw new NotImplementedException(); // TODO
 	}
 

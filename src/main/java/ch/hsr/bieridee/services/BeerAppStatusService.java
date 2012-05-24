@@ -1,5 +1,6 @@
 package ch.hsr.bieridee.services;
 
+import ch.hsr.bieridee.exceptions.InvalidRequestException;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import org.neo4j.graphdb.NotFoundException;
 import org.restlet.data.Status;
@@ -28,11 +29,12 @@ public class BeerAppStatusService extends StatusService {
 			returnStatus = Status.CLIENT_ERROR_NOT_FOUND;
 		} else if (clazz.equals(NotFoundException.class)) {
 			returnStatus = Status.CLIENT_ERROR_NOT_FOUND;
+		} else if (clazz.equals(InvalidRequestException.class)) {
+			returnStatus = Status.CLIENT_ERROR_BAD_REQUEST;
 		} else {
 			returnStatus = super.getStatus(throwable, resource);
 		}
 
 		return returnStatus;
 	}
-
 }

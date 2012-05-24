@@ -3,15 +3,13 @@ package ch.hsr.bieridee.utils;
 import ch.hsr.bieridee.config.NodeProperty;
 import ch.hsr.bieridee.config.NodeType;
 import ch.hsr.bieridee.config.RelType;
-import ch.hsr.bieridee.models.BarcodeModel;
 import ch.hsr.bieridee.models.BeerModel;
 import ch.hsr.bieridee.models.UserModel;
 import org.neo4j.graphdb.Direction;
-import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Relationship;
+import org.neo4j.graphdb.RelationshipType;
 import org.neo4j.graphdb.Transaction;
-import org.neo4j.graphdb.index.UniqueFactory;
 import org.neo4j.kernel.EmbeddedGraphDatabase;
 
 import java.util.List;
@@ -163,18 +161,6 @@ public final class DBUtil {
 	}
 
 	/**
-	 * @param type String with type
-	 * @return index Node
-	 */
-	public static Node getIndex(String type) {
-		Node indexNode = null;
-		if (type.equals(NodeType.USER)) {
-			indexNode = getUserIndex();
-		}
-		return indexNode;
-	}
-
-	/**
 	 * Creates a bidirectional relationship between the given Nodes.
 	 *
 	 * @param startNode Start Node of the Relationship.
@@ -182,7 +168,7 @@ public final class DBUtil {
 	 * @param endNode   End Node of the Relationship.
 	 * @return The newly created Relationship
 	 */
-	public static Relationship createRelationship(Node startNode, RelType relType, Node endNode) {
+	public static Relationship createRelationship(Node startNode, RelationshipType relType, Node endNode) {
 		final Transaction transaction = DB.beginTx();
 		Relationship rel = null;
 		try {
@@ -245,11 +231,24 @@ public final class DBUtil {
 			if (type.equals(NodeType.BARCODE)) {
 				connectBarcodeNodeToIndex(newNode);
 			}
+			if (type.equals(NodeType.TAG)) {
+				connectNodeTagToIndex(newNode);
+			}
 		} finally {
 			transaction.finish();
 		}
 		return newNode;
 
+	}
+
+	private static void connectNodeTagToIndex(Node newNode) {
+		final Node indexNode = getTagIndex();
+		DBUtil.setProperty(newNode, NodeProperty.TYPE, NodeType.TAG);
+		DBUtil.createRelationship(indexNode, RelType.INDEXES, newNode);
+	}
+
+	private static Node getTagIndex() {
+		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_TAG_INDEX, "TAG_INDEX");
 	}
 
 	private static void connectBreweryNodeToIndex(Node newNode) {
@@ -363,8 +362,7 @@ public final class DBUtil {
 	 * @return The most recent rating for the given beer of the given user.
 	 */
 	public static Node getActiveUserRatingForBeer(long beerId, String username) {
-		final Node activeRating = Cypher.executeAndGetSingleNode(Cypherqueries.GET_ACTIVE_RATING, "Rating", Long.toString(beerId), username);
-		return activeRating;
+		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_ACTIVE_RATING, "Rating", Long.toString(beerId), username);
 	}
 
 	/**
@@ -426,13 +424,19 @@ public final class DBUtil {
 		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_UNKNOWN_NODE, "unknown", type);
 	}
 
+	/**
+	 * Gets a beer node by barcode.
+	 *
+	 * @param code The barcode
+	 * @return The beer node
+	 */
 	public static Node getNodeByBarcode(String code) {
 		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_BARCODE_NODE, "barcode", code);
 	}
 
 	/**
 	 * Get or create a barcode.
-	 * @param code
+	 * @param code The barcode
 	 * @return Barcode node
 	 */
 	public static Node getOrCreateBarcodeNode(String code) {
@@ -441,8 +445,8 @@ public final class DBUtil {
 
 	/**
 	 * Get or create a barcode.
-	 * @param code
-	 * @param format
+	 * @param code The barcode value
+	 * @param format The barcode format
 	 * @return Barcode node
 	 */
 	public static Node getOrCreateBarcodeNode(String code, String format) {
@@ -450,7 +454,7 @@ public final class DBUtil {
 		if (barcodeNode != null) {
 			return barcodeNode;
 		}
-		Transaction tx = DB.beginTx();
+		final Transaction tx = DB.beginTx();
 		try {
 			final Node barcodeIndex = getBarcodeIndex();
 			tx.acquireWriteLock(barcodeIndex);
@@ -459,6 +463,25 @@ public final class DBUtil {
 			newBarcodeNode.setProperty(NodeProperty.Barcode.FORMAT, format);
 			tx.success();
 			return newBarcodeNode;
+		} finally {
+			tx.finish();
+		}
+	}
+
+	/**
+	 * @param startNode   Start node
+	 * @param hasBeertype Relationship type (edge)
+	 * @param endNode     end node
+	 * @param direction   Direction in which the node is connected to node2 via RelType. From the point of view of first node.
+	 */
+	public static void deleteRelationship(Node startNode, RelType hasBeertype, Node endNode, Direction direction) {
+		final Transaction tx = DB.beginTx();
+		try {
+			final Relationship oldRelation = startNode.getSingleRelationship(hasBeertype, direction);
+			if (oldRelation != null) {
+				oldRelation.delete();
+			}
+			tx.success();
 		} finally {
 			tx.finish();
 		}

@@ -29,7 +29,6 @@ import ch.hsr.bieridee.utils.NodeUtil;
 public class BeerModel extends AbstractModel {
 
 	private Beer domainObject;
-	private Node node;
 	private double averageRating;
 
 	/**
@@ -167,6 +166,7 @@ public class BeerModel extends AbstractModel {
 	// SUPPRESS CHECKSTYLE: setter
 	public void setBeertype(BeertypeModel beertypeModel) {
 		this.domainObject.setBeertype(beertypeModel.getDomainObject());
+		DBUtil.deleteRelationship(this.node, RelType.HAS_BEERTYPE, beertypeModel.getNode(), Direction.OUTGOING);
 		DBUtil.createRelationship(this.node, RelType.HAS_BEERTYPE, beertypeModel.getNode());
 	}
 
@@ -179,6 +179,7 @@ public class BeerModel extends AbstractModel {
 	// SUPPRESS CHECKSTYLE: setter
 	public void setBrewery(BreweryModel breweryModel) {
 		this.domainObject.setBrewery(breweryModel.getDomainObject());
+		DBUtil.deleteRelationship(this.node, RelType.BREWN_BY, breweryModel.getNode(), Direction.OUTGOING);
 		DBUtil.createRelationship(this.node, RelType.BREWN_BY, breweryModel.getNode());
 	}
 
@@ -216,7 +217,7 @@ public class BeerModel extends AbstractModel {
 	 */
 	public void addBarcode(BarcodeModel b) {
 		// Get or create a new barcode node
-		Node barcodeNode = DBUtil.getOrCreateBarcodeNode(b.getCode(), b.getFormat());
+		final Node barcodeNode = DBUtil.getOrCreateBarcodeNode(b.getCode(), b.getFormat());
 
 		// If the node already has a relationship, it already existed before.
 		if (barcodeNode.hasRelationship(RelType.HAS_BARCODE)) {
@@ -239,7 +240,7 @@ public class BeerModel extends AbstractModel {
 	}
 
 	// SUPPRESS CHECKSTYLE: setter
-	public void setTags(List<TagModel> tags) {
+	public void setTags(Iterable<TagModel> tags) {
 		final List<Tag> tagDomainList = new LinkedList<Tag>();
 		for (TagModel tagModel : tags) {
 			tagDomainList.add(tagModel.getDomainObject());
@@ -309,7 +310,7 @@ public class BeerModel extends AbstractModel {
 		return createModelsFromNodes(DBUtil.getBeerNodeList(filterTag));
 	}
 
-	private static List<BeerModel> createModelsFromNodes(List<Node> beerNodes) throws NotFoundException, WrongNodeTypeException {
+	private static List<BeerModel> createModelsFromNodes(Iterable<Node> beerNodes) throws NotFoundException, WrongNodeTypeException {
 		final List<BeerModel> models = new LinkedList<BeerModel>();
 		for (Node n : beerNodes) {
 			models.add(new BeerModel(n));
