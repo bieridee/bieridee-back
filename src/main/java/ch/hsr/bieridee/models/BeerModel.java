@@ -215,12 +215,24 @@ public class BeerModel extends AbstractModel {
 	 * @param b BarcodeModel
 	 */
 	public void addBarcode(BarcodeModel b) {
+		// Get or create a new barcode node
 		Node barcodeNode = DBUtil.getOrCreateBarcodeNode(b.getCode(), b.getFormat());
+
+		// If the node already has a relationship, it already existed before.
 		if (barcodeNode.hasRelationship(RelType.HAS_BARCODE)) {
+
+			// If the beer connected to the node is the current beer,
+			// everything is OK.
 			final Node beerNode = barcodeNode.getRelationships(RelType.HAS_BARCODE, Direction.INCOMING).iterator().next().getEndNode();
+
+			// Otherwise, it means that the barcode already exists and is connected
+			// to another node. That shouldn't happen, because barcodes are unique.
 			if (beerNode != this.node) {
 				throw new RuntimeException("Barcode already exists for other Beer.");
 			}
+
+		// If the node doesn't have a relationship yet, it means that it was just created.
+		// In that case, create a relationship with the current beer.
 		} else {
 			DBUtil.createRelationship(this.node, RelType.HAS_BARCODE, barcodeNode);
 		}
