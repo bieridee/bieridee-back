@@ -15,8 +15,6 @@ public class TagListResourceForBeer extends ServerResource implements IReadOnlyR
 
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
-		// ServerResource resource = new TagListResource();
-		// this.getQuery().set(Res.TAG_FILTER_PARAMETER_BEER, (String) (getRequestAttributes().get(Res.BEER_REQ_ATTR)));
 		this.redirectSeeOther("/tags?beerId=28");
 		return null;
 	}
