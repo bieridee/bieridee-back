@@ -9,6 +9,7 @@ import org.restlet.representation.Representation;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 
+import ch.hsr.bieridee.exceptions.InvalidRequestException;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 
 /**
@@ -32,7 +33,8 @@ public interface ICollectionResource {
 	 * @throws JSONException 
 	 * @throws WrongNodeTypeException 
 	 * @throws NotFoundException 
+	 * @throws InvalidRequestException 
 	 */
 	@Post
-	Representation store(Representation rep) throws JSONException, IOException, NotFoundException, WrongNodeTypeException;
+	Representation store(Representation rep) throws JSONException, IOException, NotFoundException, WrongNodeTypeException, InvalidRequestException;
 }

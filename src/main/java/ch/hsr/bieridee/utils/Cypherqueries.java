@@ -16,7 +16,7 @@ public final class Cypherqueries {
 	public static final String GET_BEER_BY_NAME = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_BEER]-BEER_INDEX-[:INDEXES]->Beer WHERE Beer.name = \'$$\' RETURN Beer";
 	public static final String GET_BEERS_BY_TAG_ID = "START TAG_NODE = node($$) MATCH TAG_NODE<-[:HAS_TAG]-Beer RETURN Beer ORDER BY Beer.name ASC";
 	public static final String GET_BEER_INDEX_NODE = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_BEER]->BEER_INDEX RETURN BEER_INDEX";
-	
+
 	// Users
 	public static final String GET_ALL_USERS = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_USER]-USER_INDEX-[:INDEXES]->User RETURN User ORDER BY User.username ASC";
 	public static final String GET_USER_BY_NAME = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_USER]-USER_INDEX-[:INDEXES]->User WHERE User.username = \'$$\' RETURN User";
@@ -25,6 +25,7 @@ public final class Cypherqueries {
 	// Tags
 	public static final String GET_ALL_TAGS = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_TAG]-TAG_INDEX-[:INDEXES]->Tag RETURN Tag ORDER BY Tag.name ASC";
 	public static final String GET_TAG_BY_NAME = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_TAG]-TAG_INDEX-[:INDEXES]->Tag WHERE Tag.name = \'$$\' RETURN Tag";
+	public static final String GET_TAG_INDEX = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_TAG]-TAG_INDEX RETURN TAG_INDEX";
 
 	// Beertypes
 	public static final String GET_ALL_BEERTYPES = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_BEERTYPE]-BEERTYPE_INDEX-[:INDEXES]->Beertype RETURN Beertype ORDER BY Beertype.name ASC";
@@ -36,9 +37,11 @@ public final class Cypherqueries {
 
 	// Consumptions
 	public static final String GET_ALL_USER_CONSUMPTIONS = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_USER]-USER_INDEX-[:INDEXES]-User-[:HAS_CONSUMED]-Beer RETURN Beer";
-	public static final String GET_ALL_CONSUMPTIONS = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_TIMELINESTART]-TIMELINESTART-[:NEXT*]-Action-[:NEXT]->TIMELINEEND WHERE Action.type = '" + NodeType.CONSUMPTION + "' RETURN Action ORDER BY Action.timestamp DESC";
-	public static final String GET_ALL_CONSUMPTIONS_FOR_BEER = "START beer = node($$) MATCH beer<-[:CONTAINS]-consumption WHERE consumption.type = '"+ NodeType.CONSUMPTION +"' RETURN consumption ORDER BY consumption.timestamp DESC";
-	public static final String GET_ALL_BEER_CONSUMPTIONS_FOR_USER = "START beer = node($$) MATCH beer<-[:CONTAINS]-consumption<-[:DOES]-user WHERE user.username = \'$$\' AND consumption.type = '"+ NodeType.CONSUMPTION +"' RETURN consumption ORDER BY consumption.timestamp DESC";
+	public static final String GET_ALL_CONSUMPTIONS = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_TIMELINESTART]-TIMELINESTART-[:NEXT*]-Action-[:NEXT]->TIMELINEEND WHERE Action.type = '" + NodeType.CONSUMPTION
+			+ "' RETURN Action ORDER BY Action.timestamp DESC";
+	public static final String GET_ALL_CONSUMPTIONS_FOR_BEER = "START beer = node($$) MATCH beer<-[:CONTAINS]-consumption WHERE consumption.type = '" + NodeType.CONSUMPTION + "' RETURN consumption ORDER BY consumption.timestamp DESC";
+	public static final String GET_ALL_BEER_CONSUMPTIONS_FOR_USER = "START beer = node($$) MATCH beer<-[:CONTAINS]-consumption<-[:DOES]-user WHERE user.username = \'$$\' AND consumption.type = '" + NodeType.CONSUMPTION
+			+ "' RETURN consumption ORDER BY consumption.timestamp DESC";
 
 	// Timeline
 	public static final String GET_TIMELINE = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_TIMELINESTART]-TIMELINESTART-[:NEXT*]-Action-[:NEXT]->TIMELINEEND RETURN Action";
@@ -50,7 +53,7 @@ public final class Cypherqueries {
 			+ ") AS AverageRating";
 	public static final String GET_RATING = "START beer = NODE($$) MATCH beer<-[:CONTAINS]-Action-[:DOES]-User where Action.type='rating' and User.username='$$' RETURN Action AS Rating, User ORDER BY Action.timestamp DESC LIMIT 1";
 	public static final String GET_ALL_RATINGS = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_TIMELINESTART]-TIMELINESTART-[:NEXT*]-Action-[:NEXT]->TIMELINEEND WHERE Action.type = '" + NodeType.RATING + "' RETURN Action";
-	public static final String GET_ACTIVE_RATING =	"START HOME_NODE = node(0), beer = node($$) MATCH HOME_NODE-[:INDEX_ACTIVERATINGINDEX]-ACTIVERATINGINDEX-[:INDEXES_ACTIVE]->Rating<-[:DOES]-User, Rating-[:CONTAINS]-beer WHERE User.username='$$' and Rating.type='rating' RETURN Rating, beer";
+	public static final String GET_ACTIVE_RATING = "START HOME_NODE = node(0), beer = node($$) MATCH HOME_NODE-[:INDEX_ACTIVERATINGINDEX]-ACTIVERATINGINDEX-[:INDEXES_ACTIVE]->Rating<-[:DOES]-User, Rating-[:CONTAINS]-beer WHERE User.username='$$' and Rating.type='rating' RETURN Rating, beer";
 
 	// Brand
 	public static final String GET_ALL_BRANDS = "START HOME = node(0) MATCH HOME-[:INDEX_BEER]->()-[:INDEXES]->Beer RETURN DISTINCT Beer.brand AS Brand ORDER BY Beer.brand ASC";
@@ -60,4 +63,4 @@ public final class Cypherqueries {
 
 	// Unknown
 	public static final String GET_UNKNOWN_NODE = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_UNKNOWN]->()-[:INDEXES]->unknown WHERE unknown.type = \'$$\' RETURN unknown";
-}                                                  
+}

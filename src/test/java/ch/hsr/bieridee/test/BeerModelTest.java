@@ -107,4 +107,55 @@ public class BeerModelTest extends DBTest {
 			e.printStackTrace();
 		}
 	}
+
+	@Test
+	public void changeBreweryAndBeertype() {
+		BeerModel bm = null;
+		BreweryModel breweryModel = null;
+		BeertypeModel beertypeModel = null;
+		try {
+			bm = new BeerModel(28);
+		} catch (NotFoundException e) {
+			e.printStackTrace();
+			Assert.fail();
+		} catch (WrongNodeTypeException e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+
+		try {
+			breweryModel = new BreweryModel(65); // calcanda
+			beertypeModel = new BeertypeModel(26); // pils
+		} catch (NotFoundException e) {
+			e.printStackTrace();
+			Assert.fail();
+		} catch (WrongNodeTypeException e) {
+			e.printStackTrace();
+			Assert.fail();
+		} // Pils
+
+		bm.setBrewery(breweryModel);
+		bm.setBeertype(beertypeModel);
+
+		BeerModel sameBeerModel = null;
+		try {
+			sameBeerModel = new BeerModel(28);
+		} catch (NotFoundException e) {
+			e.printStackTrace();
+			Assert.fail();
+		} catch (WrongNodeTypeException e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+		try {
+			Assert.assertEquals(sameBeerModel.getBrewery().getId(), breweryModel.getId());
+			Assert.assertEquals(sameBeerModel.getBeertype().getName(), beertypeModel.getName());
+		} catch (NotFoundException e) {
+			e.printStackTrace();
+			Assert.fail();
+		} catch (WrongNodeTypeException e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+	}
 }
