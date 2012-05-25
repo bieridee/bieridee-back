@@ -29,7 +29,6 @@ import ch.hsr.bieridee.utils.NodeUtil;
 public class BeerModel extends AbstractModel {
 
 	private Beer domainObject;
-	private Node node;
 	private double averageRating;
 
 	/**
@@ -212,8 +211,36 @@ public class BeerModel extends AbstractModel {
 		DBUtil.createRelationship(this.node, RelType.HAS_TAG, t.getNode());
 	}
 
+	/**
+	 * Add barcode to BeerModel.
+	 * @param b BarcodeModel
+	 */
+	public void addBarcode(BarcodeModel b) {
+		// Get or create a new barcode node
+		final Node barcodeNode = DBUtil.getOrCreateBarcodeNode(b.getCode(), b.getFormat());
+
+		// If the node already has a relationship, it already existed before.
+		if (barcodeNode.hasRelationship(RelType.HAS_BARCODE)) {
+
+			// If the beer connected to the node is the current beer,
+			// everything is OK.
+			final Node beerNode = barcodeNode.getRelationships(RelType.HAS_BARCODE, Direction.INCOMING).iterator().next().getEndNode();
+
+			// Otherwise, it means that the barcode already exists and is connected
+			// to another node. That shouldn't happen, because barcodes are unique.
+			if (beerNode != this.node) {
+				throw new RuntimeException("Barcode already exists for other Beer.");
+			}
+
+		// If the node doesn't have a relationship yet, it means that it was just created.
+		// In that case, create a relationship with the current beer.
+		} else {
+			DBUtil.createRelationship(this.node, RelType.HAS_BARCODE, barcodeNode);
+		}
+	}
+
 	// SUPPRESS CHECKSTYLE: setter
-	public void setTags(List<TagModel> tags) {
+	public void setTags(Iterable<TagModel> tags) {
 		final List<Tag> tagDomainList = new LinkedList<Tag>();
 		for (TagModel tagModel : tags) {
 			tagDomainList.add(tagModel.getDomainObject());
@@ -283,19 +310,11 @@ public class BeerModel extends AbstractModel {
 		return createModelsFromNodes(DBUtil.getBeerNodeList(filterTag));
 	}
 
-	private static List<BeerModel> createModelsFromNodes(List<Node> beerNodes) throws NotFoundException, WrongNodeTypeException {
+	private static List<BeerModel> createModelsFromNodes(Iterable<Node> beerNodes) throws NotFoundException, WrongNodeTypeException {
 		final List<BeerModel> models = new LinkedList<BeerModel>();
 		for (Node n : beerNodes) {
 			models.add(new BeerModel(n));
 		}
 		return models;
 	}
-
-	/**
-	 * Removes the Beermodel from the database.
-	 */
-	public void delete() {
-
-	}
-
 }

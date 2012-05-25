@@ -1,12 +1,13 @@
 package ch.hsr.bieridee.domain;
 
+import ch.hsr.bieridee.domain.interfaces.IDomain;
+
 import java.util.Date;
 
 /**
- * @author chrigi Class representing an Activity
- * 
+ * Abstract Action domain class
  */
-public abstract class Action {
+public abstract class Action implements IDomain {
 
 	private Date date;
 	private Beer beer;

@@ -1,18 +1,18 @@
 package ch.hsr.bieridee.utils;
 
-import java.util.List;
-
-import org.neo4j.graphdb.Direction;
-import org.neo4j.graphdb.Node;
-import org.neo4j.graphdb.Relationship;
-import org.neo4j.graphdb.Transaction;
-import org.neo4j.kernel.EmbeddedGraphDatabase;
-
 import ch.hsr.bieridee.config.NodeProperty;
 import ch.hsr.bieridee.config.NodeType;
 import ch.hsr.bieridee.config.RelType;
 import ch.hsr.bieridee.models.BeerModel;
 import ch.hsr.bieridee.models.UserModel;
+import org.neo4j.graphdb.Direction;
+import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Relationship;
+import org.neo4j.graphdb.RelationshipType;
+import org.neo4j.graphdb.Transaction;
+import org.neo4j.kernel.EmbeddedGraphDatabase;
+
+import java.util.List;
 
 /**
  * Utility to work with the neo4J graph-db.
@@ -31,9 +31,8 @@ public final class DBUtil {
 
 	/**
 	 * Gets the neo4j node by the absolute node id.
-	 * 
-	 * @param id
-	 *            The id of the neo4j node
+	 *
+	 * @param id The id of the neo4j node
 	 * @return The node with the given id
 	 */
 	public static Node getNodeById(long id) {
@@ -51,7 +50,7 @@ public final class DBUtil {
 
 	/**
 	 * Gets a list of all beer nodes from the database.
-	 * 
+	 *
 	 * @return List all existing beernodes.
 	 */
 	public static List<Node> getBeerNodeList() {
@@ -60,9 +59,8 @@ public final class DBUtil {
 
 	/**
 	 * Gets a list of all tags with the given tag.
-	 * 
-	 * @param tagId
-	 *            Id of a Tag which is used as a filter.
+	 *
+	 * @param tagId Id of a Tag which is used as a filter.
 	 * @return a List of Beers matching the given Tag name.
 	 */
 	public static List<Node> getBeerNodeList(long tagId) {
@@ -71,7 +69,7 @@ public final class DBUtil {
 
 	/**
 	 * Gets a list of all beertype nodes from the database.
-	 * 
+	 *
 	 * @return List of all existing beertype nodes.
 	 */
 	public static List<Node> getBeertypeNodeList() {
@@ -80,7 +78,7 @@ public final class DBUtil {
 
 	/**
 	 * Gets a list of all brewery nodes from the database.
-	 * 
+	 *
 	 * @return List of all existing brewery nodes.
 	 */
 	public static List<Node> getBreweryNodeList() {
@@ -89,9 +87,8 @@ public final class DBUtil {
 
 	/**
 	 * Gets a list of all brewery nodes filtered by size.
-	 * 
-	 * @param brewerySize
-	 *            Brewery size which is used as a filter.
+	 *
+	 * @param brewerySize Brewery size which is used as a filter.
 	 * @return a List of Beers matching the given Tag name
 	 */
 	public static List<Node> getBreweryNodeList(String brewerySize) {
@@ -100,7 +97,7 @@ public final class DBUtil {
 
 	/**
 	 * Gets a list of all user nodes from the database.
-	 * 
+	 *
 	 * @return List of all existing user nodes.
 	 */
 	public static List<Node> getUserNodeList() {
@@ -113,9 +110,8 @@ public final class DBUtil {
 
 	/**
 	 * Gets a neo4j beer node by the name of the beer.
-	 * 
-	 * @param name
-	 *            The name (name property) of the beer
+	 *
+	 * @param name The name (name property) of the beer
 	 * @return The beer with the given name or <code>null</code> if not found
 	 */
 	public static Node getBeerByName(String name) {
@@ -123,10 +119,19 @@ public final class DBUtil {
 	}
 
 	/**
+	 * Gets a neo4j beer node by the barcode.
+	 *
+	 * @param barcode A barcode of the beer
+	 * @return The beer associated with the given barcode or <code>null</code> if not found
+	 */
+	public static Node getBeerByBarcode(String barcode) {
+		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_BEER_BY_BARCODE, "Beer", barcode);
+	}
+
+	/**
 	 * Gets a neo4j tag node by the name of the tag.
-	 * 
-	 * @param name
-	 *            The name (name property) of the tag
+	 *
+	 * @param name The name (name property) of the tag
 	 * @return The tag with the given name or <code>null</code> if not found
 	 */
 	public static Node getTagByName(String name) {
@@ -135,9 +140,8 @@ public final class DBUtil {
 
 	/**
 	 * Gets a neo4j node by the username of the user.
-	 * 
-	 * @param name
-	 *            Username
+	 *
+	 * @param name Username
 	 * @return The node
 	 */
 	public static Node getUserByName(String name) {
@@ -157,30 +161,14 @@ public final class DBUtil {
 	}
 
 	/**
-	 * @param type
-	 *            String with type
-	 * @return index Node
-	 */
-	public static Node getIndex(String type) {
-		Node indexNode = null;
-		if (type.equals(NodeType.USER)) {
-			indexNode = getUserIndex();
-		}
-		return indexNode;
-	}
-
-	/**
 	 * Creates a bidirectional relationship between the given Nodes.
-	 * 
-	 * @param startNode
-	 *            Start Node of the Relationship.
-	 * @param relType
-	 *            Type of the Relation to be created.
-	 * @param endNode
-	 *            End Node of the Relationship.
+	 *
+	 * @param startNode Start Node of the Relationship.
+	 * @param relType   Type of the Relation to be created.
+	 * @param endNode   End Node of the Relationship.
 	 * @return The newly created Relationship
 	 */
-	public static Relationship createRelationship(Node startNode, RelType relType, Node endNode) {
+	public static Relationship createRelationship(Node startNode, RelationshipType relType, Node endNode) {
 		final Transaction transaction = DB.beginTx();
 		Relationship rel = null;
 		try {
@@ -211,8 +199,7 @@ public final class DBUtil {
 	}
 
 	/**
-	 * @param type
-	 *            String with type
+	 * @param type String with type
 	 * @return created Node in the Database
 	 */
 	public static Node createNode(String type) {
@@ -240,6 +227,9 @@ public final class DBUtil {
 			}
 			if (type.equals(NodeType.BREWERY)) {
 				connectBreweryNodeToIndex(newNode);
+			}
+			if (type.equals(NodeType.BARCODE)) {
+				connectBarcodeNodeToIndex(newNode);
 			}
 			if (type.equals(NodeType.TAG)) {
 				connectNodeTagToIndex(newNode);
@@ -273,6 +263,12 @@ public final class DBUtil {
 		DBUtil.createRelationship(indexNode, RelType.INDEXES, newNode);
 	}
 
+	private static void connectBarcodeNodeToIndex(Node newNode) {
+		final Node indexNode = getBarcodeIndex();
+		DBUtil.setProperty(newNode, NodeProperty.TYPE, NodeType.BARCODE);
+		DBUtil.createRelationship(indexNode, RelType.INDEXES, newNode);
+	}
+
 	private static Node getBreweryIndex() {
 		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_BREWERY_INDEX_NODE, "BREWERY_INDEX");
 	}
@@ -281,15 +277,16 @@ public final class DBUtil {
 		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_BEERTYPE_INDEX_NODE, "BEERTYPE_INDEX");
 	}
 
+	private static Node getBarcodeIndex() {
+		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_BARCODE_INDEX_NODE, "BARCODE_INDEX");
+	}
+
 	/**
 	 * Adds or updates the given property with the given value on the given node.
-	 * 
-	 * @param node
-	 *            Node on which the property is set.
-	 * @param key
-	 *            Key of the Property
-	 * @param value
-	 *            Value of the Property,
+	 *
+	 * @param node  Node on which the property is set.
+	 * @param key   Key of the Property
+	 * @param value Value of the Property,
 	 */
 	public static void setProperty(Node node, String key, Object value) {
 		final Transaction transaction = DB.beginTx();
@@ -303,9 +300,8 @@ public final class DBUtil {
 
 	/**
 	 * Checks whether a usernode is existing or not.
-	 * 
-	 * @param username
-	 *            Username of the user to be checked
+	 *
+	 * @param username Username of the user to be checked
 	 * @return True if the user node exists, false otherwise
 	 */
 	public static boolean doesUserExist(String username) {
@@ -313,13 +309,10 @@ public final class DBUtil {
 	}
 
 	/**
-	 * @param username
-	 *            Username used to filter the timeline.
+	 * @param username         Username used to filter the timeline.
+	 * @param maxNumberOfItems number of max. Items (actions) returned. Pass 0 for all Items.
+	 * @param skipCount        Number of elements to be skipped for paging.
 	 * @return Chronological list of actions filtered by Username.
-	 * @param maxNumberOfItems
-	 *            number of max. Items (actions) returned. Pass 0 for all Items.
-	 * @param skipCount
-	 *            Number of elements to be skipped for paging.
 	 */
 	public static List<Node> getTimeLineForUser(String username, int maxNumberOfItems, int skipCount) {
 		if (maxNumberOfItems <= 0) {
@@ -330,10 +323,8 @@ public final class DBUtil {
 	}
 
 	/**
-	 * @param maxNumberOfItems
-	 *            number of max. Items (actions) returned. Pass 0 for all Items.
-	 * @param skipCount
-	 *            Number of Elements to be skipped for paging.
+	 * @param maxNumberOfItems number of max. Items (actions) returned. Pass 0 for all Items.
+	 * @param skipCount        Number of Elements to be skipped for paging.
 	 * @return Chronological list of all actions (Ratings and Consumptions).
 	 */
 	public static List<Node> getTimeLine(int maxNumberOfItems, int skipCount) {
@@ -346,9 +337,8 @@ public final class DBUtil {
 
 	/**
 	 * Adds a new Action to the Timeline.
-	 * 
-	 * @param node
-	 *            the action node to be added.
+	 *
+	 * @param node the action node to be added.
 	 */
 	public static void addToTimeLine(Node node) {
 		final Node home = DB.getReferenceNode();
@@ -367,24 +357,18 @@ public final class DBUtil {
 	}
 
 	/**
-	 * @param beerId
-	 *            ID of the beer.
-	 * @param username
-	 *            Username of the user.
+	 * @param beerId   ID of the beer.
+	 * @param username Username of the user.
 	 * @return The most recent rating for the given beer of the given user.
 	 */
 	public static Node getActiveUserRatingForBeer(long beerId, String username) {
-		final Node activeRating = Cypher.executeAndGetSingleNode(Cypherqueries.GET_ACTIVE_RATING, "Rating", Long.toString(beerId), username);
-		return activeRating;
+		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_ACTIVE_RATING, "Rating", Long.toString(beerId), username);
 	}
 
 	/**
-	 * @param node
-	 *            Rating node.
-	 * @param beerModel
-	 *            BeerModel rated by the rating
-	 * @param userModel
-	 *            UserModel that rates the beer.
+	 * @param node      Rating node.
+	 * @param beerModel BeerModel rated by the rating
+	 * @param userModel UserModel that rates the beer.
 	 */
 	public static void addToRatingIndex(Node node, BeerModel beerModel, UserModel userModel) {
 		final Node home = DB.getReferenceNode();
@@ -406,9 +390,8 @@ public final class DBUtil {
 
 	/**
 	 * Gets a list of all consuptions nodes for the given beer.
-	 * 
-	 * @param beerId
-	 *            The id of the beer
+	 *
+	 * @param beerId The id of the beer
 	 * @return List of consumption nodes
 	 */
 	public static List<Node> getConsumptionsByBeer(long beerId) {
@@ -418,11 +401,9 @@ public final class DBUtil {
 	/**
 	 * Gets a list of consumption nodes for the user and the beer. The result is a list of all consumptions of a user
 	 * for the given beer.
-	 * 
-	 * @param username
-	 *            The user
-	 * @param beerId
-	 *            The beer
+	 *
+	 * @param username The user
+	 * @param beerId   The beer
 	 * @return The node list
 	 */
 	public static List<Node> getConsumptionsForUserByBeer(String username, long beerId) {
@@ -435,9 +416,8 @@ public final class DBUtil {
 
 	/**
 	 * Gets the "Unknown-Node" for a specific type.
-	 * 
-	 * @param type
-	 *            Nodetype
+	 *
+	 * @param type Nodetype
 	 * @return The "Unknown-Node"
 	 */
 	public static Node getUnknownNode(String type) {
@@ -445,19 +425,59 @@ public final class DBUtil {
 	}
 
 	/**
-	 * @param node
-	 *            Start node
-	 * @param hasBeertype
-	 *            Relationship type (edge)
-	 * @param node2
-	 *            end node
-	 * @param direction
-	 *            Direction in which the node is connected to node2 via RelType. From the point of view of first node.
+	 * Gets a beer node by barcode.
+	 *
+	 * @param code The barcode
+	 * @return The beer node
 	 */
-	public static void deleteRelationship(Node node, RelType hasBeertype, Node node2, Direction direction) {
+	public static Node getNodeByBarcode(String code) {
+		return Cypher.executeAndGetSingleNode(Cypherqueries.GET_BARCODE_NODE, "barcode", code);
+	}
+
+	/**
+	 * Get or create a barcode.
+	 * @param code The barcode
+	 * @return Barcode node
+	 */
+	public static Node getOrCreateBarcodeNode(String code) {
+		return getOrCreateBarcodeNode(code, "");
+	}
+
+	/**
+	 * Get or create a barcode.
+	 * @param code The barcode value
+	 * @param format The barcode format
+	 * @return Barcode node
+	 */
+	public static Node getOrCreateBarcodeNode(String code, String format) {
+		final Node barcodeNode = getNodeByBarcode(code);
+		if (barcodeNode != null) {
+			return barcodeNode;
+		}
 		final Transaction tx = DB.beginTx();
 		try {
-			final Relationship oldRelation = node.getSingleRelationship(hasBeertype, direction);
+			final Node barcodeIndex = getBarcodeIndex();
+			tx.acquireWriteLock(barcodeIndex);
+			final Node newBarcodeNode = createNode(NodeType.BARCODE);
+			newBarcodeNode.setProperty(NodeProperty.Barcode.CODE, code);
+			newBarcodeNode.setProperty(NodeProperty.Barcode.FORMAT, format);
+			tx.success();
+			return newBarcodeNode;
+		} finally {
+			tx.finish();
+		}
+	}
+
+	/**
+	 * @param startNode   Start node
+	 * @param hasBeertype Relationship type (edge)
+	 * @param endNode     end node
+	 * @param direction   Direction in which the node is connected to node2 via RelType. From the point of view of first node.
+	 */
+	public static void deleteRelationship(Node startNode, RelType hasBeertype, Node endNode, Direction direction) {
+		final Transaction tx = DB.beginTx();
+		try {
+			final Relationship oldRelation = startNode.getSingleRelationship(hasBeertype, direction);
 			if (oldRelation != null) {
 				oldRelation.delete();
 			}
