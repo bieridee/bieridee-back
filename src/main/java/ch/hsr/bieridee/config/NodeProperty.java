@@ -83,4 +83,15 @@ public final class NodeProperty {
 	public static final class Consumption {
 		public static final String TYPE = "consumption";
 	}
+
+	/**
+	 * Barcode specific properties.
+	 *
+	 */
+	public static final class Barcode {
+		public static final String TYPE = "barcode";
+		public static final String CODE = "code";
+		public static final String FORMAT = "format";
+
+	}
 }

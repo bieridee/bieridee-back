@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mortbay.log.Log;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.NotFoundException;
 
@@ -80,8 +81,9 @@ public class ConsumptionListResourceTest extends ResourceTest {
 	 * Tests the retrieval of all consumptions of a beer.
 	 */
 	@Test
-	public void getBeerConsumptions() {
-		final String uri = Res.PUBLIC_API_URL + "/beers/30/consumptions";
+	public void getBeerConsumptions() throws JSONException {
+		final int beerId = 28;
+		final String uri = Res.PUBLIC_API_URL + "/beers/" + beerId + "/consumptions";
 		final JSONArray consumptionsJSON = getJSONArray(uri);
 		try {
 			final JSONObject cons1 = (JSONObject) consumptionsJSON.get(0);
@@ -91,11 +93,11 @@ public class ConsumptionListResourceTest extends ResourceTest {
 
 			Assert.assertEquals("consumption", cons1.get("type"));
 			Assert.assertEquals("consumption", cons2.get("type"));
-			Assert.assertEquals(Res.PUBLIC_API_URL + "/beers/30", beer1.get("uri"));
-			Assert.assertEquals(Res.PUBLIC_API_URL + "/beers/30", beer2.get("uri"));
+			Assert.assertEquals(Res.PUBLIC_API_URL + "/beers/" + beerId, beer1.get("uri"));
+			Assert.assertEquals(Res.PUBLIC_API_URL + "/beers/" + beerId, beer2.get("uri"));
 		} catch (JSONException e) {
-			Assert.fail();
 			e.printStackTrace();
+			Assert.fail();
 		}
 	}
 

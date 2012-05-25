@@ -3,6 +3,8 @@ package ch.hsr.bieridee.models;
 import java.util.LinkedList;
 import java.util.List;
 
+import ch.hsr.bieridee.domain.Action;
+import ch.hsr.bieridee.domain.interfaces.IDomain;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.NotFoundException;
 
@@ -15,7 +17,7 @@ import ch.hsr.bieridee.utils.DBUtil;
  * Timeline helper model.
  * 
  */
-public class TimelineModel extends AbstractModel {
+public final class TimelineModel extends AbstractModel {
 
 	/**
 	 * Gets all actions.
@@ -127,4 +129,8 @@ public class TimelineModel extends AbstractModel {
 		return models;
 	}
 
+	@Override
+	public IDomain getDomainObject() {
+		return null;
+	}
 }
