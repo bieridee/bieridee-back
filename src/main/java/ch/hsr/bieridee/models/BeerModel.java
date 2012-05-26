@@ -225,19 +225,6 @@ public class BeerModel extends AbstractModel {
 		}
 	}
 
-	@Override
-	public int hashCode() {
-		return this.node.hashCode();
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (!(o instanceof BeerModel)) {
-			return false;
-		}
-		return this.node.getId() == ((BeerModel) o).getId();
-	}
-
 	/**
 	 * Create a new Beer! Including a fresh node and a delicious domain object.
 	 * 
@@ -296,6 +283,24 @@ public class BeerModel extends AbstractModel {
 	 */
 	public void delete() {
 
+	}
+	
+	@Override
+	public int hashCode() {
+		return this.node.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (!(o instanceof BeerModel)) {
+			return false;
+		}
+		return this.node.getId() == ((BeerModel) o).getId();
+	}
+
+	@Override
+	public String toString() {
+		return this.getId() + ":" + this.getName();
 	}
 
 }

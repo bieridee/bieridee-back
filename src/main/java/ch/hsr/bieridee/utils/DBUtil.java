@@ -432,8 +432,6 @@ public final class DBUtil {
 	/**
 	 * @param username
 	 *            username of the user
-	 * @param limit
-	 *            number of maximal items returned
 	 * @return List containing the beer nodes the user rated
 	 */
 	public static List<Node> getBeersRatedByUser(String username) {

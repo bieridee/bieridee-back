@@ -8,6 +8,7 @@ import org.neo4j.graphdb.NotFoundException;
 import org.neo4j.graphdb.Relationship;
 
 import ch.hsr.bieridee.config.NodeProperty;
+import ch.hsr.bieridee.config.NodeType;
 import ch.hsr.bieridee.config.RelType;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.utils.DBUtil;
@@ -42,7 +43,9 @@ public abstract class AbstractActionModel extends AbstractModel {
 		this.node = DBUtil.createNode(type);
 		DBUtil.createRelationship(this.node, RelType.CONTAINS, beerModel.getNode());
 		DBUtil.createRelationship(userModel.getNode(), RelType.DOES, this.node);
-		DBUtil.addToRatingIndex(this.node, beerModel, userModel);
+		if(type == NodeType.RATING) {
+			DBUtil.addToRatingIndex(this.node, beerModel, userModel);
+		}
 	}
 
 	/**

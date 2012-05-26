@@ -1,33 +1,46 @@
 package ch.hsr.bieridee.domain;
 
 /**
- * @author chrigi Class representing a Recommendation.
+ * Class representing a Recommendation.
+ * 
  */
 public class Recommendation {
-	private int weight;
+	private double weight;
+	private double normalizedWeight;
 	private User user;
 	private Beer beer;
 
 	/**
 	 * @param weight
-	 *            weight describing the probability of matching.
+	 *            absolute relevance of the recommendation
+	 * @param normalizedWeight
+	 *            normalized relevance of the recommendeation
 	 * @param user
 	 *            The <code>User</code> to which the recommendation matches.
 	 * @param beer
 	 *            The <code>Beer</code> that is recommended.
 	 */
-	public Recommendation(int weight, User user, Beer beer) {
+	public Recommendation(double weight, double normalizedWeight, User user, Beer beer) {
 		this.weight = weight;
+		this.normalizedWeight = normalizedWeight;
 		this.user = user;
 		this.beer = beer;
 	}
 
-	public int getWeight() {
+	public double getWeight() {
 		return this.weight;
 	}
 
-	public void setWeight(int weight) {
+	public void setWeight(double weight) {
 		this.weight = weight;
+	}
+
+	public double getNormalizedWeight() {
+		return this.normalizedWeight;
+	}
+
+	public void setNormalizedWeight(double normalizedWeight) {
+		this.normalizedWeight = normalizedWeight;
 	}
 
 	public User getUser() {
@@ -42,13 +55,12 @@ public class Recommendation {
 		return this.beer;
 	}
 
-	void setBeer(Beer beer) {
+	public void setBeer(Beer beer) {
 		this.beer = beer;
 	}
 
 	@Override
 	public String toString() {
-		return "Recommendation from User: " + this.user + ", recommends "
-				+ this.beer;
+		return "Recommendation for User: " + this.user + ". Try " + this.beer;
 	}
 }

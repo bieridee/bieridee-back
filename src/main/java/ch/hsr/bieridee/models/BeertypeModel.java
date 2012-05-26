@@ -123,10 +123,6 @@ public class BeertypeModel extends AbstractModel {
 		return beertypeModels;
 	}
 
-	@Override
-	public int hashCode() {
-		return new Long(this.node.getId()).hashCode();
-	}
 	/**
 	 * @param name
 	 *            name of the beertype.
@@ -149,6 +145,41 @@ public class BeertypeModel extends AbstractModel {
 	 */
 	public static BeertypeModel getUnknown() throws NotFoundException, WrongNodeTypeException {
 		return new BeertypeModel(DBUtil.getUnknownNode(NodeType.BEERTYPE));
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((node == null) ? 0 : node.hashCode());
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof BeertypeModel)) {
+			return false;
+		}
+		BeertypeModel other = (BeertypeModel) obj;
+		if (node == null) {
+			if (other.node != null) {
+				return false;
+			}
+		} else if (!node.equals(other.node)) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return this.getId() + ":" + this.getName();
 	}
 
 }
