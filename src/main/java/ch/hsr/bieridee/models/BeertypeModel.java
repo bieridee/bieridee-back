@@ -151,7 +151,7 @@ public class BeertypeModel extends AbstractModel {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((node == null) ? 0 : node.hashCode());
+		result = prime * result + ((this.node == null) ? 0 : this.node.hashCode());
 		return result;
 	}
 	
@@ -166,12 +166,12 @@ public class BeertypeModel extends AbstractModel {
 		if (!(obj instanceof BeertypeModel)) {
 			return false;
 		}
-		BeertypeModel other = (BeertypeModel) obj;
-		if (node == null) {
+		final BeertypeModel other = (BeertypeModel) obj;
+		if (this.node == null) {
 			if (other.node != null) {
 				return false;
 			}
-		} else if (!node.equals(other.node)) {
+		} else if (!this.node.equals(other.node)) {
 			return false;
 		}
 		return true;

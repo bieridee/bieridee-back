@@ -262,7 +262,7 @@ public class BeerModel extends AbstractModel {
 	 *            Tag to be filterd with
 	 * @return Filtered list of BeerModels
 	 * @throws NotFoundException
-	 *             Thrown if a node is not existant
+	 *             Thrown if a node is not existsing
 	 * @throws WrongNodeTypeException
 	 *             Thrown if a node is not of the desired type
 	 */
@@ -270,6 +270,17 @@ public class BeerModel extends AbstractModel {
 		return createModelsFromNodes(DBUtil.getBeerNodeList(filterTag));
 	}
 
+	/**
+	 * Creates models from nodes.
+	 * 
+	 * @param beerNodes
+	 *            Beernodes
+	 * @return A list of BeerModels
+	 * @throws NotFoundException
+	 *             Thrown if a node is not existsing
+	 * @throws WrongNodeTypeException
+	 *             Thrown if a node is not of the desired type
+	 */
 	public static List<BeerModel> createModelsFromNodes(List<Node> beerNodes) throws NotFoundException, WrongNodeTypeException {
 		final List<BeerModel> models = new LinkedList<BeerModel>();
 		for (Node n : beerNodes) {
@@ -284,7 +295,7 @@ public class BeerModel extends AbstractModel {
 	public void delete() {
 
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return this.node.hashCode();
