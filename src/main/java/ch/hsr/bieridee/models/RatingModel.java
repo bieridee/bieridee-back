@@ -104,14 +104,18 @@ public class RatingModel extends AbstractActionModel {
 
 	/**
 	 * Creates RatingModels from ratingnodes.
-	 * @param ratingNodes The nodes
+	 * 
+	 * @param ratingNodes
+	 *            The nodes
 	 * @return A list of RatingModels
-	 * @throws NotFoundException Thrown if the given node can not be found
-	 * @throws WrongNodeTypeException Thrown if the given node is not of type user
+	 * @throws NotFoundException
+	 *             Thrown if the given node can not be found
+	 * @throws WrongNodeTypeException
+	 *             Thrown if the given node is not of type user
 	 */
 	public static List<RatingModel> createModelsFromNodes(List<Node> ratingNodes) throws NotFoundException, WrongNodeTypeException {
 		final List<RatingModel> ratingModels = new LinkedList<RatingModel>();
-		for(Node node : ratingNodes){
+		for (Node node : ratingNodes) {
 			ratingModels.add(new RatingModel(node));
 		}
 		return ratingModels;

@@ -77,7 +77,8 @@ public class Recommendator {
 		final List<BeerModel> knownBeers = getKnownBeers();
 		// throw all weights thogheter and get a list of recommedations from it
 		final List<RecommendationModel> recommendations = this.calculate(beerRatings, userWeights, beertypeWeights, beerWeights, knownBeers);
-
+		
+		Collections.sort(recommendations);
 		return recommendations;
 	}
 

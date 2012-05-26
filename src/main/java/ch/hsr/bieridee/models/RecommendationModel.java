@@ -12,7 +12,7 @@ import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
  * database.
  * 
  */
-public class RecommendationModel extends AbstractModel {
+public class RecommendationModel extends AbstractModel implements Comparable<RecommendationModel> {
 
 	private Recommendation recommendation;
 
@@ -75,6 +75,13 @@ public class RecommendationModel extends AbstractModel {
 	// SUPPRESS CHECKSTYLE: setter
 	public void setBeer(BeerModel beer) {
 		this.recommendation.setBeer(beer.getDomainObject());
+	}
+
+	@Override
+	public int compareTo(RecommendationModel o) {
+		final Double w1 = this.getWeight();
+		final Double w2 = o.getWeight();
+		return w2.compareTo(w1);
 	}
 
 }
