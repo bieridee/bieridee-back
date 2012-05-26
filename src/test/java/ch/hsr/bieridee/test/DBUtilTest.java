@@ -98,7 +98,7 @@ public class DBUtilTest extends DBTest {
 
 		List<BeerModel> beerModels = null;
 		try {
-			beerModels = BeerModel.getAll(tm.getId());
+			beerModels = BeerModel.getAllByTag(tm.getId());
 		} catch (WrongNodeTypeException e) {
 			Assert.fail();
 			e.printStackTrace();
