@@ -80,6 +80,7 @@ public class Dispatcher extends Application {
 		rootRouter.attach(Res.LOADTEST, Resource42.class);
 		rootRouter.attach(Res.BRAND_COLLECTION, BrandListResource.class);
 		rootRouter.attach(Res.BREWERYSIZE_COLLECTION, BrewerySizeResource.class);
+		rootRouter.attach(Res.USER_RECOMMENDATION_COLLECTION, RecommendationResource.class);
 
 
 		// Create a guard
