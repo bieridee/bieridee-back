@@ -69,7 +69,7 @@ public class Recommendator {
 		final List<RatingModel> beerRatings = this.getRatingsOfLikeNeighbours();
 		// weight the rated beers by the rating, take the average weight if there is more than one rating
 		final Map<BeerModel, Double> beerWeights = this.calculateBeerWeights(beerRatings);
-		
+
 		// ****
 		// the grande finale...
 		// ****
@@ -77,7 +77,7 @@ public class Recommendator {
 		final List<BeerModel> knownBeers = getKnownBeers();
 		// throw all weights thogheter and get a list of recommedations from it
 		final List<RecommendationModel> recommendations = this.calculate(beerRatings, userWeights, beertypeWeights, beerWeights, knownBeers);
-		
+
 		Collections.sort(recommendations);
 		return recommendations;
 	}
@@ -89,26 +89,30 @@ public class Recommendator {
 	}
 
 	private Map<UserModel, Double> calculateUserWeights(List<RatingModel> likeNeighbourRatings) {
-		final HashMap<UserModel, Double> userRatings = new HashMap<UserModel, Double>();
+		final HashMap<UserModel, Double> userWeights = new HashMap<UserModel, Double>();
+		// do nothing if list is empty
+		if (likeNeighbourRatings.isEmpty()) {
+			return userWeights;
+		}
 		// iterate over all ratings to weight and sum them up for every user
 		for (RatingModel rating : likeNeighbourRatings) {
 			Double value = null;
 			final UserModel key = rating.getUser();
-			value = userRatings.get(key);
+			value = userWeights.get(key);
 			if (value == null) {
 				value = applyRatingConversionTable(rating.getRating());
 			} else {
 				value += applyRatingConversionTable(rating.getRating());
 			}
-			userRatings.put(key, value);
+			userWeights.put(key, value);
 		}
 		// now normalize them in a scale from 1 to 3
-		final Double max = Collections.max(userRatings.values());
-		for (Entry<UserModel, Double> entry : userRatings.entrySet()) {
+		final Double max = Collections.max(userWeights.values());
+		for (Entry<UserModel, Double> entry : userWeights.entrySet()) {
 			final Double value = 1d + (2 * (entry.getValue() / max));
 			entry.setValue(value);
 		}
-		return userRatings;
+		return userWeights;
 	}
 
 	// / userweight step: end
@@ -121,6 +125,10 @@ public class Recommendator {
 
 	private Map<BeertypeModel, Double> calculateBeertypeWeights(final List<RatingModel> ownRatings) throws WrongNodeTypeException {
 		final HashMap<BeertypeModel, Double> beertypeWeights = new HashMap<BeertypeModel, Double>();
+		// return if list is empty
+		if(ownRatings.isEmpty()) {
+			return beertypeWeights;
+		}
 		// iterate over all own ratings to extract beertype to weight and sum them up
 		for (RatingModel rating : ownRatings) {
 			Double value = null;
@@ -153,6 +161,10 @@ public class Recommendator {
 	private Map<BeerModel, Double> calculateBeerWeights(List<RatingModel> beerRatings) {
 		final HashMap<BeerModel, Double> beerWeights = new HashMap<BeerModel, Double>();
 		final HashMap<BeerModel, LinkedList<Double>> tempBeerWeights = new HashMap<BeerModel, LinkedList<Double>>();
+		// nothing to do if list is empty
+		if(beerRatings.isEmpty()) {
+			return beerWeights;
+		}
 		for (RatingModel rating : beerRatings) {
 			// we need to take the average, thus we neet to keep track of the number of ratings
 			LinkedList<Double> values = null;
@@ -173,40 +185,42 @@ public class Recommendator {
 	}
 
 	// beerweight step: end
-	
+
 	// finale step: start
-	
+
 	private List<BeerModel> getKnownBeers() throws NotFoundException, WrongNodeTypeException {
 		return BeerModel.createModelsFromNodes(Cypher.executeAndGetNodes(Cypherqueries.GET_KNOWN_BEERS_OF_USER, "Beers", this.userId));
 	}
-	
-	private List<RecommendationModel> calculate(List<RatingModel> beerRatings, Map<UserModel, Double> userWeights, Map<BeertypeModel, Double> beertypeWeights, Map<BeerModel, Double> beerWeights, List<BeerModel> knownBeers) throws NotFoundException, WrongNodeTypeException {
+
+	private List<RecommendationModel> calculate(List<RatingModel> beerRatings, Map<UserModel, Double> userWeights, Map<BeertypeModel, Double> beertypeWeights, Map<BeerModel, Double> beerWeights, List<BeerModel> knownBeers) throws NotFoundException,
+			WrongNodeTypeException {
 		final HashMap<BeerModel, Double> calcRecommendation = new HashMap<BeerModel, Double>();
 		final LinkedList<RecommendationModel> recommendations = new LinkedList<RecommendationModel>();
-		
+
 		// iterate over all the beers rated by the like-neighbours, these are the recommended beers
 		for (RatingModel rating : beerRatings) {
 			final BeerModel beer = rating.getBeer();
-			
+
 			// no rating needed for already known beers, will not show up in list
-			if(isBeerKnown(beer, knownBeers)) {
+			if (isBeerKnown(beer, knownBeers)) {
 				continue;
 			}
-			
+
 			final UserModel user = rating.getUser();
 			final BeertypeModel beertype = beer.getBeertype();
-			
+
 			final Double beerWeight = beerWeights.get(beer);
 			final Double userWeight = userWeights.get(user);
-			// it is not given, that all beertypes of the recommended beers are rated, if not, use 1 as weight (no influence)
+			// it is not given, that all beertypes of the recommended beers are rated, if not, use 1 as weight (no
+			// influence)
 			Double beertypeWeight = 1d;
-			if(beertypeWeights.get(beertype) != null) {
+			if (beertypeWeights.get(beertype) != null) {
 				beertypeWeight = beertypeWeights.get(beertype);
 			}
-			
+
 			// this is the recommendation weight of the beer
 			final Double recommendationWeight = userWeight * beerWeight * beertypeWeight;
-			
+
 			// summ it up
 			Double value = null;
 			value = calcRecommendation.get(beer);
@@ -216,22 +230,25 @@ public class Recommendator {
 				value += recommendationWeight;
 			}
 			calcRecommendation.put(beer, value);
-			
+
 		}
-		
+		// return an empty list if no recommendations could be made
+		if(calcRecommendation.isEmpty()) {
+			return recommendations;
+		}
 		// add a normalized weight
 		final double max = Collections.max(calcRecommendation.values());
-		for(Entry<BeerModel, Double> recom : calcRecommendation.entrySet()) {
-			//SUPPRESS CHECKSTYLE: magic number -> normalize to max 5
+		for (Entry<BeerModel, Double> recom : calcRecommendation.entrySet()) {
+			// SUPPRESS CHECKSTYLE: magic number -> normalize to max 5
 			final double normalizedWeight = 1 + 4 * (recom.getValue() / max);
 			recommendations.add(new RecommendationModel(recom.getValue(), normalizedWeight, this.userModel, recom.getKey()));
 		}
-		
+
 		return recommendations;
 	}
-	
+
 	// finale step: end
-	
+
 	/**
 	 * Converts the ratings from 3 to 5 to according weights. 3 -> 0.5 4 -> 1 5 -> 2
 	 * 
@@ -272,7 +289,7 @@ public class Recommendator {
 		}
 		return retSum;
 	}
-	
+
 	private boolean isBeerKnown(BeerModel beer, List<BeerModel> knownBeers) {
 		return knownBeers.contains(beer);
 	}
