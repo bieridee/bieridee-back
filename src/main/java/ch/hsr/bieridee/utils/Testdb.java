@@ -462,6 +462,10 @@ public final class Testdb {
 			barcodeIndex.createRelationshipTo(barcodeCalanda3, RelType.INDEXES);
 			calanda.createRelationshipTo(barcodeCalanda3, RelType.HAS_BARCODE);
 
+			final Node barcodeKilkenny1 = createBarcode(db, "5000213000564", "EAN_13");
+			barcodeIndex.createRelationshipTo(barcodeKilkenny1, RelType.INDEXES);
+			kilkenny.createRelationshipTo(barcodeKilkenny1, RelType.HAS_BARCODE);
+
 			transaction.success();
 		} finally {
 			transaction.finish();
