@@ -19,6 +19,7 @@ import ch.hsr.bieridee.resourcehandler.BrewerySizeResource;
 import ch.hsr.bieridee.resourcehandler.ConsumptionListResource;
 import ch.hsr.bieridee.resourcehandler.ImageResource;
 import ch.hsr.bieridee.resourcehandler.RatingResource;
+import ch.hsr.bieridee.resourcehandler.RecommendationResource;
 import ch.hsr.bieridee.resourcehandler.Resource42;
 import ch.hsr.bieridee.resourcehandler.TagListResource;
 import ch.hsr.bieridee.resourcehandler.TagListResourceForBeer;
@@ -79,6 +80,7 @@ public class Dispatcher extends Application {
 		guardedRouter.attach(Res.LOADTEST, Resource42.class);
 		guardedRouter.attach(Res.BRAND_COLLECTION, BrandListResource.class);
 		guardedRouter.attach(Res.BREWERYSIZE_COLLECTION, BrewerySizeResource.class);
+		guardedRouter.attach(Res.USER_RECOMMENDATION_COLLECTION, RecommendationResource.class);
 
 
 		// Create a guard

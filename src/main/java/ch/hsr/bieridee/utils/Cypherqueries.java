@@ -56,6 +56,13 @@ public final class Cypherqueries {
 	public static final String GET_ALL_RATINGS = "START HOME_NODE = node(0) MATCH HOME_NODE-[:INDEX_TIMELINESTART]-TIMELINESTART-[:NEXT*]-Action-[:NEXT]->TIMELINEEND WHERE Action.type = '" + NodeType.RATING + "' RETURN Action";
 	public static final String GET_ACTIVE_RATING = "START HOME_NODE = node(0), beer = node($$) MATCH HOME_NODE-[:INDEX_ACTIVERATINGINDEX]-ACTIVERATINGINDEX-[:INDEXES_ACTIVE]->Rating<-[:DOES]-User, Rating-[:CONTAINS]-beer WHERE User.username='$$' and Rating.type='rating' RETURN Rating, beer";
 
+	// Recommendations
+	public static final String GET_USER_RATED_BEERS = "START USER = node($$) MATCH USER-[:DOES]-Action-[:CONTAINS]->Beer, Action-[:INDEXES_ACTIVE]-() WHERE Action.type='rating' AND Action.rating >= 3 RETURN Beer ORDER BY Action.rating DESC";
+	public static final String GET_LIKENEIGHBOURS_RATINGS_OF_COMMON_BEERS = "START USER = node($$) MATCH USER-[:DOES]-Action-[:CONTAINS]-Beer<-[:CONTAINS]-Friendaction-[:DOES]-Friend, Friendaction<-[:INDEXES_ACTIVE]-() WHERE Action.type = 'rating' AND Friendaction.type='rating' AND Action.rating >= 3 AND Friendaction.rating >= 3 AND NOT(ID(Friend) = ID(USER)) RETURN DISTINCT Friendaction";
+	public static final String GET_ACTIVE_RATINGS_FOR_USER = "START USER = node($$) MATCH USER-[:DOES]-Action-[:CONTAINS]-Beer-[:HAS_BEERTYPE]-beertype, Action-[:INDEXES_ACTIVE]-() WHERE Action.type='rating' AND Action.rating >= 3 RETURN Action";
+	public static final String GET_ACTIVE_RATINGS_OF_LIKENEIGHBOURS = "START USER = node($$) MATCH USER-[:DOES]-Action-[:CONTAINS]->Beer, Action<-[:INDEXES_ACTIVE]-(), Beer-[:CONTAINS]-FriendAction-[:DOES]-Friend-[:DOES]-OtherFriendAction-[:CONTAINS]->OtherBeers, FriendAction<-[:INDEXES_ACTIVE]-(), OtherFriendAction<-[:INDEXES_ACTIVE]-() WHERE Action.type = 'rating' AND OtherFriendAction.type = 'rating' AND Action.rating >= 3 AND OtherFriendAction.rating >= 3 AND NOT(ID(OtherBeers) = ID(Beer)) RETURN DISTINCT OtherFriendAction";
+	public static final String GET_KNOWN_BEERS_OF_USER = "START USER = node($$) MATCH USER-[:DOES]->()-[:CONTAINS]->Beers RETURN DISTINCT Beers";
+	
 	// Brand
 	public static final String GET_ALL_BRANDS = "START HOME = node(0) MATCH HOME-[:INDEX_BEER]->()-[:INDEXES]->Beer RETURN DISTINCT Beer.brand AS Brand ORDER BY Beer.brand ASC";
 

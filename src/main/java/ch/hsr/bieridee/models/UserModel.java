@@ -81,6 +81,10 @@ public class UserModel extends AbstractModel {
 		return this.node;
 	}
 
+	public long getId() {
+		return this.node.getId();
+	}
+
 	public String getUsername() {
 		return this.domainObject.getUsername();
 	}
@@ -177,6 +181,38 @@ public class UserModel extends AbstractModel {
 	 */
 	public static boolean doesUserExist(String username) {
 		return DBUtil.doesUserExist(username);
+	}
+
+	@Override
+	public int hashCode() {
+		return this.node.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof UserModel)) {
+			return false;
+		}
+		final UserModel other = (UserModel) obj;
+		if (this.node == null) {
+			if (other.node != null) {
+				return false;
+			}
+		} else if (!this.node.equals(other.node)) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return this.getId() + ":" + this.getUsername();
 	}
 
 }

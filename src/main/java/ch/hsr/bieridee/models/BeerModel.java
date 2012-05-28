@@ -254,19 +254,6 @@ public class BeerModel extends AbstractModel {
 		}
 	}
 
-	@Override
-	public int hashCode() {
-		return this.node.hashCode();
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (!(o instanceof BeerModel)) {
-			return false;
-		}
-		return this.node.getId() == ((BeerModel) o).getId();
-	}
-
 	/**
 	 * Create a new Beer! Including a fresh node and a delicious domain object.
 	 * 
@@ -349,6 +336,25 @@ public class BeerModel extends AbstractModel {
 	}
 
 	/**
+	 * Creates models from nodes.
+	 * 
+	 * @param beerNodes
+	 *            Beernodes
+	 * @return A list of BeerModels
+	 * @throws NotFoundException
+	 *             Thrown if a node is not existing
+	 * @throws WrongNodeTypeException
+	 *             Thrown if a node is not of the desired type
+	 */
+	public static List<BeerModel> createModelsFromNodes(List<Node> beerNodes) throws NotFoundException, WrongNodeTypeException {
+		final List<BeerModel> models = new LinkedList<BeerModel>();
+		for (Node n : beerNodes) {
+			models.add(new BeerModel(n));
+		}
+		return models;
+	}
+
+	/**
 	 * Gets a list of beers as <code>BeerModel</code>s filtered by a barcode. Should just return one beer.
 	 * 
 	 * @param filterBarcode
@@ -369,11 +375,22 @@ public class BeerModel extends AbstractModel {
 		return beerList;
 	}
 
-	private static List<BeerModel> createModelsFromNodes(Iterable<Node> beerNodes) throws NotFoundException, WrongNodeTypeException {
-		final List<BeerModel> models = new LinkedList<BeerModel>();
-		for (Node n : beerNodes) {
-			models.add(new BeerModel(n));
-		}
-		return models;
+	@Override
+	public int hashCode() {
+		return this.node.hashCode();
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (!(o instanceof BeerModel)) {
+			return false;
+		}
+		return this.node.getId() == ((BeerModel) o).getId();
+	}
+
+	@Override
+	public String toString() {
+		return this.getId() + ":" + this.getName();
+	}
+
 }

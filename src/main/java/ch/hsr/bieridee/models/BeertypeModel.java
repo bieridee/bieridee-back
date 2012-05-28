@@ -146,5 +146,37 @@ public class BeertypeModel extends AbstractModel {
 	public static BeertypeModel getUnknown() throws NotFoundException, WrongNodeTypeException {
 		return new BeertypeModel(DBUtil.getUnknownNode(NodeType.BEERTYPE));
 	}
+	
+	@Override
+	public int hashCode() {
+		return this.node.hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof BeertypeModel)) {
+			return false;
+		}
+		final BeertypeModel other = (BeertypeModel) obj;
+		if (this.node == null) {
+			if (other.node != null) {
+				return false;
+			}
+		} else if (!this.node.equals(other.node)) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return this.getId() + ":" + this.getName();
+	}
 
 }

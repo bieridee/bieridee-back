@@ -13,6 +13,7 @@ import ch.hsr.bieridee.serializer.BreweryListSerializer;
 import ch.hsr.bieridee.serializer.BrewerySerializer;
 import ch.hsr.bieridee.serializer.ConsumptionSerializer;
 import ch.hsr.bieridee.serializer.RatingSerializer;
+import ch.hsr.bieridee.serializer.RecommendationSerializer;
 import ch.hsr.bieridee.serializer.TagListSerializer;
 import ch.hsr.bieridee.serializer.TagSerializer;
 import ch.hsr.bieridee.serializer.UserListSerializer;
@@ -61,6 +62,7 @@ public final class Config {
 		beerModule.addSerializer(new UserListSerializer());
 		beerModule.addSerializer(new ConsumptionSerializer());
 		beerModule.addSerializer(new RatingSerializer());
+		beerModule.addSerializer(new RecommendationSerializer());
 
 		objectMapper.registerModule(beerModule);
 		return objectMapper;

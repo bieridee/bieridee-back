@@ -463,6 +463,16 @@ public final class DBUtil {
 		return Cypher.executeAndGetNodes(Cypherqueries.GET_ALL_BEER_CONSUMPTIONS_FOR_USER, "consumption", Long.toString(beerId), username);
 	}
 
+	/**
+	 * @param username
+	 *            username of the user
+	 * @return List containing the beer nodes the user rated
+	 */
+	public static List<Node> getBeersRatedByUser(String username) {
+		final Node userNode = DBUtil.getUserByName(username);
+		return Cypher.executeAndGetNodes(Cypherqueries.GET_USER_RATED_BEERS, "Beer", userNode.getId() + "");
+	}
+
 	public static List<String> getAllBrands() {
 		return Cypher.executeAndGetStrings(Cypherqueries.GET_ALL_BRANDS, "Brand");
 	}

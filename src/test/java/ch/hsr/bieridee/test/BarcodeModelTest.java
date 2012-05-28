@@ -21,7 +21,7 @@ public class BarcodeModelTest extends DBTest {
 	 */
 	@Test
 	public void testBarcodeBeerInteraction() {
-		final String code = "76129049";
+		final String code = "13371337";
 		final String format = "EAN-8";
 		BeerModel beerModel = null;
 		BarcodeModel barcodeModel = null;
