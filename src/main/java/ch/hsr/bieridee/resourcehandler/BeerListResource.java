@@ -30,8 +30,11 @@ public class BeerListResource extends ServerResource implements ICollectionResou
 		List<BeerModel> beerModels;
 
 		final String tagId = getQuery().getFirstValue(Res.BEER_FILTER_PARAMETER_TAG);
-		if (tagId != null) {
-			beerModels = BeerModel.getAll(Long.parseLong(tagId));
+		final String barcode = getQuery().getFirstValue(Res.BEER_FILTER_PARAMETER_BARCODE);
+		if (barcode != null) {
+			beerModels = BeerModel.getAllByBarcode(barcode);
+		} else if (tagId != null) {
+			beerModels = BeerModel.getAllByTag(Long.parseLong(tagId));
 		} else {
 			beerModels = BeerModel.getAll();
 		}
