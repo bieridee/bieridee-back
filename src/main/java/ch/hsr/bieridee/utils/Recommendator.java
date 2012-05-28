@@ -215,8 +215,17 @@ public class Recommendator {
 			final UserModel user = rating.getUser();
 			final BeertypeModel beertype = beer.getBeertype();
 
-			final Double beerWeight = beerWeights.get(beer);
-			final Double userWeight = userWeights.get(user);
+			Double beerWeight = 1d;
+			final Double calculatedBeerWeight = beerWeights.get(beer);
+			if(calculatedBeerWeight != null) {
+				beerWeight = calculatedBeerWeight;
+			}
+			
+			Double userWeight = 1d;
+			final Double claculatedUserWeight = userWeights.get(user);
+			if(claculatedUserWeight != null) {
+				userWeight = claculatedUserWeight;
+			}
 			// it is not given, that all beertypes of the recommended beers are rated, if not, use 1 as weight (no
 			// influence)
 			Double beertypeWeight = 1d;
@@ -224,7 +233,7 @@ public class Recommendator {
 			if (calculatedBeertypeWeight != null) {
 				beertypeWeight = calculatedBeertypeWeight;
 			}
-
+			
 			// this is the recommendation weight of the beer
 			final Double recommendationWeight = userWeight * beerWeight * beertypeWeight;
 
