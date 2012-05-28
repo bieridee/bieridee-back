@@ -9,7 +9,6 @@ import org.neo4j.graphdb.NotFoundException;
 import org.neo4j.server.rest.web.NodeNotFoundException;
 import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
-import org.restlet.resource.ServerResource;
 
 import ch.hsr.bieridee.config.Config;
 import ch.hsr.bieridee.config.Res;
@@ -22,21 +21,35 @@ import ch.hsr.bieridee.resourcehandler.interfaces.ICollectionResource;
 /**
  * ServerResource for getting a List of Beers.
  */
-public class BeerListResource extends ServerResource implements ICollectionResource {
+public class BeerListResource extends AbstractPagingServerResource implements ICollectionResource {
 
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
 
 		List<BeerModel> beerModels;
-
+		final boolean needsPaging = getNeedsPaging();
+		final int items = getNumberOfItemsParam();
+		final int page = getPageNumberParam();
 		final String tagId = getQuery().getFirstValue(Res.BEER_FILTER_PARAMETER_TAG);
+
 		final String barcode = getQuery().getFirstValue(Res.BEER_FILTER_PARAMETER_BARCODE);
-		if (barcode != null) {
+		if (barcode != null) { // special case, has barcode tag and paging doesent matter
 			beerModels = BeerModel.getAllByBarcode(barcode);
-		} else if (tagId != null) {
-			beerModels = BeerModel.getAllByTag(Long.parseLong(tagId));
 		} else {
-			beerModels = BeerModel.getAll();
+			if (tagId != null) { // has tag
+				if (needsPaging) {
+					beerModels = BeerModel.getAllByTag(Long.parseLong(tagId), items, page * items);
+				} else {
+					beerModels = BeerModel.getAllByTag(Long.parseLong(tagId));
+				}
+
+			} else { // no tag
+				if (needsPaging) {
+					beerModels = BeerModel.getAll(items, page * items);
+				} else {
+					beerModels = BeerModel.getAll();
+				}
+			}
 		}
 
 		final BeerModel[] beerModelArray = beerModels.toArray(new BeerModel[beerModels.size()]);
@@ -54,7 +67,7 @@ public class BeerListResource extends ServerResource implements ICollectionResou
 
 		final String name = beerJson.getString("name");
 		final String brand = beerJson.getString("brand");
-		
+
 		BeertypeModel beertypeModel = null;
 		// is the beertype unknown?
 		if (beerJson.optBoolean("unknownbeertype")) {
@@ -62,7 +75,7 @@ public class BeerListResource extends ServerResource implements ICollectionResou
 		} else {
 			beertypeModel = new BeertypeModel(beerJson.getLong("beertype"));
 		}
-		
+
 		BreweryModel breweryModel = null;
 		// ist the brewery unknown?
 		if (beerJson.optBoolean("unknownbrewery")) {

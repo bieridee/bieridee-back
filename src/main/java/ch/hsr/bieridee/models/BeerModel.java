@@ -213,7 +213,9 @@ public class BeerModel extends AbstractModel {
 
 	/**
 	 * Add barcode to BeerModel.
-	 * @param b BarcodeModel
+	 * 
+	 * @param b
+	 *            BarcodeModel
 	 */
 	public void addBarcode(BarcodeModel b) {
 		// Get or create a new barcode node
@@ -232,8 +234,8 @@ public class BeerModel extends AbstractModel {
 				throw new RuntimeException("Barcode already exists for other Beer.");
 			}
 
-		// If the node doesn't have a relationship yet, it means that it was just created.
-		// In that case, create a relationship with the current beer.
+			// If the node doesn't have a relationship yet, it means that it was just created.
+			// In that case, create a relationship with the current beer.
 		} else {
 			DBUtil.createRelationship(this.node, RelType.HAS_BARCODE, barcodeNode);
 		}
@@ -287,12 +289,29 @@ public class BeerModel extends AbstractModel {
 	 * 
 	 * @return List of <code>BeerModel</code>
 	 * @throws NotFoundException
-	 *             Thrown if a node is not existant.
+	 *             Thrown if a node is not existing
 	 * @throws WrongNodeTypeException
 	 *             Thrown if a node is not of the desired type
 	 */
 	public static List<BeerModel> getAll() throws NotFoundException, WrongNodeTypeException {
 		return createModelsFromNodes(DBUtil.getBeerNodeList());
+	}
+
+	/**
+	 * Gets a list of all beers as <code>BeerModel</code>s.
+	 * 
+	 * @param items
+	 *            Number of items to be displayed
+	 * @param skip
+	 *            Number of items to be skipped
+	 * @return List of <code>BeerModel</code>
+	 * @throws NotFoundException
+	 *             Thrown if a node is not existsing
+	 * @throws WrongNodeTypeException
+	 *             Thrown if a node is not of the desired type
+	 */
+	public static List<BeerModel> getAll(int items, int skip) throws NotFoundException, WrongNodeTypeException {
+		return createModelsFromNodes(DBUtil.getBeerNodeList(items, skip));
 	}
 
 	/**
@@ -302,7 +321,7 @@ public class BeerModel extends AbstractModel {
 	 *            Tag to be filterd with
 	 * @return Filtered list of BeerModels
 	 * @throws NotFoundException
-	 *             Thrown if a node is not existant
+	 *             Thrown if a node is not existing
 	 * @throws WrongNodeTypeException
 	 *             Thrown if a node is not of the desired type
 	 */
@@ -311,9 +330,27 @@ public class BeerModel extends AbstractModel {
 	}
 
 	/**
-	 * Gets a list of beers as <code>BeerModel</code>s filtered by a barcode.
-	 * Should just return one beer.
-	 *
+	 * Gets a list of beers as <code>BeerModel</code>s filtered by a tag.
+	 * 
+	 * @param filterTag
+	 *            Tag to be filterd with
+	 * @param items
+	 *            Number of items to be displayed
+	 * @param skip
+	 *            Number of items to be skipped
+	 * @return Filtered list of BeerModels
+	 * @throws NotFoundException
+	 *             Thrown if a node is not existant
+	 * @throws WrongNodeTypeException
+	 *             Thrown if a node is not of the desired type
+	 */
+	public static List<BeerModel> getAllByTag(long filterTag, int items, int skip) throws NotFoundException, WrongNodeTypeException {
+		return createModelsFromNodes(DBUtil.getBeerNodeList(filterTag, items, skip));
+	}
+
+	/**
+	 * Gets a list of beers as <code>BeerModel</code>s filtered by a barcode. Should just return one beer.
+	 * 
 	 * @param filterBarcode
 	 *            Barcode to be filterd with
 	 * @return Filtered list of BeerModels
@@ -323,10 +360,10 @@ public class BeerModel extends AbstractModel {
 	 *             Thrown if a node is not of the desired type
 	 */
 	public static List<BeerModel> getAllByBarcode(String filterBarcode) throws NotFoundException, WrongNodeTypeException {
-		List<BeerModel> beerList = new LinkedList<BeerModel>();
-		Node beerNode = DBUtil.getBeerByBarcode(filterBarcode);
+		final List<BeerModel> beerList = new LinkedList<BeerModel>();
+		final Node beerNode = DBUtil.getBeerByBarcode(filterBarcode);
 		if (beerNode != null) {
-			BeerModel beerModel = new BeerModel(beerNode);
+			final BeerModel beerModel = new BeerModel(beerNode);
 			beerList.add(beerModel);
 		}
 		return beerList;

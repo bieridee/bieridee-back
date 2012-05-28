@@ -17,6 +17,10 @@ public final class Res {
 	}
 
 	public static final String PUBLIC_API_URL = "http://" + Config.API_HOSTSTRING;
+	
+	// global
+	public static final String PAGE_PARAMETER = "page";
+	public static final String ITEMS_PER_PAGE_PARAMETER = "items";
 
 	// beer
 	public static final String BEER_COLLECTION = "/beers";
@@ -69,8 +73,6 @@ public final class Res {
 	// timeline
 	public static final String TIMELINE_COLLECTION = "/timeline";
 	public static final String TIMELINE_FILTER_PARAMETER_USER = "username";
-	public static final String TIMELINE_PAGE_PARAMETER = "page";
-	public static final String TIMELINE_LIST_SIZE_PARAMETER = "nOfItems";
 
 	// brewerysize
 	public static final String BREWERYSIZE_COLLECTION = "/brewerysizes";

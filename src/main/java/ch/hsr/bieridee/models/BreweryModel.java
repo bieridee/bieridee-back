@@ -142,6 +142,10 @@ public class BreweryModel extends AbstractModel {
 	public static List<BreweryModel> getAll() throws NotFoundException, WrongNodeTypeException {
 		return createModelsFromNodes(DBUtil.getBreweryNodeList());
 	}
+	
+	public static List<BreweryModel> getAll(int items, int skip) throws NotFoundException, WrongNodeTypeException {
+		return createModelsFromNodes(DBUtil.getBreweryNodeList(items, skip));
+	}
 
 	/**
 	 * Gets a list of BeweryModels filtered by brewerySize.
@@ -156,6 +160,10 @@ public class BreweryModel extends AbstractModel {
 	 */
 	public static List<BreweryModel> getAll(String brewerySize) throws NotFoundException, WrongNodeTypeException {
 		return createModelsFromNodes(DBUtil.getBreweryNodeList(brewerySize));
+	}
+
+	public static List<BreweryModel> getAll(String brewerySize, int items, int skip) throws NotFoundException, WrongNodeTypeException {
+		return createModelsFromNodes(DBUtil.getBreweryNodeList(brewerySize, items, skip));
 	}
 
 	private static List<BreweryModel> createModelsFromNodes(List<Node> breweryNodes) throws NotFoundException, WrongNodeTypeException {

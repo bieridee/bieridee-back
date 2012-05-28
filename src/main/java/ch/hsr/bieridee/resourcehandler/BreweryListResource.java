@@ -8,7 +8,6 @@ import org.json.JSONObject;
 import org.neo4j.server.rest.web.NodeNotFoundException;
 import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
-import org.restlet.resource.ServerResource;
 
 import ch.hsr.bieridee.config.Config;
 import ch.hsr.bieridee.config.Res;
@@ -19,18 +18,28 @@ import ch.hsr.bieridee.resourcehandler.interfaces.ICollectionResource;
 /**
  * ServerResource for getting a List of Breweries.
  */
-public class BreweryListResource extends ServerResource implements ICollectionResource {
+public class BreweryListResource extends AbstractPagingServerResource implements ICollectionResource {
 
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
 		List<BreweryModel> breweryModels;
-
-		// Process filter parameters, get nodes
+		final boolean needsPaging = getNeedsPaging();
+		final int items = getNumberOfItemsParam();
+		final int page = getPageNumberParam();
 		final String brewerySize = getQuery().getFirstValue(Res.BREWERY_FILTER_PARAMETER_SIZE);
+
 		if (brewerySize != null) {
-			breweryModels = BreweryModel.getAll(brewerySize);
+			if (needsPaging) {
+				breweryModels = BreweryModel.getAll(brewerySize, items, items * page);
+			} else {
+				breweryModels = BreweryModel.getAll(brewerySize);
+			}
 		} else {
-			breweryModels = BreweryModel.getAll();
+			if (needsPaging) {
+				breweryModels = BreweryModel.getAll(items, items * page);
+			} else {
+				breweryModels = BreweryModel.getAll();
+			}
 		}
 
 		final BreweryModel[] breweryModelArray = breweryModels.toArray(new BreweryModel[breweryModels.size()]);

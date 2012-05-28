@@ -25,21 +25,21 @@ public interface IDocumentResource {
 	@Get
 	Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException;
 	
+
 	/**
 	 * Update or create a document.
-	 * @param rep Representation of the document to store.
-	 * @return 
-	 * @throws IOException 
-	 * @throws JSONException 
-	 * @throws WrongNodeTypeException 
-	 * @throws NotFoundException 
+	 * @param rep The information for the new/update document
+	 * @return The created or updated document
+	 * @throws JSONException
+	 * @throws IOException
+	 * @throws NotFoundException
+	 * @throws WrongNodeTypeException
 	 */
 	@Put
 	Representation store(Representation rep) throws JSONException, IOException, NotFoundException, WrongNodeTypeException;
 	
 	/**
 	 * Delete a document.
-	 * @param rep Representation of the document to delete.
 	 * @throws WrongNodeTypeException 
 	 * @throws NotFoundException 
 	 */

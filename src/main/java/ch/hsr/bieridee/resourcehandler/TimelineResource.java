@@ -5,7 +5,6 @@ import java.util.List;
 import org.neo4j.graphdb.NotFoundException;
 import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
-import org.restlet.resource.ServerResource;
 
 import ch.hsr.bieridee.config.Config;
 import ch.hsr.bieridee.config.Res;
@@ -19,22 +18,31 @@ import ch.hsr.bieridee.resourcehandler.interfaces.IReadOnlyResource;
  * Timeline resource.
  * 
  */
-public class TimelineResource extends ServerResource implements IReadOnlyResource {
-	public static final int ITEM_COUNT_DEFAULT = 12;
+public class TimelineResource extends AbstractPagingServerResource implements IReadOnlyResource {
 
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NotFoundException {
 		final List<AbstractActionModel> actionModels;
 		final String usernameParam = getQuery().getFirstValue(Res.TIMELINE_FILTER_PARAMETER_USER);
-		final int nOfItems = getNumberOfItemsParam();
+		final boolean needsPaging = getNeedsPaging();
+		final int items = getNumberOfItemsParam();
 		final int page = getPageNumberParam();
 
+		// no user given
 		if (usernameParam == null) {
-			actionModels = TimelineModel.getAll(nOfItems, page * nOfItems);
+			if (needsPaging) {
+				actionModels = TimelineModel.getAll(items, page * items);
+			} else {
+				actionModels = TimelineModel.getAll();
+			}
 		} else if (!UserModel.doesUserExist(usernameParam)) { // Invalid Username
 			throw new NotFoundException("Username invalid");
-		} else {
-			actionModels = TimelineModel.getAllForUser(usernameParam, nOfItems, page * nOfItems);
+		} else { // usergiven
+			if (needsPaging) {
+				actionModels = TimelineModel.getAllForUser(usernameParam, items, page * items);
+			} else {
+				actionModels = TimelineModel.getAllForUser(usernameParam);
+			}
 		}
 
 		final AbstractActionModel[] actionModelArray = actionModels.toArray(new AbstractActionModel[actionModels.size()]);
@@ -44,21 +52,4 @@ public class TimelineResource extends ServerResource implements IReadOnlyResourc
 		return actionsRep;
 	}
 
-	private int getPageNumberParam() {
-		final String pageNumber = getQuery().getFirstValue(Res.TIMELINE_PAGE_PARAMETER);
-		if (pageNumber != null) {
-			return Integer.parseInt(pageNumber);
-		}
-		return 0;
-
-	}
-
-	private int getNumberOfItemsParam() {
-		final String nOfItemsParam = getQuery().getFirstValue(Res.TIMELINE_LIST_SIZE_PARAMETER);
-		if (nOfItemsParam != null) {
-			return Integer.parseInt(nOfItemsParam);
-		}
-		return ITEM_COUNT_DEFAULT;
-
-	}
 }

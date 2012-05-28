@@ -58,6 +58,7 @@ public class Dispatcher extends Application {
 
 		// Attach public resources
 		rootRouter.attach(Res.USER_DOCUMENT, UserResource.class);
+		rootRouter.attach(Res.TAG_COLLECTION, TagListResource.class);
 		
 		// Add guarded resources
 		guardedRouter.attach(Res.BEER_COLLECTION, BeerListResource.class);
@@ -69,7 +70,6 @@ public class Dispatcher extends Application {
 		guardedRouter.attach(Res.BREWERY_DOCUMENT, BreweryResource.class);
 		guardedRouter.attach(Res.BEERTYPE_COLLECTION, BeertypeListResource.class);
 		guardedRouter.attach(Res.BEERTYPE_DOCUMENT, BeertypeResource.class);
-		guardedRouter.attach(Res.TAG_COLLECTION, TagListResource.class);
 		guardedRouter.attach(Res.TAG_DOCUMENT, TagResource.class);
 		guardedRouter.attach(Res.TAG_COLLECTION_BEER, TagListResourceForBeer.class);
 		guardedRouter.attach(Res.USER_COLLECTION, UserListResource.class);
