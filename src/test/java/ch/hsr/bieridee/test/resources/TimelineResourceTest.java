@@ -54,7 +54,7 @@ public class TimelineResourceTest extends ResourceTest {
 	 */
 	@Test
 	public void retrieveFilteredTimeline() {
-		final String username = "alki";
+		final String username = "jonas";
 		final String request = Res.PUBLIC_API_URL + Res.TIMELINE_COLLECTION + "?username=" + username;
 		final JSONArray timelineJson = getJSONArray(request);
 
@@ -75,7 +75,7 @@ public class TimelineResourceTest extends ResourceTest {
 	 */
 	@Test
 	public void retrieveTimelineWithNonExistingUser() {
-		final String username = "alki12";
+		final String username = "jonas12";
 		final String uri = Res.PUBLIC_API_URL + Res.TIMELINE_COLLECTION + "?username=" + username;
 		final HttpResponse response = getResponse(uri);
 		Assert.assertEquals(404, response.getStatusLine().getStatusCode());

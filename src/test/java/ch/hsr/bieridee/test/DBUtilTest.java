@@ -117,7 +117,7 @@ public class DBUtilTest extends DBTest {
 	}
 
 	private void getMostRecentRatingForUser() {
-		final Node activeRating = DBUtil.getActiveUserRatingForBeer(28, "saeufer");
+		final Node activeRating = DBUtil.getActiveUserRatingForBeer(28, "danilo");
 		RatingModel rm;
 		try {
 			rm = new RatingModel(activeRating);
@@ -134,7 +134,7 @@ public class DBUtilTest extends DBTest {
 		BeerModel bm = null;
 		try {
 			bm = new BeerModel(28);
-			um = new UserModel("saeufer");
+			um = new UserModel("danilo");
 		} catch (NotFoundException e) {
 			e.printStackTrace();
 			Assert.fail();
@@ -143,7 +143,7 @@ public class DBUtilTest extends DBTest {
 			Assert.fail();
 		}
 		RatingModel.create(3, bm, um);
-		final Node activeRating = DBUtil.getActiveUserRatingForBeer(28, "saeufer");
+		final Node activeRating = DBUtil.getActiveUserRatingForBeer(28, "danilo");
 		Assert.assertNotSame(activeRating.getId(), 59L);
 	}
 
