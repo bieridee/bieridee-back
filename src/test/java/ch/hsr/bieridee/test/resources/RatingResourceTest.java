@@ -34,7 +34,7 @@ public class RatingResourceTest extends ResourceTest {
 			e.printStackTrace();
 		}
 
-		final String uri = Helpers.buildResourceUri("/beers/33/ratings/alki");
+		final String uri = Helpers.buildResourceUri("/beers/33/ratings/jonas");
 		final String avgRatingResponseString = postJson(uri, rating);
 		
 		try {
@@ -56,7 +56,7 @@ public class RatingResourceTest extends ResourceTest {
 	 * Tests the retrieval of an active rating.
 	 */
 	public void getRating() {
-		final String uri = Helpers.buildResourceUri("/beers/28/ratings/saeufer");
+		final String uri = Helpers.buildResourceUri("/beers/28/ratings/danilo");
 		final JSONObject ratingJson = getJSONObject(uri);
 		
 		try {
