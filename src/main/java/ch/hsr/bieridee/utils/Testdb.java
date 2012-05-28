@@ -265,10 +265,10 @@ public final class Testdb {
 
 			/* CREATE USERS */
 
-			final Node danilo = createUser(db, "danilo", "bargen", "bargi@beer.ch", "danilo", "$2$10$357b306e9593a80fb8241uBaNyWsVkUkNokf0hnkoqhAsxNhJgK2i");
-			final Node jonas = createUser(db, "jonas", "furrer", "jonas@beer.ch", "jonas", "$2$10$582c567e42c6ebf719891uLa7l5b3qWwl.Ma//pS3JypF2WJkDTMi");
-			final Node chrigi = createUser(db, "chrigi", "fässler", "chrigi@beer.ch", "chrigi", "$2$10$2f8ed556165a7642f0a9eu3I4DaCM35Gzo043e6wd16TFangjzvE6");
-			final Node urs = createUser(db, "urs", "baumann", "urs@beer.ch", "urs", getSHA1("creat user : user with password"));
+			final Node danilo = createUser(db, "Danilo", "Bargen", "dbargen@hsr.ch", "danilo", "$2$10$da9f6713671da24a575ffO9NfD/nmRfaIGbgBv.7qa2hSdbkKsobO");
+			final Node jonas = createUser(db, "Jonas", "Furrer", "jfurrer@hsr.ch", "jonas", "$2$10$bf74e4a280affafbdf669usvKMJ3yYJgemaFUwIgkxhMRUgdaJzHa");
+			final Node chrigi = createUser(db, "Christian", "Fässler", "cfaessle@hsr.ch", "chrigi", "$2$10$1dc64ea61d95ffac5f874uze/hVckwvEgTceK50IDLb3V5a1BF7um");
+			final Node urs = createUser(db, "Urs", "Baumann", "ubaumann@hsr.ch", "urs", "$2$10$cf4caeccb0d7b784dda5aukwHIH.7WbflyAJjwwJLZCguK5FN0QU6");
 
 			userIndex.createRelationshipTo(danilo, RelType.INDEXES);
 			userIndex.createRelationshipTo(jonas, RelType.INDEXES);
