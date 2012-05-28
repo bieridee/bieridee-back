@@ -1,6 +1,5 @@
 package ch.hsr.bieridee.resourcehandler;
 
-import org.apache.log4j.Logger;
 import org.restlet.data.Status;
 import org.restlet.representation.Representation;
 import org.restlet.resource.Post;
@@ -10,8 +9,6 @@ import org.restlet.resource.ServerResource;
  * Server resource controller to verify user credentials.
  */
 public final class UserCredentialsResource extends ServerResource {
-
-	private static final Logger LOG = Logger.getLogger(UserCredentialsResource.class);
 
 	/**
 	 * Verify user credentials.

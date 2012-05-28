@@ -21,16 +21,28 @@ import ch.hsr.bieridee.resourcehandler.interfaces.ICollectionResource;
  */
 public class BreweryListResource extends ServerResource implements ICollectionResource {
 
+	private static final int ITEM_COUNT_DEFAULT = 12;
+
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
 		List<BreweryModel> breweryModels;
-
-		// Process filter parameters, get nodes
+		final boolean needsPaging = getNeedsPaging();
+		final int items = getNumberOfItemsParam();
+		final int page = getPageNumberParam();
 		final String brewerySize = getQuery().getFirstValue(Res.BREWERY_FILTER_PARAMETER_SIZE);
+
 		if (brewerySize != null) {
-			breweryModels = BreweryModel.getAll(brewerySize);
+			if (needsPaging) {
+				breweryModels = BreweryModel.getAll(brewerySize, items, items * page);
+			} else {
+				breweryModels = BreweryModel.getAll(brewerySize);
+			}
 		} else {
-			breweryModels = BreweryModel.getAll();
+			if (needsPaging) {
+				breweryModels = BreweryModel.getAll(items, items * page);
+			} else {
+				breweryModels = BreweryModel.getAll();
+			}
 		}
 
 		final BreweryModel[] breweryModelArray = breweryModels.toArray(new BreweryModel[breweryModels.size()]);
@@ -55,6 +67,29 @@ public class BreweryListResource extends ServerResource implements ICollectionRe
 		newBreweryRep.setObjectMapper(Config.getObjectMapper());
 
 		return newBreweryRep;
+	}
+
+	private boolean getNeedsPaging() {
+		if (getQuery().getFirstValue(Res.PAGE_PARAMETER) == null && getQuery().getFirstValue(Res.ITEMS_PER_PAGE_PARAMETER) == null) {
+			return false;
+		}
+		return true;
+	}
+
+	private int getPageNumberParam() {
+		final String pageNumber = getQuery().getFirstValue(Res.PAGE_PARAMETER);
+		if (pageNumber != null) {
+			return Integer.parseInt(pageNumber);
+		}
+		return 0;
+	}
+
+	private int getNumberOfItemsParam() {
+		final String nOfItemsParam = getQuery().getFirstValue(Res.ITEMS_PER_PAGE_PARAMETER);
+		if (nOfItemsParam != null) {
+			return Integer.parseInt(nOfItemsParam);
+		}
+		return ITEM_COUNT_DEFAULT;
 	}
 
 }

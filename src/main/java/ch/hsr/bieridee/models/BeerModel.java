@@ -294,6 +294,11 @@ public class BeerModel extends AbstractModel {
 	public static List<BeerModel> getAll() throws NotFoundException, WrongNodeTypeException {
 		return createModelsFromNodes(DBUtil.getBeerNodeList());
 	}
+	
+	
+	public static List<BeerModel> getAll(int items, int skip) throws NotFoundException, WrongNodeTypeException {
+		return createModelsFromNodes(DBUtil.getBeerNodeList(items, skip));
+	}
 
 	/**
 	 * Gets a list of beers as <code>BeerModel</code>s filtered by a tag.
@@ -308,6 +313,10 @@ public class BeerModel extends AbstractModel {
 	 */
 	public static List<BeerModel> getAll(long filterTag) throws NotFoundException, WrongNodeTypeException {
 		return createModelsFromNodes(DBUtil.getBeerNodeList(filterTag));
+	}
+	
+	public static List<BeerModel> getAll(long filterTag, int items, int skip) throws NotFoundException, WrongNodeTypeException {
+		return createModelsFromNodes(DBUtil.getBeerNodeList(filterTag, items, skip));
 	}
 
 	private static List<BeerModel> createModelsFromNodes(Iterable<Node> beerNodes) throws NotFoundException, WrongNodeTypeException {

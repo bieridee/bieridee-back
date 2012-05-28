@@ -20,21 +20,31 @@ import ch.hsr.bieridee.resourcehandler.interfaces.IReadOnlyResource;
  * 
  */
 public class TimelineResource extends ServerResource implements IReadOnlyResource {
-	public static final int ITEM_COUNT_DEFAULT = 12;
+	private static final int ITEM_COUNT_DEFAULT = 12;
 
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NotFoundException {
 		final List<AbstractActionModel> actionModels;
 		final String usernameParam = getQuery().getFirstValue(Res.TIMELINE_FILTER_PARAMETER_USER);
-		final int nOfItems = getNumberOfItemsParam();
+		final boolean needsPaging = getNeedsPaging();
+		final int items = getNumberOfItemsParam();
 		final int page = getPageNumberParam();
 
+		// no user given
 		if (usernameParam == null) {
-			actionModels = TimelineModel.getAll(nOfItems, page * nOfItems);
+			if(needsPaging) {
+				actionModels = TimelineModel.getAll(items, page * items);
+			} else {
+				actionModels = TimelineModel.getAll();
+			}
 		} else if (!UserModel.doesUserExist(usernameParam)) { // Invalid Username
 			throw new NotFoundException("Username invalid");
-		} else {
-			actionModels = TimelineModel.getAllForUser(usernameParam, nOfItems, page * nOfItems);
+		} else { // usergiven
+			if(needsPaging) {
+				actionModels = TimelineModel.getAllForUser(usernameParam, items, page * items);
+			} else {
+				actionModels = TimelineModel.getAllForUser(usernameParam);
+			}
 		}
 
 		final AbstractActionModel[] actionModelArray = actionModels.toArray(new AbstractActionModel[actionModels.size()]);
@@ -44,21 +54,26 @@ public class TimelineResource extends ServerResource implements IReadOnlyResourc
 		return actionsRep;
 	}
 
+	private boolean getNeedsPaging() {
+		if (getQuery().getFirstValue(Res.PAGE_PARAMETER) == null && getQuery().getFirstValue(Res.ITEMS_PER_PAGE_PARAMETER) == null) {
+			return false;
+		}
+		return true;
+	}
+
 	private int getPageNumberParam() {
-		final String pageNumber = getQuery().getFirstValue(Res.TIMELINE_PAGE_PARAMETER);
+		final String pageNumber = getQuery().getFirstValue(Res.PAGE_PARAMETER);
 		if (pageNumber != null) {
 			return Integer.parseInt(pageNumber);
 		}
 		return 0;
-
 	}
 
 	private int getNumberOfItemsParam() {
-		final String nOfItemsParam = getQuery().getFirstValue(Res.TIMELINE_LIST_SIZE_PARAMETER);
+		final String nOfItemsParam = getQuery().getFirstValue(Res.ITEMS_PER_PAGE_PARAMETER);
 		if (nOfItemsParam != null) {
 			return Integer.parseInt(nOfItemsParam);
 		}
 		return ITEM_COUNT_DEFAULT;
-
 	}
 }
