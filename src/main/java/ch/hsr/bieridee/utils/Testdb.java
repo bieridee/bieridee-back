@@ -426,15 +426,42 @@ public final class Testdb {
 			final Node barcodeIndex = db.createNode();
 			rootNode.createRelationshipTo(barcodeIndex, RelType.INDEX_BARCODE);
 
-			final Node barcodeQuoellfrisch1 = createBarcode(db, "7611889110310");
+			final Node barcodeQuoellfrisch1 = createBarcode(db, "7611889110310", "EAN_13");
 			barcodeIndex.createRelationshipTo(barcodeQuoellfrisch1, RelType.INDEXES);
 			quoellfrisch.createRelationshipTo(barcodeQuoellfrisch1, RelType.HAS_BARCODE);
 
-			final Node barcodeQuoellfrisch2 = createBarcode(db, "7611889110662", "EAN-13");
+			final Node barcodeQuoellfrisch2 = createBarcode(db, "7611889110662", "EAN_13");
 			barcodeIndex.createRelationshipTo(barcodeQuoellfrisch2, RelType.INDEXES);
 			quoellfrisch.createRelationshipTo(barcodeQuoellfrisch2, RelType.HAS_BARCODE);
 
-			
+			final Node barcodeFeldschloesschen1 = createBarcode(db, "76129049");
+			barcodeIndex.createRelationshipTo(barcodeFeldschloesschen1, RelType.INDEXES);
+			feldschloesschen.createRelationshipTo(barcodeFeldschloesschen1, RelType.HAS_BARCODE);
+
+			final Node barcodeFeldschloesschen2 = createBarcode(db, "76129810");
+			barcodeIndex.createRelationshipTo(barcodeFeldschloesschen2, RelType.INDEXES);
+			feldschloesschen.createRelationshipTo(barcodeFeldschloesschen2, RelType.HAS_BARCODE);
+
+			final Node barcodeFeldschloesschen3 = createBarcode(db, "76129155");
+			barcodeIndex.createRelationshipTo(barcodeFeldschloesschen3, RelType.INDEXES);
+			feldschloesschen.createRelationshipTo(barcodeFeldschloesschen3, RelType.HAS_BARCODE);
+
+			final Node barcodeFeldschloesschen4 = createBarcode(db, "7612900024517", "EAN_13");
+			barcodeIndex.createRelationshipTo(barcodeFeldschloesschen4, RelType.INDEXES);
+			feldschloesschen.createRelationshipTo(barcodeFeldschloesschen4, RelType.HAS_BARCODE);
+
+			final Node barcodeCalanda1 = createBarcode(db, "7610055007508", "EAN_13");
+			barcodeIndex.createRelationshipTo(barcodeCalanda1, RelType.INDEXES);
+			calanda.createRelationshipTo(barcodeCalanda1, RelType.HAS_BARCODE);
+
+			final Node barcodeCalanda2 = createBarcode(db, "76400803");
+			barcodeIndex.createRelationshipTo(barcodeCalanda2, RelType.INDEXES);
+			calanda.createRelationshipTo(barcodeCalanda2, RelType.HAS_BARCODE);
+
+			final Node barcodeCalanda3 = createBarcode(db, "7610055007508", "EAN_13");
+			barcodeIndex.createRelationshipTo(barcodeCalanda3, RelType.INDEXES);
+			calanda.createRelationshipTo(barcodeCalanda3, RelType.HAS_BARCODE);
+
 			transaction.success();
 		} finally {
 			transaction.finish();
