@@ -8,7 +8,6 @@ import org.json.JSONObject;
 import org.neo4j.server.rest.web.NodeNotFoundException;
 import org.restlet.ext.jackson.JacksonRepresentation;
 import org.restlet.representation.Representation;
-import org.restlet.resource.ServerResource;
 
 import ch.hsr.bieridee.config.Config;
 import ch.hsr.bieridee.config.Res;
@@ -19,9 +18,7 @@ import ch.hsr.bieridee.resourcehandler.interfaces.ICollectionResource;
 /**
  * ServerResource for getting a List of Breweries.
  */
-public class BreweryListResource extends ServerResource implements ICollectionResource {
-
-	private static final int ITEM_COUNT_DEFAULT = 12;
+public class BreweryListResource extends AbstractPagingServerResource implements ICollectionResource {
 
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
@@ -67,29 +64,6 @@ public class BreweryListResource extends ServerResource implements ICollectionRe
 		newBreweryRep.setObjectMapper(Config.getObjectMapper());
 
 		return newBreweryRep;
-	}
-
-	private boolean getNeedsPaging() {
-		if (getQuery().getFirstValue(Res.PAGE_PARAMETER) == null && getQuery().getFirstValue(Res.ITEMS_PER_PAGE_PARAMETER) == null) {
-			return false;
-		}
-		return true;
-	}
-
-	private int getPageNumberParam() {
-		final String pageNumber = getQuery().getFirstValue(Res.PAGE_PARAMETER);
-		if (pageNumber != null) {
-			return Integer.parseInt(pageNumber);
-		}
-		return 0;
-	}
-
-	private int getNumberOfItemsParam() {
-		final String nOfItemsParam = getQuery().getFirstValue(Res.ITEMS_PER_PAGE_PARAMETER);
-		if (nOfItemsParam != null) {
-			return Integer.parseInt(nOfItemsParam);
-		}
-		return ITEM_COUNT_DEFAULT;
 	}
 
 }
