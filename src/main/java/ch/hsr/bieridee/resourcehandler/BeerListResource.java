@@ -24,16 +24,29 @@ import ch.hsr.bieridee.resourcehandler.interfaces.ICollectionResource;
  */
 public class BeerListResource extends ServerResource implements ICollectionResource {
 
+	private static final int ITEM_COUNT_DEFAULT = 12;
+
 	@Override
 	public Representation retrieve() throws WrongNodeTypeException, NodeNotFoundException {
 
 		List<BeerModel> beerModels;
-
+		final boolean needsPaging = getNeedsPaging();
+		final int items = getNumberOfItemsParam();
+		final int page = getPageNumberParam();
 		final String tagId = getQuery().getFirstValue(Res.BEER_FILTER_PARAMETER_TAG);
+
 		if (tagId != null) {
-			beerModels = BeerModel.getAll(Long.parseLong(tagId));
+			if (needsPaging) {
+				beerModels = BeerModel.getAll(Long.parseLong(tagId), items, page * items);
+			} else {
+				beerModels = BeerModel.getAll(Long.parseLong(tagId));
+			}
 		} else {
-			beerModels = BeerModel.getAll();
+			if (needsPaging) {
+				beerModels = BeerModel.getAll(items, page * items);
+			} else {
+				beerModels = BeerModel.getAll();
+			}
 		}
 
 		final BeerModel[] beerModelArray = beerModels.toArray(new BeerModel[beerModels.size()]);
@@ -51,7 +64,7 @@ public class BeerListResource extends ServerResource implements ICollectionResou
 
 		final String name = beerJson.getString("name");
 		final String brand = beerJson.getString("brand");
-		
+
 		BeertypeModel beertypeModel = null;
 		// is the beertype unknown?
 		if (beerJson.optBoolean("unknownbeertype")) {
@@ -59,7 +72,7 @@ public class BeerListResource extends ServerResource implements ICollectionResou
 		} else {
 			beertypeModel = new BeertypeModel(beerJson.getLong("beertype"));
 		}
-		
+
 		BreweryModel breweryModel = null;
 		// ist the brewery unknown?
 		if (beerJson.optBoolean("unknownbrewery")) {
@@ -73,6 +86,29 @@ public class BeerListResource extends ServerResource implements ICollectionResou
 		newBeerRep.setObjectMapper(Config.getObjectMapper());
 
 		return newBeerRep;
+	}
+
+	private boolean getNeedsPaging() {
+		if (getQuery().getFirstValue(Res.PAGE_PARAMETER) == null && getQuery().getFirstValue(Res.ITEMS_PER_PAGE_PARAMETER) == null) {
+			return false;
+		}
+		return true;
+	}
+
+	private int getPageNumberParam() {
+		final String pageNumber = getQuery().getFirstValue(Res.PAGE_PARAMETER);
+		if (pageNumber != null) {
+			return Integer.parseInt(pageNumber);
+		}
+		return 0;
+	}
+
+	private int getNumberOfItemsParam() {
+		final String nOfItemsParam = getQuery().getFirstValue(Res.ITEMS_PER_PAGE_PARAMETER);
+		if (nOfItemsParam != null) {
+			return Integer.parseInt(nOfItemsParam);
+		}
+		return ITEM_COUNT_DEFAULT;
 	}
 
 }

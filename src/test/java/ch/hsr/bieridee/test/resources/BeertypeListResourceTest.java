@@ -1,14 +1,11 @@
 package ch.hsr.bieridee.test.resources;
 
-import java.io.IOException;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 import org.neo4j.graphdb.NotFoundException;
-import org.restlet.representation.Representation;
 
 import ch.hsr.bieridee.config.Res;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
@@ -85,4 +82,5 @@ public class BeertypeListResourceTest extends ResourceTest {
 		}
 
 	}
+	
 }

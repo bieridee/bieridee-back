@@ -71,6 +71,98 @@ public class TimelineResourceTest extends ResourceTest {
 	}
 
 	/**
+	 * Tests the timeline item limitation.
+	 */
+	@Test
+	public void retrieveLimitedTimeline() {
+		final int pageSize = 4;
+		final String request = Res.PUBLIC_API_URL + Res.TIMELINE_COLLECTION + "?items=" + pageSize;
+		final JSONArray timelineJson = getJSONArray(request);
+
+		Assert.assertEquals(pageSize, timelineJson.length());
+	}
+
+	/**
+	 * Tests the timeline item limitation.
+	 */
+	@Test
+	public void retrieveLimitedFilteredTimeline() {
+		final String username = "alki";
+		final int pageSize = 4;
+		final String request = Res.PUBLIC_API_URL + Res.TIMELINE_COLLECTION + "?username=" + username + "&items=" + pageSize;
+		final JSONArray timelineJson = getJSONArray(request);
+
+		Assert.assertEquals(pageSize, timelineJson.length());
+
+		for (int i = 0; i < timelineJson.length(); ++i) {
+			try {
+				final JSONObject jsonObject = (JSONObject) timelineJson.get(i);
+				final JSONObject user = jsonObject.getJSONObject("user");
+				Assert.assertEquals(username, user.get("user"));
+			} catch (JSONException e) {
+				Assert.fail();
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	/**
+	 * Tests the paged timeline.
+	 */
+	@Test
+	public void retrievePagedTimeline() {
+		final int pageSize = 4;
+		final String request0 = Res.PUBLIC_API_URL + Res.TIMELINE_COLLECTION + "?items=" + pageSize + "&page=" + 0;
+		final JSONArray timelineJsonPage0 = getJSONArray(request0);
+		final String request1 = Res.PUBLIC_API_URL + Res.TIMELINE_COLLECTION + "?items=" + pageSize + "&page=" + 1;
+		final JSONArray timelineJsonPage1 = getJSONArray(request1);
+
+		Assert.assertEquals(pageSize, timelineJsonPage0.length());
+		Assert.assertEquals(pageSize, timelineJsonPage1.length());
+		Assert.assertFalse(timelineJsonPage0.equals(timelineJsonPage1));
+	}
+
+	/**
+	 * Tests the paged timeline.
+	 */
+	@Test
+	public void retrievePagedFilteredTimeline() {
+		final String username = "alki";
+		final int pageSize = 2;
+		final String request0 = Res.PUBLIC_API_URL + Res.TIMELINE_COLLECTION + "?username=" + username + "&items=" + pageSize + "&page=" + 0;
+		final JSONArray timelineJsonPage0 = getJSONArray(request0);
+		final String request1 = Res.PUBLIC_API_URL + Res.TIMELINE_COLLECTION + "?username=" + username + "&items=" + pageSize + "&page=" + 1;
+		final JSONArray timelineJsonPage1 = getJSONArray(request1);
+
+		Assert.assertEquals(pageSize, timelineJsonPage0.length());
+		Assert.assertEquals(pageSize, timelineJsonPage1.length());
+		Assert.assertFalse(timelineJsonPage0.equals(timelineJsonPage1));
+
+		for (int i = 0; i < timelineJsonPage0.length(); ++i) {
+			try {
+				final JSONObject jsonObject = (JSONObject) timelineJsonPage0.get(i);
+				final JSONObject user = jsonObject.getJSONObject("user");
+				Assert.assertEquals(username, user.get("user"));
+			} catch (JSONException e) {
+				Assert.fail();
+				e.printStackTrace();
+			}
+		}
+
+		for (int i = 0; i < timelineJsonPage1.length(); ++i) {
+			try {
+				final JSONObject jsonObject = (JSONObject) timelineJsonPage1.get(i);
+				final JSONObject user = jsonObject.getJSONObject("user");
+				Assert.assertEquals(username, user.get("user"));
+			} catch (JSONException e) {
+				Assert.fail();
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/**
 	 * Tests whether a HTTP 404 error occcurs, if an non existing user is provided as filter argument.
 	 */
 	@Test

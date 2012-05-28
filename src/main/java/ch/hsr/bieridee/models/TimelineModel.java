@@ -3,13 +3,12 @@ package ch.hsr.bieridee.models;
 import java.util.LinkedList;
 import java.util.List;
 
-import ch.hsr.bieridee.domain.Action;
-import ch.hsr.bieridee.domain.interfaces.IDomain;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.NotFoundException;
 
 import ch.hsr.bieridee.config.NodeProperty;
 import ch.hsr.bieridee.config.NodeType;
+import ch.hsr.bieridee.domain.interfaces.IDomain;
 import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
 import ch.hsr.bieridee.utils.DBUtil;
 
