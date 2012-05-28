@@ -33,7 +33,7 @@ public class ConsumptionListResourceTest extends ResourceTest {
 	 */
 	@Test
 	public void createConsumption() {
-		final String uri = Res.PUBLIC_API_URL + "/beers/30/consumptions/alki";
+		final String uri = Res.PUBLIC_API_URL + "/beers/30/consumptions/jonas";
 		this.postJson(uri, new JSONObject());
 
 		final List<Node> consumptionNodes = DBUtil.getTimeLine(1,0);
@@ -41,7 +41,7 @@ public class ConsumptionListResourceTest extends ResourceTest {
 		Assert.assertEquals(NodeType.CONSUMPTION, consumptionNode.getProperty(NodeProperty.TYPE));
 		try {
 			final Node beerNode = DBUtil.getNodeById(30);
-			final Node userNode = DBUtil.getUserByName("alki");
+			final Node userNode = DBUtil.getUserByName("jonas");
 			final BeerModel bm = new BeerModel(beerNode);
 			final UserModel um = new UserModel(userNode);
 
@@ -106,14 +106,14 @@ public class ConsumptionListResourceTest extends ResourceTest {
 	 */
 	@Test
 	public void getUserBeerConsumptions() {
-		final String uri = Res.PUBLIC_API_URL + "/beers/28/consumptions/trinker";
+		final String uri = Res.PUBLIC_API_URL + "/beers/28/consumptions/chrigi";
 		final JSONArray consumptionsJSON = getJSONArray(uri);
 		try {
 			final JSONObject cons1 = (JSONObject) consumptionsJSON.get(0);
 			final JSONObject user1 = (JSONObject) cons1.get("user");
 
 			Assert.assertEquals("consumption", cons1.get("type"));
-			Assert.assertEquals("trinker", user1.get("user"));
+			Assert.assertEquals("chrigi", user1.get("user"));
 		} catch (JSONException e) {
 			Assert.fail();
 			e.printStackTrace();

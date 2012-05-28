@@ -1,10 +1,5 @@
 package ch.hsr.bieridee.test.resources;
 
-import ch.hsr.bieridee.config.Res;
-import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
-import ch.hsr.bieridee.models.BeertypeModel;
-import ch.hsr.bieridee.models.BreweryModel;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,9 +7,13 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.neo4j.graphdb.NotFoundException;
 
+import ch.hsr.bieridee.config.Res;
+import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
+import ch.hsr.bieridee.models.BeertypeModel;
+import ch.hsr.bieridee.models.BreweryModel;
+
 /**
- * Tests to test the beerlist resource. (Bonjour Captain Obviours)
- * 
+ * Tests to test the beerlist resource. (Bonjour Captain Obvious)
  */
 public class BeerListResourceTest extends ResourceTest {
 
@@ -138,9 +137,33 @@ public class BeerListResourceTest extends ResourceTest {
 			}
 		}
 	}
-	
+
 	/**
-	 * Tests the  beerlist.
+	 * Test the barcode filtering of the beer list resource.
+	 */
+	@Test
+	public void barcodeFilter() {
+		final String barcode = "7611889110662";
+		final int expectedBeerId = 34;
+
+		final String uri = Res.PUBLIC_API_URL + Res.BEER_COLLECTION + "?barcode=" + barcode;
+		final JSONArray beers = getJSONArray(uri);
+
+		// Assert that only and exactly one beer has been returned
+		Assert.assertEquals(1, beers.length());
+
+		// Assert that the correct beer has been returned
+		try {
+			final JSONObject beer = (JSONObject) beers.get(0);
+			final int actualBeerId = beer.getInt("id");
+			Assert.assertEquals(expectedBeerId, actualBeerId);
+		} catch (JSONException e) {
+			Assert.fail("JSON Exception");
+		}
+	}
+
+	/**
+	 * Tests the beerlist.
 	 */
 	@Test
 	public void retrievePagedBeerlist() {

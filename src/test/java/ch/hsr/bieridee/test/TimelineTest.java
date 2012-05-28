@@ -84,7 +84,7 @@ public class TimelineTest extends DBTest {
 	 */
 	@Test
 	public void testTimelineUserFilter() {
-		final String username = "alki";
+		final String username = "jonas";
 		try {
 			for (AbstractActionModel actionModel : TimelineModel.getAllForUser(username)) {
 				Assert.assertEquals(username, actionModel.getUser().getUsername());
