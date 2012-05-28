@@ -17,7 +17,13 @@ import ch.hsr.bieridee.models.RecommendationModel;
 import ch.hsr.bieridee.models.UserModel;
 
 /**
- * This is the RECOMMENDATOR.
+ * This is the R3COMMENDAT0R.
+ *                                             _                       
+ *   THE                                      | |      _               
+ *   ____ ____ ____ ___  ____   ____ ____   _ | | ____| |_  ___   ____ 
+ *  / ___) _  ) ___) _ \|    \ / _  )  _ \ / || |/ _  |  _)/ _ \ / ___)
+ * | |  ( (/ ( (__| |_| | | | ( (/ /| | | ( (_| ( ( | | |_| |_| | |     
+ * |_|   \____)____)___/|_|_|_|\____)_| |_|\____|\_||_|\___)___/|_|  
  * 
  */
 public class Recommendator {
@@ -82,10 +88,10 @@ public class Recommendator {
 		return recommendations;
 	}
 
-	// / userweight step: start
+	// userweight step: start
 
 	private List<RatingModel> getCommonRatingsOfLikeNeighbours() throws NotFoundException, WrongNodeTypeException {
-		return RatingModel.createModelsFromNodes(Cypher.executeAndGetNodes(Cypherqueries.GET_FRIEND_RATINGS_OF_COMMON_BEERS, "Friendaction", this.userId));
+		return RatingModel.createModelsFromNodes(Cypher.executeAndGetNodes(Cypherqueries.GET_LIKENEIGHBOURS_RATINGS_OF_COMMON_BEERS, "Friendaction", this.userId));
 	}
 
 	private Map<UserModel, Double> calculateUserWeights(List<RatingModel> likeNeighbourRatings) {
@@ -120,7 +126,7 @@ public class Recommendator {
 	// beertypeweight step: start
 
 	private List<RatingModel> getRelevantRatingsOfUser() throws NotFoundException, WrongNodeTypeException {
-		return RatingModel.createModelsFromNodes(Cypher.executeAndGetNodes(Cypherqueries.GET_ACTIVE_RATINGS_FOR_USER_GREATER_3, "Action", this.userId));
+		return RatingModel.createModelsFromNodes(Cypher.executeAndGetNodes(Cypherqueries.GET_ACTIVE_RATINGS_FOR_USER, "Action", this.userId));
 	}
 
 	private Map<BeertypeModel, Double> calculateBeertypeWeights(final List<RatingModel> ownRatings) throws WrongNodeTypeException {
@@ -201,7 +207,7 @@ public class Recommendator {
 		for (RatingModel rating : beerRatings) {
 			final BeerModel beer = rating.getBeer();
 
-			// no rating needed for already known beers, will not show up in list
+			// no recommendation needed for already known beers, will not show up in list
 			if (isBeerKnown(beer, knownBeers)) {
 				continue;
 			}
@@ -214,8 +220,9 @@ public class Recommendator {
 			// it is not given, that all beertypes of the recommended beers are rated, if not, use 1 as weight (no
 			// influence)
 			Double beertypeWeight = 1d;
-			if (beertypeWeights.get(beertype) != null) {
-				beertypeWeight = beertypeWeights.get(beertype);
+			final Double calculatedBeertypeWeight = beertypeWeights.get(beertype);
+			if (calculatedBeertypeWeight != null) {
+				beertypeWeight = calculatedBeertypeWeight;
 			}
 
 			// this is the recommendation weight of the beer

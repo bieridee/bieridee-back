@@ -2,7 +2,6 @@ package ch.hsr.bieridee.domain;
 
 /**
  * Class representing a Recommendation.
- * 
  */
 public class Recommendation {
 	private double weight;

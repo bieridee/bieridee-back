@@ -185,10 +185,7 @@ public class UserModel extends AbstractModel {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((this.node == null) ? 0 : this.node.hashCode());
-		return result;
+		return this.node.hashCode();
 	}
 
 	@Override

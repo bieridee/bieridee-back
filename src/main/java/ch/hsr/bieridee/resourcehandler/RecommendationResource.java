@@ -18,7 +18,7 @@ import ch.hsr.bieridee.utils.DBUtil;
 import ch.hsr.bieridee.utils.Recommendator;
 
 /**
- * Resource returning a list of recommendet beers.
+ * Resource returning a list of recommended beers.
  * 
  */
 public class RecommendationResource extends ServerResource implements IReadOnlyResource {

@@ -11,6 +11,11 @@ import ch.hsr.bieridee.exceptions.WrongNodeTypeException;
  * RecommendationModel. This model contains no node, as it is completly calculated it has no need to be persisted in the
  * database.
  * 
+ * The RecommendationModel is a wrapper for the recommendation-domainobject. It represents one recommedation and holds
+ * the beer which is recommended and the user who gets the recommendation.
+ * 
+ * The decision/calculation on which beer is recommended happens in <code>Recommendator.java</code>. (itz magic)
+ * 
  */
 public class RecommendationModel extends AbstractModel implements Comparable<RecommendationModel> {
 
