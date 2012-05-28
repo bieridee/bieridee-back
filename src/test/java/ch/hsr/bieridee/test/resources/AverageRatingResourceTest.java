@@ -26,7 +26,7 @@ public class AverageRatingResourceTest extends ResourceTest {
 			e.printStackTrace();
 		}
 
-		postJson(Res.PUBLIC_API_URL + "/beers/28/ratings/saeufer", rating);
+		postJson(Res.PUBLIC_API_URL + "/beers/28/ratings/danilo", rating);
 		
 		BeerModel beerModel = null;
 		try {

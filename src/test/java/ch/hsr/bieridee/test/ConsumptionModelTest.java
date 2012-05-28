@@ -45,7 +45,7 @@ public class ConsumptionModelTest extends DBTest {
 	 */
 	@Test
 	public void testConsumptionModelCreation() {
-		final Node userNode = DBUtil.getUserByName("uese");
+		final Node userNode = DBUtil.getUserByName("urs");
 		UserModel um = null;
 		try {
 			um = new UserModel(userNode);
