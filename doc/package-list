@@ -1,0 +1,17 @@
+ch.hsr.bieridee
+ch.hsr.bieridee.auth
+ch.hsr.bieridee.config
+ch.hsr.bieridee.domain
+ch.hsr.bieridee.domain.interfaces
+ch.hsr.bieridee.exceptions
+ch.hsr.bieridee.models
+ch.hsr.bieridee.resourcehandler
+ch.hsr.bieridee.resourcehandler.interfaces
+ch.hsr.bieridee.serializer
+ch.hsr.bieridee.services
+ch.hsr.bieridee.test
+ch.hsr.bieridee.test.helpers
+ch.hsr.bieridee.test.http
+ch.hsr.bieridee.test.http.requestprocessors
+ch.hsr.bieridee.test.resources
+ch.hsr.bieridee.utils
