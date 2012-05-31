@@ -53,4 +53,42 @@ public class BarcodeModelTest extends DBTest {
 			e.printStackTrace();
 		}
 	}
+
+
+	/**
+	 * Tests whether an error is thrown when creating two identical barcodes.
+	 */
+	@Test
+	public void testBarcodeDuplicationPrevention() {
+		final String code = "2342667";
+		final String format = "EAN-8";
+
+		// First instance
+		try {
+			final BarcodeModel barcodeModel1 = BarcodeModel.create(code, format);
+			final BeerModel beerModel = new BeerModel(29);
+			beerModel.addBarcode(barcodeModel1);
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			Assert.fail();
+		} catch (WrongNodeTypeException e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+
+		// Second instance
+		try {
+			final BarcodeModel barcodeModel2 = BarcodeModel.create(code, format);
+			final BeerModel beerModel = new BeerModel(30);
+			beerModel.addBarcode(barcodeModel2);
+
+			// Should never get here
+			Assert.fail("No RuntimeError was thrown for duplicate barcodes.");
+		} catch (WrongNodeTypeException e) {
+			e.printStackTrace();
+			Assert.fail();
+		} catch (RuntimeException e) {
+			// Expected exception. Success.
+		}
+	}
 }
